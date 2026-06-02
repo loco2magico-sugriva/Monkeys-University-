@@ -14,26 +14,27 @@ color:#E6E6E6;
 overflow:hidden;
 }
 
-/* ================= INTRO (FILMOWE) ================= */
+/* ================= CINEMATIC INTRO ================= */
 .intro{
 position:fixed;
 inset:0;
-background:radial-gradient(circle at center,#000 0%,#05070d 60%,#000 100%);
+background:
+radial-gradient(circle at center,#000 0%,#05070d 50%,#000 100%);
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:9999;
 text-align:center;
-animation:fadeOut 4s ease 4s forwards;
+animation:fadeOut 4.2s ease 4.2s forwards;
 }
 
 .intro h1{
-font-size:72px;
-letter-spacing:8px;
+font-size:78px;
+letter-spacing:10px;
 margin:0;
 color:#4aa3ff;
-text-shadow:0 0 30px rgba(74,163,255,0.5);
+text-shadow:0 0 35px rgba(74,163,255,0.6);
 opacity:0;
 animation:fadeIn 1.2s ease forwards;
 }
@@ -58,7 +59,7 @@ letter-spacing:2px;
 }
 
 @keyframes fadeIn{
-from{opacity:0; transform:translateY(15px);}
+from{opacity:0; transform:translateY(18px);}
 to{opacity:1; transform:translateY(0);}
 }
 
@@ -69,7 +70,7 @@ to{opacity:0; visibility:hidden; pointer-events:none;}
 /* ================= MAIN ================= */
 main{
 opacity:0;
-animation:show 1s ease 4.5s forwards;
+animation:show 1s ease 4.7s forwards;
 height:100vh;
 overflow:auto;
 }
@@ -83,15 +84,13 @@ to{opacity:1;}
 header{
 display:flex;
 justify-content:space-between;
-align-items:center;
 padding:18px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
 header b{
-color:#fff;
-letter-spacing:1px;
+color:white;
 }
 
 /* LANG */
@@ -100,23 +99,31 @@ margin-left:10px;
 color:#aaa;
 font-size:12px;
 cursor:pointer;
-transition:0.2s;
 }
 
 .lang a:hover{
 color:#4aa3ff;
 }
 
-/* GRID */
+/* ================= GRID FIX (5 KAFELKÓW) ================= */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:repeat(5, 1fr);
 gap:15px;
-max-width:1000px;
+max-width:1300px;
 margin:40px auto;
 padding:0 20px;
 }
 
+@media (max-width: 1100px){
+.grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media (max-width: 600px){
+.grid{grid-template-columns:1fr;}
+}
+
+/* ================= CARD ================= */
 .card{
 background:#111827;
 padding:20px;
@@ -125,6 +132,10 @@ border:1px solid #1f2a3a;
 cursor:pointer;
 text-align:center;
 transition:0.25s;
+min-height:110px;
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
 .card:hover{
@@ -137,13 +148,24 @@ color:#4aa3ff;
 margin:0;
 }
 
+.placeholder{
+color:#777;
+font-size:12px;
+margin-top:8px;
+}
+
+/* CEUTA NODE STYLE */
+.node{
+border:1px solid rgba(74,163,255,0.4);
+}
+
 </style>
 
 </head>
 
 <body>
 
-<!-- ================= INTRO (FILMOWE) ================= -->
+<!-- ================= INTRO ================= -->
 <div class="intro">
   <h1>G-ROCK STATE</h1>
   <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
@@ -151,7 +173,7 @@ margin:0;
   <p>POWERED BY G-SYSTEM</p>
 </div>
 
-<!-- ================= MAIN SYSTEM ================= -->
+<!-- ================= MAIN ================= -->
 <main>
 
 <header>
@@ -184,12 +206,10 @@ margin:0;
 <h3 data-key="t4">Episode 1</h3>
 </div>
 
-<div class="card" onclick="location.href='ceuta.html'">
-<h3 data-key="t5">Campus de Ceuta</h3>
-</div>
-
-<div class="card" onclick="location.href='bridge.html'">
-<h3 data-key="t6">Intercontinental Bridge</h3>
+<!-- CEUTA NODE (FIXED + LOGICZNE) -->
+<div class="card node" onclick="location.href='ceuta_node.html'">
+<h3 data-key="t5">Africa / Ceuta Node</h3>
+<div class="placeholder">Intercontinental Bridge Integration</div>
 </div>
 
 </div>
@@ -198,40 +218,34 @@ margin:0;
 
 <script>
 
-/* ================= LANGUAGE SYSTEM ================= */
-
 const langData = {
 en:{
 t1:"Monkeys University of Gibraltar",
 t2:"Bank of the Monkeys from Gibraltar",
 t3:"Parliament of the Monkeys from Gibraltar",
 t4:"Episode 1",
-t5:"Campus de Ceuta",
-t6:"Intercontinental Bridge"
+t5:"Africa / Ceuta Node"
 },
 pl:{
 t1:"Uniwersytet Małp Gibraltaru",
 t2:"Bank Małp z Gibraltaru",
 t3:"Parlament Małp Gibraltaru",
 t4:"Odcinek 1",
-t5:"Kampus Ceuta",
-t6:"Most Międzykontynentalny"
+t5:"Afryka / Węzeł Ceuta"
 },
 es:{
 t1:"Universidad de los Monos de Gibraltar",
 t2:"Banco de los Monos de Gibraltar",
 t3:"Parlamento de los Monos de Gibraltar",
 t4:"Episodio 1",
-t5:"Campus de Ceuta",
-t6:"Puente Intercontinental"
+t5:"Nodo África / Ceuta"
 },
 fr:{
 t1:"Université des Singes de Gibraltar",
 t2:"Banque des Singes de Gibraltar",
 t3:"Parlement des Singes de Gibraltar",
 t4:"Épisode 1",
-t5:"Campus de Ceuta",
-t6:"Pont Intercontinental"
+t5:"Nœud Afrique / Ceuta"
 }
 };
 
