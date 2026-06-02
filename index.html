@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-ROCK</title>
+
+<link rel="stylesheet" href="mu-core.css">
+
+<style>
+
+/* ===== INTRO ===== */
+.intro {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 1s ease 4s forwards;
+  text-align:center;
+}
+
+.intro h1 {
+  font-size: 42px;
+  letter-spacing: 4px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  color:white;
+}
+
+.intro p {
+  margin-top: 10px;
+  opacity: 0;
+  color: #aaa;
+  animation: fadeIn 1s ease 1s forwards;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* ===== MAIN ===== */
+main {
+  opacity: 0;
+  animation: show 1s ease 4.2s forwards;
+}
+
+/* ===== HEADER ===== */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  background:#0b0f18;
+  border-bottom:1px solid #1f2a3a;
+}
+
+nav a {
+  color:white;
+  text-decoration:none;
+  margin-right:14px;
+  opacity:0.8;
+}
+
+nav a:hover {
+  color:#4aa3ff;
+}
+
+.lang a {
+  margin-left: 10px;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.lang a:hover {
+  color: #4aa3ff;
+}
+
+/* ===== GRID ===== */
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  max-width:900px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.card {
+  background:#111827;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  border:1px solid #1f2a3a;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.card:hover {
+  border-color:#4aa3ff;
+  transform:translateY(-4px);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeOut {
+  to {opacity:0; visibility:hidden; pointer-events:none;}
+}
+
+@keyframes show {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="intro">
+  <h1>G-ROCK PRESENTS</h1>
+  <p>MONKEYS UNIVERSITY OF GIBRALTAR</p>
+  <p>POWERED BY G-SYSTEM</p>
+</div>
+
+<!-- MAIN -->
+<main>
+
+<header>
+  <div><b>G-ROCK</b></div>
+
+  <nav>
+    <a href="map.html">Map</a>
+    <a href="season1.html">Season 1</a>
+    <a href="lore.html">Lore</a>
+  </nav>
+
+  <div class="lang">
+    <a href="?lang=en">EN</a>
+    <a href="?lang=pl">PL</a>
+    <a href="?lang=es">ES</a>
+    <a href="?lang=fr">FR</a>
+  </div>
+</header>
+
+<section class="grid">
+
+  <div class="card" onclick="location.href='map.html'">MAP</div>
+  <div class="card" onclick="location.href='season1.html'">SEASON 1</div>
+  <div class="card" onclick="location.href='lore.html'">LORE</div>
+
+</section>
+
+</main>
+
+</body>
+  </html>
