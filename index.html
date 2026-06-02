@@ -14,7 +14,7 @@ color:#E6E6E6;
 overflow:hidden;
 }
 
-/* ===== INTRO (ORIGINAL) ===== */
+/* ===== INTRO ===== */
 .intro{
 position:fixed;
 inset:0;
@@ -25,7 +25,7 @@ justify-content:center;
 align-items:center;
 z-index:9999;
 text-align:center;
-animation:fadeOut 3.8s ease 3.5s forwards;
+animation:fadeOut 3.5s ease 3.5s forwards;
 }
 
 .intro h1{
@@ -56,21 +56,24 @@ animation:fadeIn 1s ease 1.6s forwards;
 /* ===== MAIN ===== */
 main{
 opacity:0;
-animation:show 1s ease 4s forwards;
-height:100vh;
+animation:show 1s ease 3.9s forwards;
 overflow:auto;
+height:100vh;
 }
 
 /* ===== HEADER ===== */
 header{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:18px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
-header b{color:white;}
+header b{
+letter-spacing:2px;
+}
 
 .lang a{
 margin-left:10px;
@@ -79,11 +82,32 @@ text-decoration:none;
 font-size:12px;
 }
 
+.lang a:hover{
+color:#4aa3ff;
+}
+
+/* ===== HERO ===== */
+.hero{
+text-align:center;
+padding:50px 20px;
+}
+
+.hero h1{
+font-size:42px;
+margin:0;
+letter-spacing:3px;
+}
+
+.hero p{
+opacity:0.7;
+margin-top:10px;
+}
+
 /* ===== GRID ===== */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:16px;
 max-width:1000px;
 margin:40px auto;
 padding:0 20px;
@@ -91,25 +115,28 @@ padding:0 20px;
 
 .card{
 background:#111827;
-padding:20px;
-border-radius:12px;
 border:1px solid #1f2a3a;
+border-radius:12px;
+padding:22px;
 cursor:pointer;
-text-align:center;
 transition:0.2s;
+text-align:center;
 }
 
 .card:hover{
+transform:translateY(-6px);
 border-color:#4aa3ff;
-transform:translateY(-5px);
 }
 
-h3{color:#4aa3ff;}
+.card h3{
+color:#4aa3ff;
+margin:0 0 10px;
+}
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 @keyframes fadeOut{
@@ -120,50 +147,81 @@ to{opacity:0; visibility:hidden; pointer-events:none;}
 from{opacity:0;}
 to{opacity:1;}
 }
+
+/* ===== FOOTER ===== */
+footer{
+text-align:center;
+padding:40px;
+opacity:0.5;
+font-size:12px;
+}
 </style>
 
 </head>
 
 <body>
 
-<!-- INTRO -->
+<!-- ===== INTRO ===== -->
 <div class="intro">
   <h1>THE WORLD OF G-ROCK PRESENTS</h1>
   <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
   <p>POWERED BY G-SYSTEM</p>
 </div>
 
-<!-- MAIN -->
+<!-- ===== MAIN ===== -->
 <main>
 
 <header>
-<b>G-ROCK STATE</b>
-<div class="lang">
-<a>EN</a><a>ES</a><a>FR</a><a>PL</a>
-</div>
+  <div><b>G-ROCK STATE</b></div>
+
+  <div class="lang">
+    <a href="#">EN</a>
+    <a href="#">ES</a>
+    <a href="#">FR</a>
+    <a href="#">PL</a>
+  </div>
 </header>
 
-<div class="grid">
+<section class="hero">
+  <h1>G-ROCK STATE</h1>
+  <p>Distributed Simulation World System</p>
+</section>
 
-<div class="card" onclick="location.href='university.html'">
-<h3>Monkeys University of Gibraltar</h3>
-</div>
+<section class="grid">
 
-<div class="card" onclick="location.href='bank.html'">
-<h3>Bank of the Monkeys from Gibraltar</h3>
-</div>
+  <div class="card" onclick="location.href='university.html'">
+    <h3>Monkeys University of Gibraltar</h3>
+    <p>Academic Core System</p>
+  </div>
 
-<div class="card" onclick="location.href='parliament.html'">
-<h3>Parliament of the Monkeys from Gibraltar</h3>
-</div>
+  <div class="card" onclick="location.href='bank.html'">
+    <h3>Bank of the Monkeys from Gibraltar</h3>
+    <p>MP£ Monetary System</p>
+  </div>
 
-<div class="card" onclick="location.href='episode1.html'">
-<h3>Episode 1</h3>
-</div>
+  <div class="card" onclick="location.href='parliament.html'">
+    <h3>Parliament of the Monkeys from Gibraltar</h3>
+    <p>Governance Layer</p>
+  </div>
 
-</div>
+  <div class="card" onclick="location.href='episode1.html'">
+    <h3>Episode 1</h3>
+    <p>Foundational History Layer</p>
+  </div>
+
+  <!-- NEW TILE -->
+  <div class="card" onclick="location.href='ceuta.html'">
+    <h3>Campus de Ceuta</h3>
+    <p>Africa Expansion Node • Intercontinental Bridge System</p>
+  </div>
+
+</section>
+
+<footer>
+G-Rock State • Powered by G-System
+</footer>
 
 </main>
 
 </body>
-</html>
+    </html>
