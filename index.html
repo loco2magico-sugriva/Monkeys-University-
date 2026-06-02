@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-ROCK SYSTEM</title>
+<title>G-SYSTEM • G-ROCK STATE</title>
 
 <style>
 body{
@@ -28,8 +28,8 @@ text-align:center;
 }
 
 .intro h1{
-font-size:42px;
-letter-spacing:5px;
+font-size:46px;
+letter-spacing:6px;
 opacity:0;
 animation:fadeIn 1s ease forwards;
 }
@@ -39,8 +39,8 @@ margin-top:10px;
 opacity:0;
 color:#aaa;
 animation:fadeIn 1s ease 1s forwards;
-font-size:12px;
 text-transform:uppercase;
+font-size:12px;
 }
 
 /* ===== MAIN ===== */
@@ -59,21 +59,31 @@ background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
-nav a{
-color:white;
-text-decoration:none;
-margin-right:14px;
-opacity:0.8;
+header b{
+letter-spacing:2px;
 }
 
-nav a:hover{
+/* ===== WORLD SECTION ===== */
+.world{
+max-width:900px;
+margin:40px auto;
+padding:20px;
+line-height:1.7;
+}
+
+.tag{
 color:#4aa3ff;
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+display:block;
+margin-bottom:10px;
 }
 
 /* ===== GRID ===== */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 gap:15px;
 max-width:1000px;
 margin:40px auto;
@@ -85,9 +95,9 @@ background:#111827;
 padding:20px;
 border-radius:12px;
 border:1px solid #1f2a3a;
-cursor:pointer;
-text-align:center;
 transition:0.2s;
+text-align:center;
+cursor:pointer;
 }
 
 .card:hover{
@@ -110,36 +120,81 @@ from{opacity:0;}
 to{opacity:1;}
 }
 </style>
+
 </head>
 
 <body>
 
 <!-- INTRO -->
 <div class="intro">
-  <h1>G-ROCK PRESENTS</h1>
-  <p>MONKEYS UNIVERSITY OF GIBRALTAR</p>
-  <p>POWERED BY G-SYSTEM</p>
+  <h1>G-SYSTEM BOOT</h1>
+  <p>INITIALIZING G-ROCK STATE</p>
 </div>
 
 <!-- MAIN -->
 <main>
 
 <header>
-  <div><b>G-ROCK SYSTEM</b></div>
-  <nav>
-    <a href="map.html">Map</a>
-    <a href="season1.html">Season 1</a>
-    <a href="lore.html">Lore</a>
-    <a href="faculties.html">Faculties</a>
-  </nav>
+  <div><b>G-SYSTEM • CORE ENGINE</b></div>
 </header>
 
+<!-- WORLD DEFINITION -->
+<div class="world">
+
+<span class="tag">SYSTEM CORE</span>
+
+<h2>G-SYSTEM</h2>
+<p>
+G-System is the core engine that powers the entire G-Rock State ecosystem.
+It generates, controls and stabilizes all institutional, academic and narrative processes.
+</p>
+
+<p>
+Everything inside this world is executed through G-System logic — nothing exists outside of it.
+</p>
+
+<h2>G-ROCK STATE</h2>
+<p>
+A structured simulation world built on top of G-System.
+It contains political, academic and financial institutions.
+</p>
+
+<h2>INSTITUTIONS</h2>
+
+<h3>Monkeys University of Gibraltar (MUO-G)</h3>
+<p>Main academic simulation layer of the system.</p>
+
+<h3>Bank of the Monkeys from Gibraltar</h3>
+<p>Financial logic and resource control layer.</p>
+
+<h3>Parliament of the Monkeys from Gibraltar</h3>
+<p>Governance and decision-making system.</p>
+
+<h2>FACULTIES</h2>
+<p>
+- Humanistic Faculty  
+- Technology Faculty  
+- Warfare & Historical Systems Faculty  
+</p>
+
+<h2>INFRASTRUCTURE</h2>
+
+<h3>Campus de Ceuta</h3>
+<p>External academic node extending system reach.</p>
+
+<h3>Intercontinental Bridge</h3>
+<p>Data + narrative transfer layer between nodes.</p>
+
+</div>
+
+<!-- MENU -->
 <section class="grid">
 
-  <div class="card" onclick="location.href='map.html'">MAP</div>
-  <div class="card" onclick="location.href='season1.html'">SEASON 1</div>
-  <div class="card" onclick="location.href='lore.html'">LORE</div>
-  <div class="card" onclick="location.href='faculties.html'">FACULTIES</div>
+<div class="card">ENTER SYSTEM</div>
+<div class="card">MUO-G</div>
+<div class="card">FACULTIES</div>
+<div class="card">CAMPUS CEUTA</div>
+<div class="card">PARLIAMENT</div>
 
 </section>
 
