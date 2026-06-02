@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-WORLD • University</title>
+<title>G-Rock State • University</title>
 
 <style>
 body{
@@ -25,7 +25,7 @@ border-bottom:1px solid #1f2a3a;
 header a{
 color:#aaa;
 text-decoration:none;
-margin-left:10px;
+margin-left:12px;
 font-size:12px;
 }
 
@@ -50,6 +50,26 @@ opacity:0.7;
 margin-top:10px;
 }
 
+/* PANEL */
+.panel{
+max-width:900px;
+margin:40px auto;
+padding:25px;
+background:#0f1626;
+border:1px solid #1f2a3a;
+border-radius:12px;
+}
+
+.tag{
+display:inline-block;
+padding:4px 10px;
+border:1px solid #4aa3ff;
+color:#4aa3ff;
+font-size:12px;
+border-radius:6px;
+margin-bottom:10px;
+}
+
 /* GRID */
 .grid{
 display:grid;
@@ -60,14 +80,12 @@ margin:40px auto;
 padding:0 20px;
 }
 
-/* CARD */
 .card{
 background:#111827;
 border:1px solid #1f2a3a;
 border-radius:12px;
-padding:22px;
+padding:20px;
 transition:0.2s;
-cursor:pointer;
 }
 
 .card:hover{
@@ -76,30 +94,8 @@ border-color:#4aa3ff;
 }
 
 .card h3{
+color:#4aa3ff;
 margin-top:0;
-color:#4aa3ff;
-}
-
-.card p{
-opacity:0.8;
-line-height:1.5;
-}
-
-/* TAG */
-.tag{
-display:inline-block;
-margin-bottom:10px;
-font-size:12px;
-padding:4px 10px;
-border:1px solid #4aa3ff;
-color:#4aa3ff;
-border-radius:6px;
-}
-
-/* CAMPUS SPECIAL */
-.campus{
-border:1px solid #4aa3ff;
-background:linear-gradient(180deg,#0f1626,#0b0f18);
 }
 
 footer{
@@ -114,47 +110,64 @@ font-size:12px;
 <body>
 
 <header>
-<div><b>G-WORLD UNIVERSITY</b></div>
+<div><b>UNIVERSITY OF GIBRALTAR</b></div>
 
-<div>
-<a href="index.html">HOME</a>
-<a href="university.html">UNIVERSITY</a>
-<a href="map.html">MAP</a>
-</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="bank.html">Bank</a>
+<a href="parliament.html">Parliament</a>
+</nav>
 </header>
 
 <section class="hero">
-<h1>UNIVERSITY OF GIBRALTAR</h1>
-<p>Academic Core System of G-World State</p>
+<h1>UNIVERSITY</h1>
+<p>Academic Core of G-Rock State System</p>
 </section>
+
+<div class="panel">
+
+<span class="tag">ACADEMIC STRUCTURE</span>
+
+<h2>Overview</h2>
+<p>
+The University of Gibraltar is the central knowledge system of G-Rock State.
+It organizes education, research and strategic simulation domains.
+</p>
+
+</div>
 
 <section class="grid">
 
 <div class="card">
-<div class="tag">HUMANITIES</div>
 <h3>Faculty of Humanities</h3>
-<p>Language, culture, philosophy, social structure and cognitive studies of society.</p>
+<p>Politics, International Relations, Social Systems</p>
 </div>
 
 <div class="card">
-<div class="tag">ECONOMY</div>
 <h3>Faculty of Economics</h3>
-<p>Bank systems, trade logic, resources and economic simulation of G-World.</p>
+<p>Monetary systems, Monkey Pound economy, financial simulation</p>
 </div>
 
 <div class="card">
-<div class="tag">TECH</div>
 <h3>Faculty of Advanced Technologies</h3>
-<p>G-System architecture, AI logic, simulation engines and computation layers.</p>
+<p>G-System engineering, computational structures, AI layers</p>
 </div>
 
 <div class="card">
-<div class="tag">HISTORY</div>
-<h3>Faculty of History & Warfare</h3>
-<p>Historical simulation, strategic conflicts, evolution of systems and warfare studies.</p>
+<h3>Faculty of Weapon History</h3>
+<p>Strategic history, warfare evolution, historical analysis</p>
 </div>
 
-<!-- NEW CAMPUS -->
-<div class="card campus">
-<div class="tag">CAMPUS</div>
-<h3>Campus de Ceuta
+<div class="card">
+<h3>Campus de Ceuta</h3>
+<p>Intercontinental bridge campus between system nodes</p>
+</div>
+
+</section>
+
+<footer>
+University of Gibraltar • Academic Layer Active
+</footer>
+
+</body>
+  </html>
