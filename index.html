@@ -14,37 +14,38 @@ color:#E6E6E6;
 overflow:hidden;
 }
 
-/* ===== INTRO ===== */
+/* ================= INTRO (FILMOWE) ================= */
 .intro{
 position:fixed;
 inset:0;
-background:radial-gradient(circle,#000,#05070d);
+background:radial-gradient(circle at center,#000 0%,#05070d 60%,#000 100%);
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:9999;
 text-align:center;
-animation:fadeOut 3.8s ease 3.8s forwards;
+animation:fadeOut 4s ease 4s forwards;
 }
 
 .intro h1{
-font-size:64px;
-letter-spacing:6px;
+font-size:72px;
+letter-spacing:8px;
 margin:0;
 color:#4aa3ff;
-text-shadow:0 0 20px rgba(74,163,255,0.4);
+text-shadow:0 0 30px rgba(74,163,255,0.5);
 opacity:0;
-animation:fadeIn 1s ease forwards;
+animation:fadeIn 1.2s ease forwards;
 }
 
 .intro h2{
-font-size:28px;
+font-size:30px;
 margin-top:10px;
 color:#ddd;
 opacity:0;
-animation:fadeIn 1s ease 0.8s forwards;
+animation:fadeIn 1.2s ease 0.8s forwards;
 font-weight:normal;
+letter-spacing:2px;
 }
 
 .intro p{
@@ -52,12 +53,12 @@ font-size:14px;
 margin-top:10px;
 color:#888;
 opacity:0;
-animation:fadeIn 1s ease 1.6s forwards;
-letter-spacing:1px;
+animation:fadeIn 1.2s ease 1.6s forwards;
+letter-spacing:2px;
 }
 
 @keyframes fadeIn{
-from{opacity:0; transform:translateY(10px);}
+from{opacity:0; transform:translateY(15px);}
 to{opacity:1; transform:translateY(0);}
 }
 
@@ -65,10 +66,10 @@ to{opacity:1; transform:translateY(0);}
 to{opacity:0; visibility:hidden; pointer-events:none;}
 }
 
-/* ===== MAIN ===== */
+/* ================= MAIN ================= */
 main{
 opacity:0;
-animation:show 1s ease 4.2s forwards;
+animation:show 1s ease 4.5s forwards;
 height:100vh;
 overflow:auto;
 }
@@ -82,13 +83,15 @@ to{opacity:1;}
 header{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:18px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
 header b{
-color:white;
+color:#fff;
+letter-spacing:1px;
 }
 
 /* LANG */
@@ -97,6 +100,7 @@ margin-left:10px;
 color:#aaa;
 font-size:12px;
 cursor:pointer;
+transition:0.2s;
 }
 
 .lang a:hover{
@@ -120,22 +124,26 @@ border-radius:12px;
 border:1px solid #1f2a3a;
 cursor:pointer;
 text-align:center;
-transition:0.2s;
+transition:0.25s;
 }
 
 .card:hover{
 border-color:#4aa3ff;
-transform:translateY(-5px);
+transform:translateY(-6px);
 }
 
-h3{color:#4aa3ff;}
+h3{
+color:#4aa3ff;
+margin:0;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<!-- ================= INTRO ================= -->
+<!-- ================= INTRO (FILMOWE) ================= -->
 <div class="intro">
   <h1>G-ROCK STATE</h1>
   <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
@@ -143,7 +151,7 @@ h3{color:#4aa3ff;}
   <p>POWERED BY G-SYSTEM</p>
 </div>
 
-<!-- ================= MAIN ================= -->
+<!-- ================= MAIN SYSTEM ================= -->
 <main>
 
 <header>
@@ -161,27 +169,27 @@ h3{color:#4aa3ff;}
 <div class="grid">
 
 <div class="card" onclick="location.href='university.html'">
-<h3 id="t1">Monkeys University of Gibraltar</h3>
+<h3 data-key="t1">Monkeys University of Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='bank.html'">
-<h3 id="t2">Bank of the Monkeys from Gibraltar</h3>
+<h3 data-key="t2">Bank of the Monkeys from Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='parliament.html'">
-<h3 id="t3">Parliament of the Monkeys from Gibraltar</h3>
+<h3 data-key="t3">Parliament of the Monkeys from Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='episode1.html'">
-<h3 id="t4">Episode 1</h3>
+<h3 data-key="t4">Episode 1</h3>
 </div>
 
 <div class="card" onclick="location.href='ceuta.html'">
-<h3 id="t5">Campus de Ceuta</h3>
+<h3 data-key="t5">Campus de Ceuta</h3>
 </div>
 
 <div class="card" onclick="location.href='bridge.html'">
-<h3 id="t6">Intercontinental Bridge</h3>
+<h3 data-key="t6">Intercontinental Bridge</h3>
 </div>
 
 </div>
@@ -190,7 +198,7 @@ h3{color:#4aa3ff;}
 
 <script>
 
-/* ===== LANGUAGE SYSTEM ===== */
+/* ================= LANGUAGE SYSTEM ================= */
 
 const langData = {
 en:{
@@ -228,12 +236,13 @@ t6:"Pont Intercontinental"
 };
 
 function setLang(l){
-for(let i=1;i<=6;i++){
-document.getElementById("t"+i).innerText = langData[l]["t"+i];
-}
+document.querySelectorAll("[data-key]").forEach(el=>{
+let key = el.getAttribute("data-key");
+el.innerText = langData[l][key];
+});
 }
 
 </script>
 
 </body>
-</html>
+  </html>
