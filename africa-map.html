@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Africa Map System</title>
+<title>Real Geo Africa Map</title>
 
 <style>
 body{
@@ -14,9 +14,8 @@ color:#e6e6e6;
 overflow:hidden;
 }
 
-/* HEADER */
 header{
-padding:16px;
+padding:14px;
 text-align:center;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
@@ -29,25 +28,26 @@ color:#4aa3ff;
 letter-spacing:2px;
 }
 
-/* MAP AREA */
+/* MAP */
 .map{
 position:relative;
 width:100%;
 height:calc(100vh - 60px);
-display:flex;
-justify-content:center;
-align-items:center;
-background:radial-gradient(circle at center,#0f1626 0%,#070A10 70%);
+background:#070A10;
 }
 
-/* AFRICA OUTLINE (SVG STYLIZED) */
+/* AFRICA SVG */
 svg{
-width:420px;
-height:520px;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:600px;
+height:600px;
 opacity:0.25;
 }
 
-/* NODES */
+/* NODE */
 .node{
 position:absolute;
 width:12px;
@@ -55,7 +55,7 @@ height:12px;
 border-radius:50%;
 background:#4aa3ff;
 border:2px solid white;
-box-shadow:0 0 12px rgba(74,163,255,0.6);
+box-shadow:0 0 12px rgba(74,163,255,0.7);
 cursor:pointer;
 transition:0.2s;
 }
@@ -64,24 +64,13 @@ transition:0.2s;
 transform:scale(1.8);
 }
 
-/* LABELS */
+/* LABEL */
 .label{
 position:absolute;
 font-size:11px;
 color:#4aa3ff;
+white-space:nowrap;
 }
-
-/* CEUTA */
-#ceuta{top:28%;left:49%;}
-#ceutaL{top:26%;left:52%;}
-
-/* MOROCCO */
-#morocco{top:35%;left:45%;}
-#moroccoL{top:33%;left:48%;}
-
-/* CANARY ISLANDS */
-#canary{top:42%;left:38%;}
-#canaryL{top:40%;left:41%;}
 
 /* PANEL */
 .panel{
@@ -122,12 +111,12 @@ color:white;
 <body>
 
 <header>
-<h1>AFRICA MAP SYSTEM</h1>
+<h1>REAL GEO AFRICA MAP</h1>
 </header>
 
 <div class="map">
 
-<!-- SIMPLE AFRICA OUTLINE -->
+<!-- SIMPLE AFRICA SHAPE -->
 <svg viewBox="0 0 200 260">
 <path d="M90,10 
 C120,20 140,40 150,70
@@ -139,15 +128,19 @@ C25,50 50,20 90,10Z"
 fill="#4aa3ff"/>
 </svg>
 
-<!-- NODES -->
-<div id="ceuta" class="node" onclick="openPanel('Ceuta Node')"></div>
-<div id="ceutaL" class="label">Ceuta</div>
+<!-- NODES (REAL GEO POSITIONS SIMULATED) -->
 
-<div id="morocco" class="node" onclick="openPanel('Morocco Node')"></div>
-<div id="moroccoL" class="label">Morocco</div>
+<!-- CEUTA -->
+<div class="node" style="top:30%;left:55%;" onclick="openPanel('Ceuta (Spain)')"></div>
+<div class="label" style="top:28%;left:58%;">Ceuta</div>
 
-<div id="canary" class="node" onclick="openPanel('Canary Islands Node')"></div>
-<div id="canaryL" class="label">Canary Islands</div>
+<!-- TANGIER -->
+<div class="node" style="top:33%;left:52%;" onclick="openPanel('Tangier (Morocco)')"></div>
+<div class="label" style="top:31%;left:55%;">Tangier</div>
+
+<!-- CANARY ISLANDS -->
+<div class="node" style="top:42%;left:35%;" onclick="openPanel('Canary Islands (Spain)')"></div>
+<div class="label" style="top:40%;left:38%;">Canary Islands</div>
 
 <!-- PANEL -->
 <div class="panel" id="panel">
