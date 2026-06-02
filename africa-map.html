@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Africa Map — Ceuta System</title>
+
+<style>
+body{
+margin:0;
+background:#05070d;
+font-family:Arial,sans-serif;
+color:#e6e6e6;
+overflow:hidden;
+}
+
+/* HEADER */
+header{
+padding:16px;
+text-align:center;
+background:#0b0f18;
+border-bottom:1px solid #1f2a3a;
+}
+
+h1{
+margin:0;
+font-size:20px;
+color:#4aa3ff;
+letter-spacing:2px;
+}
+
+/* MAP CONTAINER */
+.map{
+position:relative;
+width:100%;
+height:calc(100vh - 60px);
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* AFRICA SHAPE (stylized, not image) */
+.africa{
+position:relative;
+width:420px;
+height:520px;
+background:linear-gradient(180deg,#0f1626,#070A10);
+clip-path: polygon(
+50% 0%,
+75% 10%,
+85% 25%,
+80% 45%,
+90% 60%,
+75% 85%,
+55% 100%,
+35% 90%,
+25% 70%,
+20% 50%,
+25% 30%,
+35% 10%
+);
+border:2px solid #1f2a3a;
+box-shadow:0 0 40px rgba(74,163,255,0.1);
+}
+
+/* NODE POINTS */
+.node{
+position:absolute;
+width:10px;
+height:10px;
+background:#4aa3ff;
+border:2px solid white;
+border-radius:50%;
+cursor:pointer;
+box-shadow:0 0 10px rgba(74,163,255,0.6);
+transition:0.2s;
+}
+
+.node:hover{
+transform:scale(1.6);
+}
+
+/* LABEL */
+.label{
+position:absolute;
+font-size:11px;
+color:#4aa3ff;
+white-space:nowrap;
+}
+
+/* CEUTA */
+#ceuta{
+top:18%;
+left:52%;
+}
+
+#ceuta-label{
+top:16%;
+left:55%;
+}
+
+/* NORTH AFRICA HUB */
+#morocco{
+top:25%;
+left:45%;
+}
+
+#morocco-label{
+top:23%;
+left:48%;
+}
+
+/* SAHARA CORE */
+#sahara{
+top:40%;
+left:55%;
+}
+
+#sahara-label{
+top:38%;
+left:58%;
+}
+
+/* SOUTH NODE */
+#south{
+top:70%;
+left:50%;
+}
+
+#south-label{
+top:68%;
+left:53%;
+}
+
+.panel{
+position:absolute;
+bottom:20px;
+left:20px;
+background:#111827;
+padding:14px;
+border-radius:10px;
+border:1px solid #1f2a3a;
+opacity:0;
+transform:translateY(10px);
+transition:0.3s;
+max-width:260px;
+}
+
+.panel.active{
+opacity:1;
+transform:translateY(0);
+}
+
+button{
+margin-top:8px;
+background:#0b0f18;
+border:1px solid #1f2a3a;
+color:#aaa;
+padding:6px 10px;
+cursor:pointer;
+}
+
+button:hover{
+border-color:#4aa3ff;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>AFRICA MAP — CEUTA SYSTEM NODE</h1>
+</header>
+
+<div class="map">
+
+<div class="africa">
+
+<!-- NODES -->
+<div id="ceuta" class="node" onclick="openPanel('Ceuta Intercontinental Bridge')"></div>
+<div id="ceuta-label" class="label">Ceuta Bridge</div>
+
+<div id="morocco" class="node" onclick="openPanel('Morocco Node')"></div>
+<div id="morocco-label" class="label">Morocco Hub</div>
+
+<div id="sahara" class="node" onclick="openPanel('Sahara Core')"></div>
+<div id="sahara-label" class="label">Sahara Core</div>
+
+<div id="south" class="node" onclick="openPanel('Southern Expansion')"></div>
+<div id="south-label" class="label">South Node</div>
+
+</div>
+
+<div class="panel" id="panel">
+<h3 id="title" style="color:#4aa3ff;margin:0;">Node</h3>
+<p>Status: ACTIVE</p>
+<button onclick="closePanel()">Close</button>
+</div>
+
+</div>
+
+<script>
+function openPanel(name){
+document.getElementById("panel").classList.add("active");
+document.getElementById("title").innerText = name;
+}
+
+function closePanel(){
+document.getElementById("panel").classList.remove("active");
+}
+</script>
+
+</body>
+  </html>
