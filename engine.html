@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock Engine v1</title>
+<title>G-Rock Engine v1 + Save</title>
 
 <style>
 body{
@@ -14,7 +14,6 @@ color:#E6E6E6;
 overflow:hidden;
 }
 
-/* HEADER */
 header{
 padding:15px;
 display:flex;
@@ -22,10 +21,6 @@ justify-content:space-between;
 align-items:center;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
-}
-
-header b{
-letter-spacing:2px;
 }
 
 nav button{
@@ -43,7 +38,6 @@ color:#4aa3ff;
 border-color:#4aa3ff;
 }
 
-/* LAYERS */
 .view{
 display:none;
 height:calc(100vh - 55px);
@@ -51,11 +45,8 @@ padding:15px;
 box-sizing:border-box;
 }
 
-.active{
-display:block;
-}
+.active{display:block;}
 
-/* MAP */
 .map{
 position:relative;
 height:100%;
@@ -73,13 +64,6 @@ text-align:center;
 cursor:pointer;
 }
 
-.node h3{
-margin:0;
-color:#4aa3ff;
-font-size:14px;
-}
-
-/* CORE */
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -117,6 +101,7 @@ button.action:hover{
 background:#4aa3ff;
 color:#000;
 }
+
 </style>
 
 </head>
@@ -124,83 +109,63 @@ color:#000;
 <body>
 
 <header>
-<div><b>G-ROCK ENGINE v1</b></div>
+<div><b>G-ROCK ENGINE v1 (SAVE)</b></div>
 
 <nav>
 <button onclick="show('map')">MAP</button>
 <button onclick="show('core')">CORE</button>
-<button onclick="show('live')">LIVE</button>
+<button onclick="resetWorld()">RESET</button>
 </nav>
 </header>
 
-<!-- MAP VIEW -->
+<!-- MAP -->
 <div id="map" class="view active">
 <div class="map">
 
-<div class="node" style="top:20%;left:15%;" onclick="select('uni')">
-<h3>University</h3>
-</div>
-
-<div class="node" style="top:60%;left:15%;" onclick="select('bank')">
-<h3>Bank</h3>
-</div>
-
-<div class="node" style="top:40%;left:45%;" onclick="select('parl')">
-<h3>Parliament</h3>
-</div>
-
-<div class="node" style="top:70%;left:75%;" onclick="select('ceuta')">
-<h3>Ceuta</h3>
-</div>
+<div class="node" style="top:20%;left:15%;" onclick="selectNode('uni')">University</div>
+<div class="node" style="top:60%;left:15%;" onclick="selectNode('bank')">Bank</div>
+<div class="node" style="top:40%;left:45%;" onclick="selectNode('parl')">Parliament</div>
+<div class="node" style="top:70%;left:75%;" onclick="selectNode('ceuta')">Ceuta</div>
 
 </div>
 </div>
 
-<!-- CORE VIEW -->
+<!-- CORE -->
 <div id="core" class="view">
 <div class="grid">
 
 <div class="panel">
 <h3>Economy</h3>
-Status: <span id="eco" class="badge green">STABLE</span>
+Status: <span id="eco" class="badge green"></span>
 <br>
 <button class="action" onclick="shock()">Market Shock</button>
 </div>
 
 <div class="panel">
 <h3>Governance</h3>
-Status: <span id="gov" class="badge green">STABLE</span>
+Status: <span id="gov" class="badge green"></span>
 <br>
 <button class="action" onclick="crisis()">Crisis</button>
 </div>
 
 <div class="panel">
 <h3>Academia</h3>
-Status: <span id="uni" class="badge green">STABLE</span>
+Status: <span id="uni" class="badge green"></span>
 <br>
 <button class="action" onclick="boost()">Boost</button>
 </div>
 
 <div class="panel">
-<h3>System Core</h3>
-Integrity: <span id="core">100%</span>
+<h3>Core</h3>
+Integrity: <span id="coreVal"></span>%
 </div>
 
-</div>
-</div>
-
-<!-- LIVE VIEW -->
-<div id="live" class="view">
-<div class="panel">
-<h2>LIVE SIMULATION</h2>
-<p>System is running unified state engine.</p>
-
-<div id="log"></div>
 </div>
 </div>
 
 <script>
 
+/* ===== STATE ===== */
 let state = {
   eco: "STABLE",
   gov: "STABLE",
@@ -208,51 +173,74 @@ let state = {
   core: 100
 };
 
+/* ===== LOAD SAVE ===== */
+function load(){
+let saved = localStorage.getItem("grock_state");
+if(saved){
+state = JSON.parse(saved);
+}
+}
+
+/* ===== SAVE ===== */
+function save(){
+localStorage.setItem("grock_state", JSON.stringify(state));
+}
+
+/* ===== UPDATE UI ===== */
+function update(){
+document.getElementById("eco").innerText = state.eco;
+document.getElementById("gov").innerText = state.gov;
+document.getElementById("uni").innerText = state.uni;
+document.getElementById("coreVal").innerText = state.core;
+save();
+}
+
+/* ===== NAV ===== */
 function show(v){
 document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
 document.getElementById(v).classList.add('active');
 }
 
-function update(){
-document.getElementById("eco").innerText = state.eco;
-document.getElementById("gov").innerText = state.gov;
-document.getElementById("uni").innerText = state.uni;
-document.getElementById("core").innerText = state.core + "%";
-}
-
-function log(msg){
-document.getElementById("log").innerHTML += "<div>> " + msg + "</div>";
-}
-
-/* EVENTS */
+/* ===== EVENTS ===== */
 function shock(){
 state.eco = "VOLATILE";
 state.core -= 10;
-log("Economic shock triggered");
 update();
 }
 
 function crisis(){
 state.gov = "UNSTABLE";
 state.core -= 15;
-log("Political crisis triggered");
 update();
 }
 
 function boost(){
 state.uni = "OVERACTIVE";
 state.core += 5;
-log("Research boost activated");
 update();
 }
 
-function select(node){
-log("Node selected: " + node);
+function selectNode(n){
+console.log("Node:", n);
 }
 
+/* ===== RESET ===== */
+function resetWorld(){
+localStorage.removeItem("grock_state");
+state = {
+  eco: "STABLE",
+  gov: "STABLE",
+  uni: "STABLE",
+  core: 100
+};
+update();
+}
+
+/* INIT */
+load();
 update();
 
 </script>
 
 </body>
-  </html>
+</html>
