@@ -11,8 +11,57 @@ margin:0;
 font-family:Arial,sans-serif;
 background:#070A10;
 color:#E6E6E6;
+overflow:hidden;
 }
 
+/* ===== INTRO (ORIGINAL) ===== */
+.intro{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+text-align:center;
+animation:fadeOut 3.8s ease 3.5s forwards;
+}
+
+.intro h1{
+font-size:58px;
+letter-spacing:6px;
+margin:0;
+opacity:0;
+animation:fadeIn 1s ease forwards;
+}
+
+.intro h2{
+font-size:34px;
+margin:15px 0 0;
+opacity:0;
+animation:fadeIn 1s ease 0.8s forwards;
+font-weight:normal;
+}
+
+.intro p{
+font-size:14px;
+margin-top:15px;
+opacity:0;
+color:#aaa;
+text-transform:uppercase;
+animation:fadeIn 1s ease 1.6s forwards;
+}
+
+/* ===== MAIN ===== */
+main{
+opacity:0;
+animation:show 1s ease 4s forwards;
+height:100vh;
+overflow:auto;
+}
+
+/* ===== HEADER ===== */
 header{
 display:flex;
 justify-content:space-between;
@@ -30,6 +79,7 @@ text-decoration:none;
 font-size:12px;
 }
 
+/* ===== GRID ===== */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -55,10 +105,36 @@ transform:translateY(-5px);
 }
 
 h3{color:#4aa3ff;}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes fadeOut{
+to{opacity:0; visibility:hidden; pointer-events:none;}
+}
+
+@keyframes show{
+from{opacity:0;}
+to{opacity:1;}
+}
 </style>
+
 </head>
 
 <body>
+
+<!-- INTRO -->
+<div class="intro">
+  <h1>THE WORLD OF G-ROCK PRESENTS</h1>
+  <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
+  <p>POWERED BY G-SYSTEM</p>
+</div>
+
+<!-- MAIN -->
+<main>
 
 <header>
 <b>G-ROCK STATE</b>
@@ -86,6 +162,8 @@ h3{color:#4aa3ff;}
 </div>
 
 </div>
+
+</main>
 
 </body>
 </html>
