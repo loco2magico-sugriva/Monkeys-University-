@@ -3,107 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Real Geo Africa Map</title>
+<title>Real Africa Map</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 body{
 margin:0;
-background:#05070d;
 font-family:Arial,sans-serif;
-color:#e6e6e6;
-overflow:hidden;
+background:#05070d;
 }
 
 header{
-padding:14px;
+padding:12px;
 text-align:center;
 background:#0b0f18;
+color:#4aa3ff;
 border-bottom:1px solid #1f2a3a;
 }
 
-h1{
-margin:0;
-font-size:18px;
-color:#4aa3ff;
-letter-spacing:2px;
-}
-
-/* MAP */
-.map{
-position:relative;
+#map{
+height:calc(100vh - 50px);
 width:100%;
-height:calc(100vh - 60px);
-background:#070A10;
-}
-
-/* AFRICA SVG */
-svg{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-width:600px;
-height:600px;
-opacity:0.25;
-}
-
-/* NODE */
-.node{
-position:absolute;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#4aa3ff;
-border:2px solid white;
-box-shadow:0 0 12px rgba(74,163,255,0.7);
-cursor:pointer;
-transition:0.2s;
-}
-
-.node:hover{
-transform:scale(1.8);
-}
-
-/* LABEL */
-.label{
-position:absolute;
-font-size:11px;
-color:#4aa3ff;
-white-space:nowrap;
-}
-
-/* PANEL */
-.panel{
-position:absolute;
-bottom:20px;
-left:20px;
-background:#111827;
-border:1px solid #1f2a3a;
-padding:14px;
-border-radius:10px;
-opacity:0;
-transform:translateY(10px);
-transition:0.3s;
-max-width:260px;
-}
-
-.panel.active{
-opacity:1;
-transform:translateY(0);
-}
-
-button{
-margin-top:8px;
-background:#0b0f18;
-border:1px solid #1f2a3a;
-color:#aaa;
-padding:6px 10px;
-cursor:pointer;
-}
-
-button:hover{
-border-color:#4aa3ff;
-color:white;
 }
 </style>
 </head>
@@ -111,55 +32,33 @@ color:white;
 <body>
 
 <header>
-<h1>REAL GEO AFRICA MAP</h1>
+REAL GEO AFRICA MAP
 </header>
 
-<div class="map">
+<div id="map"></div>
 
-<!-- SIMPLE AFRICA SHAPE -->
-<svg viewBox="0 0 200 260">
-<path d="M90,10 
-C120,20 140,40 150,70
-C160,110 140,150 150,180
-C160,220 120,250 90,250
-C60,240 40,220 35,180
-C30,140 40,110 30,80
-C25,50 50,20 90,10Z"
-fill="#4aa3ff"/>
-</svg>
-
-<!-- NODES (REAL GEO POSITIONS SIMULATED) -->
-
-<!-- CEUTA -->
-<div class="node" style="top:30%;left:55%;" onclick="openPanel('Ceuta (Spain)')"></div>
-<div class="label" style="top:28%;left:58%;">Ceuta</div>
-
-<!-- TANGIER -->
-<div class="node" style="top:33%;left:52%;" onclick="openPanel('Tangier (Morocco)')"></div>
-<div class="label" style="top:31%;left:55%;">Tangier</div>
-
-<!-- CANARY ISLANDS -->
-<div class="node" style="top:42%;left:35%;" onclick="openPanel('Canary Islands (Spain)')"></div>
-<div class="label" style="top:40%;left:38%;">Canary Islands</div>
-
-<!-- PANEL -->
-<div class="panel" id="panel">
-<h3 id="title" style="margin:0;color:#4aa3ff;">Node</h3>
-<p>Status: ACTIVE</p>
-<button onclick="closePanel()">Close</button>
-</div>
-
-</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-function openPanel(name){
-document.getElementById("panel").classList.add("active");
-document.getElementById("title").innerText = name;
-}
+// INIT MAP (center Africa)
+const map = L.map('map').setView([25, 0], 3);
 
-function closePanel(){
-document.getElementById("panel").classList.remove("active");
-}
+// TILE LAYER (real world map)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// CEUTA
+L.marker([35.8894, -5.3213]).addTo(map)
+.bindPopup("Ceuta (Spain)");
+
+// TANGIER
+L.marker([35.7595, -5.8340]).addTo(map)
+.bindPopup("Tangier (Morocco)");
+
+// CANARY ISLANDS
+L.marker([28.2916, -16.6291]).addTo(map)
+.bindPopup("Canary Islands (Spain)");
 </script>
 
 </body>
