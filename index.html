@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock Clean System</title>
+<title>G-Rock State</title>
 
 <style>
 body{
@@ -15,7 +15,7 @@ overflow:hidden;
 }
 
 /* ===== INTRO ===== */
-#intro{
+.intro{
 position:fixed;
 inset:0;
 background:#000;
@@ -25,21 +25,32 @@ justify-content:center;
 align-items:center;
 z-index:9999;
 text-align:center;
+animation:fadeOut 3.5s ease 3.5s forwards;
 }
 
-#intro h1{
-font-size:50px;
-letter-spacing:4px;
-animation:fadeIn 1s ease forwards;
+.intro h1{
+font-size:52px;
+letter-spacing:5px;
+margin:0;
 opacity:0;
+animation:fadeIn 1s ease forwards;
 }
 
-#intro h2{
-font-size:26px;
+.intro h2{
+font-size:28px;
 margin-top:10px;
 color:#aaa;
 opacity:0;
 animation:fadeIn 1s ease 0.8s forwards;
+font-weight:normal;
+}
+
+.intro p{
+font-size:14px;
+margin-top:10px;
+color:#777;
+opacity:0;
+animation:fadeIn 1s ease 1.6s forwards;
 }
 
 @keyframes fadeIn{
@@ -47,170 +58,119 @@ from{opacity:0; transform:translateY(10px);}
 to{opacity:1; transform:translateY(0);}
 }
 
-.fadeOut{
-animation:out 1s ease forwards;
+@keyframes fadeOut{
+to{opacity:0; visibility:hidden; pointer-events:none;}
 }
 
-@keyframes out{
-to{opacity:0; visibility:hidden;}
+/* ===== MAIN ===== */
+main{
+opacity:0;
+animation:show 1s ease 4s forwards;
+height:100vh;
+overflow:auto;
 }
 
-/* ===== APP ===== */
+@keyframes show{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* ===== HEADER ===== */
 header{
 display:flex;
 justify-content:space-between;
-align-items:center;
-padding:14px;
+padding:18px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
-nav button{
-background:#111827;
-border:1px solid #1f2a3a;
+header b{
+color:white;
+}
+
+.lang a{
+margin-left:10px;
 color:#aaa;
-padding:6px 10px;
-margin-left:6px;
-border-radius:6px;
-cursor:pointer;
-}
-
-nav button:hover{
-color:#4aa3ff;
-border-color:#4aa3ff;
-}
-
-.view{
-display:none;
-height:calc(100vh - 55px);
-padding:15px;
-box-sizing:border-box;
-}
-
-.active{display:block;}
-
-.map{
-position:relative;
-height:100%;
-background:radial-gradient(circle,#0f1626,#070A10);
-}
-
-.node{
-position:absolute;
-width:180px;
-padding:12px;
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:10px;
-text-align:center;
-cursor:pointer;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.panel{
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:10px;
-padding:12px;
-}
-
-.badge{
-padding:4px 8px;
-border-radius:6px;
+text-decoration:none;
 font-size:12px;
 }
 
-.green{background:#0f3d2e;color:#3dff9c;}
+/* ===== GRID ===== */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+max-width:1000px;
+margin:40px auto;
+padding:0 20px;
+}
 
-button.action{
-margin-top:8px;
-padding:6px 10px;
+.card{
 background:#111827;
-border:1px solid #4aa3ff;
-color:#4aa3ff;
-border-radius:6px;
+padding:20px;
+border-radius:12px;
+border:1px solid #1f2a3a;
 cursor:pointer;
+text-align:center;
+transition:0.2s;
 }
 
-button.action:hover{
-background:#4aa3ff;
-color:#000;
+.card:hover{
+border-color:#4aa3ff;
+transform:translateY(-5px);
 }
 
+h3{color:#4aa3ff;}
 </style>
+
 </head>
 
 <body>
 
 <!-- INTRO -->
-<div id="intro">
+<div class="intro">
   <h1>G-ROCK STATE</h1>
-  <h2>MONKEYS UNIVERSITY SYSTEM</h2>
+  <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
+  <p>G-ROCK PRESENTS</p>
+  <p>POWERED BY G-SYSTEM</p>
 </div>
 
-<!-- APP -->
-<div id="app">
+<!-- MAIN -->
+<main>
 
 <header>
-<div><b>G-ROCK SYSTEM</b></div>
-<nav>
-<button onclick="show('map')">MAP</button>
-<button onclick="show('core')">CORE</button>
-</nav>
+<b>G-ROCK STATE</b>
+
+<div class="lang">
+<a>EN</a>
+<a>ES</a>
+<a>FR</a>
+<a>PL</a>
+</div>
+
 </header>
 
-<!-- MAP -->
-<div id="map" class="view active">
-<div class="map">
-
-<div class="node" style="top:20%;left:15%;">University</div>
-<div class="node" style="top:60%;left:15%;">Bank</div>
-<div class="node" style="top:40%;left:45%;">Parliament</div>
-<div class="node" style="top:70%;left:75%;">Ceuta</div>
-
-</div>
-</div>
-
-<!-- CORE -->
-<div id="core" class="view">
 <div class="grid">
 
-<div class="panel">
-<h3>Economy</h3>
-Status: <span class="badge green">STABLE</span>
+<div class="card" onclick="location.href='university.html'">
+<h3>Monkeys University of Gibraltar</h3>
 </div>
 
-<div class="panel">
-<h3>Governance</h3>
-Status: <span class="badge green">STABLE</span>
+<div class="card" onclick="location.href='bank.html'">
+<h3>Bank of the Monkeys from Gibraltar</h3>
+</div>
+
+<div class="card" onclick="location.href='parliament.html'">
+<h3>Parliament of the Monkeys from Gibraltar</h3>
+</div>
+
+<div class="card" onclick="location.href='episode1.html'">
+<h3>Episode 1</h3>
 </div>
 
 </div>
-</div>
 
-</div>
-
-<script>
-
-/* INTRO SAFE START */
-window.onload = function(){
-setTimeout(()=>{
-document.getElementById("intro").classList.add("fadeOut");
-},3000);
-};
-
-/* NAV */
-function show(v){
-document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-document.getElementById(v).classList.add('active');
-}
-
-</script>
+</main>
 
 </body>
   </html>
