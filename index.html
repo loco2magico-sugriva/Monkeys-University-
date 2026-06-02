@@ -19,7 +19,7 @@ overflow:hidden;
 position:fixed;
 inset:0;
 background:
-radial-gradient(circle at center,#000 0%,#05070d 50%,#000 100%);
+radial-gradient(circle at center,#000 0%,#05070d 60%,#000 100%);
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -29,37 +29,50 @@ text-align:center;
 animation:fadeOut 4.2s ease 4.2s forwards;
 }
 
+.intro::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(120deg,transparent,rgba(74,163,255,0.08),transparent);
+animation:scan 2.5s infinite linear;
+}
+
+@keyframes scan{
+0%{transform:translateX(-100%);}
+100%{transform:translateX(100%);}
+}
+
 .intro h1{
-font-size:78px;
+font-size:76px;
 letter-spacing:10px;
 margin:0;
 color:#4aa3ff;
-text-shadow:0 0 35px rgba(74,163,255,0.6);
+text-shadow:0 0 40px rgba(74,163,255,0.7);
 opacity:0;
 animation:fadeIn 1.2s ease forwards;
 }
 
 .intro h2{
-font-size:30px;
+font-size:28px;
 margin-top:10px;
 color:#ddd;
-opacity:0;
-animation:fadeIn 1.2s ease 0.8s forwards;
 font-weight:normal;
 letter-spacing:2px;
+opacity:0;
+animation:fadeIn 1.2s ease 0.8s forwards;
 }
 
 .intro p{
 font-size:14px;
 margin-top:10px;
 color:#888;
+letter-spacing:2px;
 opacity:0;
 animation:fadeIn 1.2s ease 1.6s forwards;
-letter-spacing:2px;
 }
 
 @keyframes fadeIn{
-from{opacity:0; transform:translateY(18px);}
+from{opacity:0; transform:translateY(20px);}
 to{opacity:1; transform:translateY(0);}
 }
 
@@ -93,7 +106,6 @@ header b{
 color:white;
 }
 
-/* LANG */
 .lang a{
 margin-left:10px;
 color:#aaa;
@@ -105,12 +117,12 @@ cursor:pointer;
 color:#4aa3ff;
 }
 
-/* ================= GRID FIX (5 KAFELKÓW) ================= */
+/* GRID */
 .grid{
 display:grid;
-grid-template-columns:repeat(5, 1fr);
+grid-template-columns:repeat(5,1fr);
 gap:15px;
-max-width:1300px;
+max-width:1200px;
 margin:40px auto;
 padding:0 20px;
 }
@@ -123,7 +135,7 @@ padding:0 20px;
 .grid{grid-template-columns:1fr;}
 }
 
-/* ================= CARD ================= */
+/* CARD */
 .card{
 background:#111827;
 padding:20px;
@@ -134,13 +146,14 @@ text-align:center;
 transition:0.25s;
 min-height:110px;
 display:flex;
-flex-direction:column;
+align-items:center;
 justify-content:center;
 }
 
 .card:hover{
 border-color:#4aa3ff;
 transform:translateY(-6px);
+box-shadow:0 0 20px rgba(74,163,255,0.15);
 }
 
 h3{
@@ -148,15 +161,9 @@ color:#4aa3ff;
 margin:0;
 }
 
-.placeholder{
-color:#777;
-font-size:12px;
-margin-top:8px;
-}
-
-/* CEUTA NODE STYLE */
-.node{
-border:1px solid rgba(74,163,255,0.4);
+/* subtle glow */
+.card:hover h3{
+text-shadow:0 0 10px rgba(74,163,255,0.4);
 }
 
 </style>
@@ -191,72 +198,28 @@ border:1px solid rgba(74,163,255,0.4);
 <div class="grid">
 
 <div class="card" onclick="location.href='university.html'">
-<h3 data-key="t1">Monkeys University of Gibraltar</h3>
+<h3>Monkeys University of Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='bank.html'">
-<h3 data-key="t2">Bank of the Monkeys from Gibraltar</h3>
+<h3>Bank of the Monkeys from Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='parliament.html'">
-<h3 data-key="t3">Parliament of the Monkeys from Gibraltar</h3>
+<h3>Parliament of the Monkeys from Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='episode1.html'">
-<h3 data-key="t4">Episode 1</h3>
+<h3>Episode 1</h3>
 </div>
 
-<!-- CEUTA NODE (FIXED + LOGICZNE) -->
-<div class="card node" onclick="location.href='ceuta_node.html'">
-<h3 data-key="t5">Africa / Ceuta Node</h3>
-<div class="placeholder">Intercontinental Bridge Integration</div>
+<div class="card" onclick="location.href='map.html'">
+<h3>World Map</h3>
 </div>
 
 </div>
 
 </main>
 
-<script>
-
-const langData = {
-en:{
-t1:"Monkeys University of Gibraltar",
-t2:"Bank of the Monkeys from Gibraltar",
-t3:"Parliament of the Monkeys from Gibraltar",
-t4:"Episode 1",
-t5:"Africa / Ceuta Node"
-},
-pl:{
-t1:"Uniwersytet Małp Gibraltaru",
-t2:"Bank Małp z Gibraltaru",
-t3:"Parlament Małp Gibraltaru",
-t4:"Odcinek 1",
-t5:"Afryka / Węzeł Ceuta"
-},
-es:{
-t1:"Universidad de los Monos de Gibraltar",
-t2:"Banco de los Monos de Gibraltar",
-t3:"Parlamento de los Monos de Gibraltar",
-t4:"Episodio 1",
-t5:"Nodo África / Ceuta"
-},
-fr:{
-t1:"Université des Singes de Gibraltar",
-t2:"Banque des Singes de Gibraltar",
-t3:"Parlement des Singes de Gibraltar",
-t4:"Épisode 1",
-t5:"Nœud Afrique / Ceuta"
-}
-};
-
-function setLang(l){
-document.querySelectorAll("[data-key]").forEach(el=>{
-let key = el.getAttribute("data-key");
-el.innerText = langData[l][key];
-});
-}
-
-</script>
-
 </body>
-  </html>
+</html>
