@@ -79,33 +79,10 @@ opacity:0.7;
 margin-top:6px;
 }
 
-/* PULSE EFFECT */
 @keyframes pulse{
 0%{box-shadow:0 0 0 rgba(74,163,255,0.0);}
 50%{box-shadow:0 0 15px rgba(74,163,255,0.15);}
 100%{box-shadow:0 0 0 rgba(74,163,255,0.0);}
-}
-
-/* FLOAT ANIMATION */
-@keyframes float{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-6px);}
-100%{transform:translateY(0px);}
-}
-
-/* LINES */
-.line{
-position:absolute;
-height:2px;
-background:linear-gradient(90deg,transparent,#1f2a3a,transparent);
-opacity:0.8;
-animation:flow 2.5s infinite;
-}
-
-@keyframes flow{
-0%{opacity:0.2;}
-50%{opacity:1;}
-100%{opacity:0.2;}
 }
 
 /* POSITIONS */
@@ -127,12 +104,6 @@ animation:flow 2.5s infinite;
 
 <div class="map">
 
-<!-- CONNECTIONS -->
-<div class="line" style="top:30%;left:22%;width:30%;transform:rotate(15deg);"></div>
-<div class="line" style="top:55%;left:22%;width:35%;transform:rotate(-10deg);"></div>
-<div class="line" style="top:45%;left:50%;width:35%;transform:rotate(20deg);"></div>
-
-<!-- NODES -->
 <div class="node" id="uni" onclick="location.href='university.html'">
 <h3>Monkeys University</h3>
 <p>Academic Core System</p>
@@ -153,8 +124,9 @@ animation:flow 2.5s infinite;
 <p>Africa Expansion Node</p>
 </div>
 
-<div class="node" id="epi" onclick="location.href='episode_sugriva_professor.html'">
-<h3>Episode</h3>
+<!-- FIXED EPISODE LINK -->
+<div class="node" id="epi" onclick="location.href='episode1.html'">
+<h3>Episode 1</h3>
 <p>Academic Recognition</p>
 </div>
 
