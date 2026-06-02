@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ceuta Node — Africa Map</title>
+<title>Africa System — Ceuta Node</title>
 
 <style>
 body{
@@ -16,92 +16,105 @@ overflow:hidden;
 
 /* HEADER */
 header{
-padding:18px;
+padding:16px;
 text-align:center;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
-h1{
+header h1{
 margin:0;
+font-size:18px;
 color:#4aa3ff;
-letter-spacing:3px;
-font-size:22px;
+letter-spacing:2px;
 }
 
-/* MAP WRAPPER */
+/* MAP AREA */
 .map{
 position:relative;
 width:100%;
-height:calc(100vh - 65px);
-background:#000;
+height:calc(100vh - 60px);
+background:
+radial-gradient(circle at 30% 30%, #14233d 0%, transparent 40%),
+radial-gradient(circle at 70% 60%, #0e1a2d 0%, transparent 45%),
+radial-gradient(circle at 50% 80%, #0b1220 0%, transparent 50%),
+#05070d;
+overflow:hidden;
 }
 
-/* REAL AFRICA MAP */
-.map img{
-width:100%;
-height:100%;
-object-fit:contain;
-background:#000;
-}
-
-/* CEUTA POINT (small but map-anchored, not “floating ball”) */
-.ceuta{
-position:absolute;
-top:18%;
-left:49%;
-width:10px;
-height:10px;
-background:#4aa3ff;
-border:2px solid white;
-border-radius:50%;
-cursor:pointer;
-box-shadow:0 0 10px rgba(74,163,255,0.6);
-}
-
-/* LABEL */
+/* CONTINENT LABEL */
 .label{
 position:absolute;
-top:17%;
-left:51%;
-font-size:12px;
-color:#4aa3ff;
+top:12%;
+left:50%;
+transform:translateX(-50%);
+font-size:14px;
+color:#666;
+letter-spacing:3px;
 }
+
+/* NODE BASE */
+.node{
+position:absolute;
+width:14px;
+height:14px;
+border-radius:50%;
+background:#4aa3ff;
+border:2px solid white;
+cursor:pointer;
+box-shadow:0 0 12px rgba(74,163,255,0.6);
+transition:0.2s;
+}
+
+.node:hover{
+transform:scale(1.4);
+}
+
+/* NODE LABEL */
+.node-label{
+position:absolute;
+font-size:11px;
+color:#4aa3ff;
+white-space:nowrap;
+}
+
+/* POSITIONS (abstract Africa layout, stylized but consistent) */
+#morocco{top:35%;left:45%;}
+#ceuta{top:32%;left:47%;}
+#algeria{top:45%;left:52%;}
+#sahara{top:55%;left:48%;}
+#nigeria{top:70%;left:55%;}
+#southafrica{top:85%;left:60%;}
 
 /* PANEL */
 .panel{
 position:absolute;
-bottom:20px;
-left:20px;
+right:20px;
+top:20px;
+width:280px;
 background:#111827;
 border:1px solid #1f2a3a;
-padding:16px;
 border-radius:10px;
-max-width:300px;
-
-opacity:0;
-transform:translateY(15px);
-transition:0.25s;
-pointer-events:none;
+padding:16px;
+display:none;
 }
 
-.panel.active{
-opacity:1;
-transform:translateY(0);
-pointer-events:auto;
+.panel h2{
+margin:0;
+color:#4aa3ff;
 }
 
-.bridge{
-color:#ffcc66;
+.status{
+color:#7CFF9B;
 font-weight:bold;
 }
 
 button{
 margin-top:10px;
+padding:6px 10px;
 background:#0b0f18;
 border:1px solid #1f2a3a;
 color:#aaa;
-padding:6px 10px;
 cursor:pointer;
 border-radius:6px;
 }
@@ -110,48 +123,53 @@ button:hover{
 color:#fff;
 border-color:#4aa3ff;
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>AFRICA MAP — CEUTA NODE</h1>
+<h1>AFRICA SYSTEM MAP — CEUTA CORE NODE</h1>
 </header>
 
 <div class="map">
 
-<!-- REAL AFRICA MAP -->
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Africa_satellite_orthographic.jpg">
+<div class="label">AFRICA GRID NETWORK</div>
 
-<!-- CEUTA NODE -->
-<div class="ceuta" onclick="openPanel()"></div>
-<div class="label">Ceuta</div>
+<!-- NODES -->
+<div class="node" id="morocco" onclick="openNode('Morocco')"></div>
+<div class="node" id="ceuta" onclick="openNode('Ceuta — Intercontinental Bridge')"></div>
+<div class="node" id="algeria" onclick="openNode('Algeria')"></div>
+<div class="node" id="sahara" onclick="openNode('Sahara Zone')"></div>
+<div class="node" id="nigeria" onclick="openNode('Nigeria Hub')"></div>
+<div class="node" id="southafrica" onclick="openNode('South Africa Core')"></div>
+
+<!-- LABELS -->
+<div class="node-label" style="top:33%;left:48%;">Ceuta</div>
+<div class="node-label" style="top:36%;left:46%;">Morocco</div>
+<div class="node-label" style="top:47%;left:54%;">Algeria</div>
+<div class="node-label" style="top:57%;left:50%;">Sahara</div>
+<div class="node-label" style="top:72%;left:57%;">Nigeria</div>
+<div class="node-label" style="top:87%;left:62%;">South Africa</div>
 
 <!-- PANEL -->
 <div class="panel" id="panel">
-<h3 style="color:#4aa3ff;margin-top:0;">Ceuta Node</h3>
-
-Status: <b style="color:#7CFF9B;">ACTIVE</b><br><br>
-
-Intercontinental Bridge: <span class="bridge">ACTIVE</span><br><br>
-
-Connection between Europe and Africa system layers.
-
-<br>
+<h2 id="title">Node</h2>
+<p>Status: <span class="status">ACTIVE</span></p>
+<p>System layer connected.</p>
 <button onclick="closePanel()">Close</button>
 </div>
 
 </div>
 
 <script>
-function openPanel(){
-document.getElementById("panel").classList.add("active");
+function openNode(name){
+document.getElementById("panel").style.display="block";
+document.getElementById("title").innerText=name;
 }
 
 function closePanel(){
-document.getElementById("panel").classList.remove("active");
+document.getElementById("panel").style.display="none";
 }
 </script>
 
