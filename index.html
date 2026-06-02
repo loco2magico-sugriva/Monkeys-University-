@@ -23,33 +23,39 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:9999;
-animation:fadeOut 1s ease 4s forwards;
+animation:fadeOut 1s ease 4.5s forwards;
 text-align:center;
 }
 
 .intro h1{
-font-size:64px;
-letter-spacing:10px;
+font-size:58px;
+letter-spacing:8px;
 margin:0;
 opacity:0;
 animation:fadeIn 1s ease forwards;
 text-transform:uppercase;
-color:#ffffff;
+color:#fff;
 }
 
 .intro p{
 margin-top:10px;
 opacity:0;
 color:#aaa;
-font-size:12px;
+font-size:13px;
 text-transform:uppercase;
 animation:fadeIn 1s ease 1s forwards;
+}
+
+.intro p.small{
+font-size:11px;
+color:#666;
+animation:fadeIn 1s ease 2s forwards;
 }
 
 /* ===== MAIN ===== */
 main{
 opacity:0;
-animation:show 1s ease 4.2s forwards;
+animation:show 1s ease 4.6s forwards;
 }
 
 /* ===== HEADER ===== */
@@ -136,12 +142,13 @@ to{opacity:1;}
 
 <!-- ===== INTRO ===== -->
 <div class="intro">
-  <h1>G-WORLD PRESENTS</h1>
+  <h1>THE WORLD OF G-ROCK</h1>
+  <p>PRESENTS</p>
   <p>MONKEYS UNIVERSITY OF GIBRALTAR</p>
-  <p>POWERED BY G-SYSTEM</p>
+  <p class="small">POWERED BY G-SYSTEM</p>
 </div>
 
-<!-- ===== MAIN ===== -->
+<!-- ===== MAIN CONTENT ===== -->
 <main>
 
 <header>
