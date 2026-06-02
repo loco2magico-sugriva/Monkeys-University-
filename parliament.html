@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-Rock State • Parliament</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#070A10;
+color:#E6E6E6;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px;
+background:#0b0f18;
+border-bottom:1px solid #1f2a3a;
+}
+
+header a{
+color:#aaa;
+text-decoration:none;
+margin-left:12px;
+font-size:12px;
+}
+
+header a:hover{
+color:#4aa3ff;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:60px 20px;
+}
+
+.hero h1{
+font-size:44px;
+letter-spacing:3px;
+margin:0;
+}
+
+.hero p{
+opacity:0.7;
+margin-top:10px;
+}
+
+/* PANEL */
+.panel{
+max-width:900px;
+margin:40px auto;
+padding:25px;
+background:#0f1626;
+border:1px solid #1f2a3a;
+border-radius:12px;
+}
+
+.tag{
+display:inline-block;
+padding:4px 10px;
+border:1px solid #4aa3ff;
+color:#4aa3ff;
+font-size:12px;
+border-radius:6px;
+margin-bottom:10px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:16px;
+max-width:900px;
+margin:40px auto;
+padding:0 20px;
+}
+
+.card{
+background:#111827;
+border:1px solid #1f2a3a;
+border-radius:12px;
+padding:20px;
+transition:0.2s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+border-color:#4aa3ff;
+}
+
+.card h3{
+color:#4aa3ff;
+margin-top:0;
+}
+
+.vote{
+margin-top:10px;
+font-size:13px;
+opacity:0.8;
+}
+
+footer{
+text-align:center;
+padding:40px;
+opacity:0.5;
+font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div><b>PARLIAMENT OF MONKEYS</b></div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="bank.html">Bank</a>
+<a href="university.html">University</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>PARLIAMENT</h1>
+<p>G-Rock State Legislative System</p>
+</section>
+
+<div class="panel">
+
+<span class="tag">GOVERNANCE CORE</span>
+
+<h2>System Structure</h2>
+<p>
+Parliament is the central decision-making body of G-Rock State.
+All laws, economic rules and institutional changes are validated here.
+</p>
+
+</div>
+
+<section class="grid">
+
+<div class="card">
+<h3>Professor Sugriva</h3>
+<p>Chairman of Parliament</p>
+<div class="vote">Final authority over legislative direction</div>
+</div>
+
+<div class="card">
+<h3>Wojtek Bear</h3>
+<p>Veto System</p>
+<div class="vote">Can override decisions via G-System validation layer</div>
+</div>
+
+<div class="card">
+<h3>Voting System</h3>
+<p>Delegated Representatives</p>
+<div class="vote">Decisions processed through structured consensus logic</div>
+</div>
+
+</section>
+
+<footer>
+Parliament of Monkeys • Governance Layer Active
+</footer>
+
+</body>
+</html>
