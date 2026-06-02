@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Africa Map — Ceuta System</title>
+<title>Africa Map System</title>
 
 <style>
 body{
@@ -24,12 +24,12 @@ border-bottom:1px solid #1f2a3a;
 
 h1{
 margin:0;
-font-size:20px;
+font-size:18px;
 color:#4aa3ff;
 letter-spacing:2px;
 }
 
-/* MAP CONTAINER */
+/* MAP AREA */
 .map{
 position:relative;
 width:100%;
@@ -37,109 +37,61 @@ height:calc(100vh - 60px);
 display:flex;
 justify-content:center;
 align-items:center;
+background:radial-gradient(circle at center,#0f1626 0%,#070A10 70%);
 }
 
-/* AFRICA SHAPE (stylized, not image) */
-.africa{
-position:relative;
+/* AFRICA OUTLINE (SVG STYLIZED) */
+svg{
 width:420px;
 height:520px;
-background:linear-gradient(180deg,#0f1626,#070A10);
-clip-path: polygon(
-50% 0%,
-75% 10%,
-85% 25%,
-80% 45%,
-90% 60%,
-75% 85%,
-55% 100%,
-35% 90%,
-25% 70%,
-20% 50%,
-25% 30%,
-35% 10%
-);
-border:2px solid #1f2a3a;
-box-shadow:0 0 40px rgba(74,163,255,0.1);
+opacity:0.25;
 }
 
-/* NODE POINTS */
+/* NODES */
 .node{
 position:absolute;
-width:10px;
-height:10px;
+width:12px;
+height:12px;
+border-radius:50%;
 background:#4aa3ff;
 border:2px solid white;
-border-radius:50%;
+box-shadow:0 0 12px rgba(74,163,255,0.6);
 cursor:pointer;
-box-shadow:0 0 10px rgba(74,163,255,0.6);
 transition:0.2s;
 }
 
 .node:hover{
-transform:scale(1.6);
+transform:scale(1.8);
 }
 
-/* LABEL */
+/* LABELS */
 .label{
 position:absolute;
 font-size:11px;
 color:#4aa3ff;
-white-space:nowrap;
 }
 
 /* CEUTA */
-#ceuta{
-top:18%;
-left:52%;
-}
+#ceuta{top:28%;left:49%;}
+#ceutaL{top:26%;left:52%;}
 
-#ceuta-label{
-top:16%;
-left:55%;
-}
+/* MOROCCO */
+#morocco{top:35%;left:45%;}
+#moroccoL{top:33%;left:48%;}
 
-/* NORTH AFRICA HUB */
-#morocco{
-top:25%;
-left:45%;
-}
+/* CANARY ISLANDS */
+#canary{top:42%;left:38%;}
+#canaryL{top:40%;left:41%;}
 
-#morocco-label{
-top:23%;
-left:48%;
-}
-
-/* SAHARA CORE */
-#sahara{
-top:40%;
-left:55%;
-}
-
-#sahara-label{
-top:38%;
-left:58%;
-}
-
-/* SOUTH NODE */
-#south{
-top:70%;
-left:50%;
-}
-
-#south-label{
-top:68%;
-left:53%;
-}
-
+/* PANEL */
 .panel{
 position:absolute;
 bottom:20px;
 left:20px;
 background:#111827;
+border:1px solid #1f2a3a;
 padding:14px;
 border-radius:10px;
-border:1px solid #1f2a3a;
 opacity:0;
 transform:translateY(10px);
 transition:0.3s;
@@ -170,30 +122,36 @@ color:white;
 <body>
 
 <header>
-<h1>AFRICA MAP — CEUTA SYSTEM NODE</h1>
+<h1>AFRICA MAP SYSTEM</h1>
 </header>
 
 <div class="map">
 
-<div class="africa">
+<!-- SIMPLE AFRICA OUTLINE -->
+<svg viewBox="0 0 200 260">
+<path d="M90,10 
+C120,20 140,40 150,70
+C160,110 140,150 150,180
+C160,220 120,250 90,250
+C60,240 40,220 35,180
+C30,140 40,110 30,80
+C25,50 50,20 90,10Z"
+fill="#4aa3ff"/>
+</svg>
 
 <!-- NODES -->
-<div id="ceuta" class="node" onclick="openPanel('Ceuta Intercontinental Bridge')"></div>
-<div id="ceuta-label" class="label">Ceuta Bridge</div>
+<div id="ceuta" class="node" onclick="openPanel('Ceuta Node')"></div>
+<div id="ceutaL" class="label">Ceuta</div>
 
 <div id="morocco" class="node" onclick="openPanel('Morocco Node')"></div>
-<div id="morocco-label" class="label">Morocco Hub</div>
+<div id="moroccoL" class="label">Morocco</div>
 
-<div id="sahara" class="node" onclick="openPanel('Sahara Core')"></div>
-<div id="sahara-label" class="label">Sahara Core</div>
+<div id="canary" class="node" onclick="openPanel('Canary Islands Node')"></div>
+<div id="canaryL" class="label">Canary Islands</div>
 
-<div id="south" class="node" onclick="openPanel('Southern Expansion')"></div>
-<div id="south-label" class="label">South Node</div>
-
-</div>
-
+<!-- PANEL -->
 <div class="panel" id="panel">
-<h3 id="title" style="color:#4aa3ff;margin:0;">Node</h3>
+<h3 id="title" style="margin:0;color:#4aa3ff;">Node</h3>
 <p>Status: ACTIVE</p>
 <button onclick="closePanel()">Close</button>
 </div>
@@ -212,4 +170,4 @@ document.getElementById("panel").classList.remove("active");
 </script>
 
 </body>
-  </html>
+</html>
