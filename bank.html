@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock State • Bank of Monkeys</title>
+<title>Bank of the Monkeys from Gibraltar</title>
 
 <style>
 body{
@@ -14,92 +14,57 @@ color:#E6E6E6;
 }
 
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px;
+padding:25px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
-}
-
-header a{
-color:#aaa;
-text-decoration:none;
-margin-left:12px;
-font-size:12px;
-}
-
-header a:hover{
-color:#4aa3ff;
-}
-
-.hero{
 text-align:center;
-padding:60px 20px;
 }
 
-.hero h1{
-font-size:44px;
-letter-spacing:3px;
+header h1{
 margin:0;
-}
-
-.hero p{
-opacity:0.7;
-margin-top:10px;
-}
-
-/* MAIN PANEL */
-.panel{
-max-width:900px;
-margin:40px auto;
-padding:25px;
-background:#0f1626;
-border:1px solid #1f2a3a;
-border-radius:12px;
-}
-
-.currency{
-text-align:center;
-padding:30px;
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:12px;
-margin-top:20px;
-}
-
-.currency h2{
-margin:0;
-font-size:34px;
+font-size:28px;
 color:#4aa3ff;
+letter-spacing:2px;
 }
 
-.currency span{
-opacity:0.7;
-font-size:13px;
-}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:16px;
-max-width:900px;
+.container{
+max-width:1100px;
 margin:40px auto;
-padding:0 20px;
+padding:20px;
 }
 
-.card{
+.block{
 background:#111827;
 border:1px solid #1f2a3a;
 border-radius:12px;
 padding:20px;
-transition:0.2s;
+margin-bottom:20px;
 }
 
-.card:hover{
-transform:translateY(-6px);
-border-color:#4aa3ff;
+.block h2{
+color:#4aa3ff;
+margin-top:0;
+}
+
+.node{
+background:#0f1626;
+border-left:3px solid #4aa3ff;
+padding:12px;
+margin:10px 0;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:15px;
+margin-top:15px;
+}
+
+.card{
+background:#0f1626;
+border:1px solid #1f2a3a;
+border-radius:10px;
+padding:15px;
 }
 
 .card h3{
@@ -107,65 +72,148 @@ color:#4aa3ff;
 margin-top:0;
 }
 
-footer{
-text-align:center;
-padding:40px;
-opacity:0.5;
-font-size:12px;
+.log{
+font-family:monospace;
+background:#0a0f18;
+padding:15px;
+border-radius:8px;
+border:1px solid #1f2a3a;
+white-space:pre-line;
 }
 </style>
+
 </head>
 
 <body>
 
 <header>
-<div><b>BANK OF MONKEYS</b></div>
-
-<nav>
-<a href="index.html">Home</a>
-<a href="university.html">University</a>
-<a href="parliament.html">Parliament</a>
-</nav>
+<h1>Bank of the Monkeys from Gibraltar</h1>
 </header>
 
-<section class="hero">
-<h1>MONKEY CENTRAL BANK</h1>
-<p>Financial Core of G-Rock State</p>
-</section>
+<div class="container">
 
-<div class="panel">
+<!-- OVERVIEW -->
+<div class="block">
+<h2>Overview</h2>
+<p>
+The Bank of the Monkeys from Gibraltar is the central financial authority of the G-Rock State system.
+It operates as a sovereign monetary engine fully integrated with the G-System ledger architecture.
+</p>
+</div>
 
-<h2>Official Currency</h2>
+<!-- LEADERSHIP -->
+<div class="block">
+<h2>Leadership Structure</h2>
 
-<div class="currency">
-<h2>Monkey Pound (MP£)</h2>
-<span>Primary currency of G-Rock State economy system</span>
+<div class="node">
+Professor Sugriva — Head of the Bank<br>
+Primary financial authority and system-wide monetary controller.
+</div>
+
+<div class="node">
+G-System Financial Core — Automated Ledger Intelligence Layer<br>
+Processes all transactions and maintains system stability.
 </div>
 
 </div>
 
-<section class="grid">
+<!-- CURRENCY -->
+<div class="block">
+<h2>Currency System</h2>
+
+<div class="node">
+Official Currency: Monkey Pound (MP£)
+</div>
+
+<div class="node">
+Fixed Exchange Rate: 1 MP£ = 1 GBP (£)<br>
+Pegged currency stability model (no floating exchange rate).
+</div>
+
+<div class="node">
+Monetary System: G-System Distributed Ledger
+</div>
+
+</div>
+
+<!-- DIVISIONS -->
+<div class="block">
+<h2>Bank Divisions</h2>
+
+<div class="grid">
 
 <div class="card">
-<h3>Monetary System</h3>
-<p>Controls inflation and economic stability of G-Rock State.</p>
+<h3>Central Banking Core</h3>
+<p>
+Controls monetary policy, liquidity flow, and system stability.
+</p>
 </div>
 
 <div class="card">
-<h3>Digital Ledger</h3>
-<p>All transactions recorded inside G-System architecture.</p>
+<h3>G-System Ledger Division</h3>
+<p>
+Records all transactions across Parliament, University, and Ceuta nodes.
+</p>
 </div>
 
 <div class="card">
-<h3>Institution Support</h3>
-<p>University, Parliament and Campus systems use MP£.</p>
+<h3>International Bridge Finance Unit</h3>
+<p>
+Handles cross-continent flow between Gibraltar and Africa (Ceuta system).
+</p>
 </div>
 
-</section>
+<div class="card">
+<h3>Stability & Risk Control Unit</h3>
+<p>
+Monitors inflation, economic anomalies, and system imbalances.
+</p>
+</div>
 
-<footer>
-Bank of Monkeys • Monkey Pound Active
-</footer>
+</div>
+
+</div>
+
+<!-- OPERATIONS -->
+<div class="block">
+<h2>Operations</h2>
+
+<ul>
+<li>Digital currency issuance (MP£)</li>
+<li>Institutional funding (University / Parliament)</li>
+<li>Cross-border economic synchronization</li>
+<li>System-wide ledger validation</li>
+<li>Stability enforcement protocols</li>
+</ul>
+
+</div>
+
+<!-- SYSTEM LOG -->
+<div class="block">
+<h2>System Activity Log</h2>
+
+<div class="log">
+INIT → Financial system activated
+SYNC → Connected to G-System global ledger
+PEG → MP£ fixed to GBP 1:1 rate
+CONTROL → Sugriva authority confirmed
+STABLE → Economic system balanced state achieved
+</div>
+
+</div>
+
+<!-- ROLE -->
+<div class="block">
+<h2>System Role</h2>
+
+<p>
+The bank functions as the economic backbone of the G-Rock State,
+ensuring full synchronization between academic, political, and territorial systems.
+</p>
+
+</div>
+
+</div>
 
 </body>
   </html>
