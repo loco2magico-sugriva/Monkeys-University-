@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock State</title>
+<title>G-Rock System</title>
 
 <style>
 body{
@@ -15,7 +15,7 @@ overflow:hidden;
 }
 
 /* ===== INTRO ===== */
-.intro{
+#intro{
 position:fixed;
 inset:0;
 background:#000;
@@ -28,114 +28,22 @@ text-align:center;
 animation:fadeOut 3.5s ease 3.5s forwards;
 }
 
-.intro h1{
-font-size:58px;
-letter-spacing:6px;
-margin:0;
+#intro h1{
+font-size:52px;
+letter-spacing:4px;
 opacity:0;
 animation:fadeIn 1s ease forwards;
 }
 
-.intro h2{
-font-size:34px;
-margin:15px 0 0;
-opacity:0;
-animation:fadeIn 1s ease 0.8s forwards;
-font-weight:normal;
-}
-
-.intro p{
-font-size:14px;
-margin-top:15px;
-opacity:0;
-color:#aaa;
-text-transform:uppercase;
-animation:fadeIn 1s ease 1.6s forwards;
-}
-
-/* ===== MAIN ===== */
-main{
-opacity:0;
-animation:show 1s ease 3.9s forwards;
-overflow:auto;
-height:100vh;
-}
-
-/* ===== HEADER ===== */
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px;
-background:#0b0f18;
-border-bottom:1px solid #1f2a3a;
-}
-
-header b{
-letter-spacing:2px;
-}
-
-/* LANG SWITCH */
-.lang a{
-margin-left:10px;
-color:#aaa;
-text-decoration:none;
-font-size:12px;
-cursor:pointer;
-}
-
-.lang a:hover{
-color:#4aa3ff;
-}
-
-/* ===== HERO ===== */
-.hero{
-text-align:center;
-padding:50px 20px;
-}
-
-.hero h1{
-font-size:42px;
-margin:0;
-letter-spacing:3px;
-}
-
-.hero p{
-opacity:0.7;
+#intro h2{
+font-size:28px;
 margin-top:10px;
+opacity:0;
+animation:fadeIn 1s ease 1s forwards;
+font-weight:normal;
+color:#aaa;
 }
 
-/* ===== GRID ===== */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:16px;
-max-width:1000px;
-margin:40px auto;
-padding:0 20px;
-}
-
-.card{
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:12px;
-padding:22px;
-cursor:pointer;
-transition:0.2s;
-text-align:center;
-}
-
-.card:hover{
-transform:translateY(-6px);
-border-color:#4aa3ff;
-}
-
-.card h3{
-color:#4aa3ff;
-margin:0 0 10px;
-}
-
-/* ===== ANIMATIONS ===== */
 @keyframes fadeIn{
 from{opacity:0; transform:translateY(10px);}
 to{opacity:1; transform:translateY(0);}
@@ -145,135 +53,233 @@ to{opacity:1; transform:translateY(0);}
 to{opacity:0; visibility:hidden; pointer-events:none;}
 }
 
-@keyframes show{
-from{opacity:0;}
-to{opacity:1;}
+/* ===== HEADER ===== */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px;
+background:#0b0f18;
+border-bottom:1px solid #1f2a3a;
 }
 
-/* ===== FOOTER ===== */
-footer{
+nav button{
+background:#111827;
+border:1px solid #1f2a3a;
+color:#aaa;
+padding:6px 10px;
+margin-left:6px;
+border-radius:6px;
+cursor:pointer;
+}
+
+nav button:hover{
+color:#4aa3ff;
+border-color:#4aa3ff;
+}
+
+/* ===== VIEWS ===== */
+.view{
+display:none;
+height:calc(100vh - 55px);
+padding:15px;
+box-sizing:border-box;
+}
+
+.active{display:block;}
+
+/* MAP */
+.map{
+position:relative;
+height:100%;
+background:radial-gradient(circle,#0f1626,#070A10);
+}
+
+.node{
+position:absolute;
+width:180px;
+padding:12px;
+background:#111827;
+border:1px solid #1f2a3a;
+border-radius:10px;
 text-align:center;
-padding:40px;
-opacity:0.5;
+cursor:pointer;
+}
+
+/* CORE */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.panel{
+background:#111827;
+border:1px solid #1f2a3a;
+border-radius:10px;
+padding:12px;
+}
+
+.badge{
+padding:4px 8px;
+border-radius:6px;
 font-size:12px;
 }
-</style>
 
+.green{background:#0f3d2e;color:#3dff9c;}
+.yellow{background:#3d3410;color:#ffd24a;}
+
+button.action{
+margin-top:8px;
+padding:6px 10px;
+background:#111827;
+border:1px solid #4aa3ff;
+color:#4aa3ff;
+border-radius:6px;
+cursor:pointer;
+}
+
+button.action:hover{
+background:#4aa3ff;
+color:#000;
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- ===== INTRO ===== -->
-<div class="intro">
-  <h1 data-lang="title">THE WORLD OF G-ROCK PRESENTS</h1>
-  <h2 data-lang="subtitle">MONKEYS UNIVERSITY OF GIBRALTAR</h2>
-  <p>POWERED BY G-SYSTEM</p>
+<!-- INTRO -->
+<div id="intro">
+  <h1>G-ROCK STATE</h1>
+  <h2>MONKEYS UNIVERSITY SYSTEM</h2>
 </div>
 
-<!-- ===== MAIN ===== -->
-<main>
+<!-- MAIN APP -->
+<div id="app">
 
 <header>
-  <div><b>G-ROCK STATE</b></div>
+<div><b>G-ROCK SYSTEM</b></div>
 
-  <div class="lang">
-    <a onclick="setLang('en')">EN</a>
-    <a onclick="setLang('es')">ES</a>
-    <a onclick="setLang('fr')">FR</a>
-    <a onclick="setLang('pl')">PL</a>
-  </div>
+<nav>
+<button onclick="show('map')">MAP</button>
+<button onclick="show('core')">CORE</button>
+<button onclick="show('live')">LIVE</button>
+</nav>
 </header>
 
-<section class="hero">
-  <h1 data-lang="title">G-ROCK STATE</h1>
-  <p data-lang="subtitle">Distributed Simulation World System</p>
-</section>
+<!-- MAP -->
+<div id="map" class="view active">
+<div class="map">
 
-<section class="grid">
+<div class="node" style="top:20%;left:15%;" onclick="eventNode('University')">University</div>
+<div class="node" style="top:60%;left:15%;" onclick="eventNode('Bank')">Bank</div>
+<div class="node" style="top:40%;left:45%;" onclick="eventNode('Parliament')">Parliament</div>
+<div class="node" style="top:70%;left:75%;" onclick="eventNode('Ceuta')">Ceuta</div>
 
-  <div class="card" onclick="location.href='university.html'">
-    <h3 data-lang="uni">Monkeys University of Gibraltar</h3>
-    <p>Academic Core System</p>
-  </div>
+</div>
+</div>
 
-  <div class="card" onclick="location.href='bank.html'">
-    <h3 data-lang="bank">Bank of the Monkeys from Gibraltar</h3>
-    <p>MP£ Monetary System</p>
-  </div>
+<!-- CORE -->
+<div id="core" class="view">
+<div class="grid">
 
-  <div class="card" onclick="location.href='parliament.html'">
-    <h3 data-lang="parliament">Parliament of the Monkeys from Gibraltar</h3>
-    <p>Governance Layer</p>
-  </div>
+<div class="panel">
+<h3>Economy</h3>
+Status: <span id="eco" class="badge green">STABLE</span>
+<br>
+<button class="action" onclick="shock()">Shock</button>
+</div>
 
-  <div class="card" onclick="location.href='episode1.html'">
-    <h3 data-lang="episode">Episode 1</h3>
-    <p>Foundational History Layer</p>
-  </div>
+<div class="panel">
+<h3>Governance</h3>
+Status: <span id="gov" class="badge green">STABLE</span>
+<br>
+<button class="action" onclick="crisis()">Crisis</button>
+</div>
 
-  <div class="card" onclick="location.href='ceuta.html'">
-    <h3>Campus de Ceuta</h3>
-    <p>Africa Expansion Node • Intercontinental Bridge System</p>
-  </div>
+<div class="panel">
+<h3>Academia</h3>
+Status: <span id="uni" class="badge green">STABLE</span>
+<br>
+<button class="action" onclick="boost()">Boost</button>
+</div>
 
-  <div class="card" onclick="location.href='episode_sugriva_professor.html'">
-    <h3>Episode — Academic Recognition</h3>
-    <p>Professor Sugriva • ESL & Bath Spa University Validation</p>
-  </div>
+<div class="panel">
+<h3>Core</h3>
+Integrity: <span id="coreVal">100</span>%
+</div>
 
-</section>
+</div>
+</div>
 
-<footer>
-G-Rock State • Powered by G-System
-</footer>
+<!-- LIVE -->
+<div id="live" class="view">
+<div class="panel">
+<h2>LIVE LOG</h2>
+<div id="log"></div>
+</div>
+</div>
 
-</main>
+</div>
 
 <script>
-const translations = {
-  en: {
-    title: "G-ROCK STATE",
-    subtitle: "Distributed Simulation World System",
-    uni: "Monkeys University of Gibraltar",
-    bank: "Bank of the Monkeys from Gibraltar",
-    parliament: "Parliament of the Monkeys from Gibraltar",
-    episode: "Episode 1"
-  },
-  es: {
-    title: "ESTADO G-ROCK",
-    subtitle: "Sistema de simulación distribuida",
-    uni: "Universidad de Monos de Gibraltar",
-    bank: "Banco de los Monos de Gibraltar",
-    parliament: "Parlamento de los Monos de Gibraltar",
-    episode: "Episodio 1"
-  },
-  fr: {
-    title: "ÉTAT G-ROCK",
-    subtitle: "Système de simulation distribué",
-    uni: "Université des Singes de Gibraltar",
-    bank: "Banque des Singes de Gibraltar",
-    parliament: "Parlement des Singes de Gibraltar",
-    episode: "Épisode 1"
-  },
-  pl: {
-    title: "PAŃSTWO G-ROCK",
-    subtitle: "Rozproszony system symulacyjny",
-    uni: "Uniwersytet Małp z Gibraltaru",
-    bank: "Bank Małp z Gibraltaru",
-    parliament: "Parlament Małp z Gibraltaru",
-    episode: "Epizod 1"
-  }
+
+let state = {
+ eco:"STABLE",
+ gov:"STABLE",
+ uni:"STABLE",
+ core:100
 };
 
-function setLang(lang){
-  document.querySelectorAll("[data-lang]").forEach(el=>{
-    const key = el.getAttribute("data-lang");
-    if(translations[lang][key]){
-      el.textContent = translations[lang][key];
-    }
-  });
+function show(v){
+document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+document.getElementById(v).classList.add('active');
 }
+
+function log(msg){
+document.getElementById("log").innerHTML += "> " + msg + "<br>";
+}
+
+function update(){
+document.getElementById("eco").innerText = state.eco;
+document.getElementById("gov").innerText = state.gov;
+document.getElementById("uni").innerText = state.uni;
+document.getElementById("coreVal").innerText = state.core;
+}
+
+/* EVENTS */
+function shock(){
+state.eco="VOLATILE";
+state.core-=10;
+update(); log("Economy shock");
+}
+
+function crisis(){
+state.gov="UNSTABLE";
+state.core-=15;
+update(); log("Crisis triggered");
+}
+
+function boost(){
+state.uni="OVERACTIVE";
+state.core+=5;
+update(); log("Research boost");
+}
+
+function eventNode(n){
+log("Node: "+n);
+update();
+}
+
+/* INTRO REMOVE */
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+},3500);
+
+update();
+
 </script>
 
 </body>
-  </html>
+          </html>
