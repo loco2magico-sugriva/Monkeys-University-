@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock World</title>
+<title>G-Rock State</title>
 
 <style>
 body{
@@ -11,69 +11,17 @@ margin:0;
 font-family:Arial,sans-serif;
 background:#070A10;
 color:#E6E6E6;
-overflow:hidden;
 }
 
-/* ===== INTRO ===== */
-.intro{
-position:fixed;
-inset:0;
-background:#000;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
-text-align:center;
-animation:fadeOut 3.8s ease 3.5s forwards;
-}
-
-.intro h1{
-font-size:58px;
-letter-spacing:6px;
-margin:0;
-opacity:0;
-animation:fadeIn 1s ease forwards;
-}
-
-.intro h2{
-font-size:34px;
-margin:15px 0 0;
-opacity:0;
-animation:fadeIn 1s ease 0.8s forwards;
-font-weight:normal;
-}
-
-.intro p{
-font-size:14px;
-margin-top:15px;
-opacity:0;
-color:#aaa;
-text-transform:uppercase;
-animation:fadeIn 1s ease 1.6s forwards;
-}
-
-/* ===== MAIN ===== */
-main{
-opacity:0;
-animation:show 1s ease 3.9s forwards;
-overflow:auto;
-height:100vh;
-}
-
-/* ===== HEADER ===== */
 header{
 display:flex;
 justify-content:space-between;
-align-items:center;
 padding:18px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
-header b{
-letter-spacing:2px;
-}
+header b{color:white;}
 
 .lang a{
 margin-left:10px;
@@ -82,32 +30,10 @@ text-decoration:none;
 font-size:12px;
 }
 
-.lang a:hover{
-color:#4aa3ff;
-}
-
-/* ===== HERO ===== */
-.hero{
-text-align:center;
-padding:50px 20px;
-}
-
-.hero h1{
-font-size:42px;
-margin:0;
-letter-spacing:3px;
-}
-
-.hero p{
-opacity:0.7;
-margin-top:10px;
-}
-
-/* ===== GRID ===== */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:16px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
 max-width:1000px;
 margin:40px auto;
 padding:0 20px;
@@ -115,107 +41,51 @@ padding:0 20px;
 
 .card{
 background:#111827;
-border:1px solid #1f2a3a;
+padding:20px;
 border-radius:12px;
-padding:22px;
+border:1px solid #1f2a3a;
 cursor:pointer;
-transition:0.2s;
 text-align:center;
+transition:0.2s;
 }
 
 .card:hover{
-transform:translateY(-6px);
 border-color:#4aa3ff;
+transform:translateY(-5px);
 }
 
-.card h3{
-color:#4aa3ff;
-margin:0 0 10px;
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-@keyframes fadeOut{
-to{opacity:0; visibility:hidden; pointer-events:none;}
-}
-
-@keyframes show{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-/* ===== FOOTER ===== */
-footer{
-text-align:center;
-padding:40px;
-opacity:0.5;
-font-size:12px;
-}
+h3{color:#4aa3ff;}
 </style>
-
 </head>
 
 <body>
 
-<!-- ===== INTRO ===== -->
-<div class="intro">
-  <h1>THE WORLD OF G-ROCK PRESENTS</h1>
-  <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
-  <p>POWERED BY G-SYSTEM</p>
-</div>
-
-<!-- ===== MAIN ===== -->
-<main>
-
 <header>
-  <div><b>G-ROCK STATE</b></div>
-
-  <div class="lang">
-    <a href="#">EN</a>
-    <a href="#">ES</a>
-    <a href="#">FR</a>
-    <a href="#">PL</a>
-  </div>
+<b>G-ROCK STATE</b>
+<div class="lang">
+<a>EN</a><a>ES</a><a>FR</a><a>PL</a>
+</div>
 </header>
 
-<section class="hero">
-  <h1>G-ROCK STATE</h1>
-  <p>Distributed Simulation World System</p>
-</section>
+<div class="grid">
 
-<section class="grid">
+<div class="card" onclick="location.href='university.html'">
+<h3>Monkeys University of Gibraltar</h3>
+</div>
 
-  <div class="card" onclick="location.href='university.html'">
-    <h3>UNIVERSITY</h3>
-    <p>4 faculties: Humanities, Economics, Tech, Warfare History</p>
-  </div>
+<div class="card" onclick="location.href='bank.html'">
+<h3>Bank of the Monkeys from Gibraltar</h3>
+</div>
 
-  <div class="card" onclick="location.href='bank.html'">
-    <h3>BANK</h3>
-    <p>Monkey Pound (MP£) financial system</p>
-  </div>
+<div class="card" onclick="location.href='parliament.html'">
+<h3>Parliament of the Monkeys from Gibraltar</h3>
+</div>
 
-  <div class="card" onclick="location.href='parliament.html'">
-    <h3>PARLIAMENT</h3>
-    <p>Sugriva (Chairman) + Wojtek Bear (Veto Power)</p>
-  </div>
+<div class="card" onclick="location.href='episode1.html'">
+<h3>Episode 1</h3>
+</div>
 
-  <div class="card" onclick="location.href='ceuta.html'">
-    <h3>CAMPUS DE CEUTA</h3>
-    <p>Intercontinental academic bridge node</p>
-  </div>
-
-</section>
-
-<footer>
-G-Rock World • Powered by G-System
-</footer>
-
-</main>
+</div>
 
 </body>
 </html>
