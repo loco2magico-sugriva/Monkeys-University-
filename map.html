@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock State • World Map</title>
+<title>G-Rock World Map</title>
 
 <style>
 body{
@@ -11,140 +11,136 @@ margin:0;
 font-family:Arial,sans-serif;
 background:#070A10;
 color:#E6E6E6;
+overflow:hidden;
 }
 
+/* HEADER */
 header{
+padding:18px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
+}
+
+header b{
+letter-spacing:2px;
 }
 
 header a{
 color:#aaa;
 text-decoration:none;
-margin-left:12px;
 font-size:12px;
+margin-left:10px;
 }
 
 header a:hover{
 color:#4aa3ff;
 }
 
-/* HERO */
-.hero{
-text-align:center;
-padding:60px 20px;
+/* MAP AREA */
+.map{
+position:relative;
+width:100%;
+height:calc(100vh - 60px);
+background:
+radial-gradient(circle at center, #0f1626 0%, #070A10 70%);
+overflow:hidden;
 }
 
-.hero h1{
-font-size:46px;
-letter-spacing:4px;
-margin:0;
-}
-
-.hero p{
-opacity:0.7;
-margin-top:10px;
-}
-
-/* WORLD GRID */
-.world{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:18px;
-max-width:1000px;
-margin:40px auto;
-padding:0 20px;
-}
-
+/* NODE */
 .node{
+position:absolute;
+width:200px;
+padding:15px;
 background:#111827;
 border:1px solid #1f2a3a;
 border-radius:12px;
-padding:22px;
+text-align:center;
 cursor:pointer;
 transition:0.2s;
-text-align:center;
 }
 
 .node:hover{
-transform:translateY(-6px);
+transform:scale(1.05);
 border-color:#4aa3ff;
-box-shadow:0 0 15px rgba(74,163,255,0.25);
+box-shadow:0 0 20px rgba(74,163,255,0.2);
 }
 
 .node h3{
-color:#4aa3ff;
-margin:0 0 10px;
-}
-
-/* CORE NODE */
-.core{
-max-width:900px;
-margin:40px auto;
-padding:25px;
-background:#0f1626;
-border:1px solid #1f2a3a;
-border-radius:12px;
-text-align:center;
-}
-
-.core h2{
 margin:0;
-font-size:28px;
 color:#4aa3ff;
+font-size:14px;
 }
 
-.core p{
-opacity:0.7;
-margin-top:10px;
-}
-
-footer{
-text-align:center;
-padding:40px;
-opacity:0.5;
+.node p{
 font-size:12px;
+opacity:0.7;
+margin-top:6px;
 }
+
+/* CONNECTION LINES (visual only) */
+.line{
+position:absolute;
+height:2px;
+background:#1f2a3a;
+opacity:0.6;
+}
+
+/* POSITIONS */
+#uni{top:20%;left:20%;}
+#bank{top:60%;left:20%;}
+#parl{top:40%;left:50%;}
+#ceuta{top:70%;left:75%;}
+#epi{top:20%;left:70%;}
 </style>
+
 </head>
 
 <body>
 
 <header>
 <div><b>G-ROCK WORLD MAP</b></div>
-
-<nav>
-<a href="index.html">Home</a>
-<a href="bank.html">Bank</a>
-<a href="parliament.html">Parliament</a>
-<a href="university.html">University</a>
-</nav>
+<div>
+<a href="index.html">Dashboard</a>
+</div>
 </header>
 
-<section class="hero">
-<h1>WORLD MAP</h1>
-<p>G-Rock State Distributed System Overview</p>
-</section>
+<div class="map">
 
-<div class="core">
-<h2>G-Rock State Core Network</h2>
-<p>All institutions are interconnected through the G-System architecture layer.</p>
+<!-- LINES (visual connections) -->
+<div class="line" style="top:30%;left:25%;width:25%;transform:rotate(20deg);"></div>
+<div class="line" style="top:50%;left:25%;width:30%;transform:rotate(-10deg);"></div>
+<div class="line" style="top:45%;left:55%;width:30%;transform:rotate(25deg);"></div>
+
+<!-- NODES -->
+<div class="node" id="uni" onclick="location.href='university.html'">
+<h3>Monkeys University</h3>
+<p>Academic Core System</p>
 </div>
 
-<section class="world">
-
-<div class="node" onclick="location.href='gibraltar.html'">
-<h3>GIBRALTAR CORE</h3>
-<p>Main system processing node</p>
+<div class="node" id="bank" onclick="location.href='bank.html'">
+<h3>Bank of Monkeys</h3>
+<p>Economic Layer (MP£)</p>
 </div>
 
-<div class="node" onclick="location.href='ceuta.html'">
-<h3>CEUTA BRIDGE</h3>
-<p>Intercontinental transfer layer</p>
+<div class="node" id="parl" onclick="location.href='parliament.html'">
+<h3>Parliament</h3>
+<p>Governance System</p>
 </div>
 
-<div class="node" onclick="location
+<div class="node" id="ceuta" onclick="location.href='ceuta.html'">
+<h3>Campus de Ceuta</h3>
+<p>Africa Expansion Node</p>
+</div>
+
+<div class="node" id="epi" onclick="location.href='episode_sugriva_professor.html'">
+<h3>Episode</h3>
+<p>Academic Recognition Event</p>
+</div>
+
+</div>
+
+</body>
+</html>
