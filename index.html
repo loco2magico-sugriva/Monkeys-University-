@@ -18,20 +18,22 @@ overflow:hidden;
 .intro{
 position:fixed;
 inset:0;
-background:#000;
+background:radial-gradient(circle,#000,#05070d);
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:9999;
 text-align:center;
-animation:fadeOut 3.5s ease 3.5s forwards;
+animation:fadeOut 3.8s ease 3.8s forwards;
 }
 
 .intro h1{
-font-size:52px;
-letter-spacing:5px;
+font-size:64px;
+letter-spacing:6px;
 margin:0;
+color:#4aa3ff;
+text-shadow:0 0 20px rgba(74,163,255,0.4);
 opacity:0;
 animation:fadeIn 1s ease forwards;
 }
@@ -39,7 +41,7 @@ animation:fadeIn 1s ease forwards;
 .intro h2{
 font-size:28px;
 margin-top:10px;
-color:#aaa;
+color:#ddd;
 opacity:0;
 animation:fadeIn 1s ease 0.8s forwards;
 font-weight:normal;
@@ -48,9 +50,10 @@ font-weight:normal;
 .intro p{
 font-size:14px;
 margin-top:10px;
-color:#777;
+color:#888;
 opacity:0;
 animation:fadeIn 1s ease 1.6s forwards;
+letter-spacing:1px;
 }
 
 @keyframes fadeIn{
@@ -65,7 +68,7 @@ to{opacity:0; visibility:hidden; pointer-events:none;}
 /* ===== MAIN ===== */
 main{
 opacity:0;
-animation:show 1s ease 4s forwards;
+animation:show 1s ease 4.2s forwards;
 height:100vh;
 overflow:auto;
 }
@@ -75,7 +78,7 @@ from{opacity:0;}
 to{opacity:1;}
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 header{
 display:flex;
 justify-content:space-between;
@@ -88,14 +91,19 @@ header b{
 color:white;
 }
 
+/* LANG */
 .lang a{
 margin-left:10px;
 color:#aaa;
-text-decoration:none;
 font-size:12px;
+cursor:pointer;
 }
 
-/* ===== GRID ===== */
+.lang a:hover{
+color:#4aa3ff;
+}
+
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -127,7 +135,7 @@ h3{color:#4aa3ff;}
 
 <body>
 
-<!-- INTRO -->
+<!-- ================= INTRO ================= -->
 <div class="intro">
   <h1>G-ROCK STATE</h1>
   <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
@@ -135,17 +143,17 @@ h3{color:#4aa3ff;}
   <p>POWERED BY G-SYSTEM</p>
 </div>
 
-<!-- MAIN -->
+<!-- ================= MAIN ================= -->
 <main>
 
 <header>
 <b>G-ROCK STATE</b>
 
 <div class="lang">
-<a>EN</a>
-<a>ES</a>
-<a>FR</a>
-<a>PL</a>
+<a onclick="setLang('en')">EN</a>
+<a onclick="setLang('pl')">PL</a>
+<a onclick="setLang('es')">ES</a>
+<a onclick="setLang('fr')">FR</a>
 </div>
 
 </header>
@@ -153,24 +161,79 @@ h3{color:#4aa3ff;}
 <div class="grid">
 
 <div class="card" onclick="location.href='university.html'">
-<h3>Monkeys University of Gibraltar</h3>
+<h3 id="t1">Monkeys University of Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='bank.html'">
-<h3>Bank of the Monkeys from Gibraltar</h3>
+<h3 id="t2">Bank of the Monkeys from Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='parliament.html'">
-<h3>Parliament of the Monkeys from Gibraltar</h3>
+<h3 id="t3">Parliament of the Monkeys from Gibraltar</h3>
 </div>
 
 <div class="card" onclick="location.href='episode1.html'">
-<h3>Episode 1</h3>
+<h3 id="t4">Episode 1</h3>
+</div>
+
+<div class="card" onclick="location.href='ceuta.html'">
+<h3 id="t5">Campus de Ceuta</h3>
+</div>
+
+<div class="card" onclick="location.href='bridge.html'">
+<h3 id="t6">Intercontinental Bridge</h3>
 </div>
 
 </div>
 
 </main>
 
+<script>
+
+/* ===== LANGUAGE SYSTEM ===== */
+
+const langData = {
+en:{
+t1:"Monkeys University of Gibraltar",
+t2:"Bank of the Monkeys from Gibraltar",
+t3:"Parliament of the Monkeys from Gibraltar",
+t4:"Episode 1",
+t5:"Campus de Ceuta",
+t6:"Intercontinental Bridge"
+},
+pl:{
+t1:"Uniwersytet Małp Gibraltaru",
+t2:"Bank Małp z Gibraltaru",
+t3:"Parlament Małp Gibraltaru",
+t4:"Odcinek 1",
+t5:"Kampus Ceuta",
+t6:"Most Międzykontynentalny"
+},
+es:{
+t1:"Universidad de los Monos de Gibraltar",
+t2:"Banco de los Monos de Gibraltar",
+t3:"Parlamento de los Monos de Gibraltar",
+t4:"Episodio 1",
+t5:"Campus de Ceuta",
+t6:"Puente Intercontinental"
+},
+fr:{
+t1:"Université des Singes de Gibraltar",
+t2:"Banque des Singes de Gibraltar",
+t3:"Parlement des Singes de Gibraltar",
+t4:"Épisode 1",
+t5:"Campus de Ceuta",
+t6:"Pont Intercontinental"
+}
+};
+
+function setLang(l){
+for(let i=1;i<=6;i++){
+document.getElementById("t"+i).innerText = langData[l]["t"+i];
+}
+}
+
+</script>
+
 </body>
-  </html>
+</html>
