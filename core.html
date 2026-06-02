@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-Rock System Core</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#070A10;
+color:#E6E6E6;
+overflow:hidden;
+}
+
+/* HEADER */
+header{
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0b0f18;
+border-bottom:1px solid #1f2a3a;
+}
+
+header b{
+letter-spacing:2px;
+}
+
+header a{
+color:#aaa;
+text-decoration:none;
+font-size:12px;
+}
+
+header a:hover{
+color:#4aa3ff;
+}
+
+/* LAYOUT */
+.container{
+display:grid;
+grid-template-columns:1fr 1fr;
+grid-template-rows:1fr 1fr;
+height:calc(100vh - 60px);
+gap:15px;
+padding:15px;
+box-sizing:border-box;
+}
+
+/* PANEL */
+.panel{
+background:#111827;
+border:1px solid #1f2a3a;
+border-radius:12px;
+padding:18px;
+overflow:auto;
+}
+
+.panel h2{
+color:#4aa3ff;
+margin-top:0;
+}
+
+/* STATUS BOX */
+.status{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:10px;
+}
+
+.box{
+background:#0f1626;
+border:1px solid #1f2a3a;
+padding:10px;
+border-radius:10px;
+font-size:12px;
+}
+
+/* NODE LIST */
+.node{
+padding:10px;
+border-left:3px solid #4aa3ff;
+margin-bottom:10px;
+background:#0f1626;
+}
+
+/* SYSTEM PULSE */
+.core{
+text-align:center;
+font-size:26px;
+color:#4aa3ff;
+margin-bottom:10px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:0.6;}
+50%{opacity:1;}
+100%{opacity:0.6;}
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div><b>G-ROCK SYSTEM CORE</b></div>
+<div><a href="index.html">Dashboard</a></div>
+</header>
+
+<div class="container">
+
+<!-- STATUS -->
+<div class="panel">
+<h2>System Status</h2>
+
+<div class="core">● ACTIVE</div>
+
+<div class="status">
+<div class="box">G-System: ONLINE</div>
+<div class="box">World State: SYNCHRONIZED</div>
+<div class="box">Economy Layer: STABLE</div>
+<div class="box">Governance: OPERATIONAL</div>
+</div>
+</div>
+
+<!-- INSTITUTIONS -->
+<div class="panel">
+<h2>Institution Nodes</h2>
+
+<div class="node">
+🏛 Monkeys University of Gibraltar — Academic Core
+</div>
+
+<div class="node">
+🏦 Bank of the Monkeys from Gibraltar — Economy Layer
+</div>
+
+<div class="node">
+⚖ Parliament of the Monkeys from Gibraltar — Governance Layer
+</div>
+
+<div class="node">
+🌍 Campus de Ceuta — Africa Expansion Node
+</div>
+
+</div>
+
+<!-- EVENTS -->
+<div class="panel">
+<h2>Recent Events</h2>
+
+<div class="node">
+📜 Episode 1 — System Initialization of G-Rock State
+</div>
+
+<div class="node">
+🎓 Episode — Recognition of Professor Sugriva
+</div>
+
+</div>
+
+<!-- LOGIC -->
+<div class="panel">
+<h2>System Logic</h2>
+
+<p>
+The G-Rock System operates as a distributed simulation architecture.
+All institutions are interconnected nodes within a single governance-economy-academic model.
+</p>
+
+<p>
+Professor Sugriva operates as a cross-layer authority entity spanning Parliament and Academic systems.
+</p>
+
+</div>
+
+</div>
+
+</body>
+  </html>
