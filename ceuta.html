@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ceuta Node — Africa Map</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#05070d;
+color:#e6e6e6;
+overflow:hidden;
+}
+
+/* HEADER */
+header{
+padding:20px;
+text-align:center;
+background:#0b0f18;
+border-bottom:1px solid #1f2a3a;
+}
+
+h1{
+margin:0;
+color:#4aa3ff;
+letter-spacing:3px;
+}
+
+/* MAP */
+.map{
+position:relative;
+width:100%;
+height:calc(100vh - 70px);
+}
+
+.map img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(0.65) contrast(1.1);
+}
+
+/* NODE */
+.node{
+position:absolute;
+top:22%;
+left:48%;
+width:16px;
+height:16px;
+background:#4aa3ff;
+border-radius:50%;
+box-shadow:0 0 25px rgba(74,163,255,0.9);
+cursor:pointer;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.8);}
+100%{transform:scale(1);}
+}
+
+/* PANEL */
+.panel{
+position:absolute;
+bottom:20px;
+left:20px;
+background:#111827;
+border:1px solid #1f2a3a;
+padding:18px;
+border-radius:12px;
+max-width:320px;
+
+opacity:0;
+transform:translateY(20px);
+transition:0.3s;
+pointer-events:none;
+}
+
+.panel.active{
+opacity:1;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+.panel h2{
+color:#4aa3ff;
+margin-top:0;
+}
+
+/* STATUS */
+.status{
+font-family:monospace;
+color:#7CFF9B;
+}
+
+.bridge{
+color:#ffcc66;
+font-weight:bold;
+}
+
+/* BUTTON */
+.close{
+margin-top:10px;
+display:inline-block;
+padding:6px 10px;
+background:#0b0f18;
+border:1px solid #1f2a3a;
+color:#aaa;
+cursor:pointer;
+border-radius:6px;
+}
+
+.close:hover{
+color:#fff;
+border-color:#4aa3ff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>AFRICA MAP — CEUTA NODE</h1>
+</header>
+
+<div class="map">
+
+<!-- AFRICA MAP -->
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Africa_satellite_orthographic.jpg">
+
+<!-- NODE -->
+<div class="node" onclick="openCeuta()"></div>
+
+<!-- PANEL -->
+<div class="panel" id="panel">
+
+<h2>Ceuta Node</h2>
+
+<p class="status">
+STATUS: ACTIVE<br><br>
+Intercontinental Bridge Status: <span class="bridge">ACTIVE</span><br><br>
+Connection between European and African system layers.
+</p>
+
+<div class="close" onclick="closeCeuta()">Close</div>
+
+</div>
+
+</div>
+
+<script>
+
+function openCeuta(){
+document.getElementById("panel").classList.add("active");
+}
+
+function closeCeuta(){
+document.getElementById("panel").classList.remove("active");
+}
+
+</script>
+
+</body>
+</html>
