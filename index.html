@@ -3,62 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-SYSTEM BOOT</title>
+<title>G-ROCK SYSTEM</title>
 
 <style>
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#000;
-color:#E6E6E6;
-overflow:hidden;
-}
-
-/* ===== BOOT SCREEN ===== */
-.boot{
-position:fixed;
-inset:0;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:#000;
-animation:fadeOut 1s ease 5s forwards;
-}
-
-.boot h1{
-font-size:40px;
-letter-spacing:6px;
-opacity:0;
-animation:fadeIn 1s ease forwards;
-}
-
-.boot p{
-margin-top:10px;
-font-size:12px;
-color:#aaa;
-opacity:0;
-animation:fadeIn 1s ease 1s forwards;
-text-transform:uppercase;
-}
-
-/* LOGS */
-.logs{
-margin-top:30px;
-font-size:12px;
-color:#4aa3ff;
-opacity:0;
-animation:fadeIn 1s ease 2s forwards;
-line-height:1.8;
-}
-
-/* ===== MAIN MENU ===== */
-main{
-opacity:0;
-animation:show 1s ease 5.2s forwards;
 background:#070A10;
-height:100vh;
+color:#E6E6E6;
 }
 
 /* HEADER */
@@ -71,11 +23,34 @@ background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
 }
 
+.lang a{
+margin-left:10px;
+color:#aaa;
+text-decoration:none;
+font-size:12px;
+}
+
+.lang a:hover{
+color:#4aa3ff;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:60px 20px;
+}
+
+.hero h1{
+font-size:44px;
+letter-spacing:3px;
+margin:0;
+}
+
 /* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
+gap:16px;
 max-width:900px;
 margin:40px auto;
 padding:0 20px;
@@ -83,9 +58,9 @@ padding:0 20px;
 
 .card{
 background:#111827;
-padding:20px;
-border-radius:12px;
 border:1px solid #1f2a3a;
+padding:22px;
+border-radius:12px;
 text-align:center;
 cursor:pointer;
 transition:0.2s;
@@ -96,57 +71,48 @@ border-color:#4aa3ff;
 transform:translateY(-5px);
 }
 
-/* ANIM */
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-@keyframes fadeOut{
-to{opacity:0; visibility:hidden; pointer-events:none;}
-}
-
-@keyframes show{
-from{opacity:0;}
-to{opacity:1;}
+/* FOOTER */
+footer{
+text-align:center;
+padding:40px;
+opacity:0.5;
+font-size:12px;
 }
 </style>
-
 </head>
 
 <body>
 
-<!-- BOOT -->
-<div class="boot">
-  <h1>G-SYSTEM INITIALIZING</h1>
-  <p>MONKEYS UNIVERSITY OF GIBRALTAR</p>
-
-  <div class="logs">
-    [OK] Gibraltar Core — ONLINE<br>
-    [OK] Ceuta Bridge — SYNCED<br>
-    [OK] Parliament Layer — ACTIVE<br>
-    [OK] Bank System — READY<br>
-    [OK] Faculty Engine — LOADED
-  </div>
-</div>
-
-<!-- MENU -->
-<main>
-
 <header>
-  <div><b>G-ROCK SYSTEM</b></div>
+<div><b>G-ROCK SYSTEM</b></div>
+
+<div class="lang">
+<a href="index.html">EN</a>
+<a href="index-pl.html">PL</a>
+<a href="index-es.html">ES</a>
+<a href="index-fr.html">FR</a>
+</div>
 </header>
+
+<section class="hero">
+<h1>G-ROCK STATE</h1>
+<p>Monkeys University of Gibraltar • G-System Active</p>
+</section>
 
 <section class="grid">
 
-  <div class="card" onclick="location.href='map.html'">MAP</div>
-  <div class="card" onclick="location.href='season1.html'">SEASON 1</div>
-  <div class="card" onclick="location.href='lore.html'">LORE</div>
-  <div class="card" onclick="location.href='faculties.html'">FACULTIES</div>
+<div class="card" onclick="location.href='university.html'">UNIVERSITY</div>
+<div class="card" onclick="location.href='bank.html'">BANK OF MONKEYS</div>
+<div class="card" onclick="location.href='parliament.html'">PARLIAMENT</div>
+<div class="card" onclick="location.href='map.html'">WORLD MAP</div>
+<div class="card" onclick="location.href='season1.html'">EPISODES</div>
+<div class="card" onclick="location.href='lore.html'">LORE</div>
 
 </section>
 
-</main>
+<footer>
+G-ROCK SYSTEM • MAIN HUB
+</footer>
 
 </body>
 </html>
