@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock System</title>
+<title>G-Rock Clean System</title>
 
 <style>
 body{
@@ -25,23 +25,21 @@ justify-content:center;
 align-items:center;
 z-index:9999;
 text-align:center;
-animation:fadeOut 3.5s ease 3.5s forwards;
 }
 
 #intro h1{
-font-size:52px;
+font-size:50px;
 letter-spacing:4px;
-opacity:0;
 animation:fadeIn 1s ease forwards;
+opacity:0;
 }
 
 #intro h2{
-font-size:28px;
+font-size:26px;
 margin-top:10px;
-opacity:0;
-animation:fadeIn 1s ease 1s forwards;
-font-weight:normal;
 color:#aaa;
+opacity:0;
+animation:fadeIn 1s ease 0.8s forwards;
 }
 
 @keyframes fadeIn{
@@ -49,11 +47,15 @@ from{opacity:0; transform:translateY(10px);}
 to{opacity:1; transform:translateY(0);}
 }
 
-@keyframes fadeOut{
-to{opacity:0; visibility:hidden; pointer-events:none;}
+.fadeOut{
+animation:out 1s ease forwards;
 }
 
-/* ===== HEADER ===== */
+@keyframes out{
+to{opacity:0; visibility:hidden;}
+}
+
+/* ===== APP ===== */
 header{
 display:flex;
 justify-content:space-between;
@@ -78,7 +80,6 @@ color:#4aa3ff;
 border-color:#4aa3ff;
 }
 
-/* ===== VIEWS ===== */
 .view{
 display:none;
 height:calc(100vh - 55px);
@@ -88,7 +89,6 @@ box-sizing:border-box;
 
 .active{display:block;}
 
-/* MAP */
 .map{
 position:relative;
 height:100%;
@@ -106,7 +106,6 @@ text-align:center;
 cursor:pointer;
 }
 
-/* CORE */
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -127,7 +126,6 @@ font-size:12px;
 }
 
 .green{background:#0f3d2e;color:#3dff9c;}
-.yellow{background:#3d3410;color:#ffd24a;}
 
 button.action{
 margin-top:8px;
@@ -155,16 +153,14 @@ color:#000;
   <h2>MONKEYS UNIVERSITY SYSTEM</h2>
 </div>
 
-<!-- MAIN APP -->
+<!-- APP -->
 <div id="app">
 
 <header>
 <div><b>G-ROCK SYSTEM</b></div>
-
 <nav>
 <button onclick="show('map')">MAP</button>
 <button onclick="show('core')">CORE</button>
-<button onclick="show('live')">LIVE</button>
 </nav>
 </header>
 
@@ -172,10 +168,10 @@ color:#000;
 <div id="map" class="view active">
 <div class="map">
 
-<div class="node" style="top:20%;left:15%;" onclick="eventNode('University')">University</div>
-<div class="node" style="top:60%;left:15%;" onclick="eventNode('Bank')">Bank</div>
-<div class="node" style="top:40%;left:45%;" onclick="eventNode('Parliament')">Parliament</div>
-<div class="node" style="top:70%;left:75%;" onclick="eventNode('Ceuta')">Ceuta</div>
+<div class="node" style="top:20%;left:15%;">University</div>
+<div class="node" style="top:60%;left:15%;">Bank</div>
+<div class="node" style="top:40%;left:45%;">Parliament</div>
+<div class="node" style="top:70%;left:75%;">Ceuta</div>
 
 </div>
 </div>
@@ -186,38 +182,14 @@ color:#000;
 
 <div class="panel">
 <h3>Economy</h3>
-Status: <span id="eco" class="badge green">STABLE</span>
-<br>
-<button class="action" onclick="shock()">Shock</button>
+Status: <span class="badge green">STABLE</span>
 </div>
 
 <div class="panel">
 <h3>Governance</h3>
-Status: <span id="gov" class="badge green">STABLE</span>
-<br>
-<button class="action" onclick="crisis()">Crisis</button>
+Status: <span class="badge green">STABLE</span>
 </div>
 
-<div class="panel">
-<h3>Academia</h3>
-Status: <span id="uni" class="badge green">STABLE</span>
-<br>
-<button class="action" onclick="boost()">Boost</button>
-</div>
-
-<div class="panel">
-<h3>Core</h3>
-Integrity: <span id="coreVal">100</span>%
-</div>
-
-</div>
-</div>
-
-<!-- LIVE -->
-<div id="live" class="view">
-<div class="panel">
-<h2>LIVE LOG</h2>
-<div id="log"></div>
 </div>
 </div>
 
@@ -225,61 +197,20 @@ Integrity: <span id="coreVal">100</span>%
 
 <script>
 
-let state = {
- eco:"STABLE",
- gov:"STABLE",
- uni:"STABLE",
- core:100
+/* INTRO SAFE START */
+window.onload = function(){
+setTimeout(()=>{
+document.getElementById("intro").classList.add("fadeOut");
+},3000);
 };
 
+/* NAV */
 function show(v){
 document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
 document.getElementById(v).classList.add('active');
 }
 
-function log(msg){
-document.getElementById("log").innerHTML += "> " + msg + "<br>";
-}
-
-function update(){
-document.getElementById("eco").innerText = state.eco;
-document.getElementById("gov").innerText = state.gov;
-document.getElementById("uni").innerText = state.uni;
-document.getElementById("coreVal").innerText = state.core;
-}
-
-/* EVENTS */
-function shock(){
-state.eco="VOLATILE";
-state.core-=10;
-update(); log("Economy shock");
-}
-
-function crisis(){
-state.gov="UNSTABLE";
-state.core-=15;
-update(); log("Crisis triggered");
-}
-
-function boost(){
-state.uni="OVERACTIVE";
-state.core+=5;
-update(); log("Research boost");
-}
-
-function eventNode(n){
-log("Node: "+n);
-update();
-}
-
-/* INTRO REMOVE */
-setTimeout(()=>{
-document.getElementById("intro").style.display="none";
-},3500);
-
-update();
-
 </script>
 
 </body>
-          </html>
+  </html>
