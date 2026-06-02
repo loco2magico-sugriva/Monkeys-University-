@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-Rock Live System v1</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#070A10;
+color:#E6E6E6;
+overflow:hidden;
+}
+
+/* HEADER */
+header{
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0b0f18;
+border-bottom:1px solid #1f2a3a;
+}
+
+header b{
+letter-spacing:2px;
+}
+
+header a{
+color:#aaa;
+text-decoration:none;
+font-size:12px;
+}
+
+header a:hover{
+color:#4aa3ff;
+}
+
+/* GRID */
+.container{
+display:grid;
+grid-template-columns:1fr 1fr;
+grid-template-rows:1fr 1fr;
+height:calc(100vh - 60px);
+gap:15px;
+padding:15px;
+box-sizing:border-box;
+}
+
+/* PANEL */
+.panel{
+background:#111827;
+border:1px solid #1f2a3a;
+border-radius:12px;
+padding:18px;
+overflow:auto;
+}
+
+h2{
+color:#4aa3ff;
+margin-top:0;
+}
+
+/* STATUS */
+.status{
+font-size:14px;
+margin-bottom:10px;
+}
+
+.badge{
+display:inline-block;
+padding:4px 10px;
+border-radius:6px;
+font-size:12px;
+margin-top:5px;
+}
+
+.green{background:#0f3d2e;color:#3dff9c;}
+.yellow{background:#3d3410;color:#ffd24a;}
+.red{background:#3d1010;color:#ff5c5c;}
+
+/* NODE */
+.node{
+padding:10px;
+border-left:3px solid #4aa3ff;
+background:#0f1626;
+margin-bottom:10px;
+}
+
+/* BUTTON */
+button{
+background:#111827;
+border:1px solid #4aa3ff;
+color:#4aa3ff;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#4aa3ff;
+color:#000;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div><b>G-ROCK LIVE SYSTEM v1</b></div>
+<div><a href="index.html">Dashboard</a></div>
+</header>
+
+<div class="container">
+
+<!-- ECONOMY -->
+<div class="panel">
+<h2>Economy Layer (Bank)</h2>
+
+<div class="status">
+Status: <span id="ecoStatus" class="badge green">STABLE</span>
+</div>
+
+<div class="node">MP£ Currency Flow: NORMAL</div>
+<div class="node">Liquidity Index: <span id="liq">100</span></div>
+
+<button onclick="shockEconomy()">Trigger Market Shock</button>
+</div>
+
+<!-- GOVERNANCE -->
+<div class="panel">
+<h2>Governance Layer (Parliament)</h2>
+
+<div class="status">
+Status: <span id="govStatus" class="badge green">STABLE</span>
+</div>
+
+<div class="node">Votes Stability: HIGH</div>
+<div class="node">Wojtek Bear Veto Power: ACTIVE</div>
+
+<button onclick="politicalCrisis()">Trigger Political Crisis</button>
+</div>
+
+<!-- ACADEMIA -->
+<div class="panel">
+<h2>Academic Layer (University)</h2>
+
+<div class="status">
+Status: <span id="uniStatus" class="badge green">STABLE</span>
+</div>
+
+<div class="node">Knowledge Output: NORMAL</div>
+<div class="node">Professor Sugriva Authority: ACTIVE</div>
+
+<button onclick="boostResearch()">Boost Research Output</button>
+</div>
+
+<!-- SYSTEM CORE -->
+<div class="panel">
+<h2>System Core</h2>
+
+<div class="node" id="coreState">System Integrity: 100%</div>
+<div class="node">All nodes synchronized</div>
+
+</div>
+
+</div>
+
+<script>
+
+let integrity = 100;
+let liquidity = 100;
+
+function updateCore(){
+document.getElementById("coreState").innerText =
+"System Integrity: " + integrity + "%";
+document.getElementById("liq").innerText = liquidity;
+}
+
+/* ECONOMY SHOCK */
+function shockEconomy(){
+liquidity -= 25;
+integrity -= 10;
+
+document.getElementById("ecoStatus").innerText = "VOLATILE";
+document.getElementById("ecoStatus").className = "badge yellow";
+
+updateCore();
+}
+
+/* POLITICAL CRISIS */
+function politicalCrisis(){
+integrity -= 20;
+
+document.getElementById("govStatus").innerText = "UNSTABLE";
+document.getElementById("govStatus").className = "badge red";
+
+updateCore();
+}
+
+/* RESEARCH BOOST */
+function boostResearch(){
+integrity += 5;
+
+document.getElementById("uniStatus").innerText = "OVERACTIVE";
+document.getElementById("uniStatus").className = "badge yellow";
+
+updateCore();
+}
+
+</script>
+
+</body>
+                                 </html>
