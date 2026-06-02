@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-Rock State</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#070A10;
+color:#E6E6E6;
+overflow:hidden;
+}
+
+/* ================= INTRO ================= */
+.intro{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:9999;
+animation:fadeOut 3.5s ease 3.5s forwards;
+}
+
+.intro h1{
+font-size:72px;
+letter-spacing:8px;
+margin:0;
+color:#4aa3ff;
+opacity:0;
+animation:fadeIn 1.2s ease forwards;
+}
+
+.intro h2{
+font-size:26px;
+margin-top:10px;
+color:#ddd;
+opacity:0;
+animation:fadeIn 1.2s ease 0.8s forwards;
+font-weight:normal;
+}
+
+.intro p{
+font-size:14px;
+margin-top:10px;
+color:#888;
+opacity:0;
+animation:fadeIn 1.2s ease 1.6s forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeOut{
+to{opacity:0; visibility:hidden; pointer-events:none;}
+}
+
+/* ================= MAIN ================= */
+main{
+opacity:0;
+animation:show 1s ease 3.8s forwards;
+height:100vh;
+overflow:auto;
+}
+
+@keyframes show{
+to{opacity:1;}
+}
+
+/* HEADER */
+header{
+display:flex;
+justify-content:space-between;
+padding:18px;
+background:#0b0f18;
+border-bottom:1px solid #1f2a3a;
+}
+
+header b{
+color:#fff;
+}
+
+.lang a{
+margin-left:10px;
+color:#aaa;
+font-size:12px;
+cursor:pointer;
+}
+
+.lang a:hover{
+color:#4aa3ff;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
+max-width:1200px;
+margin:40px auto;
+padding:0 20px;
+}
+
+.card{
+background:#111827;
+padding:20px;
+border-radius:12px;
+border:1px solid #1f2a3a;
+cursor:pointer;
+text-align:center;
+transition:0.25s;
+min-height:110px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.card:hover{
+transform:translateY(-6px);
+border-color:#4aa3ff;
+}
+
+h3{
+color:#4aa3ff;
+margin:0;
+}
+
+@media(max-width:900px){
+.grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="intro">
+  <h1>G-ROCK STATE</h1>
+  <h2>MONKEYS UNIVERSITY OF GIBRALTAR</h2>
+  <p>G-ROCK PRESENTS</p>
+  <p>POWERED BY G-SYSTEM</p>
+</div>
+
+<!-- MAIN -->
+<main>
+
+<header>
+<b>G-ROCK STATE</b>
+
+<div class="lang">
+<a onclick="setLang('en')">EN</a>
+<a onclick="setLang('pl')">PL</a>
+<a onclick="setLang('es')">ES</a>
+<a onclick="setLang('fr')">FR</a>
+</div>
+</header>
+
+<div class="grid">
+
+<div class="card" onclick="location.href='university.html'">
+<h3>Monkeys University of Gibraltar</h3>
+</div>
+
+<div class="card" onclick="location.href='bank.html'">
+<h3>Bank of the Monkeys</h3>
+</div>
+
+<div class="card" onclick="location.href='parliament.html'">
+<h3>Parliament</h3>
+</div>
+
+<div class="card" onclick="location.href='episode1.html'">
+<h3>Episode 1</h3>
+</div>
+
+<div class="card" onclick="location.href='map.html'">
+<h3>World Map</h3>
+</div>
+
+</div>
+
+</main>
+
+<script>
+function setLang(lang){
+const data = {
+en:["Monkeys University of Gibraltar","Bank of the Monkeys","Parliament","Episode 1","World Map"],
+pl:["Uniwersytet Małp Gibraltaru","Bank Małp","Parlament","Odcinek 1","Mapa Świata"],
+es:["Universidad de los Monos de Gibraltar","Banco de los Monos","Parlamento","Episodio 1","Mapa del Mundo"],
+fr:["Université des Singes de Gibraltar","Banque des Singes","Parlement","Épisode 1","Carte du Monde"]
+};
+
+document.querySelectorAll(".grid h3").forEach((el,i)=>{
+el.innerText = data[lang][i];
+});
+}
+</script>
+
+</body>
+  </html>
