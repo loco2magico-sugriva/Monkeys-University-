@@ -3,73 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monkeys University of Gibraltar</title>
+<title>G-Rock Corporation // Monkeys University of Gibraltar</title>
 
 <style>
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#070A10;
-color:#E6E6E6;
+:root {
+    --bg-main: #070A10;
+    --bg-block: #111827;
+    --bg-node: #0f1626;
+    --accent: #4aa3ff;
+    --accent-glow: rgba(74, 163, 255, 0.2);
+    --text-main: #E6E6E6;
+    --text-muted: #8b949e;
+    --border: #1f2a3a;
 }
 
-header{
-padding:25px;
-background:#0b0f18;
-border-bottom:1px solid #1f2a3a;
-text-align:center;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
 }
 
-header h1{
-margin:0;
-font-size:30px;
-color:#4aa3ff;
-letter-spacing:2px;
+header {
+    padding: 35px 20px;
+    background: #0b0f18;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
-.container{
-max-width:1100px;
-margin:40px auto;
-padding:20px;
+header .corp-tag {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
 }
 
-.block{
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:12px;
-padding:20px;
-margin-bottom:20px;
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--accent-glow);
 }
 
-.block h2{
-color:#4aa3ff;
-margin-top:0;
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:15px;
-margin-top:15px;
+.block {
+    background: var(--bg-block);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.faculty{
-background:#0f1626;
-border:1px solid #1f2a3a;
-border-radius:10px;
-padding:15px;
+.block h2 {
+    color: var(--accent);
+    margin-top: 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    font-size: 22px;
+    letter-spacing: 1px;
 }
 
-.faculty h3{
-color:#4aa3ff;
-margin-top:0;
+/* WELCOME BANNER */
+.welcome-box {
+    background: linear-gradient(135deg, #0b0f18 0%, #111827 100%);
+    border-left: 4px solid var(--accent);
 }
 
-.node{
-background:#0f1626;
-border-left:3px solid #4aa3ff;
-padding:12px;
-margin:10px 0;
+.welcome-box p {
+    font-size: 1.1rem;
+    color: #f0f4f8;
+}
+
+/* INTERACTIVE GRID & FACULTIES */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.faculty {
+    background: var(--bg-node);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.faculty:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.faculty h3 {
+    color: var(--accent);
+    margin-top: 0;
+    font-size: 18px;
+    padding-right: 20px;
+}
+
+.faculty::after {
+    content: '➔';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.faculty:hover::after {
+    color: var(--accent);
+}
+
+/* DETAILS DISPLAY BOX WITH LISTS */
+.details-display {
+    display: none;
+    background: #0d131f;
+    border: 1px dashed var(--accent);
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.details-display h4 {
+    margin: 0 0 10px 0;
+    color: #fff;
+    font-size: 18px;
+}
+
+.details-display ul {
+    margin: 10px 0 0 0;
+    padding-left: 20px;
+    color: #e6e6e6;
+}
+
+.details-display li {
+    margin-bottom: 8px;
+    font-size: 14.5px;
+}
+
+/* ACHIEVEMENTS & QUOTES */
+.achievement-node {
+    background: var(--bg-node);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.achievement-node h3 {
+    margin-top: 0;
+    color: #fff;
+    font-size: 18px;
+}
+
+blockquote {
+    margin: 15px 0;
+    padding: 15px;
+    background: #070A10;
+    border-left: 3px solid var(--accent);
+    font-style: italic;
+    color: #c9d1d9;
+}
+
+.quote-author {
+    display: block;
+    text-align: right;
+    font-weight: bold;
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    font-style: normal;
+}
+
+.node {
+    background: var(--bg-node);
+    border-left: 3px solid var(--accent);
+    padding: 12px;
+    margin: 10px 0;
+}
+
+.link-btn {
+    display: inline-block;
+    background: #1f2a3a;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+}
+
+.link-btn:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 
@@ -78,126 +228,141 @@ margin:10px 0;
 <body>
 
 <header>
+<div class="corp-tag">G-Rock Corporation Asset</div>
 <h1>Monkeys University of Gibraltar</h1>
 </header>
 
 <div class="container">
 
-<!-- OVERVIEW -->
-<div class="block">
-<h2>Overview</h2>
+<!-- WELCOME BANNER (THE ROCK INDEPENDENCE) -->
+<div class="block welcome-box">
+<h2>System Access: Sovereignty Declared</h2>
 <p>
-Monkeys University of Gibraltar is the central academic core of the G-System world architecture.
-It operates as a distributed education network connecting Europe and Africa through institutional nodes.
+<strong>Welcome to Monkeys University of Gibraltar.</strong> Within the sovereign parameters of <strong>The Rock</strong>—where our civilization has established an independent state structure outside conventional oversight—this institution stands as the ultimate engine of strategic knowledge. 
+</p>
+<p>
+Operating under the umbrella of <strong>G-Rock Corporation</strong>, we do not merely teach history or technology; we engineer the administrative architecture of the future Networked State.
 </p>
 </div>
 
-<!-- ASSOCIATED INSTITUTIONS -->
+<!-- TOP PRIORITY ACCREDITATION: PROFESSOR SUGRIVA -->
 <div class="block">
-<h2>Associated Institutions</h2>
-
-<div class="node">
-Elizabeth School of London (ESL) — External academic validation node
+<h2>Core Academic Milestone</h2>
+<div class="achievement-node">
+<h3>Official UK Recognition & Academic Validation</h3>
+<p>
+Monkeys University of Gibraltar has secured definitive academic validation within the British educational framework. Through rigorous external verification, <strong>Profesor Sugriva</strong> has been officially acknowledged as the first chimpanzee to hold a full, accredited Professor title in the United Kingdom.
+</p>
+<blockquote>
+"The integration of regional intelligence networks and cross-strait simulation architectures provides the baseline data for the sovereign expansion of The Rock. The system is self-validating."
+<span class="quote-author">— Profesor Sugriva</span>
+</blockquote>
+<a href="https://www.bathspa.ac.uk" class="link-btn" target="_blank">Access BSU Integration Node ➔</a>
+<a href="https://www.elizabethschool.london" class="link-btn" target="_blank">Access ESL Validation Node ➔</a>
+</div>
 </div>
 
-<div class="node">
-Bath Spa University (BSU) — Humanities & research integration node
+<!-- HISTORICAL ANALYSIS & PHILOSOPHY -->
+<div class="block">
+<h2>Major Institutional Achievements</h2>
+<div class="achievement-node">
+<h3>Philosophical Redefinition of the Haiti Constitutional Framework</h3>
+<p>
+The university has delivered a groundbreaking reinterpretation of early 19th-century constitutional law. Sourcing the historic Haitian Constitution—which legally designated all citizens, including the remaining Polish legionnaires, under the definition of <em>"noir"</em> (black)—our research has re-engineered the global understanding of societal architecture.
+</p>
+<p>
+Professor Sugriva redefines the concept of human race by proving that this document represents the peak of global constitutional design: it defines a citizen by their loyalty, ethical choices, and actions, rather than biological traits.
+</p>
+<blockquote>
+"In the Haiti we can find humanity. (Na Haiti możemy odnaleźć człowieczeństwo). By legally transforming historical Polish allies into the fabric of the Black Republic, the constitution severed the concept of citizenship from biological determinism. It proved that race within a true system is a functional operational status defined by loyalty, not skin color."
+<span class="quote-author">— Profesor Sugriva, Department of Archive Studies</span>
+</blockquote>
+</div>
 </div>
 
-</div>
-
-<!-- FACULTIES -->
+<!-- INTERACTIVE FACULTIES (MAIN NODE) -->
 <div class="block">
 <h2>Faculties (Main Gibraltar Node)</h2>
+<p style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">
+<em>Click on any faculty node below to request deep-dive curriculum data from the archive:</em>
+</p>
 
 <div class="grid">
+    <div class="faculty" onclick="showFacultyDetails('humanities', 'main')">
+        <h3>Faculty of Humanities</h3>
+        <p>Politics • International Relations • Cultural Systems</p>
+    </div>
 
-<div class="faculty">
-<h3>Faculty of Humanities</h3>
-<p>
-Politics • International Relations • Cultural Systems • Global Governance Theory
-</p>
+    <div class="faculty" onclick="showFacultyDetails('economics', 'main')">
+        <h3>Faculty of Economics</h3>
+        <p>Banking Systems • Trade Networks • Monkey Pound Theory</p>
+    </div>
+
+    <div class="faculty" onclick="showFacultyDetails('tech', 'main')">
+        <h3>Faculty of Advanced Technologies</h3>
+        <p>G-System Engineering • AI Simulation • Data Governance</p>
+    </div>
+
+    <div class="faculty" onclick="showFacultyDetails('warfare', 'main')">
+        <h3>Faculty of Historical Warfare</h3>
+        <p>Oreza History • Strategic Conflict • Archive Studies</p>
+    </div>
 </div>
 
-<div class="faculty">
-<h3>Faculty of Economics</h3>
-<p>
-Banking Systems • Trade Networks • Monkey Pound Theory • Macro-G-System Economy
-</p>
-</div>
-
-<div class="faculty">
-<h3>Faculty of Advanced Technologies</h3>
-<p>
-G-System Engineering • AI Simulation Architecture • Networked State Systems • Data Governance
-</p>
-</div>
-
-<div class="faculty">
-<h3>Faculty of Historical Warfare</h3>
-<p>
-Oreza History • Strategic Conflict Analysis • Civilizational Warfare Systems • Archive Studies
-</p>
-</div>
-
+<!-- Dynamic Details Box Main -->
+<div id="details-box-main" class="details-display">
+    <h4 id="details-title-main">Faculty Data</h4>
+    <p id="details-content-main">Select a module to view.</p>
+    <ul id="details-modules-main"></ul>
 </div>
 
 </div>
 
 <!-- CAMPUS CEUTA -->
 <div class="block">
-
 <h2>Campus de Ceuta (Africa Node Extension)</h2>
-
 <p>
 The Campus de Ceuta functions as the African expansion node of Monkeys University of Gibraltar.
 It mirrors core academic structures but adapts them to regional geopolitical and cultural systems.
 </p>
-
-<div class="node">
-Location: Africa / Ceuta Bridge Zone
+<div class="node">Location: Africa / Ceuta Bridge Zone</div>
+<div class="node">Status: Active Expansion Node</div>
 </div>
 
-<div class="node">
-Status: Active Expansion Node
-</div>
-
-</div>
-
-<!-- CEUTA FACULTY MIRROR -->
+<!-- CEUTA FACULTY MIRROR (INTERACTIVE) -->
 <div class="block">
 <h2>Ceuta Academic Mirror System</h2>
+<p style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">
+<em>Click on any Ceuta mirror node to request regional system parameters:</em>
+</p>
 
 <div class="grid">
+    <div class="faculty" onclick="showFacultyDetails('c-humanities', 'ceuta')">
+        <h3>Humanities (Ceuta Node)</h3>
+        <p>African Political Systems • Cross-Border Cultures</p>
+    </div>
 
-<div class="faculty">
-<h3>Humanities (Ceuta Node)</h3>
-<p>
-African Political Systems • Mediterranean Relations • Cross-Border Cultures
-</p>
+    <div class="faculty" onclick="showFacultyDetails('c-economics', 'ceuta')">
+        <h3>Economics (Ceuta Node)</h3>
+        <p>Regional Trade • Port Economy Systems</p>
+    </div>
+
+    <div class="faculty" onclick="showFacultyDetails('c-tech', 'ceuta')">
+        <h3>Technology (Ceuta Node)</h3>
+        <p>Infrastructure Systems • Logistics AI</p>
+    </div>
+
+    <div class="faculty" onclick="showFacultyDetails('c-history', 'ceuta')">
+        <h3>History (Ceuta Node)</h3>
+        <p>North African Civilizations • Colonial Transitions</p>
+    </div>
 </div>
 
-<div class="faculty">
-<h3>Economics (Ceuta Node)</h3>
-<p>
-Regional Trade • Port Economy Systems • African Market Integration
-</p>
-</div>
-
-<div class="faculty">
-<h3>Technology (Ceuta Node)</h3>
-<p>
-Infrastructure Systems • Logistics AI • Coastal Data Networks
-</p>
-</div>
-
-<div class="faculty">
-<h3>History (Ceuta Node)</h3>
-<p>
-North African Civilizations • Colonial Transition Systems • Regional Archives
-</p>
-</div>
-
+<!-- Dynamic Details Box Ceuta -->
+<div id="details-box-ceuta" class="details-display">
+    <h4 id="details-title-ceuta">Mirror Node Data</h4>
+    <p id="details-content-ceuta">Select a mirror module to view.</p>
+    <ul id="details-modules-ceuta"></ul>
 </div>
 
 </div>
@@ -205,15 +370,128 @@ North African Civilizations • Colonial Transition Systems • Regional Archive
 <!-- SYSTEM ROLE -->
 <div class="block">
 <h2>System Role</h2>
-
 <p>
 The university operates as a dual-continent knowledge engine:
 Europe (Gibraltar core) + Africa (Ceuta extension), connected through Intercontinental Bridge infrastructure.
 </p>
-
 </div>
 
 </div>
+
+<script>
+// Detailed Curriculum Repository for All Interactive Nodes
+const facultyData = {
+    'humanities': {
+        title: "Faculty of Humanities — Strategic Operations",
+        desc: "Advanced analysis of decentralized statecraft and micro-enclaves. Prepares administrative cells to manage non-standard territorial architectures operating independent of traditional European frameworks.",
+        modules: [
+            "**Global Governance Theory**: Structural breakdown of failing nation-states.",
+            "**Sovereign Enclave Politics**: Legal parameters for functional unrecognized state nodes.",
+            "**Cultural Systems Engineering**: Designing specific societal narratives for unity.",
+            "**Transmedia Narrative Logistics**: Deploying analytical data streams across global networks."
+        ]
+    },
+    'economics': {
+        title: "Faculty of Economics — Autonomous Trade",
+        desc: "Operational testing of self-sustaining economic models. Focuses on insulation techniques to shield local capital and supply channels from external regulatory interventions.",
+        modules: [
+            "**Monkey Pound Theory**: Validating alternative, resource-backed local currency loops.",
+            "**Asymmetric Trade Networks**: Optimizing unofficial maritime supply pipelines.",
+            "**Macro-G-System Economy**: Blueprinting corporate-state hybrid financial structures.",
+            "**Insular Banking Resilience**: Shielding localized transactions from global oversight."
+        ]
+    },
+    'tech': {
+        title: "Faculty of Advanced Technologies — Digital Defense",
+        desc: "The core computing division controlling the distributed network layers. Manages cyber infrastructure, perimeter telemetry, and automated network operations for G-Rock Corporation.",
+        modules: [
+            "**G-System Engineering**: Maintenance of the decentralized state monitor array.",
+            "**AI Simulation Architecture**: Modeling algorithms for regional defense and logistics.",
+            "**Networked State Infrastructure**: Building redundant services across independent nodes.",
+            "**Autonomous Cryptographic Governance**: Encrypting internal institutional archives."
+        ]
+    },
+    'warfare': {
+        title: "Faculty of Historical Warfare — Archival Tactics",
+        desc: "Tactical research department dedicated to deep civilizational security. Converts ancient fortification strategies and asymmetric maneuvers into current protective defense profiles.",
+        modules: [
+            "**Oreza History**: Archival studies of geographical and physical fortification strategies.",
+            "**Strategic Conflict Analysis**: Mathematical breakdowns of urban and maritime defense.",
+            "**Civilizational Warfare Systems**: Analyzing how unique non-biological units shift battle dynamics.",
+            "**Applied Archive Studies**: Extracting functional field tactics from deep historical anomalies."
+        ]
+    },
+    'c-humanities': {
+        title: "Humanities (Ceuta Node) — Transcontinental Studies",
+        desc: "Geopolitical analysis cell centered on the North African border complex. Maps demographic pressures, border logistics, and cross-strait operational parameters.",
+        modules: [
+            "**African Political Systems**: Assessing regional power blocks near the Ceuta-Morocco vector.",
+            "**Mediterranean Relation Optimization**: Managing trade communication nodes under the radar.",
+            "**Cross-Border Cultural Mapping**: Evaluating regional allegiances to position stabilization scripts.",
+            "**Geopolitical Vacuum Management**: Preparing fallback structures for local administrative shifts."
+        ]
+    },
+    'c-economics': {
+        title: "Economics (Ceuta Node) — Resource Logistics",
+        desc: "Logistical and port-maritime operations. Focuses on funneled capital streams and supply vectors linking North African trade routes directly back to the mainframe database on The Rock.",
+        modules: [
+            "**Port Economy Simulation**: Maximizing processing velocities and custom bypass protocols.",
+            "**Regional Trade Integration**: Strategic infiltration of regional continent pipelines.",
+            "**African Market Liquidity Analysis**: Monitoring informal asset networks to sustain local outposts.",
+            "**Zero-Tax Freezone Engineering**: Legal shielding configurations for resource relocations."
+        ]
+    },
+    'c-tech': {
+        title: "Technology (Ceuta Node) — Coastal Infrastructure",
+        desc: "Hardware telemetry and signal routing division. Deploys, secures, and operates physical monitoring lines, sea floor cables, and automated coastal networks.",
+        modules: [
+            "**Infrastructure Mirroring**: Real-time hot-backups of the Gibraltar core data layers inside secure bunkers.",
+            "**Logistics AI Systems**: Implementing machine learning logic to dictate automated transport paths.",
+            "**Coastal Data Networks**: Deploying sub-surface sensors tracking cross-strait movements.",
+            "**Signal Interception & Relaying**: Protecting deep telemetry streams against mainland sniffing."
+        ]
+    },
+    'c-history': {
+        title: "History (Ceuta Node) — Regional Context Archive",
+        desc: "Historical validation cell searching for ancient administrative precedents. Recovers lost legal and cartographic evidence supporting joint dominance over the Mediterranean passage.",
+        modules: [
+            "**North African Civilizations**: Mapping historical trade federations that successfully bypassed mainland controls.",
+            "**Colonial Transition Protocols**: Studying tactical withdrawals and archival handovers from 19th-century operations.",
+            "**Regional Archive Recovery**: Sourcing and digitizing lost regional marine logs.",
+            "**Tactical Geography Inversion**: Refining physical security networks via lessons from historical border conflicts."
+        ]
+    }
+};
+
+function showFacultyDetails(id, zone) {
+    // Select the proper panel based on whether it is the Main or Ceuta block
+    const targetBox = document.getElementById(zone === 'main' ? 'details-box-main' : 'details-box-ceuta');
+    const targetTitle = document.getElementById(zone === 'main' ? 'details-title-main' : 'details-title-ceuta');
+    const targetContent = document.getElementById(zone === 'main' ? 'details-content-main' : 'details-content-ceuta');
+    const targetList = document.getElementById(zone === 'main' ? 'details-modules-main' : 'details-modules-ceuta');
+    
+    // Auto-hide the opposing display panel to prevent redundancy
+    document.getElementById(zone === 'main' ? 'details-box-ceuta' : 'details-box-main').style.display = 'none';
+
+    if (facultyData[id]) {
+        targetTitle.innerText = facultyData[id].title;
+        targetContent.innerText = facultyData[id].desc;
+        
+        // Refresh and construct list items
+        targetList.innerHTML = '';
+        facultyData[id].modules.forEach(moduleText => {
+            const li = document.createElement('li');
+            li.innerHTML = moduleText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            targetList.appendChild(li);
+        });
+        
+        // Render block visible
+        targetBox.style.display = 'block';
+        targetBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+</script>
 
 </body>
 </html>
+
