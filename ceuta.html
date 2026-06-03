@@ -1,127 +1,314 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Africa System — Ceuta Node</title>
+<title>Campus de Ceuta // G-Rock Africa Matrix</title>
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#05070d;
-color:#e6e6e6;
-overflow:hidden;
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #020408;
+    color: #E6E6E6;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #051412 0%, #010306 100%);
+    overflow-x: hidden;
 }
 
 /* HEADER */
-header{
-padding:16px;
-text-align:center;
-background:#0b0f18;
-border-bottom:1px solid #1f2a3a;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 50px;
+    background: #04090c;
+    border-bottom: 1px solid #142d25;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.8);
 }
 
-header h1{
-margin:0;
-font-size:18px;
-color:#4aa3ff;
-letter-spacing:2px;
+header b {
+    font-family: 'Orbitron', sans-serif;
+    color: #38ef7d;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-shadow: 0 0 10px rgba(56, 239, 125, 0.3);
 }
 
-/* MAP AREA */
-.map{
-position:relative;
-width:100%;
-height:calc(100vh - 60px);
-background:
-radial-gradient(circle at 30% 30%, #14233d 0%, transparent 40%),
-radial-gradient(circle at 70% 60%, #0e1a2d 0%, transparent 45%),
-radial-gradient(circle at 50% 80%, #0b1220 0%, transparent 50%),
-#05070d;
-overflow:hidden;
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-/* CONTINENT LABEL */
-.label{
-position:absolute;
-top:12%;
-left:50%;
-transform:translateX(-50%);
-font-size:14px;
-color:#666;
-letter-spacing:3px;
+.nav-links a {
+    font-family: 'Orbitron', sans-serif;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
 }
 
-/* NODE BASE */
-.node{
-position:absolute;
-width:14px;
-height:14px;
-border-radius:50%;
-background:#4aa3ff;
-border:2px solid white;
-cursor:pointer;
-box-shadow:0 0 12px rgba(74,163,255,0.6);
-transition:0.2s;
+.nav-links a:hover {
+    color: #38ef7d;
+    border-bottom: 1px solid #38ef7d;
+    text-shadow: 0 0 8px rgba(56, 239, 125, 0.5);
 }
 
-.node:hover{
-transform:scale(1.4);
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
-/* NODE LABEL */
-.node-label{
-position:absolute;
-font-size:11px;
-color:#4aa3ff;
-white-space:nowrap;
+/* BLOCK GENERAL */
+.block {
+    background: linear-gradient(135deg, #071513 0%, #03060a 100%);
+    border: 1px solid #142d25;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
 }
 
-/* POSITIONS (abstract Africa layout, stylized but consistent) */
-#morocco{top:35%;left:45%;}
-#ceuta{top:32%;left:47%;}
-#algeria{top:45%;left:52%;}
-#sahara{top:55%;left:48%;}
-#nigeria{top:70%;left:55%;}
-#southafrica{top:85%;left:60%;}
-
-/* PANEL */
-.panel{
-position:absolute;
-right:20px;
-top:20px;
-width:280px;
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:10px;
-padding:16px;
-display:none;
+.block h2 {
+    color: #38ef7d;
+    margin-top: 0;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #142d25;
+    padding-bottom: 12px;
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
-.panel h2{
-margin:0;
-color:#4aa3ff;
+/* INTERCONTINENTAL BRIDGE GRAPHIC CONSOLE */
+.bridge-console {
+    background: #020608;
+    border: 1px solid #142d25;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.status{
-color:#7CFF9B;
-font-weight:bold;
+.bridge-node {
+    text-align: center;
+    width: 30%;
+    z-index: 2;
 }
 
-button{
-margin-top:10px;
-padding:6px 10px;
-background:#0b0f18;
-border:1px solid #1f2a3a;
-color:#aaa;
-cursor:pointer;
-border-radius:6px;
+.bridge-node .node-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #64748b;
+    margin-bottom: 5px;
 }
 
-button:hover{
-color:#fff;
-border-color:#4aa3ff;
+.bridge-node .node-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.bridge-line-wrapper {
+    flex-grow: 1;
+    position: relative;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.bridge-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #4aa3ff, #38ef7d);
+    position: relative;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #38ef7d;
+    border-radius: 50%;
+    position: absolute;
+    top: -3px;
+    box-shadow: 0 0 12px #38ef7d;
+    animation: bridgeTransit 3s linear infinite;
+}
+
+@keyframes bridgeTransit {
+    0% { left: 0%; background: #4aa3ff; box-shadow: 0 0 12px #4aa3ff; }
+    100% { left: 100%; background: #38ef7d; box-shadow: 0 0 12px #38ef7d; }
+}
+
+.bridge-line-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    color: #38ef7d;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* AFRICAN HERITAGE / CULTURAL DECK */
+.cultural-deck {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .cultural-deck {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cultural-card {
+    background: rgba(4, 9, 12, 0.8);
+    border: 1px solid #142d25;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid #38ef7d;
+}
+
+.cultural-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.cultural-card p {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* INTERACTIVE FACULTY MIRROR SYSTEM */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.faculty-card {
+    background: #04090c;
+    border: 1px solid #142d25;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.faculty-card:hover {
+    transform: translateY(-4px);
+    border-color: #38ef7d;
+    box-shadow: 0 8px 20px rgba(56, 239, 125, 0.15);
+}
+
+.faculty-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #38ef7d;
+    margin-top: 0;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.faculty-card p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* DYNAMIC DISPLAY PANEL */
+.dynamic-panel {
+    display: none;
+    background: #020508;
+    border: 1px dashed #38ef7d;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 25px;
+    animation: panelReveal 0.4s ease forwards;
+}
+
+@keyframes panelReveal {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dynamic-panel h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    margin: 0 0 5px 0;
+}
+
+.dynamic-panel .meta-code {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    color: #38ef7d;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.dynamic-panel p {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.dynamic-panel ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.dynamic-panel li {
+    font-size: 13.5px;
+    color: #cbd5e1;
+    margin-bottom: 8px;
+}
+
+.pulse {
+    width: 8px;
+    height: 8px;
+    background: #38ef7d;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    box-shadow: 0 0 10px #38ef7d;
 }
 </style>
 </head>
@@ -129,49 +316,305 @@ border-color:#4aa3ff;
 <body>
 
 <header>
-<h1>AFRICA SYSTEM MAP — CEUTA CORE NODE</h1>
+    <b>G-Rock Corporation // Ceuta Campus Mainframe</b>
+    <div class="nav-links">
+        <a onclick="setLang('en')">EN</a>
+        <a onclick="setLang('pl')">PL</a>
+        <a onclick="setLang('es')">ES</a>
+        <a onclick="setLang('fr')">FR</a>
+        <a href="index.html" style="margin-left: 20px; border: 1px solid #142d25; padding: 6px 12px; border-radius: 4px;">RETURN TO DASHBOARD</a>
+    </div>
 </header>
 
-<div class="map">
+<div class="container">
 
-<div class="label">AFRICA GRID NETWORK</div>
+    <!-- SYSTEM OVERVIEW & INTERCONTINENTAL BRIDGE -->
+    <div class="block">
+        <h2 id="title-overview">System Role & Intercontinental Link</h2>
+        <p id="desc-overview">
+            Campus de Ceuta functions as the primary African expansion node of Monkeys University of Gibraltar. 
+            Operating across the Strait of Gibraltar, it constitutes the physical and data link between the European core and the African continent.
+        </p>
+        
+        <!-- Live Connection Status -->
+        <div class="bridge-console">
+            <div class="bridge-node">
+                <div class="node-tag">Gibraltar Node</div>
+                <div class="node-name">MUG MAIN CORE</div>
+            </div>
+            <div class="bridge-line-wrapper">
+                <div class="bridge-line">
+                    <div class="pulse-dot"></div>
+                </div>
+                <div class="bridge-line-label" id="label-transit">Quantum Link Active // Synced</div>
+            </div>
+            <div class="bridge-node">
+                <div class="node-tag">Ceuta Node</div>
+                <div class="node-name" style="color: #38ef7d;">AFRICA SATELLITE</div>
+            </div>
+        </div>
+    </div>
 
-<!-- NODES -->
-<div class="node" id="morocco" onclick="openNode('Morocco')"></div>
-<div class="node" id="ceuta" onclick="openNode('Ceuta — Intercontinental Bridge')"></div>
-<div class="node" id="algeria" onclick="openNode('Algeria')"></div>
-<div class="node" id="sahara" onclick="openNode('Sahara Zone')"></div>
-<div class="node" id="nigeria" onclick="openNode('Nigeria Hub')"></div>
-<div class="node" id="southafrica" onclick="openNode('South Africa Core')"></div>
+    <!-- CULTURAL AFRICA & GEOPOLITICAL TRANSIT -->
+    <div class="block">
+        <h2 id="title-cultural">Cultural Africa & Sovereign Heritage</h2>
+        <p id="desc-cultural">
+            Our presence in Ceuta is rooted in the exploration of historical trade networks, sovereign enclaves, and Mediterranean cultural integration. 
+            We do not just analyze borders; we mapping legal and administrative models of the global South.
+        </p>
+        
+        <div class="cultural-deck">
+            <div class="cultural-card">
+                <h3 id="card1-title">Mediterranean Heritage Mapping</h3>
+                <p id="card1-desc">
+                    Analyzing historical maritime trade pathways dating back to ancient Carthage. This research builds legal and operational precedents for joint, dual-continent territorial sovereignty.
+                </p>
+            </div>
+            <div class="cultural-card" style="border-left-color: #38ef7d;">
+                <h3 id="card2-title">Cross-Border Cultural Dynamics</h3>
+                <p id="card2-desc">
+                    Studying the geopolitical border interactions and trade flow between the European Union and the African Union to optimize decentralized state networks.
+                </p>
+            </div>
+        </div>
+    </div>
 
-<!-- LABELS -->
-<div class="node-label" style="top:33%;left:48%;">Ceuta</div>
-<div class="node-label" style="top:36%;left:46%;">Morocco</div>
-<div class="node-label" style="top:47%;left:54%;">Algeria</div>
-<div class="node-label" style="top:57%;left:50%;">Sahara</div>
-<div class="node-label" style="top:72%;left:57%;">Nigeria</div>
-<div class="node-label" style="top:87%;left:62%;">South Africa</div>
+    <!-- INTERACTIVE ACADEMIC MIRROR SYSTEM -->
+    <div class="block">
+        <h2 id="title-faculties">Academic Mirror System (Africa Node)</h2>
+        <p id="desc-faculties" style="font-size: 14px; color: #64748b; margin-bottom: 15px;">
+            Click on any faculty module below to request real-time localized curriculum parameters:
+        </p>
 
-<!-- PANEL -->
-<div class="panel" id="panel">
-<h2 id="title">Node</h2>
-<p>Status: <span class="status">ACTIVE</span></p>
-<p>System layer connected.</p>
-<button onclick="closePanel()">Close</button>
-</div>
+        <div class="grid">
+            <div class="faculty-card" onclick="displayFaculty('c-humanities')">
+                <h3 id="f1-title">Humanities Node</h3>
+                <p id="f1-desc">Politics & Mediterranean Cultures</p>
+            </div>
+            <div class="faculty-card" onclick="displayFaculty('c-economics')">
+                <h3 id="f2-title">Economics Node</h3>
+                <p id="f2-desc">Port Systems & Regional Trade</p>
+            </div>
+            <div class="faculty-card" onclick="displayFaculty('c-tech')">
+                <h3 id="f3-title">Technology Node</h3>
+                <p id="f3-desc">Logistics AI & Coast Networks</p>
+            </div>
+            <div class="faculty-card" onclick="displayFaculty('c-history')">
+                <h3 id="f4-title">History Node</h3>
+                <p id="f4-desc">Decolonial Transitions & Archives</p>
+            </div>
+        </div>
+
+        <!-- Dynamic Output Container -->
+        <div id="dynamic-panel" class="dynamic-panel">
+            <h4 id="panel-title">Faculty Name</h4>
+            <div id="panel-meta" class="meta-code">Node: Loading</div>
+            <p id="panel-desc">Module overview will display here.</p>
+            <ul id="panel-modules"></ul>
+        </div>
+    </div>
 
 </div>
 
 <script>
-function openNode(name){
-document.getElementById("panel").style.display="block";
-document.getElementById("title").innerText=name;
+// Multilingual Translation Matrix supporting Ceuta Node Parameters
+const translations = {
+    en: {
+        overview: "System Role & Intercontinental Link",
+        overview_desc: "Campus de Ceuta functions as the primary African expansion node of Monkeys University of Gibraltar. Operating across the Strait of Gibraltar, it constitutes the physical and data link between the European core and the African continent.",
+        transit: "Quantum Link Active // Synced",
+        cultural: "Cultural Africa & Sovereign Heritage",
+        cultural_desc: "Our presence in Ceuta is rooted in the exploration of historical trade networks, sovereign enclaves, and Mediterranean cultural integration. We do not just analyze borders; we mapping legal and administrative models of the global South.",
+        card1_title: "Mediterranean Heritage Mapping",
+        card1_desc: "Analyzing historical maritime trade pathways dating back to ancient Carthage. This research builds legal and operational precedents for joint, dual-continent territorial sovereignty.",
+        card2_title: "Cross-Border Cultural Dynamics",
+        card2_desc: "Studying the geopolitical border interactions and trade flow between the European Union and the African Union to optimize decentralized state networks.",
+        faculties: "Academic Mirror System (Africa Node)",
+        faculties_desc: "Click on any faculty module below to request real-time localized curriculum parameters:",
+        f1_title: "Humanities Node", f1_desc: "Politics & Mediterranean Cultures",
+        f2_title: "Economics Node", f2_desc: "Port Systems & Regional Trade",
+        f3_title: "Technology Node", f3_desc: "Logistics AI & Coast Networks",
+        f4_title: "History Node", f4_desc: "Decolonial Transitions & Archives"
+    },
+    pl: {
+        overview: "Rola Systemowa i Łącze Międzykontynentalne",
+        overview_desc: "Kampus w Ceucie funkcjonuje jako główny węzeł rozszerzenia Monkeys University of Gibraltar w Afryce. Działając w poprzek Cieśniny Gibraltarskiej, stanowi fizyczne i informacyjne połączenie między europejskim rdzeniem a kontynentem afrykańskim.",
+        transit: "Łącze Kwantowe Aktywne // Zsynchronizowano",
+        cultural: "Afrykańska Kultura i Suwerenne Dziedzictwo",
+        cultural_desc: "Nasza obecność w Ceucie jest zakorzeniona w badaniu historycznych szlaków handlowych, suwerennych enklaw i śródziemnomorskiej integracji kulturowej. Nie analizujemy tylko granic; mapujemy modele prawne i administracyjne globalnego Południa.",
+        card1_title: "Mapowanie Dziedzictwa Śródziemnomorskiego",
+        card1_desc: "Analiza historycznych morskich szlaków handlowych sięgających czasów starożytnej Kartaginy. Badania te budują precedensy prawne i operacyjne dla wspólnej suwerenności terytorialnej.",
+        card2_title: "Transgraniczna Dynamika Kulturowa",
+        card2_desc: "Badanie geopolitycznych interakcji granicznych i przepływów handlowych między Unią Europejską a Unią Afrykańską w celu optymalizacji zdecentralizowanych sieci państwowych.",
+        faculties: "Akademicki System Lustrzany (Węzeł Afrykański)",
+        faculties_desc: "Kliknij na dowolny moduł wydziału poniżej, aby zażądać lokalnych parametrów programu nauczania:",
+        f1_title: "Wydział Humanistyczny", f1_desc: "Polityka i Kultury Śródziemnomorskie",
+        f2_title: "Wydział Ekonomiczny", f2_desc: "Systemy Portowe i Handel Regionalny",
+        f3_title: "Wydział Technologiczny", f3_desc: "AI w Logistyce i Sieci Nadbrzeżne",
+        f4_title: "Wydział Historyczny", f4_desc: "Przemiany Dekolonialne i Archiwa"
+    },
+    es: {
+        overview: "Rol del Sistema y Enlace Intercontinental",
+        overview_desc: "El Campus de Ceuta funciona como el nodo principal de expansión africana de Monkeys University de Gibraltar. Operando a través del Estrecho de Gibraltar, constituye el enlace físico y de datos entre el núcleo europeo y el continente africano.",
+        transit: "Enlace Cuántico Activo // Sincronizado",
+        cultural: "África Cultural y Patrimonio Soberano",
+        cultural_desc: "Nuestra presencia en Ceuta se basa en la exploración de las redes comerciales históricas, los enclaves soberanos y la integración cultural mediterránea. No solo analizamos las fronteras; mapeamos modelos legales y administrativos del Sur global.",
+        card1_title: "Mapeo del Patrimonio Mediterráneo",
+        card1_desc: "Análisis de las rutas comerciales marítimas históricas que se remontan a la antigua Cartago. Esta investigación construye precedentes legales y operativos para una soberanía territorial conjunta de dos continentes.",
+        card2_title: "Dinámica Cultural Transfronteriza",
+        card2_desc: "Estudio de las interacciones fronterizas geopolíticas y el flujo comercial entre la Unión Europea y la Unión Africana para optimizar las redes estatales descentralizadas.",
+        faculties: "Sistema de Espejo Académico (Nodo de África)",
+        faculties_desc: "Haga clic en cualquier módulo de facultad a continuación para solicitar parámetros curriculares localizados en tiempo real:",
+        f1_title: "Nodo de Humanidades", f1_desc: "Política y Culturas del Mediterráneo",
+        f2_title: "Nodo de Economía", f2_desc: "Sistemas Portuarios y Comercio Regional",
+        f3_title: "Nodo de Tecnología", f3_desc: "IA de Logística y Redes Costeras",
+        f4_title: "Nodo de Historia", f4_desc: "Transiciones Decoloniales y Archivos"
+    },
+    fr: {
+        overview: "Rôle du Système & Liaison Intercontinentale",
+        overview_desc: "Le Campus de Ceuta fonctionne comme le principal nœud d'expansion africain de l'Université des Singes de Gibraltar. Opérant à travers le détroit de Gibraltar, il constitue la liaison physique et de données entre le cœur européen et le continent africain.",
+        transit: "Liaison Quantique Active // Synchronisée",
+        cultural: "Afrique Culturelle & Héritage Souverain",
+        cultural_desc: "Notre présence à Ceuta est ancrée dans l'exploration des réseaux commerciaux historiques, des enclaves souveraines et de l'intégration culturelle méditerranéenne. Nous n'analysons pas seulement les frontières; nous cartographions les modèles juridiques et administratifs du Sud global.",
+        card1_title: "Cartographie du Patrimoine Méditerranéen",
+        card1_desc: "Analyse des voies commerciales maritimes historiques remontant à l'ancienne Carthage. Cette recherche construit des précédents juridiques et opérationnels pour une souveraineté territoriale conjointe.",
+        card2_title: "Dynamique Culturelle Transfrontalière",
+        card2_desc: "Étude des interactions frontalières géopolitiques et des flux commerciaux entre l'Union européenne et l'Union africaine pour optimiser les réseaux étatiques décentralisés.",
+        faculties: "Système de Miroir Académique (Nœud Afrique)",
+        faculties_desc: "Cliquez sur n'importe quel module de faculté ci-dessous pour demander les paramètres du programme localisé en tempo réel:",
+        f1_title: "Nœud Humanités", f1_desc: "Politique & Cultures Méditerranéennes",
+        f2_title: "Nœud Économie", f2_desc: "Systèmes Portuaires & Commerce Régional",
+        f3_title: "Nœud Technologie", f3_desc: "IA de Logistique & Réseaux Côtiers",
+        f4_title: "Nœud Histoire", f4_desc: "Transitions Décoloniales & Archives"
+    }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+    currentLang = lang;
+    const t = translations[lang];
+    
+    document.getElementById("title-overview").innerText = t.overview;
+    document.getElementById("desc-overview").innerText = t.overview_desc;
+    document.getElementById("label-transit").innerText = t.transit;
+    document.getElementById("title-cultural").innerText = t.cultural;
+    document.getElementById("desc-cultural").innerText = t.cultural_desc;
+    document.getElementById("card1-title").innerText = t.card1_title;
+    document.getElementById("card1-desc").innerText = t.card1_desc;
+    document.getElementById("card2-title").innerText = t.card2_title;
+    document.getElementById("card2-desc").innerText = t.card2_desc;
+    document.getElementById("title-faculties").innerText = t.faculties;
+    document.getElementById("desc-faculties").innerText = t.faculties_desc;
+    
+    document.getElementById("f1-title").innerText = t.f1_title;
+    document.getElementById("f1-desc").innerText = t.f1_desc;
+    document.getElementById("f2-title").innerText = t.f2_title;
+    document.getElementById("f2-desc").innerText = t.f2_desc;
+    document.getElementById("f3-title").innerText = t.f3_title;
+    document.getElementById("f3-desc").innerText = t.f3_desc;
+    document.getElementById("f4-title").innerText = t.f4_title;
+    document.getElementById("f4-desc").innerText = t.f4_desc;
+
+    // Reset panel translation if currently displayed
+    document.getElementById("dynamic-panel").style.display = 'none';
 }
 
-function closePanel(){
-document.getElementById("panel").style.display="none";
+// Deep Curriculum Repository
+const curriculumData = {
+    'c-humanities': {
+        code: "C-HUM-01 // Węzeł Afrykański",
+        titles: { en: "Humanities (Ceuta Node)", pl: "Wydział Humanistyczny (Węzeł Ceuta)", es: "Humanidades (Nodo Ceuta)", fr: "Humanités (Nœud Ceuta)" },
+        desc: {
+            en: "Focuses on strategic cross-border diplomacy, analyzing shifts in regional authority, border politics, and migration flows across the strait.",
+            pl: "Skupia się na strategicznej dyplomacji transgranicznej, analizując zmiany we władzach regionalnych, politykę graniczną i przepływy migracyjne przez cieśninę.",
+            es: "Se centra en la diplomacia transfronteriza estratégica, analizando los cambios en la autoridad regional, la política fronteriza y los flujos migratorios.",
+            fr: "Se concentre sur la diplomatie transfrontalière stratégique, analysant les changements d'autorité régionale, la politique des frontières et les flux migratoires."
+        },
+        modules: {
+            en: ["Global-South Power Blocs & Alliances", "Cross-Border Migratory Telemetry", "Mediterranean Gray Zone Negotiations"],
+            pl: ["Bloki Władzy i Sojusze Globalnego Południa", "Telemetria Migracji Transgranicznych", "Negocjacje w Szarej Strefie Morza Śródziemnego"],
+            es: ["Bloques de Poder y Alianzas del Sur Global", "Telemetría Migratoria Transfronteriza", "Negociaciones en la Zona Gris del Mediterráneo"],
+            fr: ["Blocs de Puissance et Alliances du Sud Global", "Télémétrie Migratoires Transfrontalière", "Négociations en Zone Grise Méditerranéenne"]
+        }
+    },
+    'c-economics': {
+        code: "C-ECON-02 // Węzeł Afrykański",
+        titles: { en: "Economics (Ceuta Node)", pl: "Wydział Ekonomiczny (Węzeł Ceuta)", es: "Economía (Nodo Ceuta)", fr: "Économie (Nœud Ceuta)" },
+        desc: {
+            en: "Dedicated to freezone optimization, port logistics automated by G-System, and traditional non-western transaction tracking (Hawala networks).",
+            pl: "Dedykowany optymalizacji wolnocłowej, automatyzacji logistyki portowej przez G-System oraz śledzeniu tradycyjnych transakcji poza-zachodnich (sieci Hawala).",
+            es: "Dedicado a la optimización de zonas francas, logística portuaria automatizada por G-System y seguimiento de transacciones tradicionales (redes Hawala).",
+            fr: "Dédié à l'optimisation des zones franches, à la logistique portuaire automatisée par G-System et au suivi des transactions traditionnelles (réseaux Hawala)."
+        },
+        modules: {
+            en: ["Strait Resource Allocation & Port AI", "Hawala Network Decentralized Audits", "Zero-Tax Sovereign Enterprise Structures"],
+            pl: ["Alokacja Zasobów Cieśniny i AI Portowe", "Zdecentralizowane Audyty Sieci Hawala", "Struktury Suwerennych Przedsiębiorstw Wolnocłowych"],
+            es: ["Asignación de Recursos del Estrecho e IA Portuaria", "Auditorías Descentralizadas de la Red Hawala", "Estructuras de Empresas Soberanas con Impuestos Cero"],
+            fr: ["Allocation des Ressources du Détroit & IA Portuaire", "Audits Décentralisés du Réseau Hawala", "Structures d'Entreprises Souveraines à Fiscalité Nulle"]
+        }
+    },
+    'c-tech': {
+        code: "C-TECH-03 // Węzeł Afrykański",
+        titles: { en: "Technology (Ceuta Node)", pl: "Wydział Technologiczny (Węzeł Ceuta)", es: "Tecnología (Nodo Ceuta)", fr: "Tecnologie (Nœud Ceuta)" },
+        desc: {
+            en: "Commands sub-sea monitoring infrastructure, coastal acoustic fiber, and drone telemetry along the Mediterranean transit corridors.",
+            pl: "Zarządza infrastrukturą monitoringu głębinowego, akustycznymi światłowodami nadbrzeżnymi oraz telemetrią dronów w śródziemnomorskich korytarzych tranzytowych.",
+            es: "Controla la infraestructura de monitoreo submarino, fibra acústica costera y telemetría de dromos a lo largo de los corredores de tránsito del Mediterráneo.",
+            fr: "Gère l'infrastructure de surveillance sous-marine, la fibre acoustique côtière et la télémétrie par drones le long des couloirs de transit méditerranéens."
+        },
+        modules: {
+            en: ["Intercontinental Fiber Telemetry", "Strait Surface Radar AI Integration", "Deep-Sea Acoustic Sensor Networks"],
+            pl: ["Telemetria Światłowodów Międzykontynentalnych", "Integracja AI z Radarem Powierzchniowym Cieśniny", "Głębinowe Sieci Czujników Akustycznych"],
+            es: ["Telemetría de Fibra Intercontinental", "Integración de IA con Radar de Superficie del Estrecho", "Redes de Sensores Acústicos Submarinos"],
+            fr: ["Télémétrie par Fibre Intercontinentale", "Intégration de l'IA au Radar de Surface du Détroit", "Réseaux de Capteurs Acoustiques Sous-Marins"]
+        }
+    },
+    'c-history': {
+        code: "C-HIST-04 // Węzeł Afrykański",
+        titles: { en: "History (Ceuta Node)", pl: "Wydział Historyczny (Węzeł Ceuta)", es: "Historia (Nodo Ceuta)", fr: "Histoire (Nœud Ceuta)" },
+        desc: {
+            en: "Focuses on retrieving records of legal and economic maritime routes of non-colonial Mediterranean empires, ensuring legal backing of Gibraltar sovereignty.",
+            pl: "Skupia się na odzyskiwaniu zapisków prawnych i szlaków morskich niekolonialnych imperiów śródziemnomorskich, zapewniając suwerenności Gibraltaru wsparcie prawne.",
+            es: "Se centra en recuperar registros de rutas marítimas legales y económicas de imperios mediterráneos no coloniales, asegurando el respaldo legal de la soberanía.",
+            fr: "Se concentre sur la récupération des archives des routes maritimes des empires méditerranéens non coloniaux, assurant le soutien juridique de la souveraineté."
+        },
+        modules: {
+            en: ["Ancient Carthage-Gibraltar Trade Protocols", "Colonial Transition Legal Defense", "Mediterranean Decolonial Sovereignty Archives"],
+            pl: ["Protokoły Handlowe Starożytnej Kartaginy i Gibraltaru", "Obrona Prawna Przemian Kolonialnych", "Śródziemnomorskie Archiwa Suwerenności Dekolonialnej"],
+            es: ["Protocolos Comerciales de la Antigua Cartago y Gibraltar", "Defensa Legal de la Transición Colonial", "Archivos Mediterráneos de Soberanía Decolonial"],
+            fr: ["Protocoles Commerciaux de l'Ancienne Carthage & Gibraltar", "Défense Juridique des Transitions Coloniales", "Archives Méditerranéennes de la Souveraineté Décoloniale"]
+        }
+    }
+};
+
+function displayFaculty(key) {
+    const data = curriculumData[key];
+    const panel = document.getElementById("dynamic-panel");
+    const title = document.getElementById("panel-title");
+    const meta = document.getElementById("panel-meta");
+    const desc = document.getElementById("panel-desc");
+    const list = document.getElementById("panel-modules");
+
+    title.innerText = data.titles[currentLang];
+    meta.innerText = data.code;
+    desc.innerText = data.desc[currentLang];
+
+    list.innerHTML = "";
+    data.modules[currentLang].forEach(mod => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="pulse"></span> <strong>${mod}</strong>`;
+        list.appendChild(li);
+    });
+
+    panel.style.display = "block";
+    panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 </script>
 
 </body>
+</html>
+
+```
+
                                                           </html>
