@@ -5,11 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caribbean Campus // G-Rock Trans-Atlantic Link</title>
 
-<!-- Import czcionek do kinowej konsoli sterowania -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 body {
@@ -220,9 +218,10 @@ header b {
     box-shadow: 0 10px 30px rgba(74, 163, 255, 0.15);
 }
 
-.campus-card i {
-    font-size: 32px;
-    color: #4aa3ff;
+.campus-card svg {
+    width: 32px;
+    height: 32px;
+    fill: #4aa3ff;
     margin-bottom: 15px;
 }
 
@@ -370,7 +369,6 @@ header b {
 
 <body>
 
-<!-- CENTRAL NAVIGATION NODE -->
 <header>
     <b id="nav-title">G-Rock Corporation // Caribbean Core</b>
     <div class="nav-group">
@@ -386,7 +384,6 @@ header b {
 
 <div class="container">
 
-    <!-- TRANS-ATLANTIC FIBER LINK TELEMETRY -->
     <div class="bridge-console">
         <div class="bridge-node">
             <div class="node-tag">Main Core</div>
@@ -404,29 +401,26 @@ header b {
         </div>
     </div>
 
-    <!-- MAIN GRID CONTROLLERS -->
     <div class="campus-grid">
         <div class="campus-card active" id="card-haiti" onclick="selectCampus('haiti')">
-            <i class="fa-solid fa-shield-halved"></i>
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
             <h3 id="c1-title">Haiti Campus</h3>
             <p id="c1-sub">Cazalé / Port-au-Prince</p>
         </div>
         <div class="campus-card" id="card-jamaica" onclick="selectCampus('jamaica')">
-            <i class="fa-solid fa-radio"></i>
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41C4.95 16.27 4 14.24 4 12c0-4.42 3.58-8 8-8s8 3.58 8 8c0 2.24-.95 4.27-2.34 5.66l1.41 1.41C20.88 17.26 22 14.76 22 12c0-5.52-4.48-10-10-10zm0 4c-3.31 0-6 2.69-6 6 0 1.66.67 3.16 1.76 4.24l1.42-1.42C8.45 14.13 8 13.12 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.12-.45 2.13-1.18 2.83l1.42 1.42C17.33 15.16 18 13.66 18 12c0-3.31-2.69-6-6-6zm0 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
             <h3 id="c2-title">Jamaica Campus</h3>
             <p id="c2-sub">Kingston Core</p>
         </div>
         <div class="campus-card" id="card-dominican" onclick="selectCampus('dominican')">
-            <i class="fa-solid fa-seedling"></i>
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.75 3.31 8.72 7.75 9.75l.13-.56c.46-1.99.78-3.92.93-5.71-.62-.31-1.14-.78-1.52-1.37-.58-.91-.71-2.12-.34-3.23.47-1.42 1.74-2.4 3.22-2.52.19-.01.37-.02.56-.02.43 0 .86.04 1.28.11l.31-.96c.46-1.43 1.73-2.42 3.22-2.54.19-.01.38-.02.57-.02.6 0 1.19.08 1.77.23C21.46 4.6 17.13 2 12 2zm1.61 11.23c-.12.4-.44.71-.84.84-.11.04-.23.06-.35.06-.29 0-.57-.12-.76-.35l-.05-.06-.06-.05c-.34-.34-.41-.85-.2-1.27.18-.34.52-.57.91-.62l.14-.02h.11c.42 0 .8.25.96.64.12.3.1.63-.07.87z"/></svg>
             <h3 id="c3-title">Dominican Republic</h3>
             <p id="c3-sub">Santo Domingo Base</p>
         </div>
     </div>
 
-    <!-- SPLIT-SCREEN COMMAND DYNAMIC DATA LAYER -->
     <div class="command-console">
         
-        <!-- LEFT SCREEN: DIRECTIVE OVERVIEW & HISTORY -->
         <div class="console-left">
             <h2 id="disp-title">Haiti Campus — Cazalé</h2>
             <span class="console-meta" id="disp-meta">Major: Revolutionary History, Political Thought &amp; Shadow Systems</span>
@@ -436,22 +430,18 @@ header b {
             </div>
         </div>
 
-        <!-- RIGHT SCREEN: DYNAMIC SPECIALIZATIONS -->
         <div class="console-right">
             <h4 id="disp-right-title">Academic Specializations</h4>
             <div class="specialization-list" id="disp-specs">
-                <!-- Dynamically generated elements -->
-            </div>
+                </div>
         </div>
 
     </div>
 
-    <!-- MAIN CRYPTO TERMINAL FEED -->
     <div class="block" style="background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%); border: 1px solid #1b263b; border-radius: 12px; padding: 30px; margin-top: 30px;">
         <h2 style="font-family:'Orbitron'; font-size:16px; color:#4aa3ff; letter-spacing:2px; margin-top:0; margin-bottom:15px;" id="term-title">G-System Mainframe Decryption Log</h2>
         <div class="log-terminal" id="terminal">
-            <!-- Driven by JS asynchronous simulator -->
-        </div>
+            </div>
     </div>
 
 </div>
@@ -553,7 +543,7 @@ const dataMatrix = {
             en: "Kingston's downtown street culture has generated some of the most potent geopolitical protest music in modern history, defying systemic oppression through analog frequencies.",
             pl: "Miejska kultura Kingston wygenerowała jedne z najbardziej wpływowych protestów muzycznych w historii, rzucając wyzwanie systemowej opresji za pomocą częstotliwości.",
             es: "La cultura urbana de Kingston ha generado algunas de las protestas musicales más potentes de la historia, desafiando la opresión sistémica.",
-            fr: "La culture de rue de Kingston a généré des formes de protestation musicale parmi les plus puissantes de l'histoire, défiant l'oppression systémique."
+            fr: "La culture de rue de Kingston a généré des formes de protestation musicale parmi les plus puissantes de l'histoire, défiant l'oppression sysytémique."
         },
         specs: [
             {
@@ -596,7 +586,7 @@ const dataMatrix = {
                 t: { en: "Street Art & Urban Identity", pl: "Kultura street art i tożsamość miejska Kingston", es: "Arte Urbano e Identidad", fr: "Street Art et Identité Urbaine" },
                 d: {
                     en: "Analyzing political murals and graffiti as decentralized communication networks in highly competitive urban centers.",
-                    pl: "Analiza politycznych moralów i graffiti jako zdecentralizowanych sieci komunikacji w silnie rywalizujących ośrodkach miejskich.",
+                    pl: "Analiza politycznych murali i graffiti jako zdecentralizowanych sieci komunikacji w silnie rywalizujących ośrodkach miejskich.",
                     es: "Análisis de murales políticos y grafitis como redes descentralizadas de comunicación urbana.",
                     fr: "Analyse des peintures murales politiques comme réseaux de communication décentralisés dans les centres urbains."
                 }
@@ -722,7 +712,7 @@ const termLogs = {
             "[ACUSTIC]  → Monitoreo del espectro de bajas frecuencias en la estación de Trenchtown.",
             "[AUDIO]     → Base del nivel de resonancia cultural de Bob Marley calculada en 96.4 dB.",
             "[SYNC]      → Conexión establecida con los sistemas de transmisión Kingston FM.",
-            "[SYS_OK]    → Red de communication de resistencia operando a niveles de potencia óptimos."
+            "[SYS_OK]    → Red de comunicación de resistencia operando a niveles de potencia óptimos."
         ],
         fr: [
             "[ACUSTIC]  → Surveillance du spectre des basses fréquences au studio de Trenchtown.",
@@ -765,49 +755,57 @@ let logTimers = [];
 
 function printTerminalLogs(lang, campus) {
     const term = document.getElementById("terminal");
+    if (!term) return;
     term.innerHTML = "";
     
-    // Czyszczenie poprzednich timerów, aby zapobiec konfliktom i nakładaniu tekstu
     logTimers.forEach(timer => clearTimeout(timer));
     logTimers = [];
 
-    termLogs[campus][lang].forEach((line, index) => {
-        let timer = setTimeout(() => {
-            const div = document.createElement("div");
-            div.className = "log-line";
-            div.innerText = line;
-            term.appendChild(div);
-        }, index * 250);
-        logTimers.push(timer);
-    });
+    if (termLogs[campus] && termLogs[campus][lang]) {
+        termLogs[campus][lang].forEach((line, index) => {
+            let timer = setTimeout(() => {
+                const div = document.createElement("div");
+                div.className = "log-line";
+                div.innerText = line;
+                term.appendChild(div);
+            }, index * 250);
+            logTimers.push(timer);
+        });
+    }
 }
 
 function selectCampus(id) {
     currentCampus = id;
     document.querySelectorAll(".campus-grid .campus-card").forEach(c => c.classList.remove("active"));
-    document.getElementById("card-" + id).classList.add("active");
+    const targetCard = document.getElementById("card-" + id);
+    if (targetCard) targetCard.classList.add("active");
     renderInterface();
 }
 
 function renderInterface() {
     const campus = dataMatrix[currentCampus];
+    if (!campus) return;
     
-    // Aktualizacja lewego ekranu
-    document.getElementById("disp-title").innerText = campus.titles[currentLang];
-    document.getElementById("disp-meta").innerText = campus.meta[currentLang];
-    document.getElementById("disp-desc").innerText = campus.desc[currentLang];
-    document.getElementById("disp-badge").innerText = campus.badge[currentLang];
+    const dTitle = document.getElementById("disp-title");
+    const dMeta = document.getElementById("disp-meta");
+    const dDesc = document.getElementById("disp-desc");
+    const dBadge = document.getElementById("disp-badge");
+
+    if (dTitle) dTitle.innerText = campus.titles[currentLang] || "";
+    if (dMeta) dMeta.innerText = campus.meta[currentLang] || "";
+    if (dDesc) dDesc.innerText = campus.desc[currentLang] || "";
+    if (dBadge) dBadge.innerText = campus.badge[currentLang] || "";
     
-    // Aktualizacja listy specjalizacji na prawym ekranie
     const container = document.getElementById("disp-specs");
-    container.innerHTML = "";
-    
-    campus.specs.forEach(spec => {
-        const div = document.createElement("div");
-        div.className = "spec-item";
-        div.innerHTML = `<strong>${spec.t[currentLang]}</strong><p>${spec.d[currentLang]}</p>`;
-        container.appendChild(div);
-    });
+    if (container) {
+        container.innerHTML = "";
+        campus.specs.forEach(spec => {
+            const div = document.createElement("div");
+            div.className = "spec-item";
+            div.innerHTML = `<strong>${spec.t[currentLang] || ""}</strong><p>${spec.d[currentLang] || ""}</p>`;
+            container.appendChild(div);
+        });
+    }
 
     printTerminalLogs(currentLang, currentCampus);
 }
@@ -817,9 +815,7 @@ function setLang(lang) {
     document.querySelectorAll(".lang a").forEach(el => el.classList.remove("active"));
     
     const targetLangEl = document.getElementById("lang-" + lang);
-    if(targetLangEl) {
-        targetLangEl.classList.add("active");
-    }
+    if(targetLangEl) targetLangEl.classList.add("active");
 
     const globalLabels = {
         en: {
@@ -864,20 +860,29 @@ function setLang(lang) {
         }
     };
 
-    const labels = globalLabels[lang];
-    document.getElementById("nav-title").innerText = labels.nav;
-    document.getElementById("btn-return").innerText = labels.btn;
-    document.getElementById("lbl-bridge-status").innerText = labels.bridge;
-    document.getElementById("c1-title").innerText = labels.c1;
-    document.getElementById("c2-title").innerText = labels.c2;
-    document.getElementById("c3-title").innerText = labels.c3;
-    document.getElementById("disp-right-title").innerText = labels.rightTitle;
-    document.getElementById("term-title").innerText = labels.termTitle;
+    const labels = globalLabels[lang] || globalLabels['en'];
+    
+    const nTitle = document.getElementById("nav-title");
+    const bReturn = document.getElementById("btn-return");
+    const lBridge = document.getElementById("lbl-bridge-status");
+    const c1T = document.getElementById("c1-title");
+    const c2T = document.getElementById("c2-title");
+    const c3T = document.getElementById("c3-title");
+    const dRightT = document.getElementById("disp-right-title");
+    const tTitle = document.getElementById("term-title");
+
+    if (nTitle) nTitle.innerText = labels.nav;
+    if (bReturn) bReturn.innerText = labels.btn;
+    if (lBridge) lBridge.innerText = labels.bridge;
+    if (c1T) c1T.innerText = labels.c1;
+    if (c2T) c2T.innerText = labels.c2;
+    if (c3T) c3T.innerText = labels.c3;
+    if (dRightT) dRightT.innerText = labels.rightTitle;
+    if (tTitle) tTitle.innerText = labels.termTitle;
 
     renderInterface();
 }
 
-// Inicjalizacja skryptu po pełnym załadowaniu struktury DOM
 document.addEventListener("DOMContentLoaded", function() {
     setLang('en');
 });
@@ -885,4 +890,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
 
