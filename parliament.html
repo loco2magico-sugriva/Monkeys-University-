@@ -3,186 +3,517 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parliament of the Monkeys from Gibraltar</title>
+<title>Parliament of the Monkeys // G-Rock Constitutional Core</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-font-family:Arial,sans-serif;
-background:#070A10;
+font-family: 'Inter', sans-serif;
+background:#04060a;
 color:#E6E6E6;
-line-height:1.6;
+min-height: 100vh;
+background: radial-gradient(circle at center, #0a1324 0%, #03050a 100%);
 }
 
+/* HEADER STYLE */
 header{
-padding:25px;
-background:#0b0f18;
-border-bottom:1px solid #1f2a3a;
-text-align:center;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 22px 50px;
+background: #090c14;
+border-bottom: 1px solid #1a2436;
+box-shadow: 0 6px 25px rgba(0,0,0,0.6);
 }
 
-header h1{
-margin:0;
-font-size:32px;
-color:#4aa3ff;
-letter-spacing:2px;
+header b{
+font-family: 'Orbitron', sans-serif;
+color: #fff;
+letter-spacing: 3px;
+text-transform: uppercase;
+font-size: 15px;
+text-shadow: 0 0 10px rgba(74,163,255,0.3);
 }
 
-header p{
-margin-top:8px;
-color:#aaa;
+.nav-group {
+display: flex;
+align-items: center;
+gap: 30px;
 }
 
+.lang a{
+margin-left: 15px;
+color: #64748b;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+transition: all 0.2s;
+text-decoration: none;
+border-bottom: 1px solid transparent;
+padding-bottom: 2px;
+}
+
+.lang a:hover, .lang a.active{
+color: #4aa3ff;
+border-bottom: 1px solid #4aa3ff;
+text-shadow: 0 0 8px rgba(74, 163, 255, 0.5);
+}
+
+.btn-back {
+font-family: 'Orbitron', sans-serif;
+color: #64748b;
+font-size: 12px;
+text-decoration: none;
+border: 1px solid #1a2436;
+padding: 8px 16px;
+border-radius: 6px;
+transition: all 0.3s;
+letter-spacing: 1px;
+}
+
+.btn-back:hover {
+color: #4aa3ff;
+border-color: #4aa3ff;
+box-shadow: 0 0 12px rgba(74, 163, 255, 0.2);
+background: rgba(74, 163, 255, 0.05);
+}
+
+/* MAIN CONTAINER */
 .container{
-max-width:1100px;
-margin:40px auto;
-padding:20px;
+max-width: 1200px;
+margin: 50px auto;
+padding: 0 30px;
+box-sizing: border-box;
+}
+
+/* TELEMETRY SEAT GRID COCKPIT */
+.parliament-dashboard {
+background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+border: 1px solid #1b263b;
+border-radius: 12px;
+padding: 30px;
+margin-bottom: 35px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.dashboard-title {
+font-family: 'Orbitron', sans-serif;
+color: #4aa3ff;
+font-size: 14px;
+text-transform: uppercase;
+letter-spacing: 2px;
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.pulse-node {
+width: 8px;
+height: 8px;
+background: #4aa3ff;
+border-radius: 50%;
+box-shadow: 0 0 10px #4aa3ff;
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { opacity: 0.4; }
+50% { opacity: 1; }
+100% { opacity: 0.4; }
+}
+
+.seats-summary {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .seats-summary { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat-box {
+background: #060913;
+border: 1px solid #151f30;
+padding: 20px;
+border-radius: 8px;
+text-align: center;
+}
+
+.stat-num {
+font-family: 'Orbitron', sans-serif;
+font-size: 32px;
+font-weight: 900;
+color: #ffffff;
+text-shadow: 0 0 10px rgba(74,163,255,0.2);
+}
+
+.stat-label {
+font-size: 11px;
+color: #64748b;
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-top: 5px;
+}
+
+/* TWO-COLUMN INTEL LAYOUT */
+.intel-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 30px;
+}
+
+@media (max-width: 900px) {
+    .intel-grid { grid-template-columns: 1fr; }
 }
 
 .block{
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:12px;
-padding:24px;
-margin-bottom:20px;
+background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+border: 1px solid #1b263b;
+border-radius: 12px;
+padding: 30px;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .block h2{
-color:#4aa3ff;
-margin-top:0;
+font-family: 'Orbitron', sans-serif;
+color: #4aa3ff;
+font-size: 20px;
+letter-spacing: 1px;
+margin-top: 0;
+margin-bottom: 20px;
+text-transform: uppercase;
+border-bottom: 1px solid #1b263b;
+padding-bottom: 10px;
+}
+
+p {
+color: #94a3b8;
+font-size: 14px;
+line-height: 1.6;
+margin-top: 0;
+margin-bottom: 15px;
 }
 
 .highlight{
-background:#0f1626;
-border-left:4px solid #4aa3ff;
-padding:14px;
-margin:12px 0;
-border-radius:6px;
+background: #060913;
+border-left: 4px solid #4aa3ff;
+padding: 16px;
+margin: 20px 0;
+border-radius: 0 8px 8px 0;
+font-size: 13px;
+color: #e2e8f0;
+font-weight: 600;
 }
 
 ul{
-padding-left:20px;
+padding-left: 20px;
+margin: 0;
 }
 
 li{
-margin-bottom:8px;
+margin-bottom: 12px;
+color: #94a3b8;
+font-size: 14px;
+}
+
+strong {
+color: #ffffff;
 }
 </style>
-
 </head>
 
 <body>
 
+<!-- HEADER NODE -->
 <header>
-<h1>Parliament of the Monkeys from Gibraltar</h1>
-<p>The Constitutional Assembly of Gibraltar Rock</p>
+    <b id="nav-title">G-Rock Corporation // Assembly Core</b>
+    <div class="nav-group">
+        <div class="lang">
+            <a onclick="setLang('en')" id="lang-en" class="active">EN</a>
+            <a onclick="setLang('pl')" id="lang-pl">PL</a>
+            <a onclick="setLang('es')" id="lang-es">ES</a>
+            <a onclick="setLang('fr')" id="lang-fr">FR</a>
+        </div>
+        <a href="index.html" class="btn-back" id="btn-return">RETURN TO HUB</a>
+    </div>
 </header>
 
 <div class="container">
 
-<div class="block">
+    <!-- LIVE SEATING CONFIGURATION MATRIX -->
+    <div class="parliament-dashboard">
+        <div class="dashboard-title">
+            <div class="pulse-node"></div>
+            <span id="dash-title">Active Assembly Composition Matrix</span>
+        </div>
+        <div class="seats-summary">
+            <div class="stat-box">
+                <div class="stat-num" style="color: #4aa3ff;">267</div>
+                <div class="stat-label" id="lbl-total">Total Assembly Members</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">265</div>
+                <div class="stat-label" id="lbl-macaques">Barbary Macaques (5 Clans)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" style="color: #8da4ff;">1</div>
+                <div class="stat-label" id="lbl-chair">Chairman (Sugriva)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" style="color: #ffaa44;">1</div>
+                <div class="stat-label" id="lbl-veto">Veto Bear (Wojtek)</div>
+            </div>
+        </div>
+    </div>
 
-<h2>History of Parliament</h2>
+    <!-- MAIN CONSTITUTIONAL BLOCKS -->
+    <div class="intel-grid">
+        
+        <!-- COLUMN 1: HISTORY & GOVERNMENT -->
+        <div class="column">
+            <div class="block" style="margin-bottom: 30px;">
+                <h2 id="title-history">History of Parliament</h2>
+                <p id="hist-p1">The Parliament of the Monkeys from Gibraltar was established in 1943 after the takeover of Gibraltar Rock by the Ape population.</p>
+                <p id="hist-p2">The first Constitution of Gibraltar Rock was adopted shortly after, creating a system of self-governance based on participation and collective decision-making.</p>
+                <p id="hist-p3">Since then, Parliament has served as the highest constitutional authority of Gibraltar Rock.</p>
+                <p id="hist-p4">In December 1963, the Constitution was amended following the arrival of Professor Sugriva and Corporal Wojtek Bear.</p>
+                <p id="hist-p5">Both figures were formally integrated into the parliamentary system to secure strategic leadership layers.</p>
+            </div>
 
-<p>
-The Parliament of the Monkeys from Gibraltar was established in 1943 after the takeover of Gibraltar Rock by the Ape population.
-</p>
+            <div class="block">
+                <h2 id="title-system">System of Government</h2>
+                <p id="sys-p1">Parliament operates under an advanced system of Direct Democracy tailored for sovereign primate collectives.</p>
+                <div class="highlight" id="sys-high">
+                    Every Ape has the right to vote, to propose legislative frameworks, and to directly shape constitutional decisions.
+                </div>
+                <p id="sys-p2">All Apes of Gibraltar Rock hold fundamental alignment within the legislative core, ensuring distributed decision data processing across all 5 indigenous klan zones.</p>
+            </div>
+        </div>
 
-<p>
-The first Constitution of Gibraltar Rock was adopted shortly after, creating a system of self-governance based on participation and collective decision-making.
-</p>
+        <!-- COLUMN 2: COMMAND LEADERSHIP & FUNCTIONS -->
+        <div class="column">
+            <div class="block" style="margin-bottom: 30px;">
+                <h2 id="title-leaders">Command Matrix</h2>
+                
+                <p><strong id="lead-sugriva-title">Professor Sugriva (Chairman):</strong> <span id="lead-sugriva-txt">Arrived in Gibraltar Rock in December 1963. He was elected Chairman of Parliament shortly after arrival. He oversees parliamentary sessions, algorithmic balancing, and constitutional order.</span></p>
+                
+                <p><strong id="lead-wojtek-title">Corporal Wojtek Bear (Constitutional Veto):</strong> <span id="lead-wojtek-txt1">A decorated veteran of the Second World War who served alongside Allied forces in the Middle East and Italy. Following post-war operations, he entered Edinburgh Zoo as part of a long-term strategic deep-cover mission.</span></p>
+                
+                <p id="lead-wojtek-txt2">On December 2, 1963, Wojtek and Professor Sugriva staged their exit from the zoo to establish the sovereign G-Rock baseline.</p>
+                <div class="highlight" id="lead-wojtek-high" style="border-left-color: #ffaa44;">
+                    Wojtek Bear was granted the Constitutional Right of Absolute Veto as the singular Bear within the parliamentary architecture.
+                </div>
+            </div>
 
-<p>
-Since then, Parliament has served as the highest constitutional authority of Gibraltar Rock.
-</p>
+            <div class="block">
+                <h2 id="title-functions">Parliamentary Functions</h2>
+                <ul id="func-list">
+                    <li>Lawmaking and constitutional governance</li>
+                    <li>Algorithmic control of core institutions within Gibraltar Rock</li>
+                    <li>Unconditional protection of Ape rights and sovereign territory</li>
+                    <li>Coordination of specialized education nodes and transmedia networks</li>
+                    <li>Maintenance of public order and G-System sync stability</li>
+                </ul>
+            </div>
+        </div>
 
-<p>
-In December 1963, the Constitution was amended following the arrival of Professor Sugriva and Corporal Wojtek Bear.
-</p>
-
-<p>
-Both figures were formally integrated into the parliamentary system.
-</p>
-
+    </div>
 </div>
 
-<div class="block">
+<script>
+function setLang(lang){
+    // Update active visual link
+    document.querySelectorAll(".lang a").forEach(el => el.classList.remove("active"));
+    document.getElementById("lang-" + lang).classList.add("active");
 
-<h2>System of Government</h2>
+    const matrix = {
+        en: {
+            navTitle: "G-Rock Corporation // Assembly Core",
+            returnBtn: "RETURN TO HUB",
+            dashTitle: "Active Assembly Composition Matrix",
+            lblTotal: "Total Assembly Members",
+            lblMacaques: "Barbary Macaques (5 Clans)",
+            lblChair: "Chairman (Sugriva)",
+            lblVeto: "Veto Bear (Wojtek)",
+            titleHistory: "History of Parliament",
+            histP1: "The Parliament of the Monkeys from Gibraltar was established in 1943 after the takeover of Gibraltar Rock by the Ape population.",
+            histP2: "The first Constitution of Gibraltar Rock was adopted shortly after, creating a system of self-governance based on participation and collective decision-making.",
+            histP3: "Since then, Parliament has served as the highest constitutional authority of Gibraltar Rock.",
+            histP4: "In December 1963, the Constitution was amended following the arrival of Professor Sugriva and Corporal Wojtek Bear.",
+            histP5: "Both figures were formally integrated into the parliamentary system to secure strategic leadership layers.",
+            titleSystem: "System of Government",
+            sysP1: "Parliament operates under an advanced system of Direct Democracy tailored for sovereign primate collectives.",
+            sysHigh: "Every Ape has the right to vote, to propose legislative frameworks, and to directly shape constitutional decisions.",
+            sysP2: "All Apes of Gibraltar Rock hold fundamental alignment within the legislative core, ensuring distributed decision data processing across all 5 indigenous klan zones.",
+            titleLeaders: "Command Matrix",
+            sugrivaTitle: "Professor Sugriva (Chairman):",
+            sugrivaTxt: "Arrived in Gibraltar Rock in December 1963. He was elected Chairman of Parliament shortly after arrival. He oversees parliamentary sessions, algorithmic balancing, and constitutional order.",
+            wojtekTitle: "Corporal Wojtek Bear (Constitutional Veto):",
+            wojtekTxt1: "A decorated veteran of the Second World War who served alongside Allied forces in the Middle East and Italy. Following post-war operations, he entered Edinburgh Zoo as part of a long-term strategic deep-cover mission.",
+            wojtekTxt2: "On December 2, 1963, Wojtek and Professor Sugriva staged their exit from the zoo to establish the sovereign G-Rock baseline.",
+            wojtekHigh: "Wojtek Bear was granted the Constitutional Right of Absolute Veto as the singular Bear within the parliamentary architecture.",
+            titleFunctions: "Parliamentary Functions",
+            funcs: [
+                "Lawmaking and constitutional governance",
+                "Algorithmic control of core institutions within Gibraltar Rock",
+                "Unconditional protection of Ape rights and sovereign territory",
+                "Coordination of specialized education nodes and transmedia networks",
+                "Maintenance of public order and G-System sync stability"
+            ]
+        },
+        pl: {
+            navTitle: "G-Rock Corporation // Rdzeń Zgromadzenia",
+            returnBtn: "POWRÓT DO WEZŁA",
+            dashTitle: "Aktywna Macierz Składu Parlamentu",
+            lblTotal: "Całkowita Liczba Członków",
+            lblMacaques: "Magoty Gibraltarskie (5 Klanów)",
+            lblChair: "Przewodniczący (Sugriva)",
+            lblVeto: "Niedźwiedź z Prawem Veto (Wojtek)",
+            titleHistory: "Historia Parlamentu",
+            histP1: "Parlament Małp z Gibraltaru został ustanowiony w 1943 roku po przejęciu Skały Gibraltarskiej przez populację Małp.",
+            histP2: "Krótko po tym przyjęto pierwszą Konstytucję Skały Gibraltarskiej, tworząc system samorządności oparty na partycypacji i wspólnym podejmowaniu decyzji.",
+            histP3: "Od tamtej pory Parlament służy jako najwyższa władza konstytucyjna Skały Gibraltarskiej.",
+            histP4: "W grudniu 1963 roku Konstytucja została znowelizowana po przybyciu Profesora Sugrivy i Kaprala Wojtka.",
+            histP5: "Obie postacie zostały formalnie zintegrowane z systemem parlamentarnym w celu zabezpieczenia strategicznych warstw przywództwa.",
+            titleSystem: "System Rządów",
+            sysP1: "Parlament działa w zaawansowanym systemie Demokracji Bezpośredniej, dostosowanym do suwerennych społeczności naczelnych.",
+            sysHigh: "Każda Małpa ma prawo do głosowania, zgłaszania projektów ustaw i bezpośredniego kształtowania decyzji konstytucyjnych.",
+            sysP2: "Wszystkie Małpy ze Skały Gibraltarskiej posiadają fundamentalne wyrównanie wewnątrz rdzenia legislacyjnego, zapewniając rozproszone przetwarzanie danych decyzyjnych we wszystkich 5 strefach klanowych.",
+            titleLeaders: "Matryca Dowodzenia",
+            sugrivaTitle: "Professor Sugriva (Przewodniczący):",
+            sugrivaTxt: "Przybył na Skałę Gibraltarską w grudniu 1963 roku. Krótko po przybyciu został wybrany Przewodniczącym Parlamentu. Nadzoruje sesje parlamentarne, równoważenie algorytmiczne oraz porządek konstytucyjny.",
+            wojtekTitle: "Kapral Wojtek (Konstytucyjne Veto):",
+            wojtekTxt1: "Zasłużony weteran II Wojny Światowej, służący u boku sił alianckich na Bliskim Wschodzie i we Włoszech. Po operacjach powojennych trafił do zoo w Edynburgu w ramach długoterminowej, strategicznej misji wywiadowczej.",
+            wojtekTxt2: "2 grudnia 1963 roku Wojtek i Profesor Sugriva sfingowali swoje odejście z zoo, aby ustanowić suwerenną linię bazową G-Rock.",
+            wojtekHigh: "Kapral Wojtek otrzymał Konstytucyjne Prawo Bezwzględnego Veto jako jedyny Niedźwiedź w strukturze parlamentarnej.",
+            titleFunctions: "Funkcje Parlamentarne",
+            funcs: [
+                "Ustawodawstwo i zarządzanie konstytucyjne",
+                "Algorytmiczna kontrola kluczowych instytucji w obrębie Skały Gibraltarskiej",
+                "Bezwzględna ochrona praw Małp i suwerennego terytorium",
+                "Koordynacja wyspecjalizowanych węzłów edukacyjnych i sieci transmedialnych",
+                "Utrzymanie porządku publicznego i stabilności synchronizacji G-Systemu"
+            ]
+        },
+        es: {
+            navTitle: "G-Rock Corporation // Núcleo de la Asamblea",
+            returnBtn: "VOLVER AL HUB",
+            dashTitle: "Matriz Activa de Composición de la Asamblea",
+            lblTotal: "Miembros Totales de la Asamblea",
+            lblMacaques: "Macacos de Berbería (5 Clanes)",
+            lblChair: "Presidente (Sugriva)",
+            lblVeto: "Oso con Derecho a Veto (Wojtek)",
+            titleHistory: "Historia del Parlamento",
+            histP1: "El Parlamento de los Monos de Gibraltar se estableció en 1943 tras la toma de la Roca de Gibraltar por la población de simios.",
+            histP2: "La primera Constitución de la Roca de Gibraltar se adoptó poco después, creando un sistema de autogobierno basado en la participación y la toma colectiva de decisiones.",
+            histP3: "Desde entonces, el Parlamento ha servido como la máxima autoridad constitucional de la Roca de Gibraltar.",
+            histP4: "En diciembre de 1963, la Constitución fue enmendada tras la llegada del Professor Sugriva y el Cabo Wojtek.",
+            histP5: "Ambas figuras se integraron formalmente en el sistema parlamentario para asegurar las capas estratégicas de liderazgo.",
+            titleSystem: "Sistema de Gobierno",
+            sysP1: "El Parlamento opera bajo un sistema avanzado de Democracia Directa diseñado para colectivos de primates soberanos.",
+            sysHigh: "Cada simio tiene derecho a votar, proponer marcos legislativos y dar forma directa a las decisiones constitucionales.",
+            sysP2: "Todos los simios de la Roca de Gibraltar tienen una alineación fundamental dentro del núcleo legislativo, asegurando el procesamiento de datos distribuidos en las 5 zonas de clanes.",
+            titleLeaders: "Matriz de Mando",
+            sugrivaTitle: "Professor Sugriva (Presidente):",
+            sugrivaTxt: "Llegó a la Roca de Gibraltar en diciembre de 1963. Fue elegido Presidente del Parlamento poco después de su llegada. Supervisa las sesiones parlamentarias, el equilibrio algorítmico y el orden constitucional.",
+            wojtekTitle: "Cabo Oso Wojtek (Veto Constitucional):",
+            wojtekTxt1: "Un condecorado veterano de la Segunda Guerra Mundial que sirvió junto a las fuerzas aliadas en Medio Oriente e Italia. Tras las operaciones de la posguerra, entró en el Zoológico de Edimburgo como parte de una misión encubierta estratégica a largo plazo.",
+            wojtekTxt2: "El 2 de diciembre de 1963, Wojtek y el Professor Sugriva simularon su salida del zoológico para establecer la línea base soberana de G-Rock.",
+            wojtekHigh: "El Oso Wojtek obtuvo el Derecho Constitucional de Veto Absoluto como el único Oso dentro de la arquitectura parlamentaria.",
+            titleFunctions: "Funciones Parlamentarias",
+            funcs: [
+                "Legislación y gobernanza constitucional",
+                "Control algorítmico de las instituciones centrales dentro de la Roca de Gibraltar",
+                "Protección incondicional de los derechos de los simios y del territorio soberano",
+                "Coordinación de nodos educativos especializados y redes transmedia",
+                "Mantenimiento del orden público y de la estabilidad del G-System"
+            ]
+        },
+        fr: {
+            navTitle: "G-Rock Corporation // Noyau de l'Assemblée",
+            returnBtn: "RETOUR AU HUB",
+            dashTitle: "Matrice de Composition de l'Assemblée Active",
+            lblTotal: "Total des Membres de l'Assemblée",
+            lblMacaques: "Magots de Gibraltar (5 Clans)",
+            lblChair: "Président (Sugriva)",
+            lblVeto: "Ours avec Droit de Veto (Wojtek)",
+            titleHistory: "Histoire du Parlement",
+            histP1: "Le Parlement des Singes de Gibraltar a été créé en 1943 après la prise du Rocher de Gibraltar por la population de grands singes.",
+            histP2: "La première Constitution du Rocher de Gibraltar a été adoptée peu après, créant un système d'autogouvernance basé sur la participation et la prise de décision collective.",
+            histP3: "Depuis lors, le Parlement sert de plus haute autorité constitutionnelle du Rocher de Gibraltar.",
+            histP4: "En décembre 1963, la Constitution a été amendée suite à l'arrivée du Professor Sugriva et du Caporal Wojtek.",
+            histP5: "Les deux figures ont été formellement intégrées au système parlementaire pour sécuriser les couches de leadership stratégique.",
+            titleSystem: "Système de Gouvernement",
+            sysP1: "Le Parlement fonctionne selon un système avancé de Démocratie Directe adapté aux collectifs de primates souverains.",
+            sysHigh: "Chaque singe a le droit de voter, de proposer des cadres législatifs et façonne directement les décisions constitutionnelles.",
+            sysP2: "Tous les singes du Rocher de Gibraltar détiennent un alignement fondamental au sein du noyau législatif, assurant le traitement distribué des données décisionnelles à travers les 5 zones de clans.",
+            titleLeaders: "Matrice de Commandement",
+            sugrivaTitle: "Professor Sugriva (Président):",
+            sugrivaTxt: "Arrivé au Rocher de Gibraltar en décembre 1963. Il a été élu président du Parlement peu après son arrivée. Il supervise les sessions parlementaires, l'équilibrage algorithmique et l'ordre constitutionnel.",
+            wojtekTitle: "Caporal Ours Wojtek (Veto Constitutionnel):",
+            wojtekTxt1: "Un vétéran décoré de la Seconde Guerre Mundial qui a servi aux côtés des forces alliées au Moyen-Orient et en Italie. Après les opérations d'après-guerre, il est entré au zoo d'Édimbourg dans le cadre d'une mission d'infiltration stratégique à long terme.",
+            wojtekTxt2: "Le 2 décembre 1963, Wojtek et le Professor Sugriva ont mis en scène leur départ du zoo pour établir la ligne de base souveraine de G-Rock.",
+            wojtekHigh: "L'Ours Wojtek a obtenu le droit constitutionnel de veto absolu en tant que seul Ours au sein de l'architecture parlementaire.",
+            titleFunctions: "Fonctions Parlementaires",
+            funcs: [
+                "Législation et gouvernance constitutionnelle",
+                "Contrôle algorithmique des institutions centrales au sein du Rocher de Gibraltar",
+                "Protection incondtionnelle des droits des singes et du territoire souverain",
+                "Coordination des nœuds d'éducation spécialisés et des réseaux transmédias",
+                "Maintien de l'ordre public et de la stabilité de la synchronisation du G-System"
+            ]
+        }
+    };
 
-<p>
-Parliament operates under a system of Direct Democracy.
-</p>
-
-<div class="highlight">
-Every Ape has the right to vote, to propose laws, and to participate in decision-making.
-</div>
-
-<p>
-All Apes of Gibraltar Rock are members of Parliament.
-</p>
-
-</div>
-
-<div class="block">
-
-<h2>Professor Sugriva</h2>
-
-<p>
-Professor Sugriva arrived in Gibraltar Rock in December 1963.
-</p>
-
-<p>
-He was elected Chairman of Parliament shortly after arrival.
-</p>
-
-<p>
-He oversees parliamentary sessions and constitutional order.
-</p>
-
-</div>
-
-<div class="block">
-
-<h2>Corporal Wojtek Bear</h2>
-
-<p>
-Corporal Wojtek Bear was a veteran of the Second World War, serving alongside Allied forces in the Middle East and Italy.
-</p>
-
-<p>
-After the war, he lived in the United Kingdom, including Scotland and Edinburgh Zoo.
-</p>
-
-<p>
-According to Gibraltar Rock records, he voluntarily entered Edinburgh Zoo as part of a long-term strategic mission.
-</p>
-
-<p>
-On 2 December 1963, Wojtek and Professor Sugriva staged their death at Edinburgh Zoo and later arrived in Gibraltar Rock.
-</p>
-
-<div class="highlight">
-Wojtek Bear was granted the Constitutional Right of Veto as the only Bear within the parliamentary system.
-</div>
-
-</div>
-
-<div class="block">
-
-<h2>Parliamentary Functions</h2>
-
-<ul>
-<li>Lawmaking and constitutional governance</li>
-<li>Control of institutions within Gibraltar Rock</li>
-<li>Protection of Ape rights</li>
-<li>Coordination of education and economic systems</li>
-<li>Maintenance of public order</li>
-</ul>
-
-</div>
-
-</div>
+    const current = matrix[lang];
+    
+    // UI Updates
+    document.getElementById("nav-title").innerText = current.navTitle;
+    document.getElementById("btn-return").innerText = current.returnBtn;
+    document.getElementById("dash-title").innerText = current.dashTitle;
+    document.getElementById("lbl-total").innerText = current.lblTotal;
+    document.getElementById("lbl-macaques").innerText = current.lblMacaques;
+    document.getElementById("lbl-chair").innerText = current.lblChair;
+    document.getElementById("lbl-veto").innerText = current.lblVeto;
+    
+    document.getElementById("title-history").innerText = current.titleHistory;
+    document.getElementById("hist-p1").innerText = current.histP1;
+    document.getElementById("hist-p2").innerText = current.histP2;
+    document.getElementById("hist-p3").innerText = current.histP3;
+    document.getElementById("hist-p4").innerText = current.histP4;
+    document.getElementById("hist-p5").innerText = current.histP5;
+    
+    document.getElementById("title-system").innerText = current.titleSystem;
+    document.getElementById("sys-p1").innerText = current.sysP1;
+    document.getElementById("sys-high").innerText = current.sysHigh;
+    document.getElementById("sys-p2").innerText = current.sysP2;
+    
+    document.getElementById("title-leaders").innerText = current.titleLeaders;
+    document.getElementById("lead-sugriva-title").innerText = current.sugrivaTitle;
+    document.getElementById("lead-sugriva-txt").innerText = current.sugrivaTxt;
+    document.getElementById("lead-wojtek-title").innerText = current.wojtekTitle;
+    document.getElementById("lead-wojtek-txt1").innerText = current.wojtekTxt1;
+    document.getElementById("lead-wojtek-txt2").innerText = current.wojtekTxt2;
+    document.getElementById("lead-wojtek-high").innerText = current.wojtekHigh;
+    
+    document.getElementById("title-functions").innerText = current.titleFunctions;
+    
+    const listContainer = document.getElementById("func-list");
+    listContainer.innerHTML = "";
+    current.funcs.forEach(f => {
+        const li = document.createElement("li");
+        li.innerText = f;
+        listContainer.appendChild(li);
+    });
+}
+</script>
 
 </body>
 </html>
+
