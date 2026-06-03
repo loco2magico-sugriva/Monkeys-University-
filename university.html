@@ -234,7 +234,7 @@ blockquote {
 
 <div class="container">
 
-<!-- WELCOME BANNER (THE ROCK INDEPENDENCE) -->
+<!-- WELCOME BANNER -->
 <div class="block welcome-box">
 <h2>System Access: Sovereignty Declared</h2>
 <p>
@@ -251,14 +251,14 @@ Operating under the umbrella of <strong>G-Rock Corporation</strong>, we do not m
 <div class="achievement-node">
 <h3>Official UK Recognition & Academic Validation</h3>
 <p>
-Monkeys University of Gibraltar has secured definitive academic validation within the British educational framework. Through rigorous external verification, <strong>Profesor Sugriva</strong> has been officially acknowledged as the first chimpanzee to hold a full, accredited Professor title in the United Kingdom.
+The ultimate achievement of this university is the official acceptance and validation of <strong>Professor Sugriva</strong> as a scientist by the British academic environment.
 </p>
 <blockquote>
 "The integration of regional intelligence networks and cross-strait simulation architectures provides the baseline data for the sovereign expansion of The Rock. The system is self-validating."
-<span class="quote-author">— Profesor Sugriva</span>
+<span class="quote-author">— Professor Sugriva</span>
 </blockquote>
-<a href="https://www.bathspa.ac.uk" class="link-btn" target="_blank">Access BSU Integration Node ➔</a>
-<a href="https://www.elizabethschool.london" class="link-btn" target="_blank">Access ESL Validation Node ➔</a>
+<a href="https://www.bathspa.ac.uk" class="link-btn" target="_blank">Access Bath Spa University Integration Node ➔</a>
+<a href="https://www.elizabethschool.london" class="link-btn" target="_blank">Access Elizabeth School of London Validation Node ➔</a>
 </div>
 </div>
 
@@ -274,8 +274,8 @@ The university has delivered a groundbreaking reinterpretation of early 19th-cen
 Professor Sugriva redefines the concept of human race by proving that this document represents the peak of global constitutional design: it defines a citizen by their loyalty, ethical choices, and actions, rather than biological traits.
 </p>
 <blockquote>
-"In the Haiti we can find humanity. (Na Haiti możemy odnaleźć człowieczeństwo). By legally transforming historical Polish allies into the fabric of the Black Republic, the constitution severed the concept of citizenship from biological determinism. It proved that race within a true system is a functional operational status defined by loyalty, not skin color."
-<span class="quote-author">— Profesor Sugriva, Department of Archive Studies</span>
+"In the Haiti we can find humanity. By legally transforming historical Polish allies into the fabric of the Black Republic, the constitution severed the concept of citizenship from biological determinism. It proved that race within a true system is a functional operational status defined by loyalty, not skin color."
+<span class="quote-author">— Professor Sugriva, Department of Archive Studies</span>
 </blockquote>
 </div>
 </div>
@@ -464,20 +464,17 @@ const facultyData = {
 };
 
 function showFacultyDetails(id, zone) {
-    // Select the proper panel based on whether it is the Main or Ceuta block
     const targetBox = document.getElementById(zone === 'main' ? 'details-box-main' : 'details-box-ceuta');
     const targetTitle = document.getElementById(zone === 'main' ? 'details-title-main' : 'details-title-ceuta');
     const targetContent = document.getElementById(zone === 'main' ? 'details-content-main' : 'details-content-ceuta');
     const targetList = document.getElementById(zone === 'main' ? 'details-modules-main' : 'details-modules-ceuta');
     
-    // Auto-hide the opposing display panel to prevent redundancy
     document.getElementById(zone === 'main' ? 'details-box-ceuta' : 'details-box-main').style.display = 'none';
 
     if (facultyData[id]) {
         targetTitle.innerText = facultyData[id].title;
         targetContent.innerText = facultyData[id].desc;
         
-        // Refresh and construct list items
         targetList.innerHTML = '';
         facultyData[id].modules.forEach(moduleText => {
             const li = document.createElement('li');
@@ -485,7 +482,6 @@ function showFacultyDetails(id, zone) {
             targetList.appendChild(li);
         });
         
-        // Render block visible
         targetBox.style.display = 'block';
         targetBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -494,4 +490,5 @@ function showFacultyDetails(id, zone) {
 
 </body>
 </html>
+
 
