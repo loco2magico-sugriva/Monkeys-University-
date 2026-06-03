@@ -3,228 +3,325 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock Corporation</title>
+<title>G-Rock Corporation // Global Network Hub</title>
+
+<!-- Importowanie profesjonalnych fontów do kinowego intro i interfejsu -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-font-family:Arial,sans-serif;
-background:#070A10;
+font-family: 'Inter', sans-serif;
+background:#04060a;
 color:#E6E6E6;
 overflow:hidden;
 }
 
-/* ================= CINEMATIC INTRO ================= */
+/* ================= CINEMATIC INTRO (ULTRA-HD) ================= */
 .intro{
 position:fixed;
 inset:0;
 background:
-    radial-gradient(circle at center, rgba(11, 19, 43, 0.4) 0%, #030509 70%, #000000 100%),
-    linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.4) 50%), 
-    linear-gradient(90deg, rgba(74, 163, 255, 0.03), rgba(0, 0, 0, 0.3));
-background-size: 100% 100%, 100% 4px, 6px 100%; /* Scanline retro-futuristic grid texture */
+    radial-gradient(circle at 50% 50%, rgba(10, 25, 47, 0.45) 0%, #020305 70%, #000000 100%),
+    linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.55) 50%), 
+    linear-gradient(90deg, rgba(74, 163, 255, 0.02), rgba(0, 0, 0, 0.3));
+background-size: 100% 100%, 100% 4px, 6px 100%;
 display:flex;
 flex-direction:column;
-justify-content:center;
+justify-content:space-between;
 align-items:center;
 text-align:center;
 z-index:9999;
 overflow:hidden;
-animation:fadeOut 0.8s cubic-bezier(0.7, 0, 0.3, 1) 4.6s forwards;
+padding: 100px 20px;
+box-sizing: border-box;
+animation:fadeOut 1s cubic-bezier(0.7, 0, 0.3, 1) 5.6s forwards;
 }
 
-/* Atmospheric light flare drifting across the background */
+/* Atmospheric anamorphic flare drifting in the center background */
 .intro::before{
 content:"";
 position:absolute;
-inset:-50%;
-background: radial-gradient(circle at 50% 50%, rgba(74, 163, 255, 0.08) 0%, transparent 60%);
-animation: flareDrift 6s ease-in-out infinite alternate;
+top: 50%;
+left: 50%;
+width: 140%;
+height: 1px;
+background: linear-gradient(90deg, transparent, rgba(74, 163, 255, 0.45), transparent);
+transform: translate(-50%, -50%);
+box-shadow: 0 0 35px 5px rgba(74, 163, 255, 0.3);
+animation: flarePulse 4s ease-in-out infinite alternate;
 pointer-events: none;
+z-index: 1;
 }
 
-@keyframes flareDrift {
-0% { transform: translate(-5%, -5%) scale(0.9); }
-100% { transform: translate(5%, 5%) scale(1.1); }
+@keyframes flarePulse {
+0% { opacity: 0.3; width: 100%; }
+100% { opacity: 0.8; width: 150%; }
 }
 
-/* Dramatic Title: Revealing from blur with a neon shockwave burst */
+/* 1. G-Rock Media Presents (Top - Larger, tracked-out, glowing) */
+.intro-tag {
+font-family: 'Orbitron', sans-serif;
+font-size: 16px;
+font-weight: 700;
+color: #8da4ff;
+text-transform: uppercase;
+letter-spacing: 16px;
+opacity: 0;
+filter: blur(8px);
+transform: translateY(-20px);
+animation: tagReveal 1.8s cubic-bezier(0.1, 0.8, 0.2, 1) 0.5s forwards;
+z-index: 2;
+}
+
+@keyframes tagReveal {
+0% { opacity: 0; filter: blur(12px); transform: translateY(-30px); letter-spacing: 24px; }
+100% { opacity: 1; filter: blur(0px); transform: translateY(0); letter-spacing: 16px; }
+}
+
+/* Middle core text wrapper to prevent overlap */
+.intro-center-group {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 2;
+}
+
+/* 2. G-ROCK CORPORATION */
 .intro h1{
-font-size:84px;
-font-weight: 800;
-letter-spacing:14px;
-margin:0;
-color:#4aa3ff;
+font-family: 'Orbitron', sans-serif;
+font-size: 88px;
+font-weight: 900;
+letter-spacing: 16px;
+margin: 0;
+color: #4aa3ff;
 text-transform: uppercase;
-filter: blur(15px);
-text-shadow: 0 0 10px rgba(74, 163, 255, 0.8), 0 0 30px rgba(74, 163, 255, 0.4);
-opacity:0;
-animation: cinematicReveal 1.6s cubic-bezier(0.1, 0.8, 0.2, 1) 0.3s forwards;
+filter: blur(20px);
+text-shadow: 
+    0 0 15px rgba(74, 163, 255, 0.7), 
+    0 0 45px rgba(74, 163, 255, 0.3);
+opacity: 0;
+animation: cinematicReveal 2.2s cubic-bezier(0.1, 0.8, 0.2, 1) 1.5s forwards;
 }
 
-/* Subtitles tracking out slowly like classified intelligence entries */
+/* 3. Monkeys University of Gibraltar */
 .intro h2{
-font-size:24px;
-margin-top:20px;
-color:#dcdcdc;
-font-weight:300;
+font-family: 'Orbitron', sans-serif;
+font-size: 22px;
+margin-top: 15px;
+color: #ffffff;
+font-weight: 400;
 text-transform: uppercase;
-letter-spacing:12px;
-opacity:0;
-filter: blur(5px);
-animation: subtitleReveal 1.4s cubic-bezier(0.1, 0.8, 0.2, 1) 1.5s forwards;
+letter-spacing: 10px;
+opacity: 0;
+filter: blur(8px);
+animation: subtitleReveal 1.8s cubic-bezier(0.1, 0.8, 0.2, 1) 2.5s forwards;
 }
 
-.intro p{
-font-size:11px;
-margin-top:15px;
-color:#556985;
-letter-spacing:6px;
-font-weight: 600;
-text-transform: uppercase;
-opacity:0;
-animation: standardFadeIn 1s ease 2.6s forwards;
-}
-
-/* KEYFRAMES FOR CINEMATIC TIMING */
+/* KEYFRAMES FOR MIDDLE REVEAL */
 @keyframes cinematicReveal {
-0% { opacity: 0; filter: blur(20px); transform: scale(0.92); letter-spacing: 24px; }
-40% { opacity: 0.8; filter: blur(5px); }
-100% { opacity: 1; filter: blur(0px); transform: scale(1); letter-spacing: 14px; }
+0% { opacity: 0; filter: blur(20px); transform: scale(0.95); letter-spacing: 24px; }
+50% { opacity: 0.7; filter: blur(6px); }
+100% { opacity: 1; filter: blur(0px); transform: scale(1); letter-spacing: 16px; }
 }
 
 @keyframes subtitleReveal {
-0% { opacity: 0; filter: blur(10px); letter-spacing: 4px; transform: translateY(10px); }
-100% { opacity: 1; filter: blur(0px); letter-spacing: 12px; transform: translateY(0); }
+0% { opacity: 0; filter: blur(10px); letter-spacing: 4px; transform: translateY(15px); }
+100% { opacity: 1; filter: blur(0px); letter-spacing: 10px; transform: translateY(0); }
 }
 
-@keyframes standardFadeIn {
-from { opacity: 0; transform: translateY(5px); }
-to { opacity: 1; transform: translateY(0); }
+/* 4. powered by G-System (Bottom - Clear, bright, larger, cyber-pulse) */
+.intro-subtag {
+font-family: 'Orbitron', sans-serif;
+font-size: 14px;
+font-weight: 700;
+color: #4aa3ff;
+text-transform: uppercase;
+letter-spacing: 8px;
+opacity: 0;
+transform: translateY(20px);
+animation: subtagReveal 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) 3.6s forwards;
+z-index: 2;
+text-shadow: 0 0 8px rgba(74, 163, 255, 0.5);
+}
+
+@keyframes subtagReveal {
+0% { opacity: 0; transform: translateY(30px); letter-spacing: 14px; }
+100% { opacity: 1; transform: translateY(0); letter-spacing: 8px; }
 }
 
 @keyframes fadeOut{
 0% { opacity: 1; transform: scale(1); }
-100% { opacity: 0; transform: scale(1.03); visibility:hidden; pointer-events:none; }
+100% { opacity: 0; transform: scale(1.02); visibility: hidden; pointer-events: none; }
 }
 
-/* ================= MAIN CONTENT ================= */
+/* ================= MAIN CONFIGURATION ================= */
 main{
-opacity:0;
-animation:show 1.2s cubic-bezier(0.4, 0, 0.2, 1) 4.9s forwards;
-height:100vh;
-overflow:auto;
+opacity: 0;
+animation: show 1s cubic-bezier(0.4, 0, 0.2, 1) 5.8s forwards;
+height: 100vh;
+overflow: auto;
+background: radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
 }
 
-@keyframes show{to{opacity:1;}}
+@keyframes show{to{opacity: 1;}}
 
 /* HEADER */
 header{
-display:flex;
-justify-content:space-between;
+display: flex;
+justify-content: space-between;
 align-items: center;
-padding:20px 40px;
-background:#0b0f18;
-border-bottom:1px solid #1f2a3a;
-box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+padding: 22px 50px;
+background: #090c14;
+border-bottom: 1px solid #1a2436;
+box-shadow: 0 6px 25px rgba(0,0,0,0.6);
 }
 
 header b{
-color:#fff;
-letter-spacing:2px;
+font-family: 'Orbitron', sans-serif;
+color: #fff;
+letter-spacing: 3px;
 text-transform: uppercase;
-font-size: 14px;
+font-size: 15px;
+text-shadow: 0 0 10px rgba(74,163,255,0.3);
 }
 
 .lang a{
-margin-left:15px;
-color:#718096;
-font-size:12px;
-font-weight: bold;
-cursor:pointer;
-transition: color 0.2s;
+margin-left: 20px;
+color: #64748b;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+transition: all 0.2s;
 text-decoration: none;
+border-bottom: 1px solid transparent;
+padding-bottom: 2px;
 }
 
 .lang a:hover{
-color:#4aa3ff;
-text-shadow: 0 0 8px rgba(74, 163, 255, 0.6);
+color: #4aa3ff;
+border-bottom: 1px solid #4aa3ff;
+text-shadow: 0 0 8px rgba(74, 163, 255, 0.5);
 }
 
-/* GRID */
+/* GRID LAYOUT (STRICT 2x4 STRUCTURE) */
 .grid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:20px;
-max-width:1200px;
-margin:80px auto;
-padding:0 20px;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 25px;
+max-width: 1400px;
+margin: 80px auto;
+padding: 0 40px;
+box-sizing: border-box;
 }
 
-/* CARD */
+/* Responsive adjustment for clean presentation wrap on smaller layouts */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* METALLIC / NEON INTERFACE CARD */
 .card{
-background:#111827;
-padding:25px 20px;
-border-radius:12px;
-border:1px solid #1f2a3a;
-cursor:pointer;
-text-align:center;
-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-min-height:120px;
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-transform:translateY(30px);
-animation:cardIn 0.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+padding: 35px 25px;
+border-radius: 12px;
+border: 1px solid #1b263b;
+cursor: pointer;
+text-align: center;
+transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+min-height: 150px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+opacity: 0;
+transform: translateY(30px);
+animation: cardIn 0.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+position: relative;
+overflow: hidden;
 }
 
-.card:nth-child(1){animation-delay: 5.0s;}
-.card:nth-child(2){animation-delay: 5.1s;}
-.card:nth-child(3){animation-delay: 5.2s;}
-.card:nth-child(4){animation-delay: 5.3s;}
-.card:nth-child(5){animation-delay: 5.4s;}
+/* Custom interactive cyber highlight sweep */
+.card::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(74, 163, 255, 0.05), transparent);
+transition: 0.5s;
+}
+
+.card:hover::before {
+left: 100%;
+}
+
+.card:nth-child(1){animation-delay: 5.9s;}
+.card:nth-child(2){animation-delay: 6.0s;}
+.card:nth-child(3){animation-delay: 6.1s;}
+.card:nth-child(4){animation-delay: 6.2s;}
+.card:nth-child(5){animation-delay: 6.3s;}
+.card:nth-child(6){animation-delay: 6.4s;}
+.card:nth-child(7){animation-delay: 6.5s;}
+.card:nth-child(8){animation-delay: 6.6s;}
 
 @keyframes cardIn{
-to{opacity:1;transform:translateY(0);}
+to{opacity: 1;transform: translateY(0);}
 }
 
 .card:hover{
-transform:translateY(-8px);
-border-color:#4aa3ff;
-background:#151f33;
-box-shadow:0 12px 30px rgba(74, 163, 255, 0.18);
+transform: translateY(-8px);
+border-color: #4aa3ff;
+background: linear-gradient(135deg, #141f38 0%, #0c1224 100%);
+box-shadow: 0 15px 35px rgba(74, 163, 255, 0.25);
 }
 
 h3{
-color:#4aa3ff;
-margin:0;
-font-size: 16px;
+color: #4aa3ff;
+margin: 0;
+font-size: 17px;
 letter-spacing: 0.5px;
-line-height: 1.4;
-transition: color 0.2s;
+line-height: 1.5;
+font-weight: 600;
+transition: color 0.3s;
 }
 
 .card:hover h3 {
-color: #fff;
+color: #ffffff;
+text-shadow: 0 0 10px rgba(74, 163, 255, 0.4);
 }
 </style>
 </head>
 
 <body>
 
-<!-- CINEMATIC INTRO CONTAINER -->
+<!-- CINEMATIC INTRO INTERACTIVE COMPONENT -->
 <div class="intro">
-  <h1>G-Rock Corporation</h1>
-  <h2>Monkeys University of Gibraltar</h2>
-  <p>G-ROCK PRESENTS // POWERED BY G-SYSTEM</p>
+  <div class="intro-tag">G-Rock Media Presents</div>
+  <div class="intro-center-group">
+      <h1>G-Rock Corporation</h1>
+      <h2>Monkeys University of Gibraltar</h2>
+  </div>
+  <div class="intro-subtag">powered by G-System</div>
 </div>
 
-<!-- MAIN HUB -->
+<!-- MAIN OPERATIONAL BASE -->
 <main>
 
 <header>
-<b>G-Rock Corporation // Main Core</b>
+<b>G-Rock Corporation // Global Management Core</b>
 
 <div class="lang">
 <a onclick="setLang('en')">EN</a>
@@ -236,37 +333,55 @@ color: #fff;
 
 <div class="grid">
 
-<div class="card" onclick="location.href='university.html'">
-<h3>Monkeys University of Gibraltar</h3>
-</div>
+  <!-- First Row of Cards (1-4) -->
+  <div class="card" onclick="location.href='university.html'">
+    <h3>Monkeys University of Gibraltar</h3>
+  </div>
 
-<div class="card" onclick="location.href='bank.html'">
-<h3>Bank of the Monkeys from Gibraltar</h3>
-</div>
+  <div class="card" onclick="location.href='bank.html'">
+    <h3>Bank of the Monkeys from Gibraltar</h3>
+  </div>
 
-<div class="card" onclick="location.href='parliament.html'">
-<h3>Parliament of the Monkeys from Gibraltar</h3>
-</div>
+  <div class="card" onclick="location.href='parliament.html'">
+    <h3>Parliament of the Monkeys from Gibraltar</h3>
+  </div>
 
-<div class="card" onclick="location.href='episode1.html'">
-<h3>Episode 1</h3>
-</div>
+  <div class="card" onclick="location.href='library.html'">
+    <h3>The Gibraltar Monkey Library</h3>
+  </div>
 
-<div class="card" onclick="location.href='map.html'">
-<h3>World Map</h3>
-</div>
+  <!-- Second Row of Cards (5-8) -->
+  <div class="card" onclick="location.href='ceuta.html'">
+    <h3>Campus de Ceuta</h3>
+  </div>
+
+  <div class="card" onclick="location.href='caribbean.html'">
+    <h3>Caribbean Campus</h3>
+  </div>
+
+  <div class="card" onclick="location.href='episode1.html'">
+    <h3>Episode 1</h3>
+  </div>
+
+  <div class="card" onclick="location.href='map.html'">
+    <h3>World Map</h3>
+  </div>
 
 </div>
 
 </main>
 
 <script>
+// Multilingual Translation Matrix supporting all 8 operational units
 function setLang(lang){
 const data = {
 en:[
 "Monkeys University of Gibraltar",
 "Bank of the Monkeys from Gibraltar",
 "Parliament of the Monkeys from Gibraltar",
+"The Gibraltar Monkey Library",
+"Campus de Ceuta",
+"Caribbean Campus",
 "Episode 1",
 "World Map"
 ],
@@ -274,6 +389,9 @@ pl:[
 "Uniwersytet Małp Gibraltaru",
 "Bank Małp z Gibraltaru",
 "Parlament Małp z Gibraltaru",
+"Biblioteka Małp z Gibraltaru",
+"Kampus w Ceucie",
+"Kampus Karaibski",
 "Odcinek 1",
 "Mapa Świata"
 ],
@@ -281,6 +399,9 @@ es:[
 "Universidad de los Monos de Gibraltar",
 "Banco de los Monos de Gibraltar",
 "Parlamento de los Monos de Gibraltar",
+"La Biblioteca de Monos de Gibraltar",
+"Campus de Ceuta",
+"Campus del Caribe",
 "Episodio 1",
 "Mapa del Mundo"
 ],
@@ -288,6 +409,9 @@ fr:[
 "Université des Singes de Gibraltar",
 "Banque des Singes de Gibraltar",
 "Parlement des Singes de Gibraltar",
+"La Bibliothèque des Singes de Gibraltar",
+"Campus de Ceuta",
+"Campus des Caraïbes",
 "Épisode 1",
 "Carte du Monde"
 ]
@@ -301,4 +425,5 @@ el.innerText = data[lang][i];
 
 </body>
 </html>
+
 
