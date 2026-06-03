@@ -19,7 +19,10 @@ overflow:hidden;
 position:fixed;
 inset:0;
 background:
-radial-gradient(circle at center,#000 0%,#05070d 60%,#000 100%);
+    radial-gradient(circle at center, rgba(11, 19, 43, 0.4) 0%, #030509 70%, #000000 100%),
+    linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.4) 50%), 
+    linear-gradient(90deg, rgba(74, 163, 255, 0.03), rgba(0, 0, 0, 0.3));
+background-size: 100% 100%, 100% 4px, 6px 100%; /* Scanline retro-futuristic grid texture */
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -27,65 +30,88 @@ align-items:center;
 text-align:center;
 z-index:9999;
 overflow:hidden;
-animation:fadeOut 3.8s ease 3.8s forwards;
+animation:fadeOut 0.8s cubic-bezier(0.7, 0, 0.3, 1) 4.6s forwards;
 }
 
+/* Atmospheric light flare drifting across the background */
 .intro::before{
 content:"";
 position:absolute;
-inset:0;
-background:linear-gradient(120deg,transparent,rgba(74,163,255,0.12),transparent);
-transform:translateX(-100%);
-animation:sweep 2.5s ease infinite;
+inset:-50%;
+background: radial-gradient(circle at 50% 50%, rgba(74, 163, 255, 0.08) 0%, transparent 60%);
+animation: flareDrift 6s ease-in-out infinite alternate;
+pointer-events: none;
 }
 
-@keyframes sweep{
-0%{transform:translateX(-100%);}
-100%{transform:translateX(100%);}
+@keyframes flareDrift {
+0% { transform: translate(-5%, -5%) scale(0.9); }
+100% { transform: translate(5%, 5%) scale(1.1); }
 }
 
+/* Dramatic Title: Revealing from blur with a neon shockwave burst */
 .intro h1{
-font-size:78px;
-letter-spacing:10px;
+font-size:84px;
+font-weight: 800;
+letter-spacing:14px;
 margin:0;
 color:#4aa3ff;
-text-shadow:0 0 40px rgba(74,163,255,0.35);
+text-transform: uppercase;
+filter: blur(15px);
+text-shadow: 0 0 10px rgba(74, 163, 255, 0.8), 0 0 30px rgba(74, 163, 255, 0.4);
 opacity:0;
-animation:fadeIn 1.2s ease forwards;
+animation: cinematicReveal 1.6s cubic-bezier(0.1, 0.8, 0.2, 1) 0.3s forwards;
 }
 
+/* Subtitles tracking out slowly like classified intelligence entries */
 .intro h2{
-font-size:26px;
-margin-top:10px;
+font-size:24px;
+margin-top:20px;
 color:#dcdcdc;
-font-weight:normal;
-letter-spacing:2px;
+font-weight:300;
+text-transform: uppercase;
+letter-spacing:12px;
 opacity:0;
-animation:fadeIn 1.2s ease 0.7s forwards;
+filter: blur(5px);
+animation: subtitleReveal 1.4s cubic-bezier(0.1, 0.8, 0.2, 1) 1.5s forwards;
 }
 
 .intro p{
-font-size:13px;
-margin-top:10px;
-color:#888;
-letter-spacing:2px;
+font-size:11px;
+margin-top:15px;
+color:#556985;
+letter-spacing:6px;
+font-weight: 600;
+text-transform: uppercase;
 opacity:0;
-animation:fadeIn 1.2s ease 1.4s forwards;
+animation: standardFadeIn 1s ease 2.6s forwards;
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(18px);}
-to{opacity:1;transform:translateY(0);}
+/* KEYFRAMES FOR CINEMATIC TIMING */
+@keyframes cinematicReveal {
+0% { opacity: 0; filter: blur(20px); transform: scale(0.92); letter-spacing: 24px; }
+40% { opacity: 0.8; filter: blur(5px); }
+100% { opacity: 1; filter: blur(0px); transform: scale(1); letter-spacing: 14px; }
+}
+
+@keyframes subtitleReveal {
+0% { opacity: 0; filter: blur(10px); letter-spacing: 4px; transform: translateY(10px); }
+100% { opacity: 1; filter: blur(0px); letter-spacing: 12px; transform: translateY(0); }
+}
+
+@keyframes standardFadeIn {
+from { opacity: 0; transform: translateY(5px); }
+to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeOut{
-to{opacity:0;visibility:hidden;pointer-events:none;}
+0% { opacity: 1; transform: scale(1); }
+100% { opacity: 0; transform: scale(1.03); visibility:hidden; pointer-events:none; }
 }
 
-/* ================= MAIN ================= */
+/* ================= MAIN CONTENT ================= */
 main{
 opacity:0;
-animation:show 1s ease 4.2s forwards;
+animation:show 1.2s cubic-bezier(0.4, 0, 0.2, 1) 4.9s forwards;
 height:100vh;
 overflow:auto;
 }
@@ -96,93 +122,109 @@ overflow:auto;
 header{
 display:flex;
 justify-content:space-between;
-padding:18px;
+align-items: center;
+padding:20px 40px;
 background:#0b0f18;
 border-bottom:1px solid #1f2a3a;
+box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 header b{
 color:#fff;
-letter-spacing:1px;
+letter-spacing:2px;
+text-transform: uppercase;
+font-size: 14px;
 }
 
 .lang a{
-margin-left:10px;
-color:#aaa;
+margin-left:15px;
+color:#718096;
 font-size:12px;
+font-weight: bold;
 cursor:pointer;
+transition: color 0.2s;
+text-decoration: none;
 }
 
 .lang a:hover{
 color:#4aa3ff;
+text-shadow: 0 0 8px rgba(74, 163, 255, 0.6);
 }
 
 /* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(5,1fr);
-gap:15px;
+gap:20px;
 max-width:1200px;
-margin:40px auto;
+margin:80px auto;
 padding:0 20px;
 }
 
 /* CARD */
 .card{
 background:#111827;
-padding:20px;
+padding:25px 20px;
 border-radius:12px;
 border:1px solid #1f2a3a;
 cursor:pointer;
 text-align:center;
-transition:0.25s;
-min-height:110px;
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+min-height:120px;
 display:flex;
 align-items:center;
 justify-content:center;
 opacity:0;
-transform:translateY(20px);
-animation:cardIn 0.6s ease forwards;
+transform:translateY(30px);
+animation:cardIn 0.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
 }
 
-.card:nth-child(1){animation-delay:0.2s;}
-.card:nth-child(2){animation-delay:0.3s;}
-.card:nth-child(3){animation-delay:0.4s;}
-.card:nth-child(4){animation-delay:0.5s;}
-.card:nth-child(5){animation-delay:0.6s;}
+.card:nth-child(1){animation-delay: 5.0s;}
+.card:nth-child(2){animation-delay: 5.1s;}
+.card:nth-child(3){animation-delay: 5.2s;}
+.card:nth-child(4){animation-delay: 5.3s;}
+.card:nth-child(5){animation-delay: 5.4s;}
 
 @keyframes cardIn{
 to{opacity:1;transform:translateY(0);}
 }
 
 .card:hover{
-transform:translateY(-6px) scale(1.02);
+transform:translateY(-8px);
 border-color:#4aa3ff;
-box-shadow:0 0 25px rgba(74,163,255,0.15);
+background:#151f33;
+box-shadow:0 12px 30px rgba(74, 163, 255, 0.18);
 }
 
 h3{
 color:#4aa3ff;
 margin:0;
+font-size: 16px;
+letter-spacing: 0.5px;
+line-height: 1.4;
+transition: color 0.2s;
+}
+
+.card:hover h3 {
+color: #fff;
 }
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
+<!-- CINEMATIC INTRO CONTAINER -->
 <div class="intro">
   <h1>G-Rock Corporation</h1>
   <h2>Monkeys University of Gibraltar</h2>
-  <p>G-ROCK PRESENTS</p>
-  <p>POWERED BY G-SYSTEM</p>
+  <p>G-ROCK PRESENTS // POWERED BY G-SYSTEM</p>
 </div>
 
-<!-- MAIN -->
+<!-- MAIN HUB -->
 <main>
 
 <header>
-<b>G-Rock Corporation</b>
+<b>G-Rock Corporation // Main Core</b>
 
 <div class="lang">
 <a onclick="setLang('en')">EN</a>
@@ -258,4 +300,5 @@ el.innerText = data[lang][i];
 </script>
 
 </body>
-  </html>
+</html>
+
