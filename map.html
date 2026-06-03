@@ -1,141 +1,206 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G-Rock World Map v1.1</title>
+<title>G-Rock Corporation // Global Tactical Matrix</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 body{
 margin:0;
-font-family:Arial,sans-serif;
-background:#070A10;
+font-family: 'Inter', sans-serif;
+background:#04060a;
 color:#E6E6E6;
 overflow:hidden;
 }
 
 header{
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#0b0f18;
-border-bottom:1px solid #1f2a3a;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 22px 50px;
+background: #090c14;
+border-bottom: 1px solid #1a2436;
+box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+z-index: 10;
+position: relative;
 }
 
-header b{letter-spacing:2px;}
-
-header a{
-color:#aaa;
-text-decoration:none;
-font-size:12px;
+header b{
+font-family: 'Orbitron', sans-serif;
+color: #fff;
+letter-spacing: 3px;
+text-transform: uppercase;
+font-size: 15px;
+text-shadow: 0 0 10px rgba(74,163,255,0.3);
 }
 
-header a:hover{color:#4aa3ff;}
+header a {
+font-family: 'Orbitron', sans-serif;
+color: #64748b;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+transition: all 0.2s;
+text-decoration: none;
+border-bottom: 1px solid transparent;
+padding-bottom: 2px;
+}
 
+header a:hover {
+color: #4aa3ff;
+border-bottom: 1px solid #4aa3ff;
+text-shadow: 0 0 8px rgba(74, 163, 255, 0.5);
+}
+
+/* MAP SCREEN TERMINAL */
 .map{
 position:relative;
 width:100%;
 height:calc(100vh - 60px);
-background:radial-gradient(circle at center,#0f1626 0%,#070A10 70%);
+background: radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%),
+            linear-gradient(rgba(18, 24, 38, 0.1) 50%, rgba(0, 0, 0, 0.35) 50%);
+background-size: 100% 100%, 100% 4px;
 overflow:hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* Glowing Map Radar sweep grid lines */
+.map::before {
+content: '';
+position: absolute;
+width: 100%;
+height: 100%;
+background: 
+    linear-gradient(rgba(74, 163, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 163, 255, 0.015) 1px, transparent 1px);
+background-size: 50px 50px;
+pointer-events: none;
+}
+
+/* Dynamic radar sweep */
+.radar-sweep {
+position: absolute;
+inset: 0;
+background: conic-gradient(from 0deg at 50% 50%, rgba(74, 163, 255, 0.05) 0deg, transparent 90deg);
+animation: radarRotate 12s linear infinite;
+pointer-events: none;
+}
+
+@keyframes radarRotate {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
 }
 
 .node{
 position:absolute;
-width:200px;
-padding:15px;
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:12px;
+width:240px;
+padding:20px;
+background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+border: 1px solid #1b263b;
+border-radius: 12px;
 text-align:center;
 cursor:pointer;
-transition:0.25s;
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.node::before {
+content: '';
+position: absolute;
+width: 6px;
+height: 6px;
+background: #4aa3ff;
+border-radius: 50%;
+top: 10px;
+left: 10px;
+box-shadow: 0 0 8px #4aa3ff;
 }
 
 .node:hover{
-transform:scale(1.05);
+transform: scale(1.04) translateY(-4px);
 border-color:#4aa3ff;
+box-shadow: 0 10px 30px rgba(74, 163, 255, 0.25);
 }
 
 .node h3{
 margin:0;
 color:#4aa3ff;
+font-family: 'Orbitron', sans-serif;
 font-size:14px;
+letter-spacing: 1px;
+text-transform: uppercase;
+transition: color 0.3s;
+}
+
+.node:hover h3 {
+color: #fff;
 }
 
 .node p{
-font-size:12px;
-opacity:0.7;
+font-size:11px;
+color: #64748b;
 margin-top:6px;
+text-transform: uppercase;
+letter-spacing: 1px;
 }
 
-/* POSITIONS */
+/* CO-ORDINATED PLOTTING */
 #uni{top:18%;left:18%;}
 #bank{top:62%;left:18%;}
 #parl{top:42%;left:48%;}
 #ceuta{top:70%;left:75%;}
 #epi{top:18%;left:72%;}
-
-/* 🌴 CARIBBEAN */
-#carib{top:78%;left:48%;}
-#haiti{top:82%;left:55%;}
-#jamaica{top:82%;left:40%;}
 </style>
 </head>
 
 <body>
 
 <header>
-<div><b>G-ROCK WORLD MAP v1.1</b></div>
-<div><a href="index.html">Dashboard</a></div>
+<div><b>G-Rock Systems // Global Tactical Console v1.2</b></div>
+<div><a href="index.html">Main Core</a></div>
 </header>
 
 <div class="map">
+<div class="radar-sweep"></div>
 
 <div class="node" id="uni" onclick="location.href='university.html'">
-<h3>Monkeys University of Gibraltar</h3>
-<p>Academic Core System</p>
+<h3>Monkeys University</h3>
+<p>Academic Core Matrix</p>
 </div>
 
 <div class="node" id="bank" onclick="location.href='bank.html'">
 <h3>Bank of the Monkeys</h3>
-<p>Economic Layer (MP£)</p>
+<p>Economic Layer // MP£</p>
 </div>
 
 <div class="node" id="parl" onclick="location.href='parliament.html'">
-<h3>Parliament</h3>
-<p>Governance System</p>
+<h3>Parliament Chamber</h3>
+<p>Legislative Hub</p>
 </div>
 
-<div class="node" id="ceuta" onclick="location.href='africa-map.html'">
+<div class="node" id="ceuta" onclick="location.href='ceuta.html'">
 <h3>Campus de Ceuta</h3>
-<p>Africa Expansion Node</p>
+<p>Africa Extension Node</p>
 </div>
 
 <div class="node" id="epi" onclick="location.href='episode1.html'">
 <h3>Episode 1</h3>
-<p>Academic Recognition</p>
-</div>
-
-<!-- 🌴 CARIBBEAN HUB -->
-<div class="node" id="carib" onclick="location.href='caribbean-campus.html'">
-<h3>Caribbean Campus</h3>
-<p>Atlantic Expansion Node</p>
-</div>
-
-<div class="node" id="haiti" onclick="alert('Haiti Node (can be expanded later)')">
-<h3>Haiti</h3>
-<p>Field Region</p>
-</div>
-
-<div class="node" id="jamaica" onclick="alert('Jamaica Node (can be expanded later)')">
-<h3>Jamaica</h3>
-<p>Field Region</p>
+<p>Primary Genesis Node</p>
 </div>
 
 </div>
 
 </body>
 </html>
+
+```
