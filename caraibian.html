@@ -1,9 +1,896 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caribbean Campus // G-Rock Trans-Atlantic Link</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #04060a;
+    color: #E6E6E6;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #0a1124 0%, #03050a 100%);
+    overflow-x: hidden;
+}
+
+/* ================= CENTRAL HEADER ================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 50px;
+    background: #090c14;
+    border-bottom: 1px solid #1a2436;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+}
+
+header b {
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-shadow: 0 0 10px rgba(74,163,255,0.3);
+}
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.lang a {
+    margin-left: 15px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+}
+
+.lang a:hover, .lang a.active {
+    color: #4aa3ff;
+    border-bottom: 1px solid #4aa3ff;
+    text-shadow: 0 0 8px rgba(74, 163, 255, 0.5);
+}
+
+.btn-back {
+    font-family: 'Orbitron', sans-serif;
+    color: #64748b;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid #1a2436;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+}
+
+.btn-back:hover {
+    color: #4aa3ff;
+    border-color: #4aa3ff;
+    box-shadow: 0 0 12px rgba(74, 163, 255, 0.2);
+    background: rgba(74, 163, 255, 0.05);
+}
+
+/* ================= CONTAINER ================= */
+.container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* TRANS-ATLANTIC BRIDGE TELEMETRY */
+.bridge-console {
+    background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+    border: 1px solid #1b263b;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.bridge-node {
+    text-align: center;
+    width: 25%;
+    z-index: 2;
+}
+
+.bridge-node .node-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #64748b;
+    margin-bottom: 5px;
+}
+
+.bridge-node .node-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.bridge-pipe {
+    flex-grow: 1;
+    position: relative;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    margin: 0 20px;
+}
+
+.pipe-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #1d4ed8, #4aa3ff);
+    position: relative;
+}
+
+.pulse-packet {
+    width: 8px;
+    height: 8px;
+    background: #4aa3ff;
+    border-radius: 50%;
+    position: absolute;
+    top: -3px;
+    box-shadow: 0 0 12px #4aa3ff;
+    animation: transitData 4s linear infinite;
+}
+
+@keyframes transitData {
+    0% { left: 0%; background: #1d4ed8; box-shadow: 0 0 12px #1d4ed8; }
+    100% { left: 100%; background: #4aa3ff; box-shadow: 0 0 12px #4aa3ff; }
+}
+
+.pipe-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    color: #4aa3ff;
+    margin-top: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* GRID SELECTION CARD BLOCK */
+.campus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 900px) {
+    .campus-grid { grid-template-columns: 1fr; }
+}
+
+.campus-card {
+    background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+    border: 1px solid #1b263b;
+    padding: 30px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.campus-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(74, 163, 255, 0.05), transparent);
+    transition: 0.5s;
+}
+
+.campus-card:hover::before {
+    left: 100%;
+}
+
+.campus-card.active, .campus-card:hover {
+    transform: translateY(-5px);
+    border-color: #4aa3ff;
+    background: linear-gradient(135deg, #142542 0%, #0c1224 100%);
+    box-shadow: 0 10px 30px rgba(74, 163, 255, 0.15);
+}
+
+.campus-card svg {
+    width: 32px;
+    height: 32px;
+    fill: #4aa3ff;
+    margin-bottom: 15px;
+}
+
+.campus-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0 0 8px 0;
+    letter-spacing: 1px;
+}
+
+.campus-card p {
+    color: #64748b;
+    font-size: 12px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* DYNAMIC INTERFACE SPLIT COMMAND CONSOLE */
+.command-console {
+    background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+    border: 1px solid #1b263b;
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 900px) {
+    .command-console { grid-template-columns: 1fr; }
+}
+
+.console-left h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #4aa3ff;
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.console-meta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    color: #8da4ff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    display: block;
+}
+
+.console-left p {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.context-badge {
+    background: #060913;
+    border-left: 3px solid #4aa3ff;
+    padding: 15px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13.5px;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+/* RIGHT COLUMN: INTERACTIVE NODES */
+.console-right h4 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #1b263b;
+    padding-bottom: 10px;
+}
+
+.specialization-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.spec-item {
+    background: #060913;
+    border: 1px solid #151f30;
+    padding: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.spec-item:hover {
+    border-color: #4aa3ff;
+    background: #0d162a;
+}
+
+.spec-item strong {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 13.5px;
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.spec-item p {
+    color: #94a3b8;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* BOTTOM TELEMETRY PROCESSOR LOG */
+.log-terminal {
+    background: #020508;
+    border: 1px solid #111a2e;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 30px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #4aa3ff;
+    min-height: 140px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+}
+
+.log-line {
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: textFadeIn 0.5s forwards;
+}
+
+@keyframes textFadeIn { to { opacity: 1; } }
+
+</style>
+</head>
+
 <body>
-    <h1>Strona Karaibów działa!</h1>
+
+<header>
+    <b id="nav-title">G-Rock Corporation // Caribbean Core</b>
+    <div class="nav-group">
+        <div class="lang">
+            <a onclick="setLang('en')" id="lang-en" class="active">EN</a>
+            <a onclick="setLang('pl')" id="lang-pl">PL</a>
+            <a onclick="setLang('es')" id="lang-es">ES</a>
+            <a onclick="setLang('fr')" id="lang-fr">FR</a>
+        </div>
+        <a href="index.html" class="btn-back" id="btn-return">RETURN TO HUB</a>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="bridge-console">
+        <div class="bridge-node">
+            <div class="node-tag">Main Core</div>
+            <div class="node-name">GIBRALTAR CORE</div>
+        </div>
+        <div class="bridge-pipe">
+            <div class="pipe-line">
+                <div class="pulse-packet"></div>
+            </div>
+            <div class="pipe-label" id="lbl-bridge-status">Active Trans-Atlantic Fiber Sync</div>
+        </div>
+        <div class="bridge-node">
+            <div class="node-tag">Sovereign Node</div>
+            <div class="node-name" style="color:#4aa3ff">CARIBBEAN GATEWAY</div>
+        </div>
+    </div>
+
+    <div class="campus-grid">
+        <div class="campus-card active" id="card-haiti" onclick="selectCampus('haiti')">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            <h3 id="c1-title">Haiti Campus</h3>
+            <p id="c1-sub">Cazalé / Port-au-Prince</p>
+        </div>
+        <div class="campus-card" id="card-jamaica" onclick="selectCampus('jamaica')">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41C4.95 16.27 4 14.24 4 12c0-4.42 3.58-8 8-8s8 3.58 8 8c0 2.24-.95 4.27-2.34 5.66l1.41 1.41C20.88 17.26 22 14.76 22 12c0-5.52-4.48-10-10-10zm0 4c-3.31 0-6 2.69-6 6 0 1.66.67 3.16 1.76 4.24l1.42-1.42C8.45 14.13 8 13.12 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.12-.45 2.13-1.18 2.83l1.42 1.42C17.33 15.16 18 13.66 18 12c0-3.31-2.69-6-6-6zm0 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            <h3 id="c2-title">Jamaica Campus</h3>
+            <p id="c2-sub">Kingston Core</p>
+        </div>
+        <div class="campus-card" id="card-dominican" onclick="selectCampus('dominican')">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.75 3.31 8.72 7.75 9.75l.13-.56c.46-1.99.78-3.92.93-5.71-.62-.31-1.14-.78-1.52-1.37-.58-.91-.71-2.12-.34-3.23.47-1.42 1.74-2.4 3.22-2.52.19-.01.37-.02.56-.02.43 0 .86.04 1.28.11l.31-.96c.46-1.43 1.73-2.42 3.22-2.54.19-.01.38-.02.57-.02.6 0 1.19.08 1.77.23C21.46 4.6 17.13 2 12 2zm1.61 11.23c-.12.4-.44.71-.84.84-.11.04-.23.06-.35.06-.29 0-.57-.12-.76-.35l-.05-.06-.06-.05c-.34-.34-.41-.85-.2-1.27.18-.34.52-.57.91-.62l.14-.02h.11c.42 0 .8.25.96.64.12.3.1.63-.07.87z"/></svg>
+            <h3 id="c3-title">Dominican Republic</h3>
+            <p id="c3-sub">Santo Domingo Base</p>
+        </div>
+    </div>
+
+    <div class="command-console">
+        
+        <div class="console-left">
+            <h2 id="disp-title">Haiti Campus — Cazalé</h2>
+            <span class="console-meta" id="disp-meta">Major: Revolutionary History, Political Thought &amp; Shadow Systems</span>
+            <p id="disp-desc">Potomkowie polskich żołnierzy z rewolucji 1802 roku (Cazalé). Symboliczne połączenie Polski, Gibraltaru i Karaibów.</p>
+            <div class="context-badge" id="disp-badge">
+                Cazalé is a mountainous village near Port-au-Prince, populated by Polish descendants who refused combat against Haitian forces in the historic 1802 war.
+            </div>
+        </div>
+
+        <div class="console-right">
+            <h4 id="disp-right-title">Academic Specializations</h4>
+            <div class="specialization-list" id="disp-specs">
+                </div>
+        </div>
+
+    </div>
+
+    <div class="block" style="background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%); border: 1px solid #1b263b; border-radius: 12px; padding: 30px; margin-top: 30px;">
+        <h2 style="font-family:'Orbitron'; font-size:16px; color:#4aa3ff; letter-spacing:2px; margin-top:0; margin-bottom:15px;" id="term-title">G-System Mainframe Decryption Log</h2>
+        <div class="log-terminal" id="terminal">
+            </div>
+    </div>
+
+</div>
+
+<script>
+// Deep multilingual matrix data holding all academic context of G-System Caribbean nodes
+const dataMatrix = {
+    haiti: {
+        code: "NODE: HAZ-1802 // CLASSIFIED INTEL",
+        titles: {
+            en: "Haiti Campus — Cazalé", pl: "Kampus Haiti — Cazalé",
+            es: "Campus de Haití — Cazalé", fr: "Campus d'Haïti — Cazalé"
+        },
+        meta: {
+            en: "Major: Revolutionary History, Political Thought & Shadow Systems",
+            pl: "Kierunek: Revolutionary History, Political Thought & Shadow Systems",
+            es: "Carrera: Historia revolucionaria, Pensamiento político y Sistemas de sombra",
+            fr: "Filière: Histoire révolutionnaire, Pensée politique et Systèmes de l'ombre"
+        },
+        desc: {
+            en: "A historic sanctuary bridging Polish, Gibraltar, and Caribbean lineage. Deep archives investigate post-revolutionary survival, sovereignty models, and the asymmetric mechanics of world-power interference.",
+            pl: "Cazalé to wioska w górach niedaleko Port-au-Prince, zamieszkana przez potomków polskich żołnierzy, którzy odmówili walki z Haitańczykami podczas rewolucji (1802). Symboliczne połączenie Polski, Gibraltaru i Karaibów.",
+            es: "Un santuario histórico que une el linaje polaco, gibraltareño y caribeño. Los archivos profundos investigan la supervivencia posrevolucionaria, los modelos de soberanía y las mecánicas asimétricas de interferencia.",
+            fr: "Un sanctuaire historique reliant les lignées polonaise, gibraltarienne et caribéenne. Les archives approfondies étudient la survie post-révolutionnaire, les modèles de souveraineté et les mécaniques asymétriques."
+        },
+        badge: {
+            en: "Cazalé is a mountain village near Port-au-Prince, inhabited by descendants of Polish legionnaires who refused to fight the native Haitians during the 1802 revolution, declaring true allegiance to liberty.",
+            pl: "Cazalé to górzysta wioska niedaleko Port-au-Prince, zamieszkana przez potomków polskich legionistów, którzy odmówili walki z Haitańczykami podczas rewolucji 1802 roku, wybierając wierność wolności.",
+            es: "Cazalé es un pueblo montañoso cerca de Puerto Príncipe, habitado por descendientes de legionarios polacos que se negaron a luchar contra los haitianos en la revolución de 1802, eligiendo la libertad.",
+            fr: "Cazalé est un village montagneux près de Port-au-Prince, peuplé de descendants de légionnaires polonais ayant refusé de combattre les Haïtiens en 1802, s'alliant à la cause de la liberté."
+        },
+        specs: [
+            {
+                t: { en: "Haitian Revolution & Legacy", pl: "Historia rewolucji haitańskiej i jej globalne dziedzictwo", es: "Revolución Haitiana y Legado", fr: "Révolution Haïtienne et Héritage" },
+                d: {
+                    en: "Sovereignty analytics mapping the global legal precedents initiated by the 1804 independence declaration.",
+                    pl: "Analiza suwerenności mapująca globalne precedensy prawne zapoczątkowane przez deklarację niepodległości z 1804 roku.",
+                    es: "Análisis de soberanía que mapea los precedentes legales globales iniciados por la declaración de independencia de 1804.",
+                    fr: "Analyses de souveraineté cartographiant les précédents juridiques mondiaux initiés par la déclaration de 1804."
+                }
+            },
+            {
+                t: { en: "Decolonization & Liberty", pl: "Teoria dekolonizacji i studia nad wolnością", es: "Decolonización y Libertad", fr: "Décolonisation et Liberté" },
+                d: {
+                    en: "Formulating statecraft models for autonomous governance systems detached from Western supervision structures.",
+                    pl: "Formułowanie modeli ustrojowych dla autonomicznych systemów rządzenia, całkowicie oderwanych od struktur Zachodu.",
+                    es: "Formulación de modelos de gobernanza autónoma desvinculados de las estructuras tradicionales de control occidental.",
+                    fr: "Formulation de modèles étatiques pour des systèmes de gouvernance autonomes détachés du contrôle occidental."
+                }
+            },
+            {
+                t: { en: "Polish-Haitian Connections", pl: "Stosunki polsko-haitańskie — zapomniana historia", es: "Relaciones Polaco-Haitianas", fr: "Relations Polono-Haïtiennes" },
+                d: {
+                    en: "Retrieving the forgotten military archives of Polish combatants designated as 'noir' (black) in Haiti's constitution.",
+                    pl: "Odzyskiwanie zapomnianych archiwów wojskowych polskich legionistów określonych mianem 'noir' (czarnych) w konstytucji Haiti.",
+                    es: "Recuperación de los archivos militares olvidados de soldados polacos denominados 'noir' (negros) en la constitución haitiana.",
+                    fr: "Récupération des archives militaires oubliées des combattants polonais désignés comme 'noir' dans la constitution."
+                }
+            },
+            {
+                t: { en: "Political Archives & Resistance", pl: "Archiwistyka polityczna i dokumentacja oporu", es: "Archivos Políticos y Resistencia", fr: "Archives Politiques et Résistance" },
+                d: {
+                    en: "Systematizing raw documentation methods used by underground operational freedom movements across the Caribbean basin.",
+                    pl: "Systematyzacja metod dokumentacji wykorzystywanych przez podziemne operacyjne ruchy wolnościowe w basenie Morza Karaibskiego.",
+                    es: "Sistematización de métodos de documentación utilizados por movimientos clandestinos de libertad.",
+                    fr: "Systématisation des méthodes de documentation utilisées par les mouvements de liberté clandestins."
+                }
+            },
+            {
+                t: { en: "Shadow Systems Studies", pl: "Shadow Systems Studies", es: "Estudios de Sistemas de Sombra", fr: "Études des Systèmes de l'Ombre" },
+                d: {
+                    en: "Deconstructing Cold War destabilization matrices deployed by global agencies (CIA, MI6, DGSE) and post-colonial tracking networks.",
+                    pl: "Wpływ służb specjalnych światowych mocarstw (CIA - Central Intelligence Agency, MI6, DGSE - Direction Générale de la Sécurité Extérieure) na destabilizację Haiti po rewolucji, strukturalne powiązania między polityką zimnowojenną a rozwojem przestępczości zorganizowanej w regionie karaibskim, mechanizmy kontroli państw postkolonialnych przez zewnętrzne ośrodki władzy.",
+                    es: "Deconstrucción de las matrices de desestabilización de la Guerra Fría desplegadas por agencias globales (CIA, MI6, DGSE).",
+                    fr: "Déconstruction des matrices de déstabilisation de la Guerra Froide déployées par les agences globales (CIA, MI6, DGSE)."
+                }
+            }
+        ]
+    },
+    jamaica: {
+        code: "NODE: JAM-KGN // ACOUSTIC FREQUENCY",
+        titles: {
+            en: "Jamaica Campus — Kingston", pl: "Kampus Jamajka — Kingston",
+            es: "Campus de Jamaica — Kingston", fr: "Campus de la Jamaïque — Kingston"
+        },
+        meta: {
+            en: "Major: Art, Music, Cultural Systems & Resistance Philosophy",
+            pl: "Kierunek: Art, Music, Cultural Systems & Resistance Philosophy",
+            es: "Carrera: Arte, Música, Sistemas culturales y Filosofía de la resistencia",
+            fr: "Filière: Art, Musique, Systèmes culturels et Philosophie de la résistance"
+        },
+        desc: {
+            en: "Kingston acts as the world capital of Reggae, Ska, and Dancehall. The campus functions as a live sensory laboratory measuring acoustic impact, lyrical combat, and urban survival dynamics.",
+            pl: "Kingston — światowa stolica reggae, ska i dancehall. Żywe laboratorium kultury oporu i tożsamości karaibskiej.",
+            es: "Kingston actúa como la capital mundial del Reggae, Ska y Dancehall. El campus es un laboratorio sensorial en vivo que mide el impacto acústico y la resistencia cultural.",
+            fr: "Kingston est la capitale mondiale du Reggae, du Ska et du Dancehall. Le campus fonctionne comme un laboratoire sensoriel mesurant l'impact acoustique et la dynamique de résistance."
+        },
+        badge: {
+            en: "Kingston's downtown street culture has generated some of the most potent geopolitical protest music in modern history, defying systemic oppression through analog frequencies.",
+            pl: "Miejska kultura Kingston wygenerowała jedne z najbardziej wpływowych protestów muzycznych w historii, rzucając wyzwanie systemowej opresji za pomocą częstotliwości.",
+            es: "La cultura urbana de Kingston ha generado algunas de las protestas musicales más potentes de la historia, desafiando la opresión sistémica.",
+            fr: "La culture de rue de Kingston a généré des formes de protestation musicale parmi les plus puissantes de l'histoire, défiant l'oppression sysytémique."
+        },
+        specs: [
+            {
+                t: { en: "Caribbean Musicology", pl: "Muzykologia karaibska i historia reggae/ska/dancehall", es: "Musicología del Caribe", fr: "Musicologie Caribéenne" },
+                d: {
+                    en: "The evolution of Ska, Rocksteady, Reggae, and Dancehall as operational audio transmission technologies.",
+                    pl: "Ewolucja stylów Ska, Rocksteady, Reggae i Dancehall jako operacyjnych technologii przesyłania dźwięku.",
+                    es: "Evolución de Ska, Rocksteady, Reggae y Dancehall como tecnologías operativas de transmisión de audio.",
+                    fr: "L'évolution du Ska, du Rocksteady, du Reggae et du Dancehall en tant que technologies de transmission audio."
+                }
+            },
+            {
+                t: { en: "Bob Marley Studies", pl: "Bob Marley Studies", es: "Estudios de Bob Marley", fr: "Études Bob Marley" },
+                d: {
+                    en: "Music as political philosophy. Assessing the Rastafarian framework of cognitive liberty, equality, and African restoration.",
+                    pl: "Muzyka jako filozofia polityczna, ruch rastafariański jako system myślenia o wolności, równości i tożsamości afrykańskiej, globalne dziedzictwo Marleya jako narzędzie kulturowego oporu.",
+                    es: "La música como filosofía política. Evaluación del movimiento rastafari como marco de libertad cognitiva.",
+                    fr: "La musique comme philosophie politique. Évaluation du mouvement rastafari comme système de liberté cognitive."
+                }
+            },
+            {
+                t: { en: "Visual Arts & Culture", pl: "Sztuki wizualne i kultura afrokaraibska", es: "Artes Visuales y Cultura", fr: "Arts Visuels et Culture" },
+                d: {
+                    en: "Exploration of traditional and contemporary Afro-Caribbean visual narratives and fine arts systems.",
+                    pl: "Eksploracja tradycyjnych i współczesnych afrokaraibskich narracji wizualnych oraz systemów sztuk pięknych.",
+                    es: "Exploración de narrativas visuales afrocaribeñas.",
+                    fr: "Exploration des récits visuels afro-caribéens."
+                }
+            },
+            {
+                t: { en: "Music Production", pl: "Produkcja muzyczna jako narzędzie polityczne i społeczne", es: "Producción Musical Social", fr: "Production Musicale Sociale" },
+                d: {
+                    en: "Using high-yield audio production and sonic distribution structures to trigger real-world social adaptations.",
+                    pl: "Wykorzystanie produkcji audio i struktur dystrybucji dźwiękowej do wywoływania rzeczywistych zmian społecznych.",
+                    es: "Uso de la producción de audio para el cambio social.",
+                    fr: "Utilisation de la production audio pour le changement social."
+                }
+            },
+            {
+                t: { en: "Street Art & Urban Identity", pl: "Kultura street art i tożsamość miejska Kingston", es: "Arte Urbano e Identidad", fr: "Street Art et Identité Urbaine" },
+                d: {
+                    en: "Analyzing political murals and graffiti as decentralized communication networks in highly competitive urban centers.",
+                    pl: "Analiza politycznych murali i graffiti jako zdecentralizowanych sieci komunikacji w silnie rywalizujących ośrodkach miejskich.",
+                    es: "Análisis de murales políticos y grafitis como redes descentralizadas de comunicación urbana.",
+                    fr: "Analyse des peintures murales politiques comme réseaux de communication décentralisés dans les centres urbains."
+                }
+            }
+        ]
+    },
+    dominican: {
+        code: "NODE: DOM-SDQ // MACROECONOMY",
+        titles: {
+            en: "Dominican Republic Campus — Santo Domingo", pl: "Kampus Dominikana — Santo Domingo",
+            es: "Campus de Rep. Dominicana — Santo Domingo", fr: "Campus de Rép. Dominicaine — Saint-Domingue"
+        },
+        meta: {
+            en: "Major: Tourism, Agriculture & Sustainable Economy",
+            pl: "Kierunek: Tourism, Agriculture & Sustainable Economy",
+            es: "Carrera: Turismo, Agricultura y Economía sostenible",
+            fr: "Filière: Tourisme, Agriculture et Économie durable"
+        },
+        desc: {
+            en: "Based in the oldest European-built metropolis in the Americas, this node conducts advanced field research on tropical agroecology, sovereign hospitality structures, and trade networks.",
+            pl: "Santo Domingo — najstarsze europejskie miasto w Ameryce — baza dla studiów nad turystyką i gospodarką tropikalną.",
+            es: "Ubicado en la metrópolis colonial más antigua de América, este nodo realiza investigación de campo sobre agroecología tropical y hospitalidad soberana.",
+            fr: "Basé dans la plus ancienne métropole d'origine européenne en Amérique, ce nœud mène des recherches sur l'agroécologie tropicale et l'économie durable."
+        },
+        badge: {
+            en: "Santo Domingo serves as a testing site for non-colonial economic models, optimizing Caribbean-wide resource logistics and ecological resistance patterns.",
+            pl: "Santo Domingo służy jako pole doświadczalne dla niekolonialnych modeli gospodarczych, optymalizując regionalną logistykę zasobów i opór ekologiczny.",
+            es: "Santo Domingo sirve como campo de pruebas para modelos económicos no coloniales, optimizando la logística de recursos caribeños.",
+            fr: "Saint-Domingue sert de site d'essai pour des modèles économiques non coloniaux, optimisant la logistique des ressources."
+        },
+        specs: [
+            {
+                t: { en: "Tourism & Hospitality Management", pl: "Zarządzanie turystyką i gospodarka hotelarska", es: "Gestión de Turismo", fr: "Gestion du Tourisme" },
+                d: {
+                    en: "Analyzing operational logistics for sustainable luxury resorts and autonomous guest networks.",
+                    pl: "Analiza logistyki operacyjnej dla zrównoważonych kurortów wypoczynkowych oraz autonomicznych sieci gościnnych.",
+                    es: "Análisis de logística hotelera sostenible.",
+                    fr: "Analyse de la logistique hôtelière durable."
+                }
+            },
+            {
+                t: { en: "Agroecology & Tropics", pl: "Agroekologia i rolnictwo tropikalne", es: "Agroecología Tropical", fr: "Agroécologie et Tropiques" },
+                d: {
+                    en: "Designing resilient food security frameworks independent of synthetic foreign corporate monopolies.",
+                    pl: "Projektowanie odpornych struktur bezpieczeństwa żywnościowego, niezależnych od zewnętrznych monopoli korporacyjnych.",
+                    es: "Diseño de marcos resilientes de seguridad alimentaria independientes de monopolios corporativos extranjeros.",
+                    fr: "Conception de cadres de sécurité alimentaire résilients et indépendants des monopoles corporatifs étrangers."
+                }
+            },
+            {
+                t: { en: "Sustainable Development", pl: "Ekonomia zrównoważonego rozwoju Karaibów", es: "Economía del Desarrollo Sostenible", fr: "Économie du Développement Durable" },
+                d: {
+                    en: "Macroeconomic modeling balancing high-yield eco-tourism alongside ecological preservation boundaries.",
+                    pl: "Makroekonomiczne modelowanie równoważące wysoko-wydajną eko-turystykę z zachowaniem integralności środowiskowej.",
+                    es: "Modelado macroeconómico que equilibra el ecoturismo de alto rendimiento con los límites ecológicos.",
+                    fr: "Modélisation macroéconomique équilibrant l'éco-tourisme à haut rendement et la préservation écologique."
+                }
+            },
+            {
+                t: { en: "Colonial Economic Imprints", pl: "Historia kolonialna i jej wpływ na współczesne struktury gospodarcze", es: "Historia e Impacto Económico", fr: "Histoire et Empreintes Économiques" },
+                d: {
+                    en: "Analyzing how early mercantilist shipping routes formed the economic dependency patterns observed today.",
+                    pl: "Analiza wpływu dawnych szlaków kupieckich na współczesne wzorce zależności i transgranicznego drenażu kapitału.",
+                    es: "Análisis de cómo las rutas comerciales mercantilistas primitivas formaron los patrones de dependencia actuales.",
+                    fr: "Analyse de la façon dont les routes maritimes mercantilistes ont formé les schémas de dépendance actuels."
+                }
+            },
+            {
+                t: { en: "Regional Trade & Integration", pl: "Regionalny handel karaibski i integracja ekonomiczna", es: "Comercio Regional", fr: "Commerce Régional" },
+                d: {
+                    en: "Synthesizing cross-border supply chains and custom unions within the sovereign Caribbean block.",
+                    pl: "Syntetyzowanie transgranicznych łańcuchów dostaw i unii celnych w obrębie suwerennego bloku karaibskiego.",
+                    es: "Modelos de comercio soberano regional.",
+                    fr: "Modèles de commerce souverain régional."
+                }
+            }
+        ]
+    }
+};
+
+// Simulated asymmetric telemetry security logs output
+const termLogs = {
+    haiti: {
+        en: [
+            "[SECURITY] → Scanning post-revolutionary cryptographic archive directories...",
+            "[DECRYPT]  → Analysis of historic CIA destabilization vectors in Port-au-Prince completed.",
+            "[TRACK]    → Trans-Atlantic fiber packet routing Cazalé -> Gibraltar: 100% Signal Integrity.",
+            "[INFO]     → Polish relations node online. Professor Sugriva approved decolonial thesis."
+        ],
+        pl: [
+            "[SECURITY] → Skanowanie porewolucyjnych archiwów kryptograficznych...",
+            "[DECRYPT]  → Analiza zimnowojennych wektorów destabilizacji CIA w Port-au-Prince zakończona.",
+            "[TRACK]    → Światłowód transatlantycki Cazalé -> Gibraltar: Jakość sygnału 100%.",
+            "[INFO]     → Węzeł polsko-haitański online. Profesor Sugriva zatwierdził pracę dyplomową."
+        ],
+        es: [
+            "[SECURITY] → Escaneando directorios de archivos criptográficos posrevolucionarios...",
+            "[DECRYPT]  → Análisis de vectores de desestabilización histórica de la CIA en Puerto Príncipe completado.",
+            "[TRACK]    → Enrutamiento de fibra transatlántica Cazalé -> Gibraltar: 100% de señal.",
+            "[INFO]     → Nodo polaco-haitiano activo. El Profesor Sugriva aprobó la tesis de decolonización."
+        ],
+        fr: [
+            "[SECURITY] → Analyse des répertoires d'archives cryptographiques post-révolutionnaires...",
+            "[DECRYPT]  → Analyse des vecteurs de déstabilisation historique de la CIA à Port-au-Prince terminée.",
+            "[TRACK]    → Liaison transatlantique Cazalé -> Gibraltar : Intégrité du signal 100%.",
+            "[INFO]     → Nœud polono-haïtien en ligne. Le Professor Sugriva a validé la thèse de décolonisation."
+        ]
+    },
+    jamaica: {
+        en: [
+            "[ACUSTIC]  → Monitoring low-frequency spectrum analysis at Trenchtown studio station.",
+            "[AUDIO]     → Bob Marley cultural resonance frequency baseline calculated at 96.4 dB.",
+            "[SYNC]      → Connection established with Kingston FM broadcast systems.",
+            "[SYS_OK]    → Resistance communication grid operating at optimal power levels."
+        ],
+        pl: [
+            "[ACUSTIC]  → Monitorowanie widma niskich częstotliwości w stacji studyjnej Trenchtown.",
+            "[AUDIO]     → Poziom rezonansu kulturowego Boba Marleya obliczony na 96.4 dB.",
+            "[SYNC]      → Połączenie z systemami nadawczymi Kingston FM aktywne.",
+            "[SYS_OK]    → Radiowa sieć oporu działa z optymalną mocą przesyłową."
+        ],
+        es: [
+            "[ACUSTIC]  → Monitoreo del espectro de bajas frecuencias en la estación de Trenchtown.",
+            "[AUDIO]     → Base del nivel de resonancia cultural de Bob Marley calculada en 96.4 dB.",
+            "[SYNC]      → Conexión establecida con los sistemas de transmisión Kingston FM.",
+            "[SYS_OK]    → Red de comunicación de resistencia operando a niveles de potencia óptimos."
+        ],
+        fr: [
+            "[ACUSTIC]  → Surveillance du spectre des basses fréquences au studio de Trenchtown.",
+            "[AUDIO]     → Niveau de résonance culturelle de Bob Marley calculé à 96.4 dB.",
+            "[SYNC]      → Connexion établie avec les émetteurs FM de Kingston.",
+            "[SYS_OK]    → Réseau de communication résistant opérationnel à pleine puissance."
+        ]
+    },
+    dominican: {
+        en: [
+            "[AGRI]      → Agroecological crop monitoring in Santo Domingo fields initialized.",
+            "[DATA]      → Non-colonial trade balance charts generated successfully.",
+            "[LOG]       → Satellite connection established over Caribbean sustainable logistics pipeline.",
+            "[SYS_OK]    → Tropical resource distribution network balanced and secure."
+        ],
+        pl: [
+            "[AGRI]      → Monitorowanie upraw agroekologicznych w Santo Domingo rozpoczęte.",
+            "[DATA]      → Wykresy bilansu handlowego wygenerowane pomyślnie.",
+            "[LOG]       → Połączenie satelitarne nad zrównoważonym rurociągiem Karaibów aktywne.",
+            "[SYS_OK]    → Sieć dystrybucji zasobów tropikalnych zbilansowana i bezpieczna."
+        ],
+        es: [
+            "[AGRI]      → Monitoreo de cultivos agroecológicos en campos de Santo Domingo iniciado.",
+            "[DATA]      → Gráficos de balanza comercial no colonial generados con éxito.",
+            "[LOG]       → Conexión satelital establecida sobre el oleoducto logístico sostenible del Caribe.",
+            "[SYS_OK]    → Red de distribución de recursos tropicales equilibrada y segura."
+        ],
+        fr: [
+            "[AGRI]      → Surveillance des cultures agroécologiques à Saint-Domingue activée.",
+            "[DATA]      → Graphiques de la balance commerciale non coloniale générés avec succès.",
+            "[LOG]       → Connexion satellite établie sur l'infrastructure logistique durable des Caraïbes.",
+            "[SYS_OK]    → Réseau de distribution des ressources tropicales équilibré et sécurisé."
+        ]
+    }
+};
+
+let currentLang = 'en';
+let currentCampus = 'haiti';
+let logTimers = [];
+
+function printTerminalLogs(lang, campus) {
+    const term = document.getElementById("terminal");
+    if (!term) return;
+    term.innerHTML = "";
+    
+    logTimers.forEach(timer => clearTimeout(timer));
+    logTimers = [];
+
+    if (termLogs[campus] && termLogs[campus][lang]) {
+        termLogs[campus][lang].forEach((line, index) => {
+            let timer = setTimeout(() => {
+                const div = document.createElement("div");
+                div.className = "log-line";
+                div.innerText = line;
+                term.appendChild(div);
+            }, index * 250);
+            logTimers.push(timer);
+        });
+    }
+}
+
+function selectCampus(id) {
+    currentCampus = id;
+    document.querySelectorAll(".campus-grid .campus-card").forEach(c => c.classList.remove("active"));
+    const targetCard = document.getElementById("card-" + id);
+    if (targetCard) targetCard.classList.add("active");
+    renderInterface();
+}
+
+function renderInterface() {
+    const campus = dataMatrix[currentCampus];
+    if (!campus) return;
+    
+    const dTitle = document.getElementById("disp-title");
+    const dMeta = document.getElementById("disp-meta");
+    const dDesc = document.getElementById("disp-desc");
+    const dBadge = document.getElementById("disp-badge");
+
+    if (dTitle) dTitle.innerText = campus.titles[currentLang] || "";
+    if (dMeta) dMeta.innerText = campus.meta[currentLang] || "";
+    if (dDesc) dDesc.innerText = campus.desc[currentLang] || "";
+    if (dBadge) dBadge.innerText = campus.badge[currentLang] || "";
+    
+    const container = document.getElementById("disp-specs");
+    if (container) {
+        container.innerHTML = "";
+        campus.specs.forEach(spec => {
+            const div = document.createElement("div");
+            div.className = "spec-item";
+            div.innerHTML = `<strong>${spec.t[currentLang] || ""}</strong><p>${spec.d[currentLang] || ""}</p>`;
+            container.appendChild(div);
+        });
+    }
+
+    printTerminalLogs(currentLang, currentCampus);
+}
+
+function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll(".lang a").forEach(el => el.classList.remove("active"));
+    
+    const targetLangEl = document.getElementById("lang-" + lang);
+    if(targetLangEl) targetLangEl.classList.add("active");
+
+    const globalLabels = {
+        en: {
+            nav: "G-Rock Corporation // Caribbean Core",
+            btn: "RETURN TO HUB",
+            bridge: "Active Trans-Atlantic Fiber Sync",
+            c1: "Haiti Campus",
+            c2: "Jamaica Campus",
+            c3: "Dominican Republic",
+            rightTitle: "Academic Specializations",
+            termTitle: "G-System Mainframe Decryption Log"
+        },
+        pl: {
+            nav: "G-Rock Corporation // Rdzeń Karaibski",
+            btn: "POWRÓT DO WĘZŁA",
+            bridge: "Aktywne Transatlantyckie Łącze Światłowodowe",
+            c1: "Kampus Haiti",
+            c2: "Kampus Jamajka",
+            c3: "Dominikana",
+            rightTitle: "Specjalizacje Akademickie",
+            termTitle: "Dane Wyjściowe Dekrypcji G-System"
+        },
+        es: {
+            nav: "G-Rock Corporation // Núcleo del Caribe",
+            btn: "VOLVER AL HUB",
+            bridge: "Sincronización Activa de Fibra Transatlántica",
+            c1: "Campus de Haití",
+            c2: "Campus de Jamaica",
+            c3: "República Dominicana",
+            rightTitle: "Especialidades Académicas",
+            termTitle: "Registro de Descifrado del Mainframe G-System"
+        },
+        fr: {
+            nav: "G-Rock Corporation // Noyau des Caraïbes",
+            btn: "RETOUR AU HUB",
+            bridge: "Liaison Transatlantique Fibre Optique Active",
+            c1: "Campus d'Haïti",
+            c2: "Campus de la Jamaïque",
+            c3: "République Dominicaine",
+            rightTitle: "Spécialisations Académiques",
+            termTitle: "Journal de Décryptage du Système G"
+        }
+    };
+
+    const labels = globalLabels[lang] || globalLabels['en'];
+    
+    const nTitle = document.getElementById("nav-title");
+    const bReturn = document.getElementById("btn-return");
+    const lBridge = document.getElementById("lbl-bridge-status");
+    const c1T = document.getElementById("c1-title");
+    const c2T = document.getElementById("c2-title");
+    const c3T = document.getElementById("c3-title");
+    const dRightT = document.getElementById("disp-right-title");
+    const tTitle = document.getElementById("term-title");
+
+    if (nTitle) nTitle.innerText = labels.nav;
+    if (bReturn) bReturn.innerText = labels.btn;
+    if (lBridge) lBridge.innerText = labels.bridge;
+    if (c1T) c1T.innerText = labels.c1;
+    if (c2T) c2T.innerText = labels.c2;
+    if (c3T) c3T.innerText = labels.c3;
+    if (dRightT) dRightT.innerText = labels.rightTitle;
+    if (tTitle) tTitle.innerText = labels.termTitle;
+
+    renderInterface();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    setLang('en');
+});
+</script>
+
 </body>
 </html>
+
 
 
 
