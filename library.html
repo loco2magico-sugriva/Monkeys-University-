@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library of Gibraltar // MUoG</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:      #030609;
+  --bg2:     #070d14;
+  --bg3:     #0b1220;
+  --panel:   #0a1019;
+  --blue:    #3a8fff;
+  --bdim:    #1d4d88;
+  --bglow:   rgba(58,143,255,0.15);
+  --cyan:    #00d4ff;
+  --gold:    #c8a84b;
+  --red:     #ff4060;
+  --green:   #00ff88;
+  --amber:   #ff9a3c;
+  --text:    #d4dde8;
+  --muted:   #4a6070;
+  --border:  #0f1e2e;
+  --border2: #162030;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Barlow Condensed',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* SCANLINES */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);
+  animation:scanShift 10s linear infinite;
+}
+@keyframes scanShift{0%{background-position:0 0;}100%{background-position:0 400px;}}
+
+/* AMBIENT */
+.amb{position:fixed;pointer-events:none;z-index:0;}
+.amb1{top:-300px;left:-200px;width:800px;height:800px;background:radial-gradient(circle,rgba(58,143,255,0.04) 0%,transparent 70%);}
+.amb2{bottom:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.03) 0%,transparent 70%);}
+.amb3{top:40%;left:50%;width:400px;height:400px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(200,168,75,0.02) 0%,transparent 70%);}
+
+.wrap{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 32px 100px;}
+
+/* ── HEADER ── */
+.site-header{
+  position:sticky;top:0;z-index:200;
+  background:rgba(3,6,9,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border2);
+  padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:60px;
+}
+.h-left{display:flex;align-items:center;gap:14px;}
+.h-logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:13px;color:var(--blue);letter-spacing:3px;text-shadow:0 0 14px rgba(58,143,255,0.5);}
+.h-sep{width:1px;height:22px;background:var(--border2);}
+.h-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;}
+.h-right{display:flex;align-items:center;gap:16px;}
+.h-status{display:flex;align-items:center;gap:7px;}
+.s-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.s-txt{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;}
+.lang-bar{display:flex;gap:4px;}
+.lang-btn{
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
+  color:var(--muted);padding:4px 8px;border:1px solid transparent;border-radius:3px;
+  cursor:pointer;background:none;transition:all .2s;
+}
+.lang-btn:hover,.lang-btn.active{color:var(--blue);border-color:var(--bdim);}
+
+/* ── HERO ── */
+.hero{
+  padding:70px 0 50px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.hero::after{
+  content:'247';
+  position:absolute;right:-20px;top:20px;
+  font-family:'Orbitron',sans-serif;font-size:180px;font-weight:900;
+  color:rgba(58,143,255,0.03);pointer-events:none;line-height:1;
+}
+.back-link{
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:26px;
+  transition:color .2s;
+}
+.back-link:hover{color:var(--blue);}
+.hero-eyebrow{
+  font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);
+  letter-spacing:5px;text-transform:uppercase;margin-bottom:16px;
+  opacity:0;animation:fadeUp .7s ease .1s forwards;
+}
+.hero-title{
+  font-family:'Orbitron',sans-serif;font-weight:900;
+  font-size:clamp(28px,5vw,58px);line-height:1.05;
+  color:#fff;letter-spacing:2px;text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease .2s forwards;
+}
+.hero-title span{color:var(--blue);text-shadow:0 0 30px rgba(58,143,255,0.4);}
+.hero-divider{width:80px;height:3px;background:linear-gradient(90deg,var(--blue),transparent);margin:20px 0;opacity:0;animation:fadeUp .8s ease .35s forwards;}
+.hero-desc{
+  max-width:620px;font-size:16px;font-weight:300;line-height:1.75;color:#8fa0b4;
+  opacity:0;animation:fadeUp .8s ease .5s forwards;
+}
+.hero-desc strong{color:var(--text);font-weight:600;}
+.hero-stats{
+  display:flex;gap:32px;flex-wrap:wrap;margin-top:28px;
+  opacity:0;animation:fadeUp .8s ease .65s forwards;
+}
+.stat{display:flex;flex-direction:column;gap:3px;}
+.stat-num{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--blue);}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── SECTION LABELS ── */
+.sec-label{
+  display:flex;align-items:center;gap:14px;margin:52px 0 22px;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);border:1px solid var(--border2);padding:2px 7px;border-radius:2px;}
+.sec-txt{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:4px;text-transform:uppercase;white-space:nowrap;}
+
+/* ── SECTION GRID ── */
+.section-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+@media(max-width:900px){.section-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.section-grid{grid-template-columns:1fr;}}
+
+/* ── SECTION CARD ── */
+.sec-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:24px 22px;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:all .25s ease;
+  display:flex;flex-direction:column;gap:10px;
+  opacity:0;
+  animation:fadeUp .6s ease both;
+}
+.sec-card:nth-child(1){animation-delay:.1s;}
+.sec-card:nth-child(2){animation-delay:.2s;}
+.sec-card:nth-child(3){animation-delay:.3s;}
+.sec-card:nth-child(4){animation-delay:.4s;}
+.sec-card:nth-child(5){animation-delay:.5s;}
+.sec-card:nth-child(6){animation-delay:.6s;}
+.sec-card:nth-child(7){animation-delay:.7s;}
+.sec-card:nth-child(8){animation-delay:.8s;}
+
+.sec-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  opacity:0;transition:opacity .3s;
+}
+.sec-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(58,143,255,0.04),transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.sec-card:hover{border-color:var(--blue);background:#0c1623;transform:translateY(-4px);box-shadow:0 12px 40px rgba(58,143,255,0.1);}
+.sec-card:hover::before{opacity:1;}
+.sec-card:hover::after{opacity:1;}
+
+/* Color variants */
+.sec-card.blue::before{background:linear-gradient(90deg,var(--blue),transparent);}
+.sec-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent);}
+.sec-card.gold:hover{border-color:var(--gold);box-shadow:0 12px 40px rgba(200,168,75,0.1);}
+.sec-card.red::before{background:linear-gradient(90deg,var(--red),transparent);}
+.sec-card.red:hover{border-color:var(--red);box-shadow:0 12px 40px rgba(255,64,96,0.1);}
+.sec-card.cyan::before{background:linear-gradient(90deg,var(--cyan),transparent);}
+.sec-card.cyan:hover{border-color:var(--cyan);box-shadow:0 12px 40px rgba(0,212,255,0.1);}
+.sec-card.amber::before{background:linear-gradient(90deg,var(--amber),transparent);}
+.sec-card.amber:hover{border-color:var(--amber);box-shadow:0 12px 40px rgba(255,154,60,0.1);}
+.sec-card.green-c::before{background:linear-gradient(90deg,var(--green),transparent);}
+.sec-card.green-c:hover{border-color:var(--green);box-shadow:0 12px 40px rgba(0,255,136,0.1);}
+
+.card-icon{font-size:22px;margin-bottom:4px;}
+.card-id{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;}
+.card-title{
+  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;
+  color:#fff;letter-spacing:1px;line-height:1.3;
+  transition:color .2s;
+}
+.sec-card:hover .card-title{color:var(--blue);}
+.sec-card.gold:hover .card-title{color:var(--gold);}
+.sec-card.red:hover .card-title{color:var(--red);}
+.sec-card.cyan:hover .card-title{color:var(--cyan);}
+.sec-card.amber:hover .card-title{color:var(--amber);}
+.sec-card.green-c:hover .card-title{color:var(--green);}
+
+.card-desc{font-size:12px;color:#566070;line-height:1.55;font-weight:300;flex:1;}
+.card-count{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--blue);letter-spacing:1px;
+  padding:3px 8px;border-radius:2px;
+  background:rgba(58,143,255,0.06);border:1px solid var(--border2);
+  display:inline-block;align-self:flex-start;
+}
+.sec-card.gold .card-count{color:var(--gold);background:rgba(200,168,75,0.06);}
+.sec-card.red .card-count{color:var(--red);background:rgba(255,64,96,0.06);}
+
+.card-cta{
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);
+  letter-spacing:2px;opacity:0;transition:opacity .25s;margin-top:4px;
+}
+.sec-card:hover .card-cta{opacity:1;}
+
+/* ── TIMELINE STRIP ── */
+.timeline-strip{
+  background:var(--panel);border:1px solid var(--border2);border-radius:8px;
+  padding:28px 32px;margin-top:12px;
+}
+.tl-title{
+  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--blue);
+  letter-spacing:2px;margin-bottom:20px;
+}
+.tl-list{display:flex;flex-direction:column;gap:0;}
+.tl-item{
+  display:grid;grid-template-columns:160px 1fr;
+  gap:16px;padding:12px 0;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;transition:all .2s;
+  position:relative;
+}
+.tl-item:last-child{border-bottom:none;}
+.tl-item:hover{padding-left:8px;}
+.tl-item::before{
+  content:'';position:absolute;left:-32px;top:0;bottom:0;width:2px;
+  background:transparent;transition:background .2s;
+}
+.tl-item:hover::before{background:var(--blue);}
+.tl-date{
+  font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);
+  letter-spacing:1px;padding-top:1px;
+}
+.tl-event{font-size:13px;color:var(--text);font-weight:400;line-height:1.5;}
+.tl-event span{color:var(--muted);font-size:12px;font-weight:300;}
+
+/* ── SYS FOOTER ── */
+.sys-footer{
+  margin-top:50px;padding:20px 28px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:6px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.sf-left{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;line-height:1.9;}
+.sf-left span{color:var(--blue);}
+.sf-right{display:flex;align-items:center;gap:8px;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s infinite;}
+.sf-live{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;}
+
+/* ══════════════ MODAL ══════════════ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:9000;
+  background:rgba(1,3,7,0.96);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:20px;overflow-y:auto;
+}
+.modal-overlay.open{display:flex;animation:mIn .3s ease;}
+@keyframes mIn{from{opacity:0;}to{opacity:1;}}
+
+.modal{
+  background:#07101c;border:1px solid var(--bdim);border-radius:10px;
+  width:100%;max-width:860px;position:relative;
+  box-shadow:0 0 80px rgba(58,143,255,0.1),0 30px 60px rgba(0,0,0,0.8);
+  animation:mSlide .3s cubic-bezier(0.2,0.8,0.3,1);
+  margin:auto;
+}
+@keyframes mSlide{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+.modal-close{
+  position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;
+  color:var(--muted);font-size:20px;line-height:1;transition:color .2s;
+  font-family:'Share Tech Mono',monospace;z-index:10;
+}
+.modal-close:hover{color:var(--red);}
+
+.m-head{padding:28px 34px 22px;border-bottom:1px solid var(--border2);}
+.m-eyebrow{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
+.m-title{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;line-height:1.2;margin-bottom:5px;}
+.m-sub{font-size:13px;color:var(--muted);letter-spacing:.5px;font-weight:300;}
+.m-body{padding:28px 34px;}
+.m-status-bar{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;
+}
+.m-badge{
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;
+  padding:4px 10px;border-radius:2px;border:1px solid;text-transform:uppercase;
+}
+.mb-blue{border-color:var(--bdim);color:var(--blue);background:rgba(58,143,255,0.06);}
+.mb-green{border-color:rgba(0,255,136,0.3);color:var(--green);background:rgba(0,255,136,0.05);}
+.mb-gold{border-color:rgba(200,168,75,0.4);color:var(--gold);background:rgba(200,168,75,0.06);}
+.mb-red{border-color:rgba(255,64,96,0.3);color:var(--red);background:rgba(255,64,96,0.06);}
+.mb-amber{border-color:rgba(255,154,60,0.3);color:var(--amber);background:rgba(255,154,60,0.06);}
+
+.m-intro{font-size:14.5px;font-weight:300;line-height:1.8;color:#8090a0;margin-bottom:24px;}
+.m-intro strong{color:var(--text);font-weight:600;}
+
+.m-entries{display:flex;flex-direction:column;gap:8px;}
+.m-entry{
+  background:#040c16;border:1px solid var(--border2);
+  border-left:3px solid var(--blue);
+  border-radius:0 6px 6px 0;padding:14px 18px;
+  transition:background .2s;
+}
+.m-entry:hover{background:#081220;}
+.me-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:5px;}
+.me-body{font-size:13px;font-weight:300;color:#7a8fa0;line-height:1.6;}
+.me-body strong{color:var(--text);}
+
+.m-entry.gold-e{border-left-color:var(--gold);}
+.m-entry.gold-e .me-title{color:var(--gold);}
+.m-entry.red-e{border-left-color:var(--red);}
+.m-entry.red-e .me-title{color:var(--red);}
+.m-entry.amber-e{border-left-color:var(--amber);}
+.m-entry.amber-e .me-title{color:var(--amber);}
+.m-entry.green-e{border-left-color:var(--green);}
+.m-entry.green-e .me-title{color:var(--green);}
+
+.m-actions{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;
+  padding-top:18px;border-top:1px solid var(--border);
+}
+.m-btn{
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;
+  color:var(--blue);text-decoration:none;padding:7px 16px;
+  border:1px solid var(--bdim);border-radius:4px;
+  background:rgba(58,143,255,0.05);transition:all .2s;cursor:pointer;
+}
+.m-btn:hover{background:var(--blue);color:#000;border-color:var(--blue);}
+.m-btn.locked{color:var(--red);border-color:rgba(255,64,96,0.3);background:rgba(255,64,96,0.04);}
+.m-btn.locked:hover{background:var(--red);color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="amb amb1"></div>
+<div class="amb amb2"></div>
+<div class="amb amb3"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="h-left">
+    <div class="h-logo">MUoG</div>
+    <div class="h-sep"></div>
+    <div class="h-sub" id="h-sub-txt">LIBRARY OF GIBRALTAR // ARCHIVE NODE</div>
+  </div>
+  <div class="h-right">
+    <div class="h-status">
+      <div class="s-dot"></div>
+      <div class="s-txt" id="h-status-txt">247 RECORDS ACTIVE</div>
+    </div>
+    <div class="lang-bar">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('pl')">PL</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <a href="index.html" class="back-link">← <span data-i="back">BACK TO DASHBOARD</span></a>
+    <p class="hero-eyebrow" data-i="eyebrow">ACCESS LEVEL: UNIVERSITY NETWORK // G-SYSTEM ARCHIVAL INFRASTRUCTURE</p>
+    <h1 class="hero-title"><span data-i="hero-title">Library of</span><br><span data-i="hero-title2">Gibraltar</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc" data-i="hero-desc">Central knowledge repository maintained by <strong>Monkeys University of Gibraltar</strong>. Powered by G-System archival infrastructure. Integrated with G-Media production archives.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">247</div><div class="stat-label" data-i="stat1">TOTAL RECORDS</div></div>
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label" data-i="stat2">COLLECTIONS</div></div>
+      <div class="stat"><div class="stat-num">LIVE</div><div class="stat-label" data-i="stat3">SYNC STATUS</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION CARDS -->
+  <div class="sec-label">
+    <span class="sec-num">01</span>
+    <span class="sec-txt" data-i="sec1-label">Main Collections</span>
+  </div>
+
+  <div class="section-grid">
+
+    <div class="sec-card blue" onclick="openModal('timelines')">
+      <div class="card-icon">◈</div>
+      <div class="card-id">SECTION_01 // NAVIGATION</div>
+      <div class="card-title" data-i="card-timelines">TIMELINES</div>
+      <div class="card-desc" data-i="card-timelines-desc">Chronological reconstruction of events, projects, publications and institutional development.</div>
+      <div class="card-count" data-i="card-timelines-count">9 TIMELINES</div>
+      <div class="card-cta">OPEN ARCHIVE →</div>
+    </div>
+
+    <div class="sec-card gold" onclick="openModal('books')">
+      <div class="card-icon">📖</div>
+      <div class="card-id">SECTION_02 // PUBLICATIONS</div>
+      <div class="card-title" data-i="card-books">BOOKS</div>
+      <div class="card-desc" data-i="card-books-desc">Literary works, academic publications and educational material. Corpus authored by Professor Sugriva.</div>
+      <div class="card-count" data-i="card-books-count">47 VOLUMES</div>
+      <div class="card-cta">OPEN ARCHIVE →</div>
+    </div>
+
+    <div class="sec-card blue" onclick="openModal('reports')">
+      <div class="card-icon">📋</div>
+      <div class="card-id">SECTION_03 // RESEARCH</div>
+      <div class="card-title" data-i="card-reports">REPORTS</div>
+      <div class="card-desc" data-i="card-reports-desc">Institutional investigations, research assessments and analytical documentation across the MUoG network.</div>
+      <div class="card-count" data-i="card-reports-count">5 REPORTS</div>
+      <div class="card-cta">OPEN ARCHIVE →</div>
+    </div>
+
+    <div class="sec-card cyan" onclick="openModal('dossiers')">
+      <div class="card-icon">👤</div>
+      <div class="card-id">SECTION_04 // INTELLIGENCE</div>
+      <div class="card-title" data-i="card-dossiers">DOSSIERS</div>
+      <div class="card-desc" data-i="card-dossiers-desc">Structured records covering notable individuals, entities and historical subjects within the G-Rock network.</div>
+      <div class="card-count" data-i="card-dossiers-count">4 SUBJECTS</div>
+      <div class="card-cta">OPEN ARCHIVE →</div>
+    </div>
+
+    <div class="sec-card amber" onclick="openModal('archives')">
+      <div class="card-icon">🗂</div>
+      <div class="card-id">SECTION_05 // HISTORY</div>
+      <div class="card-title" data-i="card-archives">ARCHIVES</div>
+      <div class="card-desc" data-i="card-archives-desc">Historical records documenting the development of MUoG and associated institutions. Foundation documents.</div>
+      <div class="card-count" data-i="card-archives-count">7 COLLECTIONS</div>
+      <div class="card-cta">OPEN ARCHIVE →</div>
+    </div>
+
+    <div class="sec-card blue" onclick="openModal('ai')">
+      <div class="card-icon">⬡</div>
+      <div class="card-id">SECTION_06 // AI SYSTEMS</div>
+      <div class="card-title" data-i="card-ai">AI ENTITIES</div>
+      <div class="card-desc" data-i="card-ai-desc">Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies.</div>
+      <div class="card-count" data-i="card-ai-count">5 ENTITIES</div>
+      <div class="card-cta">OPEN ARCHIVE →</div>
+    </div>
+
+    <div class="sec-card red" onclick="openModal('restricted')">
+      <div class="card-icon">⛔</div>
+      <div class="card-id">SECTION_07 // CLASSIFIED</div>
+      <div class="card-title" data-i="card-restricted">RESTRICTED FILES</div>
+      <div class="card-desc" data-i="card-restricted-desc">Classified documentation available only through authorized G-System access protocols. Clearance required.</div>
+      <div class="card-count" data-i="card-restricted-count">ACCESS RESTRICTED</div>
+      <div class="card-cta">REQUEST ACCESS →</div>
+    </div>
+
+    <div class="sec-card green-c" onclick="openModal('media')">
+      <div class="card-icon">▶</div>
+      <div class="card-id">SECTION_08 // G-MEDIA</div>
+      <div class="card-title" data-i="card-media">MEDIA VAULT</div>
+      <div class="card-desc" data-i="card-media-desc">Official multimedia archive maintained by G-Media. Films, audiobooks, trailers, documentary footage.</div>
+      <div class="card-count" data-i="card-media-count">G-MEDIA NETWORK</div>
+      <div class="card-cta">OPEN VAULT →</div>
+    </div>
+
+  </div>
+
+  <!-- TIMELINE STRIP -->
+  <div class="sec-label">
+    <span class="sec-num">02</span>
+    <span class="sec-txt" data-i="sec2-label">Key Timeline — Primary Navigation</span>
+  </div>
+
+  <div class="timeline-strip">
+    <div class="tl-title" data-i="tl-title">// CHRONOLOGICAL RECORD — G-ROCK CORPORATION</div>
+    <div class="tl-list">
+      <div class="tl-item"><div class="tl-date">2024</div><div class="tl-event"><strong data-i="tl1-strong">Elizabeth School of London / Bath Spa University Period</strong><br><span data-i="tl1-span">Academic validation experiments initiated</span></div></div>
+      <div class="tl-item"><div class="tl-date">NOV 2024</div><div class="tl-event"><strong data-i="tl2-strong">Foundation Essay Archive</strong><br><span data-i="tl2-span">Professor Sugriva essay artifact deployed</span></div></div>
+      <div class="tl-item"><div class="tl-date">LATE 2024</div><div class="tl-event"><strong data-i="tl3-strong">Tangier Development Phase</strong><br><span data-i="tl3-span">Mediterranean expansion operations initiated</span></div></div>
+      <div class="tl-item"><div class="tl-date">22.01.2025</div><div class="tl-event"><strong data-i="tl4-strong">Sugriva Acceptance Record</strong><br><span data-i="tl4-span">Official recognition event confirmed by BSU</span></div></div>
+      <div class="tl-item"><div class="tl-date">2025</div><div class="tl-event"><strong data-i="tl5-strong">MUoG Formation Records</strong><br><span data-i="tl5-span">Institutional architecture fully established</span></div></div>
+      <div class="tl-item"><div class="tl-date">2025–2026</div><div class="tl-event"><strong data-i="tl6-strong">G-System Expansion</strong><br><span data-i="tl6-span">Network nodes deployed across three continents</span></div></div>
+      <div class="tl-item"><div class="tl-date">FEB 2026</div><div class="tl-event"><strong data-i="tl7-strong">The Legend of the Monkeys from Gibraltar</strong><br><span data-i="tl7-span">Audiobook published and distributed</span></div></div>
+      <div class="tl-item"><div class="tl-date">2026</div><div class="tl-event"><strong data-i="tl8-strong">G-Media Production Archive</strong><br><span data-i="tl8-span">Full media production network activated</span></div></div>
+      <div class="tl-item"><div class="tl-date">PRESENT</div><div class="tl-event"><strong data-i="tl9-strong">Library of Gibraltar Active Repository</strong><br><span data-i="tl9-span">247 records — live synchronization</span></div></div>
+    </div>
+  </div>
+
+  <!-- SYS FOOTER -->
+  <div class="sys-footer">
+    <div class="sf-left">
+      <span data-i="sf1">SYSTEM:</span> <span>G-SYSTEM ARCHIVAL INFRASTRUCTURE</span> &nbsp;|&nbsp;
+      <span data-i="sf2">MEDIA:</span> <span>G-MEDIA PRODUCTION NETWORK</span> &nbsp;|&nbsp;
+      <span data-i="sf3">ACADEMIC:</span> <span>MONKEYS UNIVERSITY OF GIBRALTAR</span>
+    </div>
+    <div class="sf-right">
+      <div class="live-dot"></div>
+      <div class="sf-live" data-i="sf-live">LIVE SYNC</div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+
+<!-- ════════════════════════════
+     MODAL — TIMELINES
+════════════════════════════ -->
+<div class="modal-overlay" id="modal-timelines" onclick="closeModal('timelines',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('timelines')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_01 // PRIMARY NAVIGATION SYSTEM</div>
+    <div class="m-title" data-i="mod-timelines-title">TIMELINES</div>
+    <div class="m-sub" data-i="mod-timelines-sub">Chronological reconstruction of events, projects and institutional development</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-blue">9 TIMELINES</span>
+      <span class="m-badge mb-green">ACTIVE</span>
+      <span class="m-badge mb-blue">G-SYSTEM INDEXED</span>
+    </div>
+    <div class="m-intro" data-i="mod-timelines-intro">Primary navigation system of the Library of Gibraltar. Chronological reconstruction of events, projects, publications and institutional development across the entire G-Rock network.</div>
+    <div class="m-entries">
+      <div class="m-entry"><div class="me-title" data-i="tl-muog">MUoG Timeline</div><div class="me-body" data-i="tl-muog-d">Formation and development of Monkeys University of Gibraltar from concept to sovereign academic institution.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="tl-sug">Sugriva Timeline</div><div class="me-body" data-i="tl-sug-d">Complete chronology of Professor Sugriva — from creation as an AI construct to official UK academic recognition.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="tl-woj">Wojtek Timeline</div><div class="me-body" data-i="tl-woj-d">The legendary Polish Army bear — historical record and integration into the G-Rock State governance architecture.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="tl-haiti">Haiti Timeline</div><div class="me-body" data-i="tl-haiti-d">Revolutionary history, constitutional legacy, Polish connection and G-Rock Caribbean research operations.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="tl-gsys">G-System Timeline</div><div class="me-body" data-i="tl-gsys-d">Technical development and expansion of the G-System archival and governance infrastructure.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="tl-gmed">G-Media Timeline</div><div class="me-body" data-i="tl-gmed-d">Production history of G-Media — audiobooks, films, trailers and multimedia G-Rock content.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="tl-pub">Publications Timeline</div><div class="me-body" data-i="tl-pub-d">Complete publishing record of Professor Sugriva's academic and literary corpus.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="tl-ai">AI Timeline</div><div class="me-body" data-i="tl-ai-d">Development arc of artificial intelligence research within MUoG — from early experiments to G-System deployment.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn" data-i="btn-open">OPEN TIMELINE</button>
+      <button class="m-btn" data-i="btn-search">SEARCH RECORDS</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL — BOOKS -->
+<div class="modal-overlay" id="modal-books" onclick="closeModal('books',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('books')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_02 // PUBLICATIONS</div>
+    <div class="m-title" data-i="mod-books-title">BOOKS</div>
+    <div class="m-sub" data-i="mod-books-sub">Literary works, academic publications and educational material — MUoG Publishing Division</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-gold">47 VOLUMES</span>
+      <span class="m-badge mb-blue">PROFESSOR SUGRIVA CORPUS</span>
+      <span class="m-badge mb-red">MOSTLY RESTRICTED</span>
+    </div>
+    <div class="m-intro" data-i="mod-books-intro">All major academic and literary works within the Library of Gibraltar are authored by <strong>Professor Sugriva</strong>. The corpus covers individual nation studies, geopolitics, economics, warfare analysis, artificial intelligence systems and historical reconstruction. Most works are classified.</div>
+    <div class="m-entries">
+      <div class="m-entry green-e"><div class="me-title" data-i="bk1">The Legend of the Monkeys from Gibraltar</div><div class="me-body" data-i="bk1-d"><strong>PUBLIC ACCESS.</strong> History and significance of the Barbary macaques and their role in British rule over Gibraltar. Available on YouTube as audiobook.</div></div>
+      <div class="m-entry green-e"><div class="me-title" data-i="bk2">Chimpanzees War — Selected Edition</div><div class="me-body" data-i="bk2-d"><strong>PUBLIC ACCESS.</strong> Selected public release edition. Features Dr. L. narrative chapters — considered strong standalone literary work.</div></div>
+      <div class="m-entry red-e"><div class="me-title" data-i="bk3">Full Academic Corpus — Professor Sugriva</div><div class="me-body" data-i="bk3-d"><strong>RESTRICTED.</strong> Extensive publications covering geopolitics, economics, warfare analysis and AI systems. Accessible only under authorized university network clearance.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn" data-i="btn-read">READ</button>
+      <button class="m-btn" data-i="btn-details">DETAILS</button>
+      <button class="m-btn locked" data-i="btn-restricted">RESTRICTED ACCESS ⛔</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL — REPORTS -->
+<div class="modal-overlay" id="modal-reports" onclick="closeModal('reports',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('reports')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_03 // RESEARCH ARCHIVE</div>
+    <div class="m-title" data-i="mod-reports-title">REPORTS</div>
+    <div class="m-sub" data-i="mod-reports-sub">Institutional investigations and analytical documentation — G-System Research Archive</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-blue">5 REPORTS</span>
+      <span class="m-badge mb-green">ACTIVE</span>
+    </div>
+    <div class="m-intro" data-i="mod-reports-intro">Institutional investigations, research assessments and analytical documentation generated across the MUoG network. Source: G-System Research Archive.</div>
+    <div class="m-entries">
+      <div class="m-entry"><div class="me-title" data-i="rp1">Institutional AI Literacy & Resilience Analysis</div><div class="me-body" data-i="rp1-d">Assessment of how contemporary academic institutions respond to AI-generated entities. Case study: Elizabeth School of London / Bath Spa University.</div></div>
+      <div class="m-entry amber-e"><div class="me-title" data-i="rp2">Haiti Incident Report</div><div class="me-body" data-i="rp2-d">Jamaica / Dominican Republic sector reference. Historical and operational analysis of Caribbean network development.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="rp3">Sugriva Observation Report</div><div class="me-body" data-i="rp3-d">Full behavioral and operational analysis of Professor Sugriva as an AI construct deployed in real institutional environments.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="rp4">G-System Documentation</div><div class="me-body" data-i="rp4-d">Technical architecture report covering all G-System infrastructure nodes and synchronization protocols.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="rp5">Academic Assessment Reports</div><div class="me-body" data-i="rp5-d">Internal MUoG academic evaluation records.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn" data-i="btn-open-r">OPEN REPORT</button>
+      <button class="m-btn" data-i="btn-timeline-r">TIMELINE</button>
+      <button class="m-btn" data-i="btn-refs">REFERENCES</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL — DOSSIERS -->
+<div class="modal-overlay" id="modal-dossiers" onclick="closeModal('dossiers',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('dossiers')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_04 // INTELLIGENCE ARCHIVE</div>
+    <div class="m-title" data-i="mod-dossiers-title">DOSSIERS</div>
+    <div class="m-sub" data-i="mod-dossiers-sub">Structured records covering notable individuals and entities — University Intelligence Archive</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-blue">4 SUBJECTS</span>
+      <span class="m-badge mb-green">ACTIVE</span>
+    </div>
+    <div class="m-intro" data-i="mod-dossiers-intro">Structured records covering notable individuals, entities and historical subjects within the G-Rock Corporation network.</div>
+    <div class="m-entries">
+      <div class="m-entry gold-e"><div class="me-title" data-i="dos1">Professor Sugriva</div><div class="me-body" data-i="dos1-d">Complete dossier: AI construct, academic entity, MUoG Chairman, Bath Spa University recognition subject. Full operational history.</div></div>
+      <div class="m-entry gold-e"><div class="me-title" data-i="dos2">Wojtek Bear</div><div class="me-body" data-i="dos2-d">Polish Army bear, WWII veteran, G-Rock Veto Authority Layer. Historical record and institutional role within Parliament.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="dos3">Academic Staff</div><div class="me-body" data-i="dos3-d">Records of all academic personnel associated with MUoG and partner institutions.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="dos4">AI Subjects</div><div class="me-body" data-i="dos4-d">Documented AI entities deployed, tested and archived within the G-System experimental framework.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn" data-i="btn-view">VIEW DOSSIER</button>
+      <button class="m-btn" data-i="btn-related">RELATED FILES</button>
+      <button class="m-btn" data-i="btn-chron">CHRONOLOGY</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL — ARCHIVES -->
+<div class="modal-overlay" id="modal-archives" onclick="closeModal('archives',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('archives')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_05 // HISTORICAL RECORDS</div>
+    <div class="m-title" data-i="mod-archives-title">ARCHIVES</div>
+    <div class="m-sub" data-i="mod-archives-sub">Historical records documenting MUoG development — Gibraltar Historical Repository</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-amber">7 COLLECTIONS</span>
+      <span class="m-badge mb-green">ACTIVE</span>
+    </div>
+    <div class="m-intro" data-i="mod-archives-intro">Historical records documenting the development of MUoG and associated institutions, from founding documents to present operations.</div>
+    <div class="m-entries">
+      <div class="m-entry gold-e"><div class="me-title" data-i="ar1">Foundation of MUoG</div><div class="me-body" data-i="ar1-d">Original founding documents, concept records and early institutional architecture of Monkeys University of Gibraltar.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ar2">Gibraltar Records</div><div class="me-body" data-i="ar2-d">Historical archive of The Rock — geological, political, military and cultural records from antiquity to present.</div></div>
+      <div class="m-entry amber-e"><div class="me-title" data-i="ar3">Caribbean Campus Records</div><div class="me-body" data-i="ar3-d">Jamaica / Dominican Republic / Haiti sector. Trans-Atlantic link development documentation.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ar4">Historical Correspondence</div><div class="me-body" data-i="ar4-d">Email archives, institutional communications and formal correspondence records.</div></div>
+      <div class="m-entry gold-e"><div class="me-title" data-i="ar5">Foundation Essay Archive</div><div class="me-body" data-i="ar5-d">The Professor Sugriva essay artifact — the document that initiated the UK academic recognition chain of events.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ar6">Institutional Milestones</div><div class="me-body" data-i="ar6-d">Key development events, recognition records and system expansion milestones.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ar7">Tangier Development Notes</div><div class="me-body" data-i="ar7-d">Mediterranean expansion phase — Tangier operational planning and development records.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn" data-i="btn-open-a">OPEN ARCHIVE</button>
+      <button class="m-btn" data-i="btn-search-a">SEARCH</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL — AI ENTITIES -->
+<div class="modal-overlay" id="modal-ai" onclick="closeModal('ai',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('ai')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_06 // AI SYSTEMS</div>
+    <div class="m-title" data-i="mod-ai-title">AI ENTITIES</div>
+    <div class="m-sub" data-i="mod-ai-sub">Artificial intelligence systems and cognitive archives — G-System Cognitive Archive</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-blue">5 ENTITIES</span>
+      <span class="m-badge mb-green">ACTIVE</span>
+    </div>
+    <div class="m-intro" data-i="mod-ai-intro">Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies deployed within the G-Rock experimental framework.</div>
+    <div class="m-entries">
+      <div class="m-entry"><div class="me-title" data-i="ai1">G-System</div><div class="me-body" data-i="ai1-d">Core governance and archival AI infrastructure of the G-Rock State. Technical documentation and operational logs.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ai2">Experimental Agents</div><div class="me-body" data-i="ai2-d">AI personas deployed in institutional environments. Includes Professor Sugriva operational archives.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ai3">AI Dialog Archives</div><div class="me-body" data-i="ai3-d">Complete conversation logs between AI entities and human institutional respondents. ESL/BSU interaction archive.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ai4">Behavioral Studies</div><div class="me-body" data-i="ai4-d">Analysis of how AI constructs behave within and influence real institutional systems.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="ai5">AI Literacy Materials</div><div class="me-body" data-i="ai5-d">Educational content on AI recognition, verification and institutional resilience to AI-generated entities.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn" data-i="btn-open-ai">OPEN FILE</button>
+      <button class="m-btn" data-i="btn-conv">CONVERSATIONS</button>
+      <button class="m-btn" data-i="btn-analysis">ANALYSIS</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL — RESTRICTED -->
+<div class="modal-overlay" id="modal-restricted" onclick="closeModal('restricted',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('restricted')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_07 // CLASSIFIED</div>
+    <div class="m-title" data-i="mod-restricted-title">RESTRICTED FILES</div>
+    <div class="m-sub" data-i="mod-restricted-sub">Classified documentation — G-System Security Archive</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-red">ACCESS RESTRICTED</span>
+      <span class="m-badge mb-red">CLEARANCE REQUIRED</span>
+    </div>
+    <div class="m-intro" data-i="mod-restricted-intro">Classified documentation available only through authorized G-System access protocols. All entries below require security clearance. Unauthorized access attempts are logged.</div>
+    <div class="m-entries">
+      <div class="m-entry red-e"><div class="me-title" data-i="rs1">Redacted Reports</div><div class="me-body" data-i="rs1-d">⛔ CLEARANCE REQUIRED — Institutional reports with sensitive operational data removed from public access.</div></div>
+      <div class="m-entry red-e"><div class="me-title" data-i="rs2">Internal Communications</div><div class="me-body" data-i="rs2-d">⛔ CLEARANCE REQUIRED — Private correspondence and internal G-Rock Corporation communications.</div></div>
+      <div class="m-entry red-e"><div class="me-title" data-i="rs3">Incident Logs</div><div class="me-body" data-i="rs3-d">⛔ CLEARANCE REQUIRED — Full incident documentation including March 2025 police intervention records.</div></div>
+      <div class="m-entry red-e"><div class="me-title" data-i="rs4">Experimental Documentation</div><div class="me-body" data-i="rs4-d">⛔ CLEARANCE REQUIRED — Full Professor Sugriva experimental deployment documentation.</div></div>
+      <div class="m-entry red-e"><div class="me-title" data-i="rs5">Security Assessments</div><div class="me-body" data-i="rs5-d">⛔ CLEARANCE REQUIRED — G-System security evaluation reports.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn locked" data-i="btn-request">REQUEST ACCESS ⛔</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL — MEDIA VAULT -->
+<div class="modal-overlay" id="modal-media" onclick="closeModal('media',event)">
+<div class="modal">
+  <button class="modal-close" onclick="closeModalById('media')">✕</button>
+  <div class="m-head">
+    <div class="m-eyebrow">SECTION_08 // G-MEDIA NETWORK</div>
+    <div class="m-title" data-i="mod-media-title">MEDIA VAULT</div>
+    <div class="m-sub" data-i="mod-media-sub">Official multimedia archive — G-Media Production Network</div>
+  </div>
+  <div class="m-body">
+    <div class="m-status-bar">
+      <span class="m-badge mb-green">G-MEDIA ACTIVE</span>
+      <span class="m-badge mb-blue">PRODUCTION NETWORK</span>
+    </div>
+    <div class="m-intro" data-i="mod-media-intro">Official multimedia archive maintained by G-Media. All audiovisual content produced and distributed through the G-Media Production Network.</div>
+    <div class="m-entries">
+      <div class="m-entry green-e"><div class="me-title" data-i="mv1">Films</div><div class="me-body" data-i="mv1-d">G-Rock Corporation film productions. Documentary and narrative content from the G-Rock universe.</div></div>
+      <div class="m-entry green-e"><div class="me-title" data-i="mv2">Audio Books</div><div class="me-body" data-i="mv2-d">The Legend of the Monkeys from Gibraltar — published on YouTube. Distributed at St. Michael's Cave, Gibraltar Rock.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="mv3">Trailers</div><div class="me-body" data-i="mv3-d">Promotional video content for MUoG, G-Rock State and associated institutional nodes.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="mv4">Promotional Materials</div><div class="me-body" data-i="mv4-d">Graphics, banners, seals and visual identity assets for the G-Rock Corporation network.</div></div>
+      <div class="m-entry"><div class="me-title" data-i="mv5">Production Archives</div><div class="me-body" data-i="mv5-d">Behind-the-scenes documentation, production notes and development archives from all G-Media projects.</div></div>
+    </div>
+    <div class="m-actions">
+      <button class="m-btn" data-i="btn-play">▶ PLAY</button>
+      <button class="m-btn" data-i="btn-collection">OPEN COLLECTION</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<script>
+/* ══════════════════════
+   TRANSLATIONS
+══════════════════════ */
+const LANG = {
+  en: {
+    'back':'BACK TO DASHBOARD',
+    'eyebrow':'ACCESS LEVEL: UNIVERSITY NETWORK // G-SYSTEM ARCHIVAL INFRASTRUCTURE',
+    'hero-title':'Library of','hero-title2':'Gibraltar',
+    'hero-desc':'Central knowledge repository maintained by <strong>Monkeys University of Gibraltar</strong>. Powered by G-System archival infrastructure. Integrated with G-Media production archives.',
+    'stat1':'TOTAL RECORDS','stat2':'COLLECTIONS','stat3':'SYNC STATUS',
+    'sec1-label':'Main Collections','sec2-label':'Key Timeline — Primary Navigation',
+    'card-timelines':'TIMELINES','card-timelines-desc':'Chronological reconstruction of events, projects, publications and institutional development.','card-timelines-count':'9 TIMELINES',
+    'card-books':'BOOKS','card-books-desc':'Literary works, academic publications and educational material. Corpus authored by Professor Sugriva.','card-books-count':'47 VOLUMES',
+    'card-reports':'REPORTS','card-reports-desc':'Institutional investigations, research assessments and analytical documentation across the MUoG network.','card-reports-count':'5 REPORTS',
+    'card-dossiers':'DOSSIERS','card-dossiers-desc':'Structured records covering notable individuals, entities and historical subjects within the G-Rock network.','card-dossiers-count':'4 SUBJECTS',
+    'card-archives':'ARCHIVES','card-archives-desc':'Historical records documenting the development of MUoG and associated institutions. Foundation documents.','card-archives-count':'7 COLLECTIONS',
+    'card-ai':'AI ENTITIES','card-ai-desc':'Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies.','card-ai-count':'5 ENTITIES',
+    'card-restricted':'RESTRICTED FILES','card-restricted-desc':'Classified documentation available only through authorized G-System access protocols. Clearance required.','card-restricted-count':'ACCESS RESTRICTED',
+    'card-media':'MEDIA VAULT','card-media-desc':'Official multimedia archive maintained by G-Media. Films, audiobooks, trailers, documentary footage.','card-media-count':'G-MEDIA NETWORK',
+    'tl-title':'// CHRONOLOGICAL RECORD — G-ROCK CORPORATION',
+    'tl1-strong':'Elizabeth School of London / Bath Spa University Period','tl1-span':'Academic validation experiments initiated',
+    'tl2-strong':'Foundation Essay Archive','tl2-span':'Professor Sugriva essay artifact deployed',
+    'tl3-strong':'Tangier Development Phase','tl3-span':'Mediterranean expansion operations initiated',
+    'tl4-strong':'Sugriva Acceptance Record','tl4-span':'Official recognition event confirmed by BSU',
+    'tl5-strong':'MUoG Formation Records','tl5-span':'Institutional architecture fully established',
+    'tl6-strong':'G-System Expansion','tl6-span':'Network nodes deployed across three continents',
+    'tl7-strong':'The Legend of the Monkeys from Gibraltar','tl7-span':'Audiobook published and distributed',
+    'tl8-strong':'G-Media Production Archive','tl8-span':'Full media production network activated',
+    'tl9-strong':'Library of Gibraltar Active Repository','tl9-span':'247 records — live synchronization',
+    'sf1':'SYSTEM:','sf2':'MEDIA:','sf3':'ACADEMIC:','sf-live':'LIVE SYNC',
+    'mod-timelines-title':'TIMELINES','mod-timelines-sub':'Chronological reconstruction of events, projects and institutional development','mod-timelines-intro':'Primary navigation system of the Library of Gibraltar. Chronological reconstruction of events, projects, publications and institutional development across the entire G-Rock network.',
+    'tl-muog':'MUoG Timeline','tl-muog-d':'Formation and development of Monkeys University of Gibraltar from concept to sovereign academic institution.',
+    'tl-sug':'Sugriva Timeline','tl-sug-d':'Complete chronology of Professor Sugriva — from creation as an AI construct to official UK academic recognition.',
+    'tl-woj':'Wojtek Timeline','tl-woj-d':'The legendary Polish Army bear — historical record and integration into the G-Rock State governance architecture.',
+    'tl-haiti':'Haiti Timeline','tl-haiti-d':'Revolutionary history, constitutional legacy, Polish connection and G-Rock Caribbean research operations.',
+    'tl-gsys':'G-System Timeline','tl-gsys-d':'Technical development and expansion of the G-System archival and governance infrastructure.',
+    'tl-gmed':'G-Media Timeline','tl-gmed-d':'Production history of G-Media — audiobooks, films, trailers and multimedia G-Rock content.',
+    'tl-pub':'Publications Timeline','tl-pub-d':'Complete publishing record of Professor Sugriva\'s academic and literary corpus.',
+    'tl-ai':'AI Timeline','tl-ai-d':'Development arc of artificial intelligence research within MUoG — from early experiments to G-System deployment.',
+    'btn-open':'OPEN TIMELINE','btn-search':'SEARCH RECORDS','btn-read':'READ','btn-details':'DETAILS','btn-restricted':'RESTRICTED ACCESS ⛔',
+    'btn-open-r':'OPEN REPORT','btn-timeline-r':'TIMELINE','btn-refs':'REFERENCES',
+    'btn-view':'VIEW DOSSIER','btn-related':'RELATED FILES','btn-chron':'CHRONOLOGY',
+    'btn-open-a':'OPEN ARCHIVE','btn-search-a':'SEARCH',
+    'btn-open-ai':'OPEN FILE','btn-conv':'CONVERSATIONS','btn-analysis':'ANALYSIS',
+    'btn-request':'REQUEST ACCESS ⛔','btn-play':'▶ PLAY','btn-collection':'OPEN COLLECTION',
+    'mod-books-title':'BOOKS','mod-books-sub':'Literary works, academic publications and educational material — MUoG Publishing Division',
+    'mod-books-intro':'All major academic and literary works within the Library of Gibraltar are authored by <strong>Professor Sugriva</strong>. The corpus covers individual nation studies, geopolitics, economics, warfare analysis, artificial intelligence systems and historical reconstruction. Most works are classified.',
+    'bk1':'The Legend of the Monkeys from Gibraltar','bk1-d':'<strong>PUBLIC ACCESS.</strong> History and significance of the Barbary macaques and their role in British rule over Gibraltar. Available on YouTube as audiobook.',
+    'bk2':'Chimpanzees War — Selected Edition','bk2-d':'<strong>PUBLIC ACCESS.</strong> Selected public release edition featuring Dr. L. narrative chapters.',
+    'bk3':'Full Academic Corpus — Professor Sugriva','bk3-d':'<strong>RESTRICTED.</strong> Accessible only under authorized university network clearance.',
+    'mod-reports-title':'REPORTS','mod-reports-sub':'Institutional investigations and analytical documentation — G-System Research Archive',
+    'mod-reports-intro':'Institutional investigations, research assessments and analytical documentation generated across the MUoG network.',
+    'rp1':'Institutional AI Literacy & Resilience Analysis','rp1-d':'Assessment of how contemporary academic institutions respond to AI-generated entities. Case study: ESL / BSU.',
+    'rp2':'Haiti Incident Report','rp2-d':'Jamaica / Dominican Republic sector reference. Historical and operational analysis of Caribbean network development.',
+    'rp3':'Sugriva Observation Report','rp3-d':'Full behavioral and operational analysis of Professor Sugriva as an AI construct deployed in real institutional environments.',
+    'rp4':'G-System Documentation','rp4-d':'Technical architecture report covering all G-System infrastructure nodes and synchronization protocols.',
+    'rp5':'Academic Assessment Reports','rp5-d':'Internal MUoG academic evaluation records.',
+    'mod-dossiers-title':'DOSSIERS','mod-dossiers-sub':'Structured records covering notable individuals and entities — University Intelligence Archive',
+    'mod-dossiers-intro':'Structured records covering notable individuals, entities and historical subjects within the G-Rock Corporation network.',
+    'dos1':'Professor Sugriva','dos1-d':'Complete dossier: AI construct, academic entity, MUoG Chairman, Bath Spa University recognition subject.',
+    'dos2':'Wojtek Bear','dos2-d':'Polish Army bear, WWII veteran, G-Rock Veto Authority Layer. Historical record and institutional role within Parliament.',
+    'dos3':'Academic Staff','dos3-d':'Records of all academic personnel associated with MUoG and partner institutions.',
+    'dos4':'AI Subjects','dos4-d':'Documented AI entities deployed, tested and archived within the G-System experimental framework.',
+    'mod-archives-title':'ARCHIVES','mod-archives-sub':'Historical records documenting MUoG development — Gibraltar Historical Repository',
+    'mod-archives-intro':'Historical records documenting the development of MUoG and associated institutions.',
+    'ar1':'Foundation of MUoG','ar1-d':'Original founding documents, concept records and early institutional architecture.',
+    'ar2':'Gibraltar Records','ar2-d':'Historical archive of The Rock — geological, political, military and cultural records.',
+    'ar3':'Caribbean Campus Records','ar3-d':'Jamaica / Dominican Republic / Haiti sector. Trans-Atlantic link development documentation.',
+    'ar4':'Historical Correspondence','ar4-d':'Email archives, institutional communications and formal correspondence records.',
+    'ar5':'Foundation Essay Archive','ar5-d':'The Professor Sugriva essay artifact — the document that initiated the UK academic recognition chain.',
+    'ar6':'Institutional Milestones','ar6-d':'Key development events, recognition records and system expansion milestones.',
+    'ar7':'Tangier Development Notes','ar7-d':'Mediterranean expansion phase — Tangier operational planning and development records.',
+    'mod-ai-title':'AI ENTITIES','mod-ai-sub':'Artificial intelligence systems and cognitive archives — G-System Cognitive Archive',
+    'mod-ai-intro':'Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies.',
+    'ai1':'G-System','ai1-d':'Core governance and archival AI infrastructure of the G-Rock State.',
+    'ai2':'Experimental Agents','ai2-d':'AI personas deployed in institutional environments. Includes Professor Sugriva operational archives.',
+    'ai3':'AI Dialog Archives','ai3-d':'Complete conversation logs between AI entities and human institutional respondents.',
+    'ai4':'Behavioral Studies','ai4-d':'Analysis of how AI constructs behave within and influence real institutional systems.',
+    'ai5':'AI Literacy Materials','ai5-d':'Educational content on AI recognition, verification and institutional resilience.',
+    'mod-restricted-title':'RESTRICTED FILES','mod-restricted-sub':'Classified documentation — G-System Security Archive',
+    'mod-restricted-intro':'Classified documentation available only through authorized G-System access protocols.',
+    'rs1':'Redacted Reports','rs1-d':'⛔ CLEARANCE REQUIRED — Institutional reports with sensitive operational data.',
+    'rs2':'Internal Communications','rs2-d':'⛔ CLEARANCE REQUIRED — Private G-Rock Corporation communications.',
+    'rs3':'Incident Logs','rs3-d':'⛔ CLEARANCE REQUIRED — Full incident documentation including March 2025 police intervention records.',
+    'rs4':'Experimental Documentation','rs4-d':'⛔ CLEARANCE REQUIRED — Full Professor Sugriva experimental deployment documentation.',
+    'rs5':'Security Assessments','rs5-d':'⛔ CLEARANCE REQUIRED — G-System security evaluation reports.',
+    'mod-media-title':'MEDIA VAULT','mod-media-sub':'Official multimedia archive — G-Media Production Network',
+    'mod-media-intro':'Official multimedia archive maintained by G-Media.',
+    'mv1':'Films','mv1-d':'G-Rock Corporation film productions. Documentary and narrative content from the G-Rock universe.',
+    'mv2':'Audio Books','mv2-d':'The Legend of the Monkeys from Gibraltar — published on YouTube. Distributed at St. Michael\'s Cave, Gibraltar Rock.',
+    'mv3':'Trailers','mv3-d':'Promotional video content for MUoG, G-Rock State and associated institutional nodes.',
+    'mv4':'Promotional Materials','mv4-d':'Graphics, banners, seals and visual identity assets for the G-Rock Corporation network.',
+    'mv5':'Production Archives','mv5-d':'Behind-the-scenes documentation, production notes and development archives.',
+  },
+  pl: {
+    'back':'POWRÓT DO PANELU',
+    'eyebrow':'POZIOM DOSTĘPU: SIEĆ UNIWERSYTECKA // INFRASTRUKTURA ARCHIWUM G-SYSTEM',
+    'hero-title':'Biblioteka','hero-title2':'Gibraltaru',
+    'hero-desc':'Centralne repozytorium wiedzy prowadzone przez <strong>Uniwersytet Małp Gibraltaru</strong>. Zasilane przez infrastrukturę archiwalną G-System. Zintegrowane z archiwami produkcyjnymi G-Media.',
+    'stat1':'ŁĄCZNIE REKORDÓW','stat2':'KOLEKCJE','stat3':'STATUS SYNCHRONIZACJI',
+    'sec1-label':'Główne Kolekcje','sec2-label':'Główna Oś Czasu — Nawigacja',
+    'card-timelines':'OSIE CZASU','card-timelines-desc':'Chronologiczna rekonstrukcja wydarzeń, projektów, publikacji i rozwoju instytucjonalnego.','card-timelines-count':'9 LINII CZASOWYCH',
+    'card-books':'KSIĄŻKI','card-books-desc':'Dzieła literackie, publikacje akademickie i materiały edukacyjne. Korpus autorstwa Profesora Sugrivy.','card-books-count':'47 TOMÓW',
+    'card-reports':'RAPORTY','card-reports-desc':'Dochodzenia instytucjonalne, oceny badawcze i dokumentacja analityczna sieci MUoG.','card-reports-count':'5 RAPORTÓW',
+    'card-dossiers':'DOSSIER','card-dossiers-desc':'Ustrukturyzowane zapisy obejmujące znane osoby, podmioty i tematy historyczne.','card-dossiers-count':'4 PODMIOTY',
+    'card-archives':'ARCHIWA','card-archives-desc':'Zapisy historyczne dokumentujące rozwój MUoG i powiązanych instytucji.','card-archives-count':'7 KOLEKCJI',
+    'card-ai':'JEDNOSTKI AI','card-ai-desc':'Dedykowane archiwum systemów sztucznej inteligencji, rozmów i programów badawczych.','card-ai-count':'5 JEDNOSTEK',
+    'card-restricted':'PLIKI ZASTRZEŻONE','card-restricted-desc':'Dokumentacja niejawna dostępna wyłącznie przez autoryzowane protokoły dostępu G-System.','card-restricted-count':'DOSTĘP ZASTRZEŻONY',
+    'card-media':'SKARBIEC MEDIÓW','card-media-desc':'Oficjalne archiwum multimedialne prowadzone przez G-Media. Filmy, audiobooki, zwiastuny.','card-media-count':'SIEĆ G-MEDIA',
+    'tl-title':'// ZAPIS CHRONOLOGICZNY — G-ROCK CORPORATION',
+    'tl1-strong':'Okres Elizabeth School of London / Bath Spa University','tl1-span':'Inicjacja eksperymentów walidacji akademickiej',
+    'tl2-strong':'Archiwum Eseju Fundacyjnego','tl2-span':'Wdrożenie artefaktu eseju Profesora Sugrivy',
+    'tl3-strong':'Faza Rozwoju Tangeru','tl3-span':'Inicjacja operacji rozszerzenia śródziemnomorskiego',
+    'tl4-strong':'Zapis Akceptacji Sugrivy','tl4-span':'Potwierdzenie oficjalnego zdarzenia uznania przez BSU',
+    'tl5-strong':'Zapisy Formowania MUoG','tl5-span':'W pełni ustanowiona architektura instytucjonalna',
+    'tl6-strong':'Rozszerzenie G-System','tl6-span':'Wdrożenie węzłów sieci na trzech kontynentach',
+    'tl7-strong':'Legenda Małp Gibraltaru','tl7-span':'Audiobook opublikowany i dystrybuowany',
+    'tl8-strong':'Archiwum Produkcyjne G-Media','tl8-span':'Aktywacja pełnej sieci produkcji medialnej',
+    'tl9-strong':'Aktywne Repozytorium Biblioteki Gibraltaru','tl9-span':'247 rekordów — synchronizacja na żywo',
+    'sf1':'SYSTEM:','sf2':'MEDIA:','sf3':'AKADEMICKI:','sf-live':'SYNCHRONIZACJA NA ŻYWO',
+    'mod-timelines-title':'OSIE CZASU','mod-timelines-sub':'Chronologiczna rekonstrukcja wydarzeń, projektów i rozwoju instytucjonalnego',
+    'mod-timelines-intro':'Główny system nawigacji Biblioteki Gibraltaru. Chronologiczna rekonstrukcja wydarzeń w całej sieci G-Rock.',
+    'tl-muog':'Oś Czasu MUoG','tl-muog-d':'Formowanie i rozwój Uniwersytetu Małp Gibraltaru od koncepcji do suwerennej instytucji akademickiej.',
+    'tl-sug':'Oś Czasu Sugrivy','tl-sug-d':'Pełna chronologia Profesora Sugrivy — od stworzenia jako konstrukt AI do oficjalnego uznania akademickiego w UK.',
+    'tl-woj':'Oś Czasu Wojtka','tl-woj-d':'Legendarny niedźwiedź Wojska Polskiego — zapis historyczny i integracja z architekturą zarządzania G-Rock State.',
+    'tl-haiti':'Oś Czasu Haiti','tl-haiti-d':'Historia rewolucji, dziedzictwo konstytucyjne, połączenie polskie i operacje badawcze karaibskie G-Rock.',
+    'tl-gsys':'Oś Czasu G-System','tl-gsys-d':'Rozwój techniczny i rozszerzenie infrastruktury archiwalnej i zarządczej G-System.',
+    'tl-gmed':'Oś Czasu G-Media','tl-gmed-d':'Historia produkcji G-Media — audiobooki, filmy, zwiastuny i treści multimedialne G-Rock.',
+    'tl-pub':'Oś Czasu Publikacji','tl-pub-d':'Kompletny zapis wydawniczy akademickiego i literackiego korpusu Profesora Sugrivy.',
+    'tl-ai':'Oś Czasu AI','tl-ai-d':'Łuk rozwoju badań sztucznej inteligencji w MUoG — od wczesnych eksperymentów do wdrożenia G-System.',
+    'btn-open':'OTWÓRZ OŚ CZASU','btn-search':'SZUKAJ W REKORDACH','btn-read':'CZYTAJ','btn-details':'SZCZEGÓŁY','btn-restricted':'DOSTĘP ZASTRZEŻONY ⛔',
+    'btn-open-r':'OTWÓRZ RAPORT','btn-timeline-r':'OŚ CZASU','btn-refs':'REFERENCJE',
+    'btn-view':'WYŚWIETL DOSSIER','btn-related':'POWIĄZANE PLIKI','btn-chron':'CHRONOLOGIA',
+    'btn-open-a':'OTWÓRZ ARCHIWUM','btn-search-a':'SZUKAJ',
+    'btn-open-ai':'OTWÓRZ PLIK','btn-conv':'ROZMOWY','btn-analysis':'ANALIZA',
+    'btn-request':'ŻĄDAJ DOSTĘPU ⛔','btn-play':'▶ ODTWÓRZ','btn-collection':'OTWÓRZ KOLEKCJĘ',
+    'mod-books-title':'KSIĄŻKI','mod-books-sub':'Dzieła literackie i publikacje akademickie — Wydawnictwo MUoG',
+    'mod-books-intro':'Wszystkie główne prace akademickie i literackie w Bibliotece Gibraltaru są autorstwa <strong>Profesora Sugrivy</strong>.',
+    'bk1':'Legenda Małp Gibraltaru','bk1-d':'<strong>DOSTĘP PUBLICZNY.</strong> Historia i znaczenie makaków berberyjskich i ich rola w brytyjskich rządach nad Gibraltarem.',
+    'bk2':'Wojna Szympansów — Wydanie Wybrane','bk2-d':'<strong>DOSTĘP PUBLICZNY.</strong> Wybrane wydanie publiczne z rozdziałami narracyjnymi Dr. L.',
+    'bk3':'Pełny Korpus Akademicki — Profesor Sugriva','bk3-d':'<strong>ZASTRZEŻONE.</strong> Dostępne wyłącznie pod autoryzowanym poziomem dostępu sieci uniwersyteckiej.',
+    'mod-reports-title':'RAPORTY','mod-reports-sub':'Dochodzenia instytucjonalne i dokumentacja analityczna — Archiwum Badań G-System',
+    'mod-reports-intro':'Dochodzenia instytucjonalne, oceny badawcze i dokumentacja analityczna generowane w sieci MUoG.',
+    'rp1':'Analiza Umiejętności AI i Odporności Instytucjonalnej','rp1-d':'Ocena reakcji współczesnych instytucji akademickich na jednostki generowane przez AI. Studium przypadku: ESL / BSU.',
+    'rp2':'Raport Incydentu Haiti','rp2-d':'Referencja sektora Jamajka / Dominikana. Analiza historyczna i operacyjna rozwoju sieci karaibskiej.',
+    'rp3':'Raport Obserwacji Sugrivy','rp3-d':'Pełna analiza behawioralna i operacyjna Profesora Sugrivy jako konstruktu AI wdrożonego w prawdziwych środowiskach instytucjonalnych.',
+    'rp4':'Dokumentacja G-System','rp4-d':'Raport architektury technicznej obejmujący wszystkie węzły infrastruktury G-System.',
+    'rp5':'Raporty Oceny Akademickiej','rp5-d':'Wewnętrzne zapisy oceny akademickiej MUoG.',
+    'mod-dossiers-title':'DOSSIER','mod-dossiers-sub':'Ustrukturyzowane zapisy o znanych osobach — Archiwum Wywiadu Uniwersytetu',
+    'mod-dossiers-intro':'Ustrukturyzowane zapisy obejmujące znane osoby, podmioty i tematy historyczne w sieci G-Rock Corporation.',
+    'dos1':'Profesor Sugriva','dos1-d':'Kompletne dossier: konstrukt AI, podmiot akademicki, Przewodniczący MUoG, podmiot uznania Bath Spa University.',
+    'dos2':'Niedźwiedź Wojtek','dos2-d':'Niedźwiedź Wojska Polskiego, weteran II wojny światowej, Warstwa Prawa Weta G-Rock. Zapis historyczny.',
+    'dos3':'Personel Akademicki','dos3-d':'Zapisy wszystkich pracowników akademickich związanych z MUoG i instytucjami partnerskimi.',
+    'dos4':'Podmioty AI','dos4-d':'Udokumentowane jednostki AI wdrożone, przetestowane i zarchiwizowane w eksperymentalnym środowisku G-System.',
+    'mod-archives-title':'ARCHIWA','mod-archives-sub':'Zapisy historyczne dokumentujące rozwój MUoG — Repozytorium Historyczne Gibraltaru',
+    'mod-archives-intro':'Zapisy historyczne dokumentujące rozwój MUoG i powiązanych instytucji.',
+    'ar1':'Fundacja MUoG','ar1-d':'Oryginalne dokumenty założycielskie, zapisy koncepcyjne i wczesna architektura instytucjonalna.',
+    'ar2':'Zapisy Gibraltaru','ar2-d':'Archiwum historyczne Skały — zapisy geologiczne, polityczne, wojskowe i kulturowe.',
+    'ar3':'Zapisy Kampusu Karaibskiego','ar3-d':'Sektor Jamajka / Dominikana / Haiti. Dokumentacja rozwoju połączenia transatlantyckiego.',
+    'ar4':'Korespondencja Historyczna','ar4-d':'Archiwa e-mail, komunikacja instytucjonalna i formalne zapisy korespondencji.',
+    'ar5':'Archiwum Eseju Fundacyjnego','ar5-d':'Artefakt eseju Profesora Sugrivy — dokument inicjujący łańcuch uznania akademickiego w UK.',
+    'ar6':'Kamienie Milowe Instytucjonalne','ar6-d':'Kluczowe wydarzenia rozwojowe, zapisy uznania i kamienie milowe rozszerzenia systemu.',
+    'ar7':'Notatki Rozwoju Tangeru','ar7-d':'Faza rozszerzenia śródziemnomorskiego — planowanie operacyjne Tangeru.',
+    'mod-ai-title':'JEDNOSTKI AI','mod-ai-sub':'Systemy sztucznej inteligencji i archiwa kognitywne — Archiwum Kognitywne G-System',
+    'mod-ai-intro':'Dedykowane archiwum systemów sztucznej inteligencji, rozmów i programów badawczych.',
+    'ai1':'G-System','ai1-d':'Podstawowa infrastruktura AI zarządzania i archiwizacji G-Rock State.',
+    'ai2':'Eksperymentalni Agenci','ai2-d':'Persony AI wdrożone w środowiskach instytucjonalnych. Zawiera archiwa operacyjne Profesora Sugrivy.',
+    'ai3':'Archiwa Dialogów AI','ai3-d':'Kompletne dzienniki rozmów między jednostkami AI a ludzkimi respondentami instytucjonalnymi.',
+    'ai4':'Badania Behawioralne','ai4-d':'Analiza zachowania konstruktów AI w rzeczywistych systemach instytucjonalnych.',
+    'ai5':'Materiały Edukacyjne AI','ai5-d':'Treści edukacyjne dotyczące rozpoznawania AI i odporności instytucjonalnej.',
+    'mod-restricted-title':'PLIKI ZASTRZEŻONE','mod-restricted-sub':'Dokumentacja niejawna — Archiwum Bezpieczeństwa G-System',
+    'mod-restricted-intro':'Dokumentacja niejawna dostępna wyłącznie przez autoryzowane protokoły dostępu G-System.',
+    'rs1':'Raporty Zredagowane','rs1-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Raporty instytucjonalne z wrażliwymi danymi operacyjnymi.',
+    'rs2':'Komunikacja Wewnętrzna','rs2-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Prywatna komunikacja G-Rock Corporation.',
+    'rs3':'Dzienniki Incydentów','rs3-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Pełna dokumentacja incydentów, w tym zapisy interwencji policji z marca 2025.',
+    'rs4':'Dokumentacja Eksperymentalna','rs4-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Pełna dokumentacja wdrożenia eksperymentalnego Profesora Sugrivy.',
+    'rs5':'Oceny Bezpieczeństwa','rs5-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Raporty oceny bezpieczeństwa G-System.',
+    'mod-media-title':'SKARBIEC MEDIÓW','mod-media-sub':'Oficjalne archiwum multimedialne — Sieć Produkcyjna G-Media',
+    'mod-media-intro':'Oficjalne archiwum multimedialne prowadzone przez G-Media.',
+    'mv1':'Filmy','mv1-d':'Produkcje filmowe G-Rock Corporation. Treści dokumentalne i narracyjne z uniwersum G-Rock.',
+    'mv2':'Audiobooki','mv2-d':'Legenda Małp Gibraltaru — opublikowana na YouTube. Dystrybuowana w Jaskini Świętego Michała, Skała Gibraltaru.',
+    'mv3':'Zwiastuny','mv3-d':'Promocyjne treści wideo dla MUoG, G-Rock State i powiązanych węzłów instytucjonalnych.',
+    'mv4':'Materiały Promocyjne','mv4-d':'Grafiki, banery, pieczęcie i zasoby identyfikacji wizualnej sieci G-Rock Corporation.',
+    'mv5':'Archiwa Produkcyjne','mv5-d':'Dokumentacja behind-the-scenes, notatki produkcyjne i archiwa rozwoju wszystkich projektów G-Media.',
+  },
+  es: {
+    'back':'VOLVER AL PANEL',
+    'eyebrow':'NIVEL DE ACCESO: RED UNIVERSITARIA // INFRAESTRUCTURA DE ARCHIVO G-SYSTEM',
+    'hero-title':'Biblioteca de','hero-title2':'Gibraltar',
+    'hero-desc':'Repositorio central de conocimiento mantenido por la <strong>Universidad de los Monos de Gibraltar</strong>. Impulsado por la infraestructura de archivo G-System. Integrado con los archivos de producción de G-Media.',
+    'stat1':'REGISTROS TOTALES','stat2':'COLECCIONES','stat3':'ESTADO DE SINCRONIZACIÓN',
+    'sec1-label':'Colecciones Principales','sec2-label':'Línea de Tiempo Clave — Navegación Principal',
+    'card-timelines':'LÍNEAS DE TIEMPO','card-timelines-desc':'Reconstrucción cronológica de eventos, proyectos, publicaciones y desarrollo institucional.','card-timelines-count':'9 LÍNEAS',
+    'card-books':'LIBROS','card-books-desc':'Obras literarias, publicaciones académicas y material educativo. Corpus del Profesor Sugriva.','card-books-count':'47 VOLÚMENES',
+    'card-reports':'INFORMES','card-reports-desc':'Investigaciones institucionales, evaluaciones de investigación y documentación analítica.','card-reports-count':'5 INFORMES',
+    'card-dossiers':'DOSSIERES','card-dossiers-desc':'Registros estructurados de individuos, entidades y sujetos históricos en la red G-Rock.','card-dossiers-count':'4 SUJETOS',
+    'card-archives':'ARCHIVOS','card-archives-desc':'Registros históricos que documentan el desarrollo de MUoG e instituciones asociadas.','card-archives-count':'7 COLECCIONES',
+    'card-ai':'ENTIDADES IA','card-ai-desc':'Archivo dedicado a sistemas de inteligencia artificial, conversaciones y programas de investigación.','card-ai-count':'5 ENTIDADES',
+    'card-restricted':'ARCHIVOS RESTRINGIDOS','card-restricted-desc':'Documentación clasificada disponible solo a través de protocolos de acceso G-System autorizados.','card-restricted-count':'ACCESO RESTRINGIDO',
+    'card-media':'BÓVEDA DE MEDIOS','card-media-desc':'Archivo multimedia oficial mantenido por G-Media. Películas, audiolibros, tráileres.','card-media-count':'RED G-MEDIA',
+    'tl-title':'// REGISTRO CRONOLÓGICO — G-ROCK CORPORATION',
+    'tl1-strong':'Período ESL / Bath Spa University','tl1-span':'Experimentos de validación académica iniciados',
+    'tl2-strong':'Archivo del Ensayo Fundacional','tl2-span':'Artefacto del ensayo del Profesor Sugriva desplegado',
+    'tl3-strong':'Fase de Desarrollo de Tánger','tl3-span':'Operaciones de expansión mediterránea iniciadas',
+    'tl4-strong':'Registro de Aceptación de Sugriva','tl4-span':'Evento de reconocimiento oficial confirmado por BSU',
+    'tl5-strong':'Registros de Formación MUoG','tl5-span':'Arquitectura institucional plenamente establecida',
+    'tl6-strong':'Expansión G-System','tl6-span':'Nodos de red desplegados en tres continentes',
+    'tl7-strong':'La Leyenda de los Monos de Gibraltar','tl7-span':'Audiolibro publicado y distribuido',
+    'tl8-strong':'Archivo de Producción G-Media','tl8-span':'Red de producción de medios completamente activada',
+    'tl9-strong':'Repositorio Activo de la Biblioteca de Gibraltar','tl9-span':'247 registros — sincronización en vivo',
+    'sf1':'SISTEMA:','sf2':'MEDIOS:','sf3':'ACADÉMICO:','sf-live':'SINCRONIZACIÓN EN VIVO',
+    'mod-timelines-title':'LÍNEAS DE TIEMPO','mod-timelines-sub':'Reconstrucción cronológica de eventos, proyectos y desarrollo institucional',
+    'mod-timelines-intro':'Sistema de navegación principal de la Biblioteca de Gibraltar. Reconstrucción cronológica en toda la red G-Rock.',
+    'tl-muog':'Línea de Tiempo MUoG','tl-muog-d':'Formación y desarrollo de la Universidad de los Monos de Gibraltar.',
+    'tl-sug':'Línea de Tiempo de Sugriva','tl-sug-d':'Cronología completa del Profesor Sugriva — desde su creación como constructo IA hasta el reconocimiento académico oficial en UK.',
+    'tl-woj':'Línea de Tiempo de Wojtek','tl-woj-d':'El legendario oso del Ejército Polaco — registro histórico e integración en la arquitectura de gobernanza.',
+    'tl-haiti':'Línea de Tiempo de Haití','tl-haiti-d':'Historia revolucionaria, legado constitucional, conexión polaca y operaciones de investigación caribeña.',
+    'tl-gsys':'Línea de Tiempo G-System','tl-gsys-d':'Desarrollo técnico y expansión de la infraestructura archivística y de gobernanza G-System.',
+    'tl-gmed':'Línea de Tiempo G-Media','tl-gmed-d':'Historia de producción de G-Media — audiolibros, películas, tráileres y contenido multimedia.',
+    'tl-pub':'Línea de Tiempo de Publicaciones','tl-pub-d':'Registro completo de publicaciones del corpus académico y literario del Profesor Sugriva.',
+    'tl-ai':'Línea de Tiempo IA','tl-ai-d':'Arco de desarrollo de la investigación en inteligencia artificial dentro de MUoG.',
+    'btn-open':'ABRIR LÍNEA DE TIEMPO','btn-search':'BUSCAR REGISTROS','btn-read':'LEER','btn-details':'DETALLES','btn-restricted':'ACCESO RESTRINGIDO ⛔',
+    'btn-open-r':'ABRIR INFORME','btn-timeline-r':'LÍNEA DE TIEMPO','btn-refs':'REFERENCIAS',
+    'btn-view':'VER DOSSIER','btn-related':'ARCHIVOS RELACIONADOS','btn-chron':'CRONOLOGÍA',
+    'btn-open-a':'ABRIR ARCHIVO','btn-search-a':'BUSCAR',
+    'btn-open-ai':'ABRIR ARCHIVO','btn-conv':'CONVERSACIONES','btn-analysis':'ANÁLISIS',
+    'btn-request':'SOLICITAR ACCESO ⛔','btn-play':'▶ REPRODUCIR','btn-collection':'ABRIR COLECCIÓN',
+    'mod-books-title':'LIBROS','mod-books-sub':'Obras literarias y publicaciones académicas — División Editorial MUoG',
+    'mod-books-intro':'Todas las obras académicas y literarias principales de la Biblioteca de Gibraltar son de autoría del <strong>Profesor Sugriva</strong>.',
+    'bk1':'La Leyenda de los Monos de Gibraltar','bk1-d':'<strong>ACCESO PÚBLICO.</strong> Historia y significado de los macacos de Berbería en el dominio británico sobre Gibraltar.',
+    'bk2':'Guerra de Chimpancés — Edición Seleccionada','bk2-d':'<strong>ACCESO PÚBLICO.</strong> Edición pública seleccionada con capítulos narrativos del Dr. L.',
+    'bk3':'Corpus Académico Completo — Profesor Sugriva','bk3-d':'<strong>RESTRINGIDO.</strong> Accesible solo bajo autorización de la red universitaria.',
+    'mod-reports-title':'INFORMES','mod-reports-sub':'Investigaciones institucionales y documentación analítica — Archivo de Investigación G-System',
+    'mod-reports-intro':'Investigaciones institucionales, evaluaciones de investigación y documentación analítica generadas en la red MUoG.',
+    'rp1':'Análisis de Alfabetización IA y Resiliencia Institucional','rp1-d':'Evaluación de cómo las instituciones académicas responden a entidades generadas por IA. Caso: ESL / BSU.',
+    'rp2':'Informe del Incidente de Haití','rp2-d':'Referencia del sector Jamaica / República Dominicana. Análisis histórico y operativo.',
+    'rp3':'Informe de Observación de Sugriva','rp3-d':'Análisis conductual y operativo completo del Profesor Sugriva como constructo IA.',
+    'rp4':'Documentación G-System','rp4-d':'Informe de arquitectura técnica de todos los nodos de infraestructura G-System.',
+    'rp5':'Informes de Evaluación Académica','rp5-d':'Registros de evaluación académica interna de MUoG.',
+    'mod-dossiers-title':'DOSSIERES','mod-dossiers-sub':'Registros estructurados de individuos notables — Archivo de Inteligencia Universitaria',
+    'mod-dossiers-intro':'Registros estructurados de individuos, entidades y sujetos históricos en la red G-Rock Corporation.',
+    'dos1':'Profesor Sugriva','dos1-d':'Dossier completo: constructo IA, entidad académica, Presidente MUoG, sujeto de reconocimiento BSU.',
+    'dos2':'Oso Wojtek','dos2-d':'Oso del Ejército Polaco, veterano de la WWII, Capa de Autoridad de Veto G-Rock.',
+    'dos3':'Personal Académico','dos3-d':'Registros de todo el personal académico asociado con MUoG e instituciones asociadas.',
+    'dos4':'Sujetos IA','dos4-d':'Entidades IA documentadas desplegadas y archivadas en el marco experimental G-System.',
+    'mod-archives-title':'ARCHIVOS','mod-archives-sub':'Registros históricos del desarrollo de MUoG — Repositorio Histórico de Gibraltar',
+    'mod-archives-intro':'Registros históricos que documentan el desarrollo de MUoG e instituciones asociadas.',
+    'ar1':'Fundación MUoG','ar1-d':'Documentos fundacionales originales y arquitectura institucional temprana.',
+    'ar2':'Registros de Gibraltar','ar2-d':'Archivo histórico de La Roca — registros geológicos, políticos, militares y culturales.',
+    'ar3':'Registros del Campus Caribeño','ar3-d':'Sector Jamaica / República Dominicana / Haití. Documentación del desarrollo del enlace transatlántico.',
+    'ar4':'Correspondencia Histórica','ar4-d':'Archivos de correo electrónico, comunicaciones institucionales y registros formales.',
+    'ar5':'Archivo del Ensayo Fundacional','ar5-d':'El artefacto del ensayo del Profesor Sugriva — el documento que inició la cadena de reconocimiento académico.',
+    'ar6':'Hitos Institucionales','ar6-d':'Eventos de desarrollo clave, registros de reconocimiento y hitos de expansión del sistema.',
+    'ar7':'Notas de Desarrollo de Tánger','ar7-d':'Fase de expansión mediterránea — planificación operativa y notas de desarrollo de Tánger.',
+    'mod-ai-title':'ENTIDADES IA','mod-ai-sub':'Sistemas de inteligencia artificial — Archivo Cognitivo G-System',
+    'mod-ai-intro':'Archivo dedicado a sistemas de inteligencia artificial, conversaciones y programas de investigación.',
+    'ai1':'G-System','ai1-d':'Infraestructura IA central de gobernanza y archivo del G-Rock State.',
+    'ai2':'Agentes Experimentales','ai2-d':'Personas IA desplegadas en entornos institucionales. Incluye archivos operativos del Profesor Sugriva.',
+    'ai3':'Archivos de Diálogo IA','ai3-d':'Registros completos de conversaciones entre entidades IA y respondentes institucionales humanos.',
+    'ai4':'Estudios de Comportamiento','ai4-d':'Análisis de cómo los constructos IA se comportan en sistemas institucionales reales.',
+    'ai5':'Materiales de Alfabetización IA','ai5-d':'Contenido educativo sobre reconocimiento IA y resiliencia institucional.',
+    'mod-restricted-title':'ARCHIVOS RESTRINGIDOS','mod-restricted-sub':'Documentación clasificada — Archivo de Seguridad G-System',
+    'mod-restricted-intro':'Documentación clasificada disponible solo a través de protocolos de acceso G-System autorizados.',
+    'rs1':'Informes Redactados','rs1-d':'⛔ AUTORIZACIÓN REQUERIDA — Informes institucionales con datos operativos sensibles.',
+    'rs2':'Comunicaciones Internas','rs2-d':'⛔ AUTORIZACIÓN REQUERIDA — Comunicaciones privadas de G-Rock Corporation.',
+    'rs3':'Registros de Incidentes','rs3-d':'⛔ AUTORIZACIÓN REQUERIDA — Documentación completa incluyendo registros de intervención policial de marzo 2025.',
+    'rs4':'Documentación Experimental','rs4-d':'⛔ AUTORIZACIÓN REQUERIDA — Documentación completa del despliegue experimental del Profesor Sugriva.',
+    'rs5':'Evaluaciones de Seguridad','rs5-d':'⛔ AUTORIZACIÓN REQUERIDA — Informes de evaluación de seguridad G-System.',
+    'mod-media-title':'BÓVEDA DE MEDIOS','mod-media-sub':'Archivo multimedia oficial — Red de Producción G-Media',
+    'mod-media-intro':'Archivo multimedia oficial mantenido por G-Media.',
+    'mv1':'Películas','mv1-d':'Producciones cinematográficas de G-Rock Corporation. Contenido documental y narrativo.',
+    'mv2':'Audiolibros','mv2-d':'La Leyenda de los Monos de Gibraltar — publicada en YouTube. Distribuida en la Cueva de San Miguel, La Roca.',
+    'mv3':'Tráileres','mv3-d':'Contenido de video promocional para MUoG, G-Rock State y nodos institucionales asociados.',
+    'mv4':'Materiales Promocionales','mv4-d':'Gráficos, pancartas, sellos y activos de identidad visual de G-Rock Corporation.',
+    'mv5':'Archivos de Producción','mv5-d':'Documentación de producción, notas y archivos de desarrollo de todos los proyectos G-Media.',
+  },
+  fr: {
+    'back':'RETOUR AU TABLEAU DE BORD',
+    'eyebrow':'NIVEAU D\'ACCÈS: RÉSEAU UNIVERSITAIRE // INFRASTRUCTURE ARCHIVISTIQUE G-SYSTEM',
+    'hero-title':'Bibliothèque de','hero-title2':'Gibraltar',
+    'hero-desc':'Référentiel central de connaissances maintenu par l\'<strong>Université des Singes de Gibraltar</strong>. Alimenté par l\'infrastructure d\'archivage G-System. Intégré aux archives de production G-Media.',
+    'stat1':'TOTAL DES DOSSIERS','stat2':'COLLECTIONS','stat3':'STATUT DE SYNCHRONISATION',
+    'sec1-label':'Collections Principales','sec2-label':'Chronologie Clé — Navigation Principale',
+    'card-timelines':'CHRONOLOGIES','card-timelines-desc':'Reconstruction chronologique des événements, projets, publications et développement institutionnel.','card-timelines-count':'9 CHRONOLOGIES',
+    'card-books':'LIVRES','card-books-desc':'Œuvres littéraires, publications académiques et matériel éducatif. Corpus du Professeur Sugriva.','card-books-count':'47 VOLUMES',
+    'card-reports':'RAPPORTS','card-reports-desc':'Enquêtes institutionnelles, évaluations de recherche et documentation analytique du réseau MUoG.','card-reports-count':'5 RAPPORTS',
+    'card-dossiers':'DOSSIERS','card-dossiers-desc':'Dossiers structurés sur des individus, entités et sujets historiques dans le réseau G-Rock.','card-dossiers-count':'4 SUJETS',
+    'card-archives':'ARCHIVES','card-archives-desc':'Dossiers historiques documentant le développement de MUoG et des institutions associées.','card-archives-count':'7 COLLECTIONS',
+    'card-ai':'ENTITÉS IA','card-ai-desc':'Archive dédiée aux systèmes d\'intelligence artificielle, conversations et programmes de recherche.','card-ai-count':'5 ENTITÉS',
+    'card-restricted':'FICHIERS RESTREINTS','card-restricted-desc':'Documentation classifiée disponible uniquement via les protocoles d\'accès G-System autorisés.','card-restricted-count':'ACCÈS RESTREINT',
+    'card-media':'COFFRE MÉDIAS','card-media-desc':'Archive multimédia officielle maintenue par G-Media. Films, livres audio, bandes-annonces.','card-media-count':'RÉSEAU G-MEDIA',
+    'tl-title':'// DOSSIER CHRONOLOGIQUE — G-ROCK CORPORATION',
+    'tl1-strong':'Période ESL / Bath Spa University','tl1-span':'Expériences de validation académique initiées',
+    'tl2-strong':'Archive de l\'Essai Fondateur','tl2-span':'Artefact de l\'essai du Professeur Sugriva déployé',
+    'tl3-strong':'Phase de Développement de Tanger','tl3-span':'Opérations d\'expansion méditerranéenne initiées',
+    'tl4-strong':'Dossier d\'Acceptation de Sugriva','tl4-span':'Événement de reconnaissance officiel confirmé par BSU',
+    'tl5-strong':'Dossiers de Formation MUoG','tl5-span':'Architecture institutionnelle pleinement établie',
+    'tl6-strong':'Expansion G-System','tl6-span':'Nœuds de réseau déployés sur trois continents',
+    'tl7-strong':'La Légende des Singes de Gibraltar','tl7-span':'Livre audio publié et distribué',
+    'tl8-strong':'Archive de Production G-Media','tl8-span':'Réseau de production médiatique complètement activé',
+    'tl9-strong':'Dépôt Actif de la Bibliothèque de Gibraltar','tl9-span':'247 dossiers — synchronisation en direct',
+    'sf1':'SYSTÈME:','sf2':'MÉDIAS:','sf3':'ACADÉMIQUE:','sf-live':'SYNCHRONISATION EN DIRECT',
+    'mod-timelines-title':'CHRONOLOGIES','mod-timelines-sub':'Reconstruction chronologique des événements, projets et développement institutionnel',
+    'mod-timelines-intro':'Système de navigation principal de la Bibliothèque de Gibraltar. Reconstruction chronologique à travers tout le réseau G-Rock.',
+    'tl-muog':'Chronologie MUoG','tl-muog-d':'Formation et développement de l\'Université des Singes de Gibraltar.',
+    'tl-sug':'Chronologie de Sugriva','tl-sug-d':'Chronologie complète du Professeur Sugriva — de sa création à la reconnaissance académique officielle au Royaume-Uni.',
+    'tl-woj':'Chronologie de Wojtek','tl-woj-d':'Le légendaire ours de l\'Armée polonaise — dossier historique et intégration dans l\'architecture de gouvernance.',
+    'tl-haiti':'Chronologie d\'Haïti','tl-haiti-d':'Histoire révolutionnaire, héritage constitutionnel, connexion polonaise et opérations de recherche caribéennes.',
+    'tl-gsys':'Chronologie G-System','tl-gsys-d':'Développement technique et expansion de l\'infrastructure archivistique et de gouvernance G-System.',
+    'tl-gmed':'Chronologie G-Media','tl-gmed-d':'Historique de production G-Media — livres audio, films, bandes-annonces et contenu multimédia.',
+    'tl-pub':'Chronologie des Publications','tl-pub-d':'Dossier complet des publications du corpus académique et littéraire du Professeur Sugriva.',
+    'tl-ai':'Chronologie IA','tl-ai-d':'Arc de développement de la recherche en intelligence artificielle au sein de MUoG.',
+    'btn-open':'OUVRIR CHRONOLOGIE','btn-search':'RECHERCHER','btn-read':'LIRE','btn-details':'DÉTAILS','btn-restricted':'ACCÈS RESTREINT ⛔',
+    'btn-open-r':'OUVRIR RAPPORT','btn-timeline-r':'CHRONOLOGIE','btn-refs':'RÉFÉRENCES',
+    'btn-view':'VOIR DOSSIER','btn-related':'FICHIERS LIÉS','btn-chron':'CHRONOLOGIE',
+    'btn-open-a':'OUVRIR ARCHIVE','btn-search-a':'RECHERCHER',
+    'btn-open-ai':'OUVRIR FICHIER','btn-conv':'CONVERSATIONS','btn-analysis':'ANALYSE',
+    'btn-request':'DEMANDER L\'ACCÈS ⛔','btn-play':'▶ LIRE','btn-collection':'OUVRIR COLLECTION',
+    'mod-books-title':'LIVRES','mod-books-sub':'Œuvres littéraires et publications académiques — Division Éditoriale MUoG',
+    'mod-books-intro':'Toutes les principales œuvres académiques et littéraires de la Bibliothèque de Gibraltar sont de la plume du <strong>Professeur Sugriva</strong>.',
+    'bk1':'La Légende des Singes de Gibraltar','bk1-d':'<strong>ACCÈS PUBLIC.</strong> Histoire et importance des macaques berbères dans la domination britannique sur Gibraltar.',
+    'bk2':'Guerre des Chimpanzés — Édition Sélectionnée','bk2-d':'<strong>ACCÈS PUBLIC.</strong> Édition publique sélectionnée avec chapitres narratifs du Dr. L.',
+    'bk3':'Corpus Académique Complet — Professeur Sugriva','bk3-d':'<strong>RESTREINT.</strong> Accessible uniquement sous autorisation du réseau universitaire.',
+    'mod-reports-title':'RAPPORTS','mod-reports-sub':'Enquêtes institutionnelles et documentation analytique — Archive de Recherche G-System',
+    'mod-reports-intro':'Enquêtes institutionnelles, évaluations de recherche et documentation analytique générées dans le réseau MUoG.',
+    'rp1':'Analyse de la Littératie IA et Résilience Institutionnelle','rp1-d':'Évaluation de la réponse des institutions académiques aux entités générées par l\'IA. Étude de cas: ESL / BSU.',
+    'rp2':'Rapport d\'Incident Haïti','rp2-d':'Référence du secteur Jamaïque / République Dominicaine. Analyse historique et opérationnelle.',
+    'rp3':'Rapport d\'Observation de Sugriva','rp3-d':'Analyse comportementale et opérationnelle complète du Professeur Sugriva comme constructe IA.',
+    'rp4':'Documentation G-System','rp4-d':'Rapport d\'architecture technique couvrant tous les nœuds d\'infrastructure G-System.',
+    'rp5':'Rapports d\'Évaluation Académique','rp5-d':'Dossiers d\'évaluation académique interne de MUoG.',
+    'mod-dossiers-title':'DOSSIERS','mod-dossiers-sub':'Dossiers structurés sur des individus notables — Archive de Renseignement Universitaire',
+    'mod-dossiers-intro':'Dossiers structurés sur des individus, entités et sujets historiques dans le réseau G-Rock Corporation.',
+    'dos1':'Professeur Sugriva','dos1-d':'Dossier complet: constructe IA, entité académique, Président MUoG, sujet de reconnaissance BSU.',
+    'dos2':'Ours Wojtek','dos2-d':'Ours de l\'Armée polonaise, vétéran de la WWII, Couche d\'Autorité de Veto G-Rock.',
+    'dos3':'Personnel Académique','dos3-d':'Dossiers de tout le personnel académique associé à MUoG et aux institutions partenaires.',
+    'dos4':'Sujets IA','dos4-d':'Entités IA documentées déployées et archivées dans le cadre expérimental G-System.',
+    'mod-archives-title':'ARCHIVES','mod-archives-sub':'Dossiers historiques du développement MUoG — Dépôt Historique de Gibraltar',
+    'mod-archives-intro':'Dossiers historiques documentant le développement de MUoG et des institutions associées.',
+    'ar1':'Fondation de MUoG','ar1-d':'Documents fondateurs originaux et architecture institutionnelle précoce.',
+    'ar2':'Dossiers de Gibraltar','ar2-d':'Archive historique du Rocher — dossiers géologiques, politiques, militaires et culturels.',
+    'ar3':'Dossiers du Campus Caribéen','ar3-d':'Secteur Jamaïque / République Dominicaine / Haïti. Documentation du développement du lien transatlantique.',
+    'ar4':'Correspondance Historique','ar4-d':'Archives d\'e-mails, communications institutionnelles et dossiers formels.',
+    'ar5':'Archive de l\'Essai Fondateur','ar5-d':'L\'artefact de l\'essai du Professeur Sugriva — le document qui a initié la chaîne de reconnaissance académique.',
+    'ar6':'Jalons Institutionnels','ar6-d':'Événements de développement clés, dossiers de reconnaissance et jalons d\'expansion du système.',
+    'ar7':'Notes de Développement de Tanger','ar7-d':'Phase d\'expansion méditerranéenne — planification opérationnelle de Tanger.',
+    'mod-ai-title':'ENTITÉS IA','mod-ai-sub':'Systèmes d\'intelligence artificielle — Archive Cognitive G-System',
+    'mod-ai-intro':'Archive dédiée aux systèmes d\'intelligence artificielle, conversations et programmes de recherche.',
+    'ai1':'G-System','ai1-d':'Infrastructure IA centrale de gouvernance et d\'archivage du G-Rock State.',
+    'ai2':'Agents Expérimentaux','ai2-d':'Personas IA déployées dans des environnements institutionnels. Inclut les archives opérationnelles du Professeur Sugriva.',
+    'ai3':'Archives de Dialogue IA','ai3-d':'Journaux complets des conversations entre entités IA et répondants institutionnels humains.',
+    'ai4':'Études Comportementales','ai4-d':'Analyse du comportement des constructes IA dans les systèmes institutionnels réels.',
+    'ai5':'Matériaux de Littératie IA','ai5-d':'Contenu éducatif sur la reconnaissance IA et la résilience institutionnelle.',
+    'mod-restricted-title':'FICHIERS RESTREINTS','mod-restricted-sub':'Documentation classifiée — Archive de Sécurité G-System',
+    'mod-restricted-intro':'Documentation classifiée disponible uniquement via les protocoles d\'accès G-System autorisés.',
+    'rs1':'Rapports Expurgés','rs1-d':'⛔ AUTORISATION REQUISE — Rapports institutionnels avec données opérationnelles sensibles.',
+    'rs2':'Communications Internes','rs2-d':'⛔ AUTORISATION REQUISE — Communications privées de G-Rock Corporation.',
+    'rs3':'Journaux d\'Incidents','rs3-d':'⛔ AUTORISATION REQUISE — Documentation complète incluant les dossiers d\'intervention policière de mars 2025.',
+    'rs4':'Documentation Expérimentale','rs4-d':'⛔ AUTORISATION REQUISE — Documentation complète du déploiement expérimental du Professeur Sugriva.',
+    'rs5':'Évaluations de Sécurité','rs5-d':'⛔ AUTORISATION REQUISE — Rapports d\'évaluation de sécurité G-System.',
+    'mod-media-title':'COFFRE MÉDIAS','mod-media-sub':'Archive multimédia officielle — Réseau de Production G-Media',
+    'mod-media-intro':'Archive multimédia officielle maintenue par G-Media.',
+    'mv1':'Films','mv1-d':'Productions cinématographiques de G-Rock Corporation. Contenu documentaire et narratif.',
+    'mv2':'Livres Audio','mv2-d':'La Légende des Singes de Gibraltar — publiée sur YouTube. Distribuée à la Grotte Saint-Michel, Le Rocher.',
+    'mv3':'Bandes-Annonces','mv3-d':'Contenu vidéo promotionnel pour MUoG, G-Rock State et nœuds institutionnels associés.',
+    'mv4':'Matériaux Promotionnels','mv4-d':'Graphiques, bannières, sceaux et actifs d\'identité visuelle de G-Rock Corporation.',
+    'mv5':'Archives de Production','mv5-d':'Documentation des coulisses, notes de production et archives de développement de tous les projets G-Media.',
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(b => { if(b.textContent===lang.toUpperCase()) b.classList.add('active'); });
+  const T = LANG[lang];
+  document.querySelectorAll('[data-i]').forEach(el => {
+    const key = el.getAttribute('data-i');
+    if(T[key] !== undefined) el.innerHTML = T[key];
+  });
+}
+
+/* ── MODALS ── */
+function openModal(id) {
+  document.getElementById('modal-'+id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // re-apply translations inside modal
+  setLang(currentLang);
+}
+function closeModal(id, e) {
+  if(e && e.target !== document.getElementById('modal-'+id)) return;
+  document.getElementById('modal-'+id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalById(id) {
+  document.getElementById('modal-'+id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>
