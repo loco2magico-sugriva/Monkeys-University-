@@ -36,7 +36,6 @@ body{
   overflow-x:hidden;
 }
 
-/* SCANLINES */
 body::before{
   content:'';
   position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -45,14 +44,12 @@ body::before{
 }
 @keyframes scanShift{0%{background-position:0 0;}100%{background-position:0 400px;}}
 
-/* AMBIENT GLOW */
 .amb{position:fixed;pointer-events:none;z-index:0;}
 .amb1{top:-200px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(58,143,255,0.05) 0%,transparent 70%);}
 .amb2{bottom:-150px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.03) 0%,transparent 70%);}
 
 .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 32px 100px;}
 
-/* ── HEADER ── */
 .site-header{
   position:sticky;top:0;z-index:200;
   background:rgba(3,6,9,0.94);
@@ -75,7 +72,36 @@ body::before{
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .status-txt{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;}
 
-/* ── HERO ── */
+.lang-panel{display:flex;align-items:center;gap:12px;margin-right:6px;}
+.lang-panel a{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-decoration:none;
+  padding-bottom:2px;
+  border-bottom:1px solid transparent;
+  cursor:pointer;
+  transition:all .2s;
+}
+.lang-panel a:hover,.lang-panel a.active{
+  color:var(--blue);
+  border-bottom-color:var(--blue);
+  text-shadow:0 0 10px rgba(58,143,255,0.4);
+}
+.btn-back.active-return{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;
+  color:#fff;
+  letter-spacing:2px;
+  text-decoration:none;
+  padding:7px 12px;
+  border-radius:4px;
+  border:1px solid rgba(58,143,255,0.85);
+  background:linear-gradient(180deg, rgba(58,143,255,0.18), rgba(58,143,255,0.06));
+  box-shadow:0 0 18px rgba(58,143,255,0.18);
+}
+
 .hero{
   padding:80px 0 60px;
   border-bottom:1px solid var(--border);
@@ -116,7 +142,6 @@ body::before{
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── SECTION LABELS ── */
 .sec-label{
   display:flex;align-items:center;gap:14px;
   margin:56px 0 24px;
@@ -131,7 +156,6 @@ body::before{
   border:1px solid var(--border2);padding:2px 7px;border-radius:2px;
 }
 
-/* ── PARTNERS BANNER ── */
 .partners-bar{
   display:flex;align-items:center;justify-content:space-between;
   padding:22px 28px;
@@ -162,7 +186,6 @@ body::before{
 .pb-arrow{font-size:18px;transition:transform .3s;}
 .partners-bar:hover .pb-arrow{transform:translateX(5px);}
 
-/* ── FACULTY GRID ── */
 .faculty-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -214,7 +237,6 @@ body::before{
 }
 .fc:hover .fc-cta{opacity:1;}
 
-/* ── ACHIEVEMENT BLOCK ── */
 .ach-block{
   background:var(--panel);
   border:1px solid var(--border2);
@@ -260,7 +282,6 @@ blockquote{
 }
 .ach-link:hover{background:var(--blue);color:#000;border-color:var(--blue);}
 
-/* ── HAITI BLOCK ── */
 .haiti-block{
   background:var(--panel);border:1px solid var(--border2);border-radius:8px;padding:34px;
 }
@@ -269,7 +290,6 @@ blockquote{
 .hb-body{font-size:15px;font-weight:300;line-height:1.8;color:#7a8fa0;}
 .hb-body strong{color:var(--text);font-weight:600;}
 
-/* ── SYS ROLE ── */
 .sys-role{
   margin-top:50px;padding:24px 28px;
   background:var(--bg2);border:1px solid var(--border);border-radius:6px;
@@ -279,9 +299,6 @@ blockquote{
 .sr-text{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;line-height:1.9;}
 .sr-text span{color:var(--blue);}
 
-/* ══════════════════════════════════
-   MODALS
-══════════════════════════════════ */
 .modal-overlay{
   display:none;position:fixed;inset:0;z-index:9000;
   background:rgba(1,3,7,0.95);
@@ -334,7 +351,6 @@ blockquote{
 .m-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
 .m-tag{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:4px 10px;border-radius:3px;background:rgba(58,143,255,0.06);border:1px solid var(--border2);color:var(--muted);}
 
-/* ── REPORT MODAL (Partners) ── */
 .r-classification{
   font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--red);
   background:rgba(255,64,96,0.07);border:1px solid rgba(255,64,96,0.25);
@@ -399,14 +415,20 @@ blockquote{
 <div class="amb amb1"></div>
 <div class="amb amb2"></div>
 
-<!-- HEADER -->
 <header class="site-header">
   <div class="h-left">
     <div class="h-logo">MUoG</div>
     <div class="h-sep"></div>
     <div class="h-sub">G-ROCK CORPORATION // ACADEMIC NODE</div>
   </div>
-  <div class="h-status">
+  <div class="h-status" style="gap:14px; flex-wrap:wrap; justify-content:flex-end;">
+    <div class="lang-panel">
+      <a onclick="setLang('en')" id="lang-en" class="active">EN</a>
+      <a onclick="setLang('es')" id="lang-es">ES</a>
+      <a onclick="setLang('fr')" id="lang-fr">FR</a>
+      <a onclick="setLang('pl')" id="lang-pl">PL</a>
+    </div>
+    <a href="index.html" class="btn-back active-return" id="btn-return">RETURN TO HUB</a>
     <div class="status-dot"></div>
     <div class="status-txt">SYSTEM ACTIVE</div>
   </div>
@@ -414,7 +436,6 @@ blockquote{
 
 <div class="wrap">
 
-  <!-- HERO -->
   <section class="hero">
     <a href="index.html" class="hero-back-link">← BACK TO DASHBOARD</a>
     <p class="hero-eyebrow">G-Rock Academic Division // Sovereign Territory Node</p>
@@ -432,7 +453,6 @@ blockquote{
     </div>
   </section>
 
-  <!-- PARTNERS -->
   <div class="sec-label">
     <span class="sec-num">01</span>
     <span class="sec-label-txt">Academic Partners & Validation</span>
@@ -442,14 +462,13 @@ blockquote{
     <div class="pb-left">
       <div class="pb-tag">// EXTERNAL ACADEMIC NODES — UNITED KINGDOM</div>
       <div class="pb-title">PARTNERS &amp; INSTITUTIONAL RECORD</div>
-      <div class="pb-names">Elizabeth School of London &nbsp;/&nbsp; Bath Spa University</div>
+      <div class="pb-names">Elisabeth School of London &nbsp;/&nbsp; Bath Spa University</div>
     </div>
     <div class="pb-right">
       VIEW FULL REPORT <span class="pb-arrow">→</span>
     </div>
   </div>
 
-  <!-- FACULTIES -->
   <div class="sec-label">
     <span class="sec-num">02</span>
     <span class="sec-label-txt">Faculties — Gibraltar Core Node</span>
@@ -511,7 +530,6 @@ blockquote{
 
   </div>
 
-  <!-- ACHIEVEMENT -->
   <div class="sec-label">
     <span class="sec-num">03</span>
     <span class="sec-label-txt">Core Academic Milestone</span>
@@ -523,7 +541,7 @@ blockquote{
     <div class="ach-body">
       The defining milestone of Monkeys University of Gibraltar: <strong>Professor Sugriva</strong>, 
       an AI-constructed academic entity, was accepted and treated as a credible scientist by the 
-      British academic environment — specifically by <strong>Elizabeth School of London</strong> and 
+      British academic environment — specifically by <strong>Elisabeth School of London</strong> and 
       <strong>Bath Spa University</strong>. This represents a landmark proof-of-concept demonstrating 
       the institutional vulnerability of conventional academic verification systems.
     </div>
@@ -537,7 +555,6 @@ blockquote{
     </div>
   </div>
 
-  <!-- HAITI -->
   <div class="sec-label">
     <span class="sec-num">04</span>
     <span class="sec-label-txt">Research — Constitutional Archive</span>
@@ -564,7 +581,6 @@ blockquote{
     </blockquote>
   </div>
 
-  <!-- SYS ROLE -->
   <div class="sys-role">
     <div class="sr-icon">◈</div>
     <div class="sr-text">
@@ -574,12 +590,8 @@ blockquote{
     </div>
   </div>
 
-</div><!-- /wrap -->
+</div>
 
-
-<!-- ═══════════════════════════════════
-     FACULTY MODAL
-═══════════════════════════════════ -->
 <div class="modal-overlay" id="facultyModal" onclick="closeModal('facultyModal',event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('facultyModal')">✕</button>
@@ -596,17 +608,13 @@ blockquote{
   </div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     PARTNERS / REPORT MODAL
-═══════════════════════════════════ -->
 <div class="modal-overlay" id="partnersModal" onclick="closeModal('partnersModal',event)">
   <div class="modal" style="max-width:860px;">
     <button class="modal-close" onclick="closeModal('partnersModal')">✕</button>
 
     <div class="m-head">
       <div class="r-classification">CLASSIFIED // INTERNAL ARCHIVE — G-ROCK CORPORATION</div>
-      <div class="r-title">Elizabeth School of London &amp; Bath Spa University<br>— Incident Report &amp; Institutional Analysis</div>
+      <div class="r-title">586104 — Bath Spa University<br>Elisabeth School of London &amp; Bath Spa University<br>— Incident Report &amp; Institutional Analysis</div>
       <div class="r-meta">
         <div class="r-meta-item">CASE REF: <span>MUoG-ESL-BSU-2024</span></div>
         <div class="r-meta-item">PERIOD: <span>2024.07 — 2025.03</span></div>
@@ -617,24 +625,23 @@ blockquote{
 
     <div class="m-body">
 
-      <!-- I. TIMELINE -->
       <div class="r-section">
         <div class="r-section-title">I. Operational Timeline</div>
         <div class="r-log">
 
           <div class="r-log-line">
             <span class="r-ts">19.07.2024</span>
-            <span class="r-ev"><strong>Interview — Elizabeth School of London.</strong> A direct business declaration (intent to commercialize an original book) was dismissed and treated as a joke. This resulted in a negative evaluation. The institutional response demonstrated an inability to distinguish between creative entrepreneurship and academic convention.</span>
+            <span class="r-ev"><strong>Interview — Elisabeth School of London.</strong> A direct business declaration (intent to commercialize an original book) was dismissed and treated as a joke. This resulted in a negative evaluation. The institutional response demonstrated an inability to distinguish between creative entrepreneurship and academic convention.</span>
           </div>
 
           <div class="r-log-line">
-            <span class="r-ts">Pre-study period</span>
+            <span class="r-ts">December 2024</span>
             <span class="r-ev"><strong>Essay Deployment.</strong> An essay signed by "Professor Sugriva" — with citations authored by the student but attributed to the Professor — was submitted not as coursework but as a demonstration tool. After a change of teacher the document lost formal status within ESL/BSU, yet became a widely circulated narrative artifact proving the system's credulity.</span>
           </div>
 
           <div class="r-log-line">
             <span class="r-ts">21–22.01.2025</span>
-            <span class="r-ev"><strong>Disclosure Email to Tiana Romford (BSU).</strong> Full explanation sent: who Professor Sugriva actually is — an AI construct, a fictional academic entity built as part of an experimental transmedia project. The reply sustained the narrative of his authority and positive influence on a student. The institution maintained the fiction even after direct evidence of its artificial nature was provided.</span>
+            <span class="r-ev"><strong>Disclosure Email to Jessica Smith (ESL Campus Birmingham).</strong> Full explanation sent: who Professor Sugriva actually is — an AI construct, a fictional academic entity built as part of an experimental transmedia project. The reply sustained the narrative of his authority and positive influence on a student. The institution maintained the fiction even after direct evidence of its artificial nature was provided.</span>
           </div>
 
           <div class="r-log-line">
@@ -650,7 +657,6 @@ blockquote{
         </div>
       </div>
 
-      <!-- II. ANALYSIS -->
       <div class="r-section">
         <div class="r-section-title">II. Institutional Failure Analysis</div>
 
@@ -660,8 +666,8 @@ blockquote{
         </div>
 
         <div class="r-finding">
-          <div class="r-finding-title">REPUTATIONAL DAMAGE — Tiana Romford / BSU</div>
-          <div class="r-finding-body">Tiana Romford (Bath Spa University) sustained the narrative of Professor Sugriva's authority and "positive influence" even after receiving unambiguous proof of his artificial nature. This evidences a systemic verification crisis within the institution — one that prioritizes narrative coherence over factual accuracy.</div>
+          <div class="r-finding-title">REPUTATIONAL DAMAGE — Jessica Smith / ESL Campus Birmingham</div>
+          <div class="r-finding-body">Jessica Smith (ESL Campus Birmingham) sustained the narrative of Professor Sugriva's authority and "positive influence" even after receiving unambiguous proof of his artificial nature. This evidences a systemic verification crisis within the institution — one that prioritizes narrative coherence over factual accuracy.</div>
         </div>
 
         <div class="r-finding">
@@ -676,21 +682,20 @@ blockquote{
 
       </div>
 
-      <!-- III. DOCUMENTATION -->
       <div class="r-section">
         <div class="r-section-title">III. Evidence Archive</div>
         <div class="r-text">
           Full documentation on record within the G-Rock Corporation archive includes: 
           <strong>interview correspondence (19.07.2024)</strong>, 
           <strong>the Professor Sugriva essay artifact</strong>, 
-          <strong>email exchange with Tiana Romford (21–25.01.2025)</strong>, 
+          <strong>email exchange with Jessica Smith (21–25.01.2025)</strong>, 
           <strong>AI prototype demonstrations</strong>, and 
           <strong>records of the March 2025 police intervention</strong>. 
           Together these constitute a complete chronicle of institutional verification failure and its consequences.
         </div>
         <div class="r-links" style="margin-top:16px;">
           <a href="https://www.bathspa.ac.uk" class="r-link" target="_blank">Bath Spa University ↗</a>
-          <a href="https://www.elizabethschool.london" class="r-link" target="_blank">Elizabeth School of London ↗</a>
+          <a href="https://www.elizabethschool.london" class="r-link" target="_blank">Elisabeth School of London ↗</a>
         </div>
       </div>
 
@@ -698,9 +703,7 @@ blockquote{
   </div>
 </div>
 
-
 <script>
-/* ── FACULTY DATA ── */
 const faculties = {
   humanities: {
     eyebrow: 'FACULTY_01 // GIBRALTAR CORE NODE',
@@ -788,6 +791,12 @@ function closeModal(id, e) {
   document.body.style.overflow = '';
 }
 
+function setLang(lang){
+  document.querySelectorAll('.lang-panel a').forEach(a => a.classList.remove('active'));
+  document.getElementById('lang-' + lang).classList.add('active');
+  document.getElementById('btn-return').classList.add('active-return');
+}
+
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.open').forEach(m => {
@@ -799,6 +808,6 @@ document.addEventListener('keydown', e => {
 </script>
 
 </body>
-</html>
+  </html>
 
 
