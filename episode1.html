@@ -3,201 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Episode 1 — The Legend of the Monkeys from Gibraltar</title>
-
+<title>EPIZOD 01 // MUoG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#070A10;
-color:#E6E6E6;
-line-height:1.7;
-}
-
-header{
-padding:25px;
-text-align:center;
-background:#0b0f18;
-border-bottom:1px solid #1f2a3a;
-}
-
-header h1{
-margin:0;
-font-size:26px;
-color:#4aa3ff;
-letter-spacing:2px;
-}
-
-.container{
-max-width:900px;
-margin:40px auto;
-padding:20px;
-}
-
-.block{
-background:#111827;
-border:1px solid #1f2a3a;
-border-radius:12px;
-padding:25px;
-margin-bottom:20px;
-}
-
-h2{
-color:#4aa3ff;
-margin-top:0;
-letter-spacing:1px;
-}
-
-.chapter{
-white-space:pre-line;
-opacity:0.95;
-}
-
-hr{
-border:none;
-border-top:1px solid #1f2a3a;
-margin:20px 0;
-}
+:root{--bg:#0b0d14;--bg2:#121621;--panel:#1a1f2e;--panel2:#23293b;--line:#2a3142;--red:#e50914;--blue:#0066ff;--cyan:#00d4ff;--purple:#a855f7;--gold:#fbbf24;--green:#10b981;--white:#ffffff;--gray:#94a3b8;--light-gray:#cbd5e1;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.background{position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;overflow:hidden}
+.background::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 20%,rgba(0,102,255,0.15) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(168,85,247,0.1) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,212,255,0.08) 0%,transparent 60%);animation:bgMove 20s ease-in-out infinite}
+@keyframes bgMove{0%,100%{transform:translate(0,0)} 50%{transform:translate(-2%,2%)}}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:20px 4%;background:linear-gradient(180deg,rgba(11,13,20,0.95) 0%,rgba(11,13,20,0.85) 100%);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05)}
+.nav-left{display:flex;align-items:center;gap:20px}
+.nav-logo{width:40px;height:40px;background:linear-gradient(135deg,var(--red),var(--purple));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:var(--white);box-shadow:0 4px 20px rgba(229,9,20,0.4)}
+.nav-brand{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:var(--white);letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,var(--white),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-center{display:flex;gap:30px}
+.nav-link{color:var(--gray);font-size:14px;font-weight:500;transition:all 0.3s;position:relative;padding:8px 0}
+.nav-link:hover{color:var(--white)}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width 0.3s}
+.nav-link:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:20px}
+.lang-switch{display:flex;gap:8px;background:var(--panel);padding:6px;border-radius:8px;border:1px solid var(--line)}
+.lang-switch a{color:var(--gray);font-size:12px;font-weight:700;padding:8px 14px;border-radius:6px;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px}
+.lang-switch a:hover,.lang-switch a.active{color:var(--white);background:var(--blue);box-shadow:0 4px 15px rgba(0,102,255,0.4)}
+.return-hub{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--gray);font-size:13px;font-weight:600;transition:all 0.3s}
+.return-hub:hover{color:var(--white);border-color:var(--blue);background:rgba(0,102,255,0.15);box-shadow:0 4px 20px rgba(0,102,255,0.3)}
+.hero{position:relative;height:90vh;display:flex;align-items:center;padding:0 4%;overflow:hidden}
+.hero-bg{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(11,13,20,0.4) 0%,var(--bg) 100%),linear-gradient(135deg,rgba(0,102,255,0.15) 0%,rgba(168,85,247,0.1) 50%,rgba(0,212,255,0.15) 100%)}
+.hero-grid{position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:50px 50px;opacity:0.3}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-label{display:inline-block;padding:8px 16px;background:rgba(0,102,255,0.15);border:1px solid rgba(0,102,255,0.3);border-radius:20px;color:var(--cyan);font-size:12px;font-weight:700;margin-bottom:24px;text-transform:uppercase;letter-spacing:3px;box-shadow:0 4px 20px rgba(0,102,255,0.2)}
+.hero-title{font-family:'Orbitron',sans-serif;font-size:72px;font-weight:900;line-height:1.1;margin-bottom:24px;color:var(--white);text-shadow:0 0 40px rgba(0,102,255,0.5),0 0 80px rgba(0,212,255,0.3);animation:titleGlow 3s ease-in-out infinite}
+@keyframes titleGlow{0%,100%{text-shadow:0 0 40px rgba(0,102,255,0.5),0 0 80px rgba(0,212,255,0.3)} 50%{text-shadow:0 0 60px rgba(0,102,255,0.7),0 0 100px rgba(0,212,255,0.5)}}
+.hero-subtitle{font-size:22px;color:var(--gray);margin-bottom:32px;line-height:1.6}
+.hero-meta{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:32px}
+.hero-meta-item{display:flex;align-items:center;gap:10px;color:var(--light-gray);font-size:14px;font-weight:500}
+.hero-meta-icon{color:var(--cyan)}
+.hero-badge{padding:6px 14px;background:var(--green);color:var(--bg);font-size:11px;font-weight:800;border-radius:4px;text-transform:uppercase;letter-spacing:1px}
+.hero-desc{font-size:18px;line-height:1.7;margin-bottom:40px;color:var(--light-gray);max-width:750px;border-left:3px solid var(--blue);padding-left:24px}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+.btn{padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:12px;font-family:'Inter',sans-serif;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s}
+.btn:hover::before{left:100%}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:var(--white);box-shadow:0 8px 30px rgba(0,102,255,0.4)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,102,255,0.6)}
+.btn-secondary{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:var(--white)}
+.btn-secondary:hover{background:rgba(255,255,255,0.15);border-color:var(--white)}
+.content{padding:80px 4%;position:relative}
+.section-label{display:flex;align-items:center;gap:12px;margin-bottom:40px}
+.section-dot{width:12px;height:12px;background:var(--red);border-radius:50%;box-shadow:0 0 20px var(--red)}
+.section-title{font-family:'Orbitron',sans-serif;font-size:36px;font-weight:800;color:var(--white);letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:60px}
+@media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.grid{grid-template-columns:1fr}
+.hero-title{font-size:48px}
+.hero{height:75vh}}
+.card{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:32px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--purple));opacity:0;transition:opacity 0.3s}
+.card:hover::before{opacity:1}
+.card:hover{transform:translateY(-12px);border-color:var(--blue);box-shadow:0 20px 60px rgba(0,102,255,0.3)}
+.card-number{position:absolute;top:20px;right:20px;font-family:'Orbitron',sans-serif;font-size:48px;font-weight:900;color:rgba(255,255,255,0.03)}
+.card-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;box-shadow:0 8px 25px rgba(0,102,255,0.3)}
+.card-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:16px;letter-spacing:0.5px}
+.card-text{font-size:15px;color:var(--gray);line-height:1.7}
+.card-text li{margin-bottom:10px;padding-left:0}
+.timeline-card{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:32px;grid-column:span 2}
+@media(max-width:768px){.timeline-card{grid-column:span 1}}
+.timeline-table{width:100%;margin-top:20px;border-collapse:separate;border-spacing:0}
+.timeline-table th{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;padding:16px;text-align:left;background:rgba(0,102,255,0.1);border-bottom:2px solid var(--blue)}
+.timeline-table td{padding:16px;border-bottom:1px solid var(--line);font-size:14px;color:var(--light-gray);transition:all 0.3s}
+.timeline-table tr:hover td{background:rgba(0,102,255,0.05);color:var(--white)}
+.timeline-table tr:last-child td{border-bottom:none}
+.timeline-date{font-family:'Orbitron',sans-serif;font-weight:700;color:var(--blue)}
+.alert-box{padding:20px 24px;border-radius:12px;margin:16px 0;font-size:15px;position:relative;overflow:hidden}
+.alert-box::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px}
+.alert-warn{background:linear-gradient(90deg,rgba(229,9,20,0.15),transparent);border:1px solid rgba(229,9,20,0.3);color:var(--light-gray)}
+.alert-warn::before{background:var(--red);box-shadow:0 0 20px var(--red)}
+.alert-ok{background:linear-gradient(90deg,rgba(16,185,129,0.15),transparent);border:1px solid rgba(16,185,129,0.3);color:var(--light-gray)}
+.alert-ok::before{background:var(--green);box-shadow:0 0 20px var(--green)}
+.alert-info{background:linear-gradient(90deg,rgba(0,212,255,0.15),transparent);border:1px solid rgba(0,212,255,0.3);color:var(--light-gray)}
+.alert-info::before{background:var(--cyan);box-shadow:0 0 20px var(--cyan)}
+.quote-section{margin:60px 0}
+.quote-box{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-left:4px solid var(--red);border-radius:16px;padding:40px;position:relative;overflow:hidden}
+.quote-box::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(229,9,20,0.05) 0%,transparent 70%);animation:quotePulse 4s ease-in-out infinite}
+@keyframes quotePulse{0%,100%{transform:translate(0,0)} 50%{transform:translate(-2%,2%)}}
+.quote-text{font-size:24px;font-style:italic;color:var(--light-gray);line-height:1.8;position:relative;z-index:1;font-family:'Inter',sans-serif}
+.quote-author{margin-top:20px;font-size:14px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:2px}
+.footer{padding:50px 4%;border-top:1px solid var(--line);background:var(--bg2);position:relative}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;align-items:center}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr;text-align:center}}
+.footer-status{display:flex;align-items:center;gap:12px;color:var(--gray);font-size:13px}
+.footer-dot{width:10px;height:10px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite;box-shadow:0 0 20px var(--green)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.2)}}
+.footer-item{color:var(--light-gray);font-size:13px;font-weight:600}
+.footer-next{color:var(--cyan);font-size:13px}
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));z-index:1001;transform-origin:left;transition:transform 0.1s}
 </style>
 </head>
-
 <body>
-
-<header>
-<h1>EPISODE 1 — THE LEGEND OF THE MONKEYS FROM GIBRALTAR</h1>
-</header>
-
-<div class="container">
-
-<div class="block chapter">
-
-INTRODUCTION
-
-On Gibraltar there exists a story that has never been fully confirmed, yet has never been completely disproven either.
-
-Some say it began as a joke — a brief answer given somewhere across the border in Spain, when the question was asked:
-“When will the British leave Gibraltar?”
-
-The answer was:
-“When the monkeys leave.”
-
-Over time, that sentence began to take on a life of its own.
-
-It was no longer just a joke.
-It started appearing in reports, in soldiers’ conversations, and in administrative notes within the garrison.
-
-During the Second World War, Gibraltar became one of the most heavily monitored strategic points in Europe.
-
-But in parallel, something occurred that official accounts never fully explained: subtle changes in the behavior and numbers of the monkeys inhabiting the Rock.
-
-Their population declined.
-
-And with it — tension began to rise.
-
-In some historical interpretations, efforts were made to preserve or restore the presence of Barbary macaques on the Rock.
-
-Whether this was policy, precaution, or tradition remains debated.
-
-</div>
-
-<div class="block chapter">
-
-CHAPTER 1 — THE BEGINNING OF THE CONFLICT
-
-At the beginning of the 18th century, Great Britain seized Gibraltar — a key strategic point at the Strait of Gibraltar.
-
-This narrow passage connected the Atlantic Ocean and the Mediterranean Sea, making Gibraltar one of the most important naval positions in Europe.
-
-Over time, Gibraltar became a Royal Navy stronghold and a symbol of maritime power.
-
-Extensive fortifications and tunnels transformed it into a military fortress.
-
-</div>
-
-<div class="block chapter">
-
-CHAPTER 2 — THE MONKEYS OF THE ROCK
-
-Gibraltar is home to Barbary macaques — the only wild monkeys in Europe.
-
-Soldiers observed them daily.
-Visitors documented them.
-Over time, a belief emerged:
-
-“As long as the monkeys remain, Gibraltar remains stable.”
-
-By the early 20th century, they were no longer just animals — they became part of Gibraltar’s identity.
-
-</div>
-
-<div class="block chapter">
-
-CHAPTER 3 — EARLY INTERPRETIVE FORMATION
-
-During the war period, changes in macaque population began to be recorded.
-
-These changes were interpreted as meaningful, even without confirmed causal links.
-
-Population shifts became symbolic signals within military observation systems.
-
-</div>
-
-<div class="block chapter">
-
-CHAPTER 4 — OPERATIONAL CROSSING
-
-Gibraltar became a system where environmental observation and interpretation overlapped.
-
-Macaque population changes were tracked and analyzed repeatedly.
-
-No single cause was ever confirmed.
-
-But interpretation created meaning where none was officially assigned.
-
-</div>
-
-<div class="block chapter">
-
-CHAPTER 5 — THE EMERGENCE OF THE NARRATIVE EFFECT
-
-By World War II, the monkeys were no longer just wildlife.
-
-They became part of operational awareness.
-
-Protection measures increased.
-
-Monitoring intensified.
-
-Interpretation shaped response.
-
-</div>
-
-<div class="block chapter">
-
-CHAPTER 6 — STABILIZATION THROUGH INTERPRETATION
-
-By 1942, Gibraltar operated under dual structure:
-military infrastructure and interpretive perception.
-
-The presence of monkeys became a constant variable in cultural and administrative awareness.
-
-Over time, observation itself became part of the system.
-
-</div>
-
-<div class="block chapter">
-
-EPILOGUE — THE EXTINCTION OF THE QUESTION
-
-Gibraltar is no longer defined by a question about monkeys.
-
-The question still exists, but it is no longer operational.
-
-It remains as history, memory, and interpretation layered together.
-
-</div>
-
-</div>
-
+<div class="background"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="nav-logo">G</div>
+    <div class="nav-brand">G-Rock Corporation</div>
+  </div>
+  <div class="nav-center">
+    <a href="#" class="nav-link">Episode 01</a>
+    <a href="#" class="nav-link">Archive</a>
+    <a href="#" class="nav-link">MUoG</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <a href="#" onclick="setLang('en');document.querySelectorAll('.lang-switch a').forEach(a=>a.classList.remove('active'));this.classList.add('active')">EN</a>
+      <a href="#" onclick="setLang('es');document.querySelectorAll('.lang-switch a').forEach(a=>a.classList.remove('active'));this.classList.add('active')">ES</a>
+      <a href="#" onclick="setLang('fr');document.querySelectorAll('.lang-switch a').forEach(a=>a.classList.remove('active'));this.classList.add('active')">FR</a>
+      <a href="#" onclick="setLang('pl');document.querySelectorAll('.lang-switch a').forEach(a=>a.classList.remove('active'));this.classList.add('active')">PL</a>
+    </div>
+    <a href="index.html" class="return-hub">⬅ Return to Hub</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-label">Monkeys University of Gibraltar</div>
+    <h1 class="hero-title">EPISODE 01<br>INSTITUTIONAL INCIDENT<br>REPORT</h1>
+    <p class="hero-subtitle">Archival report documenting institutional interaction cycle</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="hero-meta-icon">📅</span> 2024.07.19 – 2025.03</div>
+      <div class="hero-meta-item"><span class="hero-badge">ARCHIVED</span></div>
+      <div class="hero-meta-item"><span class="hero-meta-icon">🏛️</span> ELIZABETH SCHOOL OF LONDON / BATH SPA UNIVERSITY</div>
+      <div class="hero-meta-item"><span class="hero-meta-icon">🆔</span> Student ID: 586104</div>
+    </div>
+    <p class="hero-desc" id="hero-desc">Archival report documenting the first cycle of interactions with an educational institution. Center: Professor Sugriva as a chimpanzee and authorship of quotes attributed to him in the essay.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary">📖 Read Report</button>
+      <button class="btn btn-secondary">▶️ View Timeline</button>
+    </div>
+  </div>
+</section>
+<section class="content">
+  <div class="section-label">
+    <div class="section-dot"></div>
+    <h2 class="section-title">KEY SECTIONS</h2>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-number">01</div>
+      <div class="card-icon">📊</div>
+      <h3 class="card-title" id="c1-title">Context</h3>
+      <p class="card-text" id="c1">MUoG is described as an academic node and publication environment tied to the project, presented as an archival report. At the center is Professor Sugriva as a chimpanzee and the authorship of quotes attributed to him within the essay.</p>
+    </div>
+    <div class="card">
+      <div class="card-number">02</div>
+      <div class="card-icon">📋</div>
+      <h3 class="card-title">Scope</h3>
+      <ul class="card-text" id="c2" style="list-style:none">
+        <li>The 19.07.2024 interview was not passed because you said you wrote a book.</li>
+        <li>From October 2024: an unlawful demand to prove you are Haitian.</li>
+        <li>After that period, quotes and Monkeys University of Gibraltar were created for the essay.</li>
+      </ul>
+    </div>
+    <div class="timeline-card">
+      <div class="card-number">03</div>
+      <div class="card-icon">⏱️</div>
+      <h3 class="card-title">Event Timeline</h3>
+      <table class="timeline-table">
+        <thead><tr><th>Date</th><th>Event</th></tr></thead>
+        <tbody>
+          <tr><td class="timeline-date">19.07.2024</td><td>Interview not passed — you said you wrote a book</td></tr>
+          <tr><td class="timeline-date">10.2024 – 12.2024</td><td>Demanded to prove you are Haitian; later quotes and Monkeys University of Gibraltar created</td></tr>
+          <tr><td class="timeline-date">22.01.2025</td><td>Email about Sugriva's real identity; links to chimpanzee from The Guardian and safari</td></tr>
+          <tr><td class="timeline-date">25.01.2025</td><td>Sent IA presentation attributed to Professor Sugriva; school treated topic seriously</td></tr>
+          <tr><td class="timeline-date">After 25.01.2025</td><td>School notified police</td></tr>
+          <tr><td class="timeline-date">Mid-March 2025</td><td>Police visit</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-number">04</div>
+      <div class="card-icon">🚨</div>
+      <h3 class="card-title">Police Visit</h3>
+      <div class="alert-box alert-warn">Suspicion: intimate relations with sister and abortion of child with sister</div>
+      <div class="alert-box alert-ok">No charges filed. Information verified as false. You have no sister — that person does not exist.</div>
+      <div class="alert-box alert-info">Police asked about family. Answer: "mom and brother, and sister 🤣". Shared laughter, was nice, no prosecution.</div>
+    </div>
+    <div class="card">
+      <div class="card-number">05</div>
+      <div class="card-icon">🔬</div>
+      <h3 class="card-title" id="c5-title">Analysis</h3>
+      <p class="card-text" id="c5">The report organizes the sequence as semantic-ontological conflict, narrative persistence, interpretive delay, and escalation pattern: interview, origin claim, quote creation, Sugriva disclosure, IA presentation, police contact, police visit.</p>
+    </div>
+    <div class="card">
+      <div class="card-number">06</div>
+      <div class="card-icon">✅</div>
+      <h3 class="card-title" id="c6-title">Conclusions</h3>
+      <p class="card-text" id="c6">The document ends by confirming that it covers the real events indicated by the author and that the final state is archival closure without charges. The section includes the university name and Student ID 586104.</p>
+    </div>
+  </div>
+  <div class="quote-section">
+    <div class="quote-box">
+      <p class="quote-text" id="quote">"The system orders events, but does not change their meaning."</p>
+      <div class="quote-author">// G-System Core Protocol</div>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-status">
+      <div class="footer-dot"></div>
+      <span>END OF EPISODE 01</span>
+    </div>
+    <div class="footer-item">STATUS: ARCHIVED</div>
+    <div class="footer-next">NEXT: EPISODE 02 — VECTOR OF SYSTEM REACTION</div>
+  </div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>{
+  const winScroll=document.documentElement.scrollTop;
+  const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  const scrolled=(winScroll/height)*100;
+  document.getElementById('scrollProgress').style.transform=`scaleX(${scrolled/100})`;
+});
+function setLang(lang){
+  const text={
+    en:{
+      heroDesc:"Archival report documenting the first cycle of interactions with an educational institution. Center: Professor Sugriva as a chimpanzee and authorship of quotes attributed to him in the essay.",
+      c1:"MUoG is described as an academic node and publication environment tied to the project, presented as an archival report. At the center is Professor Sugriva as a chimpanzee and the authorship of quotes attributed to him within the essay.",
+      c2:["The 19.07.2024 interview was not passed because you said you wrote a book.","From October 2024: an unlawful demand to prove you are Haitian.","After that period, quotes and Monkeys University of Gibraltar were created for the essay."],
+      c5:"The report organizes the sequence as semantic-ontological conflict, narrative persistence, interpretive delay, and escalation pattern: interview, origin claim, quote creation, Sugriva disclosure, IA presentation, police contact, police visit.",
+      c6:"The document ends by confirming that it covers the real events indicated by the author and that the final state is archival closure without charges. The section includes the university name and Student ID 586104.",
+      quote:"The system orders events, but does not change their meaning."
+    },
+    es:{
+      heroDesc:"Informe de archivo que documenta el primer ciclo de interacciones con una institución educativa. Centro: Professor Sugriva como un chimpancé y la autoría de citas atribuidas a él en el ensayo.",
+      c1:"MUoG se describe como un nodo académico y entorno de publicación vinculado al proyecto, presentado como un informe de archivo. En el centro está Professor Sugriva como chimpancé y la autoría de citas atribuidas a él dentro del ensayo.",
+      c2:["La entrevista del 19.07.2024 no fue aprobada porque dijiste que escribiste un libro.","Desde octubre de 2024: una exigencia ilegal de demostrar que eres haitiano.","Después de ese período, se crearon citas y Monkeys University of Gibraltar para el ensayo."],
+      c5:"El informe organiza la secuencia como conflicto semántico-ontológico, persistencia narrativa, retraso interpretativo y patrón de escalada: entrevista, reclamo de origen, creación de citas, revelación de Sugriva, presentación de IA, contacto con la policía, visita policial.",
+      c6:"El documento termina confirmando que cubre los hechos reales indicados por el autor y que el estado final es cierre archivístico sin cargos. La sección incluye el nombre de la universidad y Student ID 586104.",
+      quote:"El sistema ordena los acontecimientos, pero no cambia su significado."
+    },
+    fr:{
+      heroDesc:"Rapport d'archives documentant le premier cycle d'interactions avec un établissement d'enseignement. Centre: Professor Sugriva en tant que chimpanzé et attribution des citations à son nom dans l'essai.",
+      c1:"MUoG est décrit comme un nœud académique et un environnement de publication lié au projet, présenté sous forme de rapport d'archives. Au centre se trouve Professor Sugriva en tant que chimpanzé et l'attribution des citations à son nom dans l'essai.",
+      c2:["L'entretien du 19.07.2024 n'a pas été validé parce que vous avez dit avoir écrit un livre.","À partir d'octobre 2024 : demande illégale de prouver que vous êtes haïtien.","Après cette période, des citations et Monkeys University of Gibraltar ont été créées pour l'essai."],
+      c5:"Le rapport organise la séquence comme un conflit sémantique-ontologique, une persistance narrative, un retard interprétatif et un schéma d'escalade : entretien, revendication d'origine, création des citations, révélation de Sugriva, présentation IA, contact policier, visite de police.",
+      c6:"Le document se termine en confirmant qu'il couvre les événements réels indiqués par l'auteur et que l'état final est une clôture archivistique sans charges. La section inclut le nom de l'université et Student ID 586104.",
+      quote:"Le système ordonne les événements, mais n'en change pas le sens."
+    },
+    pl:{
+      heroDesc:"Raport archiwalny dokumentujący pierwszy cykl interakcji z instytucją edukacyjną. W centrum: Professor Sugriva jako szympans i autorstwo cytatów przypisanych w eseju.",
+      c1:"MUoG jest opisane jako węzeł akademicki i środowisko publikacyjne związane z projektem, przedstawione jako raport archiwalny. W centrum znajduje się Professor Sugriva jako szympans oraz autorstwo cytatów przypisanych jego osobie w eseju.",
+      c2:["Interview z 19.07.2024 nie zaliczone, bo powiedziałeś, że napisałeś książkę.","Od października 2024: bezprawny wymóg udowodnienia, że jesteś Haitańczykiem.","Po tym okresie powstały cytaty i Monkeys University of Gibraltar na potrzeby eseju."],
+      c5:"Raport porządkuje ciąg zdarzeń jako konflikt semantyczno-ontologiczny, efekt utrzymania narracji, opóźnienie interpretacyjne i wzorzec eskalacji: interview, wymóg pochodzenia, powstanie cytatów, ujawnienie Sugrivy, prezentacja IA, kontakt z policją, wizyta policji.",
+      c6:"Dokument kończy się potwierdzeniem, że opis obejmuje rzeczywiste wydarzenia wskazane przez autora, a stan końcowy to archiwizacja sprawy bez zarzutów. Sekcja zawiera nazwę uczelni oraz Student ID 586104.",
+      quote:"System porządkuje zdarzenia, ale nie zmienia ich znaczenia."
+    }
+  };
+  document.getElementById('hero-desc').innerText=text[lang].heroDesc;
+  document.getElementById('c1').innerText=text[lang].c1;
+  const list=document.querySelectorAll('#c2 li');
+  text[lang].c2.forEach((t,i)=>list[i].innerText=t);
+  document.getElementById('c5').innerText=text[lang].c5;
+  document.getElementById('c6').innerText=text[lang].c6;
+  document.getElementById('quote').innerText=text[lang].quote;
+}
+// EN is default - text in HTML is already English
+document.querySelectorAll('.lang-switch a')[0].classList.add('active');
+</script>
 </body>
-</html>
+  </html>
