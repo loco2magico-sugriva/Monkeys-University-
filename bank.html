@@ -302,14 +302,24 @@ header b{
 }
 
 .big-peg .peg-note{
-  margin-top:10px;
+  margin-top:14px;
   color:#d7e6f6;
-  font-size:13px;
-  line-height:1.6;
+  font-size:14px;
+  line-height:1.7;
+  font-weight:500;
+  padding:12px;
+  background:rgba(74, 163, 255, 0.08);
+  border:1px solid rgba(74, 163, 255, 0.2);
+  border-radius:10px;
 }
 
 .big-peg .peg-note strong{
-  color:#fff;
+  color:var(--cyan);
+  font-size:15px;
+  display:block;
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
 .chart-container{
@@ -499,6 +509,58 @@ p{
   box-shadow:0 0 18px rgba(37,232,255,.12);
 }
 
+/* NOWY STYL - wyeksponowana realna wartość złota */
+.gold-anchor{
+  font-family:'Orbitron',sans-serif;
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--gold);
+  text-shadow:
+    0 0 24px rgba(255,209,102,0.6),
+    0 0 48px rgba(255,209,102,0.3),
+    0 0 12px rgba(255,255,255,0.4);
+  margin:16px 0 12px 0;
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,209,102,0.15), transparent 40%),
+    linear-gradient(180deg, rgba(255,209,102,0.08), rgba(255,209,102,0.02));
+  border:2px solid rgba(255,209,102,0.3);
+  border-radius:16px;
+}
+
+.gold-anchor::before{
+  content:"REAL VALUE ANCHOR";
+  position:absolute;
+  top:-24px;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'Orbitron',sans-serif;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--cyan);
+  opacity:0.9;
+  background:rgba(2,5,10,0.9);
+  padding:4px 12px;
+  border-radius:6px;
+  border:1px solid rgba(37,232,255,0.3);
+}
+
+.gold-anchor strong{
+  color:var(--cyan);
+  font-size:16px;
+  display:block;
+  margin-top:8px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  text-align:center;
+}
+
 .division-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -610,6 +672,12 @@ li{
   .big-peg .peg-rate{font-size:42px}
   .ticker-grid{grid-template-columns:1fr}
   .financial-dashboard{padding:22px}
+  .gold-anchor{font-size:28px}
+}
+
+@media (max-width: 640px){
+  .gold-anchor{font-size:24px; padding:14px}
+  .gold-anchor::before{font-size:9px}
 }
 </style>
 </head>
@@ -698,10 +766,13 @@ li{
           <strong id="lbl-cur-model">Stability Blueprint</strong>
           <span id="val-cur-model">Hard-pegged 1:1 ratio alongside the British Pound (GBP) and Gibraltar Pound (GIP). Fully stimulated and actively stabilized.</span>
         </div>
-        <div class="node-link stim-note">
-          <strong id="lbl-cur-tech">Real Value Anchor</strong>
-          <span id="val-cur-tech">1 Monkey Pound = 1 Oz of GOLD.</span>
+        
+        <!-- NOWY WYKSPOONOWANY FORMAT REALNEJ WARTOŚCI -->
+        <div class="gold-anchor" id="gold-anchor">
+          1 Monkey Pound = 1 Oz of GOLD
+          <strong>REAL VALUE ANCHOR</strong>
         </div>
+        
       </div>
     </div>
 
@@ -976,7 +1047,7 @@ function setLang(lang){
       blockLeadership: "Couche de Contrôle Exécutif",
       leadBoss: "Professor Sugriva",
       leadBossDesc: "Haut Gouverneur de la Politique Monétaire et contrôleur financier absolu de l'ensemble du système.",
-      leadSys: "Moteur Financier G-System",
+      leadSys: "Moteur Financiero G-System",
       leadSysDesc: "Nœud d'exécution automatique à haute fréquence. Gère les protocoles de stabilité entre les nœuds.",
       blockOperations: "Vecteurs Directifs Centraux",
       blockDivisions: "Divisions Souveraines",
@@ -988,7 +1059,9 @@ function setLang(lang){
       div3D: "Achemine directement les valeurs commerciales transfrontalières entre Gibraltar et les plateformes d'expansion en Afrique.",
       div4T: "Contrôle des Risques et Stabilité",
       div4D: "Effectue des analyses continues pour détecter les anomalies financières, les déficits de ressources et la dérive macrosystémique.",
-      blockLogs: "Sortie du Journal de la Console G-System",
+      blockLogs: "Sortie du Journal de la Cons
+
+ole G-System",
       ops: [
         "Génération et validation automatisées de monnaie numérique (MP£)",
         "Allocations de soutien souverain pour les nœuds du Parlement et de l'Université",
@@ -1061,4 +1134,4 @@ window.onload = function() {
 </script>
 
 </body>
-    </html>
+  </html>
