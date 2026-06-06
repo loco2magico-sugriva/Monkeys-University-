@@ -85,6 +85,13 @@ a{color:inherit;text-decoration:none}
 .alert-ok::before{background:var(--green);box-shadow:0 0 20px var(--green)}
 .alert-info{background:linear-gradient(90deg,rgba(0,212,255,0.15),transparent);border:1px solid rgba(0,212,255,0.3);color:var(--light-gray)}
 .alert-info::before{background:var(--cyan);box-shadow:0 0 20px var(--cyan)}
+.alert-police{background:linear-gradient(90deg,rgba(0,102,255,0.2),transparent);border:2px solid rgba(0,102,255,0.5);color:var(--white);box-shadow:0 0 30px rgba(0,102,255,0.3)}
+.alert-police::before{background:var(--blue);box-shadow:0 0 30px var(--blue)}
+.dialog-box{background:rgba(0,102,255,0.1);border:1px solid rgba(0,102,255,0.3);border-radius:12px;padding:24px;margin:20px 0;font-size:14px;line-height:1.8}
+.dialog-line{margin-bottom:12px;padding:12px 16px;border-radius:8px;background:rgba(0,102,255,0.05)}
+.dialog-line.police{background:rgba(0,102,255,0.15);border-left:3px solid var(--blue)}
+.dialog-line.student{background:rgba(16,185,129,0.1);border-left:3px solid var(--green)}
+.dialog-label{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;color:var(--cyan)}
 .quote-section{margin:60px 0}
 .quote-box{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-left:4px solid var(--red);border-radius:16px;padding:40px;position:relative;overflow:hidden}
 .quote-box::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(229,9,20,0.05) 0%,transparent 70%);animation:quotePulse 4s ease-in-out infinite}
@@ -138,7 +145,7 @@ a{color:inherit;text-decoration:none}
       <div class="hero-meta-item"><span class="hero-meta-icon">🏛️</span> ELIZABETH SCHOOL OF LONDON / BATH SPA UNIVERSITY</div>
       <div class="hero-meta-item"><span class="hero-meta-icon">🆔</span> Student ID: 586104</div>
     </div>
-    <p class="hero-desc" id="hero-desc">Archival report documenting the first cycle of interactions with an educational institution. Center: Professor Sugriva as a chimpanzee and authorship of quotes attributed to him in the essay.</p>
+    <p class="hero-desc" id="hero-desc">This report is based on real events. G-Rock Corporation possesses evidentiary materials capable of verifying the entire history. Archival report documenting the first cycle of interactions with an educational institution. Center: Professor Sugriva as a chimpanzee and authorship of quotes attributed to him in the essay.</p>
     <div class="hero-buttons">
       <button class="btn btn-primary">📖 Read Report</button>
       <button class="btn btn-secondary">▶️ View Timeline</button>
@@ -179,6 +186,7 @@ a{color:inherit;text-decoration:none}
           <tr><td class="timeline-date">22.01.2025</td><td>Email about Sugriva's real identity; links to chimpanzee from The Guardian and safari</td></tr>
           <tr><td class="timeline-date">25.01.2025</td><td>Sent IA presentation attributed to Professor Sugriva; school treated topic seriously</td></tr>
           <tr><td class="timeline-date">After 25.01.2025</td><td>School notified police</td></tr>
+          <tr><td class="timeline-date">December 2024</td><td>WhatsApp Group Block: Student removed from G 7 cohort 9 after using profane language due to frustration with class chat not using English</td></tr>
           <tr><td class="timeline-date">Mid-March 2025</td><td>Police visit</td></tr>
         </tbody>
       </table>
@@ -189,7 +197,31 @@ a{color:inherit;text-decoration:none}
       <h3 class="card-title">Police Visit</h3>
       <div class="alert-box alert-warn">Suspicion: intimate relations with sister and abortion of child with sister</div>
       <div class="alert-box alert-ok">No charges filed. Information verified as false. You have no sister — that person does not exist.</div>
-      <div class="alert-box alert-info">Police asked about family. Answer: "mom and brother, and sister 🤣". Shared laughter, was nice, no prosecution.</div>
+      <div class="alert-police">
+        <div style="font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;">POLICE INTERVIEW LOG</div>
+        <div style="font-size:12px;color:var(--gray);margin-bottom:20px;">// Student ID: BSU NR 586104 | Canonical MUoG System Detection</div>
+        <div class="dialog-box">
+          <div class="dialog-line police">
+            <div class="dialog-label">POLICE ASKED</div>
+            <div>Do you have family?</div>
+          </div>
+          <div class="dialog-line student">
+            <div class="dialog-label">STUDENT</div>
+            <div>Yes, I have mum and brother.</div>
+          </div>
+          <div class="dialog-line police">
+            <div class="dialog-label">POLICE</div>
+            <div>Do you have sister?</div>
+          </div>
+          <div class="dialog-line student">
+            <div class="dialog-label">STUDENT</div>
+            <div>I'm so sorry mister, I don't have the sister.</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--green);margin-top:16px;padding:12px;background:rgba(16,185,129,0.1);border-radius:8px;border-left:3px solid var(--green);">
+          <strong>SYSTEM VERIFICATION:</strong> anomaly detected — false allegation confirmed. No prosecution initiated. Case closed.
+        </div>
+      </div>
     </div>
     <div class="card">
       <div class="card-number">05</div>
@@ -231,7 +263,7 @@ window.addEventListener('scroll',()=>{
 function setLang(lang){
   const text={
     en:{
-      heroDesc:"Archival report documenting the first cycle of interactions with an educational institution. Center: Professor Sugriva as a chimpanzee and authorship of quotes attributed to him in the essay.",
+      heroDesc:"This report is based on real events. G-Rock Corporation possesses evidentiary materials capable of verifying the entire history. Archival report documenting the first cycle of interactions with an educational institution. Center: Professor Sugriva as a chimpanzee and authorship of quotes attributed to him in the essay.",
       c1:"MUoG is described as an academic node and publication environment tied to the project, presented as an archival report. At the center is Professor Sugriva as a chimpanzee and the authorship of quotes attributed to him within the essay.",
       c2:["The 19.07.2024 interview was not passed because you said you wrote a book.","From October 2024: an unlawful demand to prove you are Haitian.","After that period, quotes and Monkeys University of Gibraltar were created for the essay."],
       c5:"The report organizes the sequence as semantic-ontological conflict, narrative persistence, interpretive delay, and escalation pattern: interview, origin claim, quote creation, Sugriva disclosure, IA presentation, police contact, police visit.",
@@ -239,7 +271,7 @@ function setLang(lang){
       quote:"The system orders events, but does not change their meaning."
     },
     es:{
-      heroDesc:"Informe de archivo que documenta el primer ciclo de interacciones con una institución educativa. Centro: Professor Sugriva como un chimpancé y la autoría de citas atribuidas a él en el ensayo.",
+      heroDesc:"Este informe se basa en eventos reales. G-Rock Corporation posee materiales probatorios que pueden verificar toda la historia. Informe de archivo que documenta el primer ciclo de interacciones con una institución educativa. Centro: Professor Sugriva como un chimpancé y la autoría de citas atribuidas a él en el ensayo.",
       c1:"MUoG se describe como un nodo académico y entorno de publicación vinculado al proyecto, presentado como un informe de archivo. En el centro está Professor Sugriva como chimpancé y la autoría de citas atribuidas a él dentro del ensayo.",
       c2:["La entrevista del 19.07.2024 no fue aprobada porque dijiste que escribiste un libro.","Desde octubre de 2024: una exigencia ilegal de demostrar que eres haitiano.","Después de ese período, se crearon citas y Monkeys University of Gibraltar para el ensayo."],
       c5:"El informe organiza la secuencia como conflicto semántico-ontológico, persistencia narrativa, retraso interpretativo y patrón de escalada: entrevista, reclamo de origen, creación de citas, revelación de Sugriva, presentación de IA, contacto con la policía, visita policial.",
@@ -247,7 +279,7 @@ function setLang(lang){
       quote:"El sistema ordena los acontecimientos, pero no cambia su significado."
     },
     fr:{
-      heroDesc:"Rapport d'archives documentant le premier cycle d'interactions avec un établissement d'enseignement. Centre: Professor Sugriva en tant que chimpanzé et attribution des citations à son nom dans l'essai.",
+      heroDesc:"Ce rapport est basé sur des événements réels. G-Rock Corporation possède des matériaux probatoires capables de vérifier toute l'histoire. Rapport d'archives documentant le premier cycle d'interactions avec un établissement d'enseignement. Centre: Professor Sugriva en tant que chimpanzé et attribution des citations à son nom dans l'essai.",
       c1:"MUoG est décrit comme un nœud académique et un environnement de publication lié au projet, présenté sous forme de rapport d'archives. Au centre se trouve Professor Sugriva en tant que chimpanzé et l'attribution des citations à son nom dans l'essai.",
       c2:["L'entretien du 19.07.2024 n'a pas été validé parce que vous avez dit avoir écrit un livre.","À partir d'octobre 2024 : demande illégale de prouver que vous êtes haïtien.","Après cette période, des citations et Monkeys University of Gibraltar ont été créées pour l'essai."],
       c5:"Le rapport organise la séquence comme un conflit sémantique-ontologique, une persistance narrative, un retard interprétatif et un schéma d'escalade : entretien, revendication d'origine, création des citations, révélation de Sugriva, présentation IA, contact policier, visite de police.",
@@ -255,7 +287,7 @@ function setLang(lang){
       quote:"Le système ordonne les événements, mais n'en change pas le sens."
     },
     pl:{
-      heroDesc:"Raport archiwalny dokumentujący pierwszy cykl interakcji z instytucją edukacyjną. W centrum: Professor Sugriva jako szympans i autorstwo cytatów przypisanych w eseju.",
+      heroDesc:"Ten raport opiera się na prawdziwych wydarzeniach. G-Rock Corporation dysponuje dowodami mogącymi potwierdzić całą historię. Raport archiwalny dokumentujący pierwszy cykl interakcji z instytucją edukacyjną. W centrum: Professor Sugriva jako szympans i autorstwo cytatów przypisanych w eseju.",
       c1:"MUoG jest opisane jako węzeł akademicki i środowisko publikacyjne związane z projektem, przedstawione jako raport archiwalny. W centrum znajduje się Professor Sugriva jako szympans oraz autorstwo cytatów przypisanych jego osobie w eseju.",
       c2:["Interview z 19.07.2024 nie zaliczone, bo powiedziałeś, że napisałeś książkę.","Od października 2024: bezprawny wymóg udowodnienia, że jesteś Haitańczykiem.","Po tym okresie powstały cytaty i Monkeys University of Gibraltar na potrzeby eseju."],
       c5:"Raport porządkuje ciąg zdarzeń jako konflikt semantyczno-ontologiczny, efekt utrzymania narracji, opóźnienie interpretacyjne i wzorzec eskalacji: interview, wymóg pochodzenia, powstanie cytatów, ujawnienie Sugrivy, prezentacja IA, kontakt z policją, wizyta policji.",
@@ -275,4 +307,4 @@ function setLang(lang){
 document.querySelectorAll('.lang-switch a')[0].classList.add('active');
 </script>
 </body>
-</html>
+        </html>
