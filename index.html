@@ -7,419 +7,830 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --bg0:#020305;
+  --bg1:#05070b;
+  --bg2:#0b0f16;
+  --glass:rgba(255,255,255,.06);
+  --glass2:rgba(255,255,255,.10);
+  --line:rgba(255,255,255,.08);
+  --line2:rgba(255,255,255,.14);
+  --text:#f5f7fb;
+  --muted:#9ea9ba;
+  --muted2:#7f8ca0;
+  --blue:#4aa3ff;
+  --blue2:#7cc0ff;
+  --cyan:#00d4ff;
+  --purple:#a855f7;
+  --gold:#d7c39a;
+  --gold2:#f1dfb0;
+  --shadow:0 28px 90px rgba(0,0,0,.58);
+  --shadow2:0 18px 50px rgba(0,0,0,.38);
+  --blur:blur(18px) saturate(160%);
+  --radius:24px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
 body{
-margin:0;
-font-family: 'Inter', sans-serif;
-background:#04060a;
-color:#E6E6E6;
-overflow:hidden;
+  margin:0;
+  font-family:'Inter',sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255,255,255,.10) 0%, transparent 22%),
+    radial-gradient(circle at 18% 72%, rgba(74,163,255,.09) 0%, transparent 20%),
+    radial-gradient(circle at 82% 78%, rgba(168,85,247,.08) 0%, transparent 18%),
+    linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 40%, #010203 100%);
+  overflow:hidden;
 }
 
-/* ================= CINEMATIC INTRO (ULTRA-HD) ================= */
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:-20%;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,.06) 0%, transparent 38%),
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.03) 0%, transparent 18%),
+    radial-gradient(circle at 85% 80%, rgba(255,255,255,.03) 0%, transparent 18%);
+  filter:blur(28px);
+  animation:drift 16s ease-in-out infinite alternate;
+  pointer-events:none;
+  z-index:-2;
+}
+
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03), transparent 12%, transparent 88%, rgba(0,0,0,.12)),
+    linear-gradient(90deg, rgba(255,255,255,.02), transparent 10%, transparent 90%, rgba(255,255,255,.02));
+  opacity:.52;
+  pointer-events:none;
+  z-index:-1;
+}
+
+@keyframes drift{
+  from{transform:translate3d(-1%, -1%, 0) scale(1)}
+  to{transform:translate3d(1.5%, 1.2%, 0) scale(1.04)}
+}
+
+/* ===========================
+   INTRO
+   =========================== */
+
 .intro{
-position:fixed;
-inset:0;
-background:
-    radial-gradient(circle at 50% 50%, rgba(10, 25, 47, 0.45) 0%, #020305 70%, #000000 100%),
-    linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.55) 50%), 
-    linear-gradient(90deg, rgba(74, 163, 255, 0.02), rgba(0, 0, 0, 0.3));
-background-size: 100% 100%, 100% 4px, 6px 100%;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-align-items:center;
-text-align:center;
-z-index:9999;
-overflow:hidden;
-padding: 100px 20px;
-box-sizing: border-box;
-animation:fadeOut 1s cubic-bezier(0.7, 0, 0.3, 1) 5.6s forwards;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  padding:28px;
+  text-align:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.11) 0%, rgba(10,12,16,.86) 32%, rgba(0,0,0,.97) 68%, #000 100%);
+  animation:introOut 1s cubic-bezier(.7,0,.25,1) 7.2s forwards;
 }
 
-/* Atmospheric anamorphic flare drifting in the center background */
 .intro::before{
-content:"";
-position:absolute;
-top: 50%;
-left: 50%;
-width: 140%;
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(74, 163, 255, 0.45), transparent);
-transform: translate(-50%, -50%);
-box-shadow: 0 0 35px 5px rgba(74, 163, 255, 0.3);
-animation: flarePulse 4s ease-in-out infinite alternate;
-pointer-events: none;
-z-index: 1;
+  content:'';
+  position:absolute;
+  inset:-30%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.12) 0%, transparent 25%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.05) 0%, transparent 45%);
+  filter:blur(28px);
+  animation:breath 7s ease-in-out infinite;
 }
 
-@keyframes flarePulse {
-0% { opacity: 0.3; width: 100%; }
-100% { opacity: 0.8; width: 150%; }
+.intro::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, transparent 48%, rgba(255,255,255,.03) 50%, transparent 52%),
+    repeating-linear-gradient(180deg, transparent 0 2px, rgba(255,255,255,.02) 2px 4px);
+  opacity:.15;
+  pointer-events:none;
 }
 
-/* 1. G-Rock Media Presents (Top - Larger, tracked-out, glowing) */
-.intro-tag {
-font-family: 'Orbitron', sans-serif;
-font-size: 16px;
-font-weight: 700;
-color: #8da4ff;
-text-transform: uppercase;
-letter-spacing: 16px;
-opacity: 0;
-filter: blur(8px);
-transform: translateY(-20px);
-animation: tagReveal 1.8s cubic-bezier(0.1, 0.8, 0.2, 1) 0.5s forwards;
-z-index: 2;
+@keyframes introOut{
+  to{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:scale(1.02);
+  }
 }
 
-@keyframes tagReveal {
-0% { opacity: 0; filter: blur(12px); transform: translateY(-30px); letter-spacing: 24px; }
-100% { opacity: 1; filter: blur(0px); transform: translateY(0); letter-spacing: 16px; }
+@keyframes breath{
+  0%,100%{transform:scale(.96);opacity:.46}
+  50%{transform:scale(1.03);opacity:.74}
 }
 
-/* Middle core text wrapper to prevent overlap */
-.intro-center-group {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-z-index: 2;
+.intro-shell{
+  position:relative;
+  width:min(1240px,100%);
+  display:grid;
+  justify-items:center;
+  gap:22px;
+  padding:10px;
 }
 
-/* 2. G-ROCK CORPORATION */
-.intro h1{
-font-family: 'Orbitron', sans-serif;
-font-size: 88px;
-font-weight: 900;
-letter-spacing: 16px;
-margin: 0;
-color: #4aa3ff;
-text-transform: uppercase;
-filter: blur(20px);
-text-shadow: 
-    0 0 15px rgba(74, 163, 255, 0.7), 
-    0 0 45px rgba(74, 163, 255, 0.3);
-opacity: 0;
-animation: cinematicReveal 2.2s cubic-bezier(0.1, 0.8, 0.2, 1) 1.5s forwards;
+.intro-kicker{
+  font-family:'Orbitron',sans-serif;
+  font-size:12px;
+  letter-spacing:12px;
+  text-transform:uppercase;
+  color:#bcc8d8;
+  opacity:0;
+  transform:translateY(-16px);
+  animation:kickerIn 1.2s ease .2s forwards;
 }
 
-/* 3. Monkeys University of Gibraltar */
-.intro h2{
-font-family: 'Orbitron', sans-serif;
-font-size: 22px;
-margin-top: 15px;
-color: #ffffff;
-font-weight: 400;
-text-transform: uppercase;
-letter-spacing: 10px;
-opacity: 0;
-filter: blur(8px);
-animation: subtitleReveal 1.8s cubic-bezier(0.1, 0.8, 0.2, 1) 2.5s forwards;
+@keyframes kickerIn{
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* KEYFRAMES FOR MIDDLE REVEAL */
-@keyframes cinematicReveal {
-0% { opacity: 0; filter: blur(20px); transform: scale(0.95); letter-spacing: 24px; }
-50% { opacity: 0.7; filter: blur(6px); }
-100% { opacity: 1; filter: blur(0px); transform: scale(1); letter-spacing: 16px; }
+.intro-line{
+  width:min(680px,86vw);
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), rgba(255,255,255,.82), rgba(255,255,255,.18), transparent);
+  opacity:0;
+  transform:scaleX(.45);
+  animation:lineIn 1.3s ease 1.6s forwards;
+  filter:blur(.2px);
 }
 
-@keyframes subtitleReveal {
-0% { opacity: 0; filter: blur(10px); letter-spacing: 4px; transform: translateY(15px); }
-100% { opacity: 1; filter: blur(0px); letter-spacing: 10px; transform: translateY(0); }
+@keyframes lineIn{
+  to{opacity:1;transform:scaleX(1)}
 }
 
-/* 4. powered by G-System (Bottom - Clear, bright, larger, cyber-pulse) */
-.intro-subtag {
-font-family: 'Orbitron', sans-serif;
-font-size: 14px;
-font-weight: 700;
-color: #4aa3ff;
-text-transform: uppercase;
-letter-spacing: 8px;
-opacity: 0;
-transform: translateY(20px);
-animation: subtagReveal 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) 3.6s forwards;
-z-index: 2;
-text-shadow: 0 0 8px rgba(74, 163, 255, 0.5);
+.intro-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(42px,6.6vw,96px);
+  line-height:.95;
+  letter-spacing:clamp(4px,1vw,18px);
+  font-weight:900;
+  text-transform:uppercase;
+  color:#fbfcfe;
+  text-wrap:balance;
+  opacity:0;
+  filter:blur(18px);
+  transform:translateY(10px) scale(.98);
+  text-shadow:
+    0 0 18px rgba(255,255,255,.10),
+    0 0 50px rgba(74,163,255,.14);
+  animation:titleIn 2.1s cubic-bezier(.12,.84,.18,1) .8s forwards, titleGlow 4s ease-in-out 3.2s infinite;
 }
 
-@keyframes subtagReveal {
-0% { opacity: 0; transform: translateY(30px); letter-spacing: 14px; }
-100% { opacity: 1; transform: translateY(0); letter-spacing: 8px; }
+@keyframes titleIn{
+  0%{
+    opacity:0;
+    filter:blur(24px);
+    transform:translateY(18px) scale(.94);
+    letter-spacing:28px;
+  }
+  55%{
+    opacity:.88;
+    filter:blur(6px);
+  }
+  100%{
+    opacity:1;
+    filter:blur(0);
+    transform:translateY(0) scale(1);
+    letter-spacing:clamp(4px,1vw,18px);
+  }
 }
 
-@keyframes fadeOut{
-0% { opacity: 1; transform: scale(1); }
-100% { opacity: 0; transform: scale(1.02); visibility: hidden; pointer-events: none; }
+@keyframes titleGlow{
+  0%,100%{
+    text-shadow:
+      0 0 18px rgba(255,255,255,.10),
+      0 0 50px rgba(74,163,255,.14),
+      0 0 100px rgba(0,212,255,.08);
+  }
+  50%{
+    text-shadow:
+      0 0 26px rgba(255,255,255,.14),
+      0 0 64px rgba(74,163,255,.22),
+      0 0 120px rgba(0,212,255,.12);
+  }
 }
 
-/* ================= MAIN CONFIGURATION ================= */
+.intro-subtitle{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(14px,1.9vw,24px);
+  letter-spacing:clamp(3px,.55vw,8px);
+  text-transform:uppercase;
+  color:var(--muted2);
+  opacity:0;
+  transform:translateY(14px);
+  animation:subIn 1.4s ease 2.3s forwards, subGlow 4s ease-in-out 4s infinite;
+}
+
+@keyframes subIn{
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes subGlow{
+  0%,100%{text-shadow:0 0 10px rgba(255,255,255,.08)}
+  50%{text-shadow:0 0 18px rgba(255,255,255,.16)}
+}
+
+.intro-subtag{
+  font-family:'Orbitron',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  color:#4aa3ff;
+  letter-spacing:8px;
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateY(18px);
+  text-shadow:0 0 10px rgba(74,163,255,.45);
+  animation:subtagIn 1.5s cubic-bezier(.1,.8,.2,1) 3.8s forwards, subtagPulse 3s ease-in-out 5s infinite;
+}
+
+@keyframes subtagIn{
+  0%{opacity:0;transform:translateY(28px);letter-spacing:14px}
+  100%{opacity:1;transform:translateY(0);letter-spacing:8px}
+}
+
+@keyframes subtagPulse{
+  0%,100%{text-shadow:0 0 10px rgba(74,163,255,.36),0 0 30px rgba(74,163,255,.12)}
+  50%{text-shadow:0 0 16px rgba(74,163,255,.58),0 0 44px rgba(0,212,255,.16)}
+}
+
+.intro-center-group{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:2;
+  padding:20px 0;
+}
+
+.intro-center-group::before{
+  content:'';
+  position:absolute;
+  width:100vw;
+  max-width:1200px;
+  height:380px;
+  background:radial-gradient(circle at center, rgba(74,163,255,.18), transparent 64%);
+  filter:blur(24px);
+  z-index:-1;
+}
+
+.hero-rings{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(74,163,255,.08);
+  box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;
+  animation:ringPulse 8s linear infinite;
+  pointer-events:none;
+}
+
+.hero-rings.r1{
+  width:920px;
+  height:920px;
+}
+
+.hero-rings.r2{
+  width:560px;
+  height:560px;
+  animation-duration:6.5s;
+}
+
+@keyframes ringPulse{
+  0%{transform:scale(.92);opacity:.35}
+  50%{transform:scale(1);opacity:.72}
+  100%{transform:scale(.92);opacity:.35}
+}
+
+.intro-flare{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:150%;
+  height:1px;
+  transform:translate(-50%,-50%);
+  background:linear-gradient(90deg, transparent, rgba(74,163,255,.45), rgba(255,255,255,.85), rgba(0,212,255,.48), transparent);
+  box-shadow:0 0 40px 8px rgba(74,163,255,.22);
+  animation:flarePulse 4.2s ease-in-out infinite alternate;
+  pointer-events:none;
+  z-index:1;
+}
+
+@keyframes flarePulse{
+  0%{opacity:.35;width:110%}
+  100%{opacity:.82;width:150%}
+}
+
+/* ===========================
+   MAIN APP
+   =========================== */
+
 main{
-opacity: 0;
-animation: show 1s cubic-bezier(0.4, 0, 0.2, 1) 5.8s forwards;
-height: 100vh;
-overflow: auto;
-background: radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
+  opacity:0;
+  animation:show 1s cubic-bezier(.4,0,.2,1) 7.35s forwards;
+  height:100vh;
+  overflow:auto;
+  background:
+    radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
 }
 
-@keyframes show{to{opacity: 1;}}
+@keyframes show{
+  to{opacity:1}
+}
 
-/* HEADER */
 header{
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 22px 50px;
-background: #090c14;
-border-bottom: 1px solid #1a2436;
-box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:22px 50px;
+  background:rgba(9,12,20,.82);
+  border-bottom:1px solid rgba(26,36,54,.92);
+  box-shadow:0 6px 25px rgba(0,0,0,.58);
+  backdrop-filter:blur(18px) saturate(150%);
+  position:sticky;
+  top:0;
+  z-index:50;
 }
 
 header b{
-font-family: 'Orbitron', sans-serif;
-color: #fff;
-letter-spacing: 3px;
-text-transform: uppercase;
-font-size: 15px;
-text-shadow: 0 0 10px rgba(74,163,255,0.3);
+  font-family:'Orbitron',sans-serif;
+  color:#fff;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-size:15px;
+  text-shadow:0 0 10px rgba(74,163,255,.3);
+}
+
+.lang{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
 .lang a{
-margin-left: 20px;
-color: #64748b;
-font-size: 12px;
-font-weight: 700;
-cursor: pointer;
-transition: all 0.2s;
-text-decoration: none;
-border-bottom: 1px solid transparent;
-padding-bottom: 2px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:54px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.08);
+  color:#dbe7f7;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.22s ease;
+  letter-spacing:1px;
 }
 
-.lang a:hover{
-color: #4aa3ff;
-border-bottom: 1px solid #4aa3ff;
-text-shadow: 0 0 8px rgba(74, 163, 255, 0.5);
+.lang a:hover,
+.lang a.active{
+  color:#fff;
+  background:rgba(74,163,255,.16);
+  border-color:rgba(74,163,255,.55);
+  box-shadow:0 0 18px rgba(74,163,255,.24), inset 0 0 0 1px rgba(255,255,255,.02);
 }
 
-/* GRID LAYOUT (STRICT 2x4 STRUCTURE) */
 .grid{
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 25px;
-max-width: 1400px;
-margin: 80px auto;
-padding: 0 40px;
-box-sizing: border-box;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+  max-width:1400px;
+  margin:80px auto;
+  padding:0 40px;
+  box-sizing:border-box;
 }
 
-/* Responsive adjustment for clean presentation wrap on smaller layouts */
-@media (max-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-@media (max-width: 640px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
+@media (max-width:1024px){
+  .grid{grid-template-columns:repeat(2,1fr)}
 }
 
-/* METALLIC / NEON INTERFACE CARD */
+@media (max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .intro-title{letter-spacing:8px}
+  .intro-kicker,.intro-subtag{letter-spacing:8px}
+}
+
 .card{
-background: linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
-padding: 35px 25px;
-border-radius: 12px;
-border: 1px solid #1b263b;
-cursor: pointer;
-text-align: center;
-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-min-height: 150px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-opacity: 0;
-transform: translateY(30px);
-animation: cardIn 0.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-position: relative;
-overflow: hidden;
+  position:relative;
+  background:linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+  padding:35px 25px;
+  border-radius:12px;
+  border:1px solid #1b263b;
+  cursor:pointer;
+  text-align:center;
+  transition:all .4s cubic-bezier(.25,.8,.25,1);
+  min-height:150px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:translateY(30px);
+  animation:cardIn .8s cubic-bezier(.15,.85,.35,1) forwards;
+  box-shadow:0 4px 15px rgba(0,0,0,.42);
+  overflow:hidden;
 }
 
-/* Custom interactive cyber highlight sweep */
-.card::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(74, 163, 255, 0.05), transparent);
-transition: 0.5s;
+.card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, transparent, rgba(74,163,255,.06), rgba(255,255,255,.03), transparent);
+  transform:translateX(-120%);
+  transition:transform .65s;
 }
 
-.card:hover::before {
-left: 100%;
+.card::after{
+  content:'';
+  position:absolute;
+  inset:auto 12% -40% 12%;
+  height:68%;
+  background:radial-gradient(circle, rgba(74,163,255,.12) 0%, transparent 68%);
+  filter:blur(18px);
+  opacity:.85;
 }
 
-.card:nth-child(1){animation-delay: 5.9s;}
-.card:nth-child(2){animation-delay: 6.0s;}
-.card:nth-child(3){animation-delay: 6.1s;}
-.card:nth-child(4){animation-delay: 6.2s;}
-.card:nth-child(5){animation-delay: 6.3s;}
-.card:nth-child(6){animation-delay: 6.4s;}
-.card:nth-child(7){animation-delay: 6.5s;}
-.card:nth-child(8){animation-delay: 6.6s;}
+.card:hover::before{
+  transform:translateX(120%);
+}
+
+.card:nth-child(1){animation-delay:7.45s}
+.card:nth-child(2){animation-delay:7.55s}
+.card:nth-child(3){animation-delay:7.65s}
+.card:nth-child(4){animation-delay:7.75s}
+.card:nth-child(5){animation-delay:7.85s}
+.card:nth-child(6){animation-delay:7.95s}
+.card:nth-child(7){animation-delay:8.05s}
+.card:nth-child(8){animation-delay:8.15s}
 
 @keyframes cardIn{
-to{opacity: 1;transform: translateY(0);}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .card:hover{
-transform: translateY(-8px);
-border-color: #4aa3ff;
-background: linear-gradient(135deg, #141f38 0%, #0c1224 100%);
-box-shadow: 0 15px 35px rgba(74, 163, 255, 0.25);
+  transform:translateY(-8px) scale(1.01);
+  border-color:#4aa3ff;
+  background:linear-gradient(135deg, #141f38 0%, #0c1224 100%);
+  box-shadow:0 15px 35px rgba(74,163,255,.25);
 }
 
 h3{
-color: #4aa3ff;
-margin: 0;
-font-size: 17px;
-letter-spacing: 0.5px;
-line-height: 1.5;
-font-weight: 600;
-transition: color 0.3s;
+  color:#4aa3ff;
+  margin:0;
+  font-size:17px;
+  letter-spacing:.5px;
+  line-height:1.5;
+  font-weight:600;
+  transition:color .3s;
+  text-wrap:balance;
 }
 
-.card:hover h3 {
-color: #ffffff;
-text-shadow: 0 0 10px rgba(74, 163, 255, 0.4);
+.card:hover h3{
+  color:#ffffff;
+  text-shadow:0 0 10px rgba(74,163,255,.4);
+}
+
+.card.archive h3{
+  color:var(--gold);
+}
+
+.card.archive:hover h3{
+  color:#fff4cc;
+  text-shadow:0 0 14px rgba(251,191,36,.55);
+}
+
+.intro-glitch{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(transparent 49%, rgba(255,255,255,.04) 50%, transparent 51%);
+  background-size:100% 3px;
+  opacity:.22;
+  mix-blend-mode:screen;
+}
+
+.intro-grid{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:120px 120px;
+  opacity:.12;
+  mask-image:radial-gradient(circle at 50% 45%, black 0%, transparent 78%);
+}
+
+.intro-halo{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(980px,92vw);
+  height:min(980px,92vw);
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(74,163,255,.18) 0%, rgba(74,163,255,.08) 16%, transparent 62%);
+  filter:blur(10px);
+  opacity:.9;
+}
+
+.intro-noise{
+  position:absolute;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  opacity:.06;
+  mix-blend-mode:soft-light;
+  pointer-events:none;
+}
+
+.intro-frame{
+  position:absolute;
+  inset:32px;
+  border-radius:28px;
+  border:1px solid rgba(124,176,255,.20);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.03),
+    0 0 0 1px rgba(0,0,0,.28),
+    inset 0 0 120px rgba(74,163,255,.05);
+  transform:perspective(1400px) rotateX(1.5deg);
+  pointer-events:none;
+}
+
+.intro-corner{
+  position:absolute;
+  width:88px;
+  height:88px;
+  border:2px solid rgba(74,163,255,.38);
+  filter:drop-shadow(0 0 10px rgba(74,163,255,.35));
+  pointer-events:none;
+}
+
+.intro-corner.tl{
+  left:32px;
+  top:32px;
+  border-right:0;
+  border-bottom:0;
+  border-radius:28px 0 0 0;
+}
+
+.intro-corner.br{
+  right:32px;
+  bottom:32px;
+  border-left:0;
+  border-top:0;
+  border-radius:0 0 28px 0;
+}
+
+.intro-center-group::after{
+  content:'';
+  position:absolute;
+  width:100vw;
+  max-width:1200px;
+  height:260px;
+  background:radial-gradient(circle at center, rgba(255,255,255,.08), transparent 64%);
+  filter:blur(24px);
+  z-index:-1;
 }
 </style>
 </head>
-
 <body>
 
 <div class="intro">
-  <div class="intro-tag">G-Rock Media Presents</div>
-  <div class="intro-center-group">
-      <h1>G-Rock Corporation</h1>
-      <h2>Monkeys University of Gibraltar</h2>
+  <div class="intro-grid"></div>
+  <div class="intro-noise"></div>
+  <div class="intro-halo"></div>
+  <div class="intro-frame"></div>
+  <div class="intro-corner tl"></div>
+  <div class="intro-corner br"></div>
+  <div class="intro-glitch"></div>
+  <div class="hero-rings r1"></div>
+  <div class="hero-rings r2"></div>
+  <div class="intro-flare"></div>
+
+  <div class="intro-shell">
+    <div class="intro-kicker" id="intro-tag">G-Rock Media Presents</div>
+    <div class="intro-line"></div>
+
+    <div class="intro-center-group">
+      <h1 class="intro-title" id="intro-h1">G-Rock Corporation</h1>
+      <h2 class="intro-subtitle" id="intro-h2">Monkeys University of Gibraltar</h2>
+    </div>
+
+    <div class="intro-subtag" id="intro-subtag">powered by G-System</div>
   </div>
-  <div class="intro-subtag">powered by G-System</div>
 </div>
 
 <main>
+  <header>
+    <b id="header-title">G-Rock Corporation // Global Management Core</b>
+    <div class="lang">
+      <a class="active" onclick="setLang('en', this)">🇬🇧 EN</a>
+      <a onclick="setLang('pl', this)">🇵🇱 PL</a>
+      <a onclick="setLang('es', this)">🇪🇸 ES</a>
+      <a onclick="setLang('fr', this)">🇫🇷 FR</a>
+    </div>
+  </header>
 
-<header>
-<b>G-Rock Corporation // Global Management Core</b>
+  <div class="grid">
+    <div class="card" onclick="location.href='university.html'">
+      <h3>Monkeys University of Gibraltar</h3>
+    </div>
 
-<div class="lang">
-<a onclick="setLang('en')">EN</a>
-<a onclick="setLang('pl')">PL</a>
-<a onclick="setLang('es')">ES</a>
-<a onclick="setLang('fr')">FR</a>
-</div>
-</header>
+    <div class="card" onclick="location.href='bank.html'">
+      <h3>Bank of the Monkeys from Gibraltar</h3>
+    </div>
 
-<div class="grid">
+    <div class="card" onclick="location.href='parliament.html'">
+      <h3>Parliament of the Monkeys from Gibraltar</h3>
+    </div>
 
-  <div class="card" onclick="location.href='university.html'">
-    <h3>Monkeys University of Gibraltar</h3>
+    <div class="card" onclick="location.href='library.html'">
+      <h3>The Gibraltar Monkey Library</h3>
+    </div>
+
+    <div class="card" onclick="location.href='ceuta.html'">
+      <h3>Campus de Ceuta</h3>
+    </div>
+
+    <div class="card" onclick="location.href='caraibian.html'">
+      <h3>Caribbean Campus</h3>
+    </div>
+
+    <div class="card" onclick="location.href='episode1.html'">
+      <h3>Episode 1</h3>
+    </div>
+
+    <div class="card archive" onclick="location.href='map.html'">
+      <h3>G-Rock Archive</h3>
+    </div>
   </div>
-
-  <div class="card" onclick="location.href='bank.html'">
-    <h3>Bank of the Monkeys from Gibraltar</h3>
+    </main>
+  <div class="footer">
+    <div><span>Status:</span> premium online</div>
+    <div><span>Mode:</span> apple level luxury</div>
+    <div><span>Build:</span> G-System // 01</div>
   </div>
-
-  <div class="card" onclick="location.href='parliament.html'">
-    <h3>Parliament of the Monkeys from Gibraltar</h3>
-  </div>
-
-  <div class="card" onclick="location.href='library.html'">
-    <h3>The Gibraltar Monkey Library</h3>
-  </div>
-
-  <div class="card" onclick="location.href='ceuta.html'">
-    <h3>Campus de Ceuta</h3>
-  </div>
-
-  <div class="card" onclick="location.href='caraibian.html'">
-    <h3>Caribbean Campus</h3>
-  </div>
-
-  <div class="card" onclick="location.href='episode1.html'">
-    <h3>Episode 1</h3>
-  </div>
-
-  <div class="card" onclick="location.href='map.html'">
-    <h3>World Map</h3>
-  </div>
-
-</div>
-
 </main>
 
 <script>
-// Multilingual Translation Matrix supporting all 8 operational units
-function setLang(lang){
-const data = {
-en:[
-"Monkeys University of Gibraltar",
-"Bank of the Monkeys from Gibraltar",
-"Parliament of the Monkeys from Gibraltar",
-"The Gibraltar Monkey Library",
-"Campus de Ceuta",
-"Caribbean Campus",
-"Episode 1",
-"World Map"
-],
-pl:[
-"Uniwersytet Małp Gibraltaru",
-"Bank Małp z Gibraltaru",
-"Parlament Małp z Gibraltaru",
-"Biblioteka Małp z Gibraltaru",
-"Kampus w Ceucie",
-"Kampus Karaibski",
-"Odcinek 1",
-"Mapa Świata"
-],
-es:[
-"Universidad de los Monos de Gibraltar",
-"Banco de los Monos de Gibraltar",
-"Parlamento de los Monos de Gibraltar",
-"La Biblioteca de Monos de Gibraltar",
-"Campus de Ceuta",
-"Campus del Caribe",
-"Episodio 1",
-"Mapa del Mundo"
-],
-fr:[
-"Université des Singes de Gibraltar",
-"Banque des Singes de Gibraltar",
-"Parlement des Singes de Gibraltar",
-"La Bibliothèque des Singes de Gibraltar",
-"Campus de Ceuta",
-"Campus des Caraïbes",
-"Épisode 1",
-"Carte du Monde"
-]
+const content = {
+  en:{
+    header:'G-Rock Corporation // Global Management Core',
+    introTag:'G-Rock Media Presents',
+    introH2:'Monkeys University of Gibraltar',
+    introSub:'powered by G-System',
+    cards:[
+      'Monkeys University of Gibraltar',
+      'Bank of the Monkeys from Gibraltar',
+      'Parliament of the Monkeys from Gibraltar',
+      'The Gibraltar Monkey Library',
+      'Campus de Ceuta',
+      'Caribbean Campus',
+      'Episode 1',
+      'G-Rock Archive'
+    ]
+  },
+  pl:{
+    header:'G-Rock Corporation // Global Management Core',
+    introTag:'G-Rock Media Presents',
+    introH2:'Monkeys University of Gibraltar',
+    introSub:'powered by G-System',
+    cards:[
+      'Uniwersytet Małp Gibraltaru',
+      'Bank Małp z Gibraltaru',
+      'Parlament Małp z Gibraltaru',
+      'Biblioteka Małp z Gibraltaru',
+      'Kampus w Ceucie',
+      'Kampus Karaibski',
+      'Odcinek 1',
+      'Archiwum G-Rock'
+    ]
+  },
+  es:{
+    header:'G-Rock Corporation // Global Management Core',
+    introTag:'G-Rock Media Presents',
+    introH2:'Monkeys University of Gibraltar',
+    introSub:'powered by G-System',
+    cards:[
+      'Universidad de los Monos de Gibraltar',
+      'Banco de los Monos de Gibraltar',
+      'Parlamento de los Monos de Gibraltar',
+      'La Biblioteca de Monos de Gibraltar',
+      'Campus de Ceuta',
+      'Campus del Caribe',
+      'Episodio 1',
+      'Archivo G-Rock'
+    ]
+  },
+  fr:{
+    header:'G-Rock Corporation // Global Management Core',
+    introTag:'G-Rock Media Presents',
+    introH2:'Monkeys University of Gibraltar',
+    introSub:'powered by G-System',
+    cards:[
+      'Université des Singes de Gibraltar',
+      'Banque des Singes de Gibraltar',
+      'Parlement des Singes de Gibraltar',
+      'La Bibliothèque des Singes de Gibraltar',
+      'Campus de Ceuta',
+      'Campus des Caraïbes',
+      'Épisode 1',
+      'Archive G-Rock'
+    ]
+  }
 };
 
-document.querySelectorAll(".grid h3").forEach((el,i)=>{
-el.innerText = data[lang][i];
-});
+function setLang(lang, el){
+  document.querySelectorAll('.lang a').forEach(a=>a.classList.remove('active'));
+  if(el) el.classList.add('active');
+
+  document.getElementById('header-title').innerText = content[lang].header;
+  document.getElementById('intro-tag').innerText = content[lang].introTag;
+  document.getElementById('intro-h1').innerText = 'G-Rock Corporation';
+  document.getElementById('intro-h2').innerText = content[lang].introH2;
+  document.getElementById('intro-subtag').innerText = content[lang].introSub;
+
+  document.querySelectorAll('.grid h3').forEach((node,i)=>{
+    node.innerText = content[lang].cards[i];
+  });
 }
+
+function pulseCards(){
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, i)=>{
+    card.addEventListener('mousemove', e=>{
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+
+    card.addEventListener('mouseenter', ()=>{
+      card.style.transform = 'translateY(-8px) scale(1.01)';
+    });
+
+    card.addEventListener('mouseleave', ()=>{
+      card.style.transform = '';
+    });
+  });
+}
+
+function enterExperience(){
+  const intro = document.querySelector('.intro');
+  if(intro){
+    intro.style.animation = 'introOut .8s cubic-bezier(.7,0,.25,1) forwards';
+  }
+}
+
+window.addEventListener('DOMContentLoaded', ()=>{
+  setLang('en', document.querySelector('.lang a.active'));
+  pulseCards();
+
+  const enterBtn = document.createElement('button');
+  enterBtn.className = 'enter-hidden';
+  enterBtn.type = 'button';
+  enterBtn.textContent = 'Enter Experience';
+  enterBtn.style.display = 'none';
+  document.body.appendChild(enterBtn);
+
+  const intro = document.querySelector('.intro');
+  if(intro){
+    intro.addEventListener('click', enterExperience);
+  }
+
+  window.addEventListener('keydown', e=>{
+    if(e.key === 'Escape'){
+      enterExperience();
+    }
+  });
+});
 </script>
 
 </body>
-</html>
-
+    </html>
 
 
