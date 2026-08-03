@@ -47,14 +47,8 @@ body{
   overflow:hidden;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-button{
-  font:inherit;
-}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
 
 body::before{
   content:'';
@@ -86,10 +80,6 @@ body::after{
   from{transform:translate3d(-1%, -1%, 0) scale(1)}
   to{transform:translate3d(1.5%, 1.2%, 0) scale(1.04)}
 }
-
-/* ===========================
-   INTRO
-   =========================== */
 
 .intro{
   position:fixed;
@@ -128,14 +118,8 @@ body::after{
 }
 
 @keyframes introOut{
-  to{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-    transform:scale(1.02);
-  }
+  to{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.02)}
 }
-
 @keyframes breath{
   0%,100%{transform:scale(.96);opacity:.46}
   50%{transform:scale(1.03);opacity:.74}
@@ -161,9 +145,7 @@ body::after{
   animation:kickerIn 1.2s ease .2s forwards;
 }
 
-@keyframes kickerIn{
-  to{opacity:1;transform:translateY(0)}
-}
+@keyframes kickerIn{to{opacity:1;transform:translateY(0)}}
 
 .intro-line{
   width:min(680px,86vw);
@@ -175,9 +157,7 @@ body::after{
   filter:blur(.2px);
 }
 
-@keyframes lineIn{
-  to{opacity:1;transform:scaleX(1)}
-}
+@keyframes lineIn{to{opacity:1;transform:scaleX(1)}}
 
 .intro-title{
   font-family:'Orbitron',sans-serif;
@@ -204,10 +184,7 @@ body::after{
     transform:translateY(18px) scale(.94);
     letter-spacing:28px;
   }
-  55%{
-    opacity:.88;
-    filter:blur(6px);
-  }
+  55%{opacity:.88;filter:blur(6px)}
   100%{
     opacity:1;
     filter:blur(0);
@@ -241,11 +218,7 @@ body::after{
   transform:translateY(14px);
   animation:subIn 1.4s ease 2.3s forwards, subGlow 4s ease-in-out 4s infinite;
 }
-
-@keyframes subIn{
-  to{opacity:1;transform:translateY(0)}
-}
-
+@keyframes subIn{to{opacity:1;transform:translateY(0)}}
 @keyframes subGlow{
   0%,100%{text-shadow:0 0 10px rgba(255,255,255,.08)}
   50%{text-shadow:0 0 18px rgba(255,255,255,.16)}
@@ -263,12 +236,10 @@ body::after{
   text-shadow:0 0 10px rgba(74,163,255,.45);
   animation:subtagIn 1.5s cubic-bezier(.1,.8,.2,1) 3.8s forwards, subtagPulse 3s ease-in-out 5s infinite;
 }
-
 @keyframes subtagIn{
   0%{opacity:0;transform:translateY(28px);letter-spacing:14px}
   100%{opacity:1;transform:translateY(0);letter-spacing:8px}
 }
-
 @keyframes subtagPulse{
   0%,100%{text-shadow:0 0 10px rgba(74,163,255,.36),0 0 30px rgba(74,163,255,.12)}
   50%{text-shadow:0 0 16px rgba(74,163,255,.58),0 0 44px rgba(0,212,255,.16)}
@@ -283,7 +254,6 @@ body::after{
   z-index:2;
   padding:20px 0;
 }
-
 .intro-center-group::before{
   content:'';
   position:absolute;
@@ -303,17 +273,8 @@ body::after{
   animation:ringPulse 8s linear infinite;
   pointer-events:none;
 }
-
-.hero-rings.r1{
-  width:920px;
-  height:920px;
-}
-
-.hero-rings.r2{
-  width:560px;
-  height:560px;
-  animation-duration:6.5s;
-}
+.hero-rings.r1{width:920px;height:920px}
+.hero-rings.r2{width:560px;height:560px;animation-duration:6.5s}
 
 @keyframes ringPulse{
   0%{transform:scale(.92);opacity:.35}
@@ -334,28 +295,19 @@ body::after{
   pointer-events:none;
   z-index:1;
 }
-
 @keyframes flarePulse{
   0%{opacity:.35;width:110%}
   100%{opacity:.82;width:150%}
 }
-
-/* ===========================
-   MAIN APP
-   =========================== */
 
 main{
   opacity:0;
   animation:show 1s cubic-bezier(.4,0,.2,1) 7.35s forwards;
   height:100vh;
   overflow:auto;
-  background:
-    radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
+  background:radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
 }
-
-@keyframes show{
-  to{opacity:1}
-}
+@keyframes show{to{opacity:1}}
 
 header{
   display:flex;
@@ -371,7 +323,6 @@ header{
   top:0;
   z-index:50;
 }
-
 header b{
   font-family:'Orbitron',sans-serif;
   color:#fff;
@@ -380,14 +331,12 @@ header b{
   font-size:15px;
   text-shadow:0 0 10px rgba(74,163,255,.3);
 }
-
 .lang{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
   justify-content:flex-end;
 }
-
 .lang a{
   display:inline-flex;
   align-items:center;
@@ -404,7 +353,6 @@ header b{
   transition:.22s ease;
   letter-spacing:1px;
 }
-
 .lang a:hover,
 .lang a.active{
   color:#fff;
@@ -422,11 +370,7 @@ header b{
   padding:0 40px;
   box-sizing:border-box;
 }
-
-@media (max-width:1024px){
-  .grid{grid-template-columns:repeat(2,1fr)}
-}
-
+@media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){
   .grid{grid-template-columns:1fr}
   .intro-title{letter-spacing:8px}
@@ -453,7 +397,6 @@ header b{
   box-shadow:0 4px 15px rgba(0,0,0,.42);
   overflow:hidden;
 }
-
 .card::before{
   content:'';
   position:absolute;
@@ -462,7 +405,6 @@ header b{
   transform:translateX(-120%);
   transition:transform .65s;
 }
-
 .card::after{
   content:'';
   position:absolute;
@@ -472,11 +414,7 @@ header b{
   filter:blur(18px);
   opacity:.85;
 }
-
-.card:hover::before{
-  transform:translateX(120%);
-}
-
+.card:hover::before{transform:translateX(120%)}
 .card:nth-child(1){animation-delay:7.45s}
 .card:nth-child(2){animation-delay:7.55s}
 .card:nth-child(3){animation-delay:7.65s}
@@ -485,18 +423,13 @@ header b{
 .card:nth-child(6){animation-delay:7.95s}
 .card:nth-child(7){animation-delay:8.05s}
 .card:nth-child(8){animation-delay:8.15s}
-
-@keyframes cardIn{
-  to{opacity:1;transform:translateY(0)}
-}
-
+@keyframes cardIn{to{opacity:1;transform:translateY(0)}}
 .card:hover{
   transform:translateY(-8px) scale(1.01);
   border-color:#4aa3ff;
   background:linear-gradient(135deg, #141f38 0%, #0c1224 100%);
   box-shadow:0 15px 35px rgba(74,163,255,.25);
 }
-
 h3{
   color:#4aa3ff;
   margin:0;
@@ -507,20 +440,9 @@ h3{
   transition:color .3s;
   text-wrap:balance;
 }
-
-.card:hover h3{
-  color:#ffffff;
-  text-shadow:0 0 10px rgba(74,163,255,.4);
-}
-
-.card.archive h3{
-  color:var(--gold);
-}
-
-.card.archive:hover h3{
-  color:#fff4cc;
-  text-shadow:0 0 14px rgba(251,191,36,.55);
-}
+.card:hover h3{color:#ffffff;text-shadow:0 0 10px rgba(74,163,255,.4)}
+.card.archive h3{color:var(--gold)}
+.card.archive:hover h3{color:#fff4cc;text-shadow:0 0 14px rgba(251,191,36,.55)}
 
 .intro-glitch{
   position:absolute;
@@ -531,7 +453,6 @@ h3{
   opacity:.22;
   mix-blend-mode:screen;
 }
-
 .intro-grid{
   position:absolute;
   inset:0;
@@ -543,7 +464,6 @@ h3{
   opacity:.12;
   mask-image:radial-gradient(circle at 50% 45%, black 0%, transparent 78%);
 }
-
 .intro-halo{
   position:absolute;
   left:50%;
@@ -556,7 +476,6 @@ h3{
   filter:blur(10px);
   opacity:.9;
 }
-
 .intro-noise{
   position:absolute;
   inset:0;
@@ -565,7 +484,6 @@ h3{
   mix-blend-mode:soft-light;
   pointer-events:none;
 }
-
 .intro-frame{
   position:absolute;
   inset:32px;
@@ -578,7 +496,6 @@ h3{
   transform:perspective(1400px) rotateX(1.5deg);
   pointer-events:none;
 }
-
 .intro-corner{
   position:absolute;
   width:88px;
@@ -587,23 +504,8 @@ h3{
   filter:drop-shadow(0 0 10px rgba(74,163,255,.35));
   pointer-events:none;
 }
-
-.intro-corner.tl{
-  left:32px;
-  top:32px;
-  border-right:0;
-  border-bottom:0;
-  border-radius:28px 0 0 0;
-}
-
-.intro-corner.br{
-  right:32px;
-  bottom:32px;
-  border-left:0;
-  border-top:0;
-  border-radius:0 0 28px 0;
-}
-
+.intro-corner.tl{left:32px;top:32px;border-right:0;border-bottom:0;border-radius:28px 0 0 0}
+.intro-corner.br{right:32px;bottom:32px;border-left:0;border-top:0;border-radius:0 0 28px 0}
 .intro-center-group::after{
   content:'';
   position:absolute;
@@ -614,11 +516,153 @@ h3{
   filter:blur(24px);
   z-index:-1;
 }
+
+.lang-screen,.story-screen{
+  position:fixed;
+  inset:0;
+  z-index:9000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:32px;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,.08) 0%, rgba(5,7,11,.88) 36%, rgba(0,0,0,.98) 100%);
+  overflow:hidden;
+}
+.lang-screen.active,.story-screen.active{display:flex}
+
+.lang-shell,.story-shell{
+  width:min(1280px,100%);
+  position:relative;
+}
+.lang-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(18px,2vw,30px);
+  letter-spacing:10px;
+  text-transform:uppercase;
+  color:#dfe7f5;
+  opacity:.92;
+  margin-bottom:28px;
+}
+.lang-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.lang-card{
+  position:relative;
+  min-height:160px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.10);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:var(--shadow2), inset 0 0 0 1px rgba(255,255,255,.02);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  cursor:pointer;
+  overflow:hidden;
+  transition:transform .28s ease, border-color .28s ease, box-shadow .28s ease, background .28s ease;
+}
+.lang-card:hover{
+  transform:translateY(-6px) scale(1.01);
+  border-color:rgba(74,163,255,.45);
+  box-shadow:0 22px 52px rgba(0,0,0,.46), 0 0 36px rgba(74,163,255,.14);
+}
+.lang-flag{
+  font-size:38px;
+  line-height:1;
+  filter:drop-shadow(0 0 12px rgba(255,255,255,.14));
+}
+.lang-name{
+  font-family:'Orbitron',sans-serif;
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#f5f7fb;
+}
+.lang-sub{
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#9ca7b7;
+}
+
+.story-shell{
+  display:grid;
+  justify-items:center;
+  gap:22px;
+}
+.story-kicker{
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:8px;
+  text-transform:uppercase;
+  color:#8da4ff;
+  font-size:12px;
+}
+.story-text{
+  max-width:980px;
+  font-size:clamp(20px,2.5vw,38px);
+  line-height:1.45;
+  color:#f6f8fc;
+  text-wrap:balance;
+  text-shadow:0 0 20px rgba(255,255,255,.06);
+}
+.story-enter{
+  margin-top:10px;
+  padding:14px 22px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-weight:700;
+  font-size:12px;
+  backdrop-filter:var(--blur);
+  box-shadow:var(--shadow);
+}
+
+.footer{
+  max-width:1440px;
+  margin:0 auto 32px;
+  padding:0 34px 28px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  color:#93a0af;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:11px;
+}
+.footer span{color:#f4f6fa}
+
+@media (max-width:1100px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .lang-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width:700px){
+  body{overflow:auto}
+  main{height:auto;overflow:visible}
+  .grid{grid-template-columns:1fr;padding:0 16px 36px}
+  header{padding:18px 16px}
+  .intro-title{font-size:clamp(34px,11vw,66px);letter-spacing:6px}
+  .intro-kicker,.intro-subtag{letter-spacing:8px}
+  .lang-grid{grid-template-columns:1fr}
+  .lang-card{min-height:140px}
+}
 </style>
 </head>
 <body>
 
-<div class="intro">
+<div class="intro" id="intro">
   <div class="intro-grid"></div>
   <div class="intro-noise"></div>
   <div class="intro-halo"></div>
@@ -633,17 +677,43 @@ h3{
   <div class="intro-shell">
     <div class="intro-kicker" id="intro-tag">G-Rock Media Presents</div>
     <div class="intro-line"></div>
-
     <div class="intro-center-group">
       <h1 class="intro-title" id="intro-h1">G-Rock Corporation</h1>
       <h2 class="intro-subtitle" id="intro-h2">Monkeys University of Gibraltar</h2>
     </div>
-
     <div class="intro-subtag" id="intro-subtag">powered by G-System</div>
   </div>
 </div>
 
-<main>
+<div class="lang-screen" id="lang-screen">
+  <div class="lang-shell">
+    <div class="lang-title">Choose Language</div>
+    <div class="lang-grid">
+      <div class="lang-card" onclick="chooseLang('en', this)">
+        <div class="lang-flag">🇬🇧</div><div class="lang-name">EN</div><div class="lang-sub">English</div>
+      </div>
+      <div class="lang-card" onclick="chooseLang('pl', this)">
+        <div class="lang-flag">🇵🇱</div><div class="lang-name">PL</div><div class="lang-sub">Polski</div>
+      </div>
+      <div class="lang-card" onclick="chooseLang('es', this)">
+        <div class="lang-flag">🇪🇸</div><div class="lang-name">ES</div><div class="lang-sub">Español</div>
+      </div>
+      <div class="lang-card" onclick="chooseLang('fr', this)">
+        <div class="lang-flag">🇫🇷</div><div class="lang-name">FR</div><div class="lang-sub">Français</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="story-screen" id="story-screen">
+  <div class="story-shell">
+    <div class="story-kicker" id="story-kicker">A cinematic universe</div>
+    <div class="story-text" id="story-text"></div>
+    <div class="story-enter" id="story-enter">Enter G-Rock Archive</div>
+  </div>
+</div>
+
+<main id="main">
   <header>
     <b id="header-title">G-Rock Corporation // Global Management Core</b>
     <div class="lang">
@@ -655,39 +725,16 @@ h3{
   </header>
 
   <div class="grid">
-    <div class="card" onclick="location.href='university.html'">
-      <h3>Monkeys University of Gibraltar</h3>
-    </div>
-
-    <div class="card" onclick="location.href='bank.html'">
-      <h3>Bank of the Monkeys from Gibraltar</h3>
-    </div>
-
-    <div class="card" onclick="location.href='parliament.html'">
-      <h3>Parliament of the Monkeys from Gibraltar</h3>
-    </div>
-
-    <div class="card" onclick="location.href='library.html'">
-      <h3>The Gibraltar Monkey Library</h3>
-    </div>
-
-    <div class="card" onclick="location.href='ceuta.html'">
-      <h3>Campus de Ceuta</h3>
-    </div>
-
-    <div class="card" onclick="location.href='caraibian.html'">
-      <h3>Caribbean Campus</h3>
-    </div>
-
-    <div class="card" onclick="location.href='episode1.html'">
-      <h3>Episode 1</h3>
-    </div>
-
-    <div class="card archive" onclick="location.href='map.html'">
-      <h3>G-Rock Archive</h3>
-    </div>
+    <div class="card" onclick="location.href='university.html'"><h3>Monkeys University of Gibraltar</h3></div>
+    <div class="card" onclick="location.href='bank.html'"><h3>Bank of the Monkeys from Gibraltar</h3></div>
+    <div class="card" onclick="location.href='parliament.html'"><h3>Parliament of the Monkeys from Gibraltar</h3></div>
+    <div class="card" onclick="location.href='library.html'"><h3>The Gibraltar Monkey Library</h3></div>
+    <div class="card" onclick="location.href='ceuta.html'"><h3>Campus de Ceuta</h3></div>
+    <div class="card" onclick="location.href='caraibian.html'"><h3>Caribbean Campus</h3></div>
+    <div class="card archive" onclick="location.href='map.html'"><h3>Mapa</h3></div>
+    <div class="card archive" onclick="location.href='g-rock-archive.html'"><h3>G-Rock Archive</h3></div>
   </div>
-    </main>
+
   <div class="footer">
     <div><span>Status:</span> premium online</div>
     <div><span>Mode:</span> apple level luxury</div>
@@ -702,6 +749,14 @@ const content = {
     introTag:'G-Rock Media Presents',
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
+    storyKicker:'A universe connecting',
+    storyText:`A universe connecting
+Professor Sugriva, a chimpanzee professor,
+Corporal Wojtek, the real-life soldier bear,
+and the Barbary macaques of Gibraltar, the only wild monkey population in Europe.
+Inspired by real history, historical figures and enduring legends.
+Reimagined through storytelling to create a unique narrative universe where history and imagination meet.
+Enter G-Rock Archive`,
     cards:[
       'Monkeys University of Gibraltar',
       'Bank of the Monkeys from Gibraltar',
@@ -709,7 +764,7 @@ const content = {
       'The Gibraltar Monkey Library',
       'Campus de Ceuta',
       'Caribbean Campus',
-      'Episode 1',
+      'Mapa',
       'G-Rock Archive'
     ]
   },
@@ -718,6 +773,14 @@ const content = {
     introTag:'G-Rock Media Presents',
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
+    storyKicker:'Wszechświat łączący',
+    storyText:`Wszechświat łączący
+Profesor Sugriva, szympansi profesor,
+Kapral Wojtek, prawdziwy niedźwiedź-żołnierz,
+i makaki berberyjskie z Gibraltaru, jedyna dzika populacja małp w Europie.
+Zainspirowany prawdziwą historią, postaciami historycznymi i trwałymi legendami.
+Przekształcony przez opowieść w unikalny uniwersum narracyjny, gdzie historia spotyka wyobraźnię.
+Wejdź do Archiwum G-Rock`,
     cards:[
       'Uniwersytet Małp Gibraltaru',
       'Bank Małp z Gibraltaru',
@@ -725,7 +788,7 @@ const content = {
       'Biblioteka Małp z Gibraltaru',
       'Kampus w Ceucie',
       'Kampus Karaibski',
-      'Odcinek 1',
+      'Mapa',
       'Archiwum G-Rock'
     ]
   },
@@ -734,6 +797,14 @@ const content = {
     introTag:'G-Rock Media Presents',
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
+    storyKicker:'Un universo que conecta',
+    storyText:`Un universo que conecta
+al profesor Sugriva, un profesor chimpancé,
+al cabo Wojtek, el auténtico oso soldado,
+y a los macacos de Gibraltar, la única población salvaje de monos en Europa.
+Inspirado en la historia real, figuras históricas y leyendas perdurables.
+Reimaginado mediante la narración para crear un universo único donde la historia y la imaginación se encuentran.
+Entra en G-Rock Archive`,
     cards:[
       'Universidad de los Monos de Gibraltar',
       'Banco de los Monos de Gibraltar',
@@ -741,7 +812,7 @@ const content = {
       'La Biblioteca de Monos de Gibraltar',
       'Campus de Ceuta',
       'Campus del Caribe',
-      'Episodio 1',
+      'Mapa',
       'Archivo G-Rock'
     ]
   },
@@ -750,6 +821,14 @@ const content = {
     introTag:'G-Rock Media Presents',
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
+    storyKicker:'Un univers relié',
+    storyText:`Un univers relié
+au professeur Sugriva, professeur chimpanzé,
+au caporal Wojtek, l’ours soldat réel,
+et aux macaques de Barbarie de Gibraltar, la seule population sauvage de singes en Europe.
+Inspiré par l’histoire réelle, les figures historiques et les légendes durables.
+Réimaginé par la narration pour créer un univers unique où l’histoire et l’imagination se rencontrent.
+Entrer dans G-Rock Archive`,
     cards:[
       'Université des Singes de Gibraltar',
       'Banque des Singes de Gibraltar',
@@ -757,80 +836,58 @@ const content = {
       'La Bibliothèque des Singes de Gibraltar',
       'Campus de Ceuta',
       'Campus des Caraïbes',
-      'Épisode 1',
+      'Mapa',
       'Archive G-Rock'
     ]
   }
 };
 
+let selectedLang = 'en';
+let timer = null;
+
 function setLang(lang, el){
+  selectedLang = lang;
   document.querySelectorAll('.lang a').forEach(a=>a.classList.remove('active'));
   if(el) el.classList.add('active');
-
   document.getElementById('header-title').innerText = content[lang].header;
+  document.querySelectorAll('.grid h3').forEach((node,i)=>node.innerText = content[lang].cards[i]);
+}
+
+function chooseLang(lang){
+  selectedLang = lang;
+  const langScreen = document.getElementById('lang-screen');
+  const storyScreen = document.getElementById('story-screen');
   document.getElementById('intro-tag').innerText = content[lang].introTag;
-  document.getElementById('intro-h1').innerText = 'G-Rock Corporation';
   document.getElementById('intro-h2').innerText = content[lang].introH2;
   document.getElementById('intro-subtag').innerText = content[lang].introSub;
-
-  document.querySelectorAll('.grid h3').forEach((node,i)=>{
-    node.innerText = content[lang].cards[i];
-  });
-}
-
-function pulseCards(){
-  const cards = document.querySelectorAll('.card');
-  cards.forEach((card, i)=>{
-    card.addEventListener('mousemove', e=>{
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty('--mx', x + '%');
-      card.style.setProperty('--my', y + '%');
-    });
-
-    card.addEventListener('mouseenter', ()=>{
-      card.style.transform = 'translateY(-8px) scale(1.01)';
-    });
-
-    card.addEventListener('mouseleave', ()=>{
-      card.style.transform = '';
-    });
-  });
-}
-
-function enterExperience(){
-  const intro = document.querySelector('.intro');
-  if(intro){
-    intro.style.animation = 'introOut .8s cubic-bezier(.7,0,.25,1) forwards';
-  }
+  document.getElementById('story-kicker').innerText = content[lang].storyKicker;
+  document.getElementById('story-text').innerText = content[lang].storyText;
+  langScreen.classList.remove('active');
+  storyScreen.classList.add('active');
+  if(timer) clearTimeout(timer);
+  timer = setTimeout(()=>{
+    storyScreen.classList.remove('active');
+    setLang(lang, document.querySelector('.lang a.active'));
+  }, 10000);
 }
 
 window.addEventListener('DOMContentLoaded', ()=>{
   setLang('en', document.querySelector('.lang a.active'));
-  pulseCards();
+  setTimeout(()=>{
+    document.querySelector('.intro').style.animation = 'introOut 1s cubic-bezier(.7,0,.25,1) forwards';
+    document.getElementById('lang-screen').classList.add('active');
+  }, 7200);
+});
 
-  const enterBtn = document.createElement('button');
-  enterBtn.className = 'enter-hidden';
-  enterBtn.type = 'button';
-  enterBtn.textContent = 'Enter Experience';
-  enterBtn.style.display = 'none';
-  document.body.appendChild(enterBtn);
-
-  const intro = document.querySelector('.intro');
-  if(intro){
-    intro.addEventListener('click', enterExperience);
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    document.getElementById('lang-screen').classList.remove('active');
+    document.getElementById('story-screen').classList.remove('active');
   }
-
-  window.addEventListener('keydown', e=>{
-    if(e.key === 'Escape'){
-      enterExperience();
-    }
-  });
 });
 </script>
 
 </body>
-    </html>
+  </html>
 
 
