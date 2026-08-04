@@ -334,7 +334,7 @@ body{
   height:100%;
   width:0%;
   background:linear-gradient(90deg, var(--blue), #8da4ff);
-  animation:storyProgress 10s linear forwards;
+  animation:storyProgress 15s linear forwards;
 }
 @keyframes storyProgress{to{width:100%;}}
 
@@ -511,8 +511,8 @@ h3{
 .story-card p{
   font-family:'Share Tech Mono', monospace;
   color:var(--blue);
-  font-size:15px;
-  line-height:1.9;
+  font-size:21px;
+  line-height:2;
   margin:0;
   letter-spacing:.3px;
   transition:color .3s;
@@ -680,14 +680,14 @@ function chooseLang(lang){
   story.classList.add('active');
   storyBar.style.animation = 'none';
   void storyBar.offsetWidth; // restart animation
-  storyBar.style.animation = 'storyProgress 10s linear forwards';
+  storyBar.style.animation = 'storyProgress 15s linear forwards';
 
   setTimeout(()=>{
     story.classList.remove('active');
     mainEl.classList.add('active');
     setLang(lang);
     highlightLang(lang);
-  }, 10000);
+  }, 15000);
 }
 
 function highlightLang(lang){
@@ -715,5 +715,6 @@ function setLang(lang){
 
 </body>
 </html>
+
 
   
