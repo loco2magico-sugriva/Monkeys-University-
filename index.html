@@ -14,25 +14,13 @@
   --bg0:#020305;
   --bg1:#05070b;
   --bg2:#0b0f16;
-  --glass:rgba(255,255,255,.06);
-  --glass2:rgba(255,255,255,.10);
-  --line:rgba(255,255,255,.08);
-  --line2:rgba(255,255,255,.14);
   --text:#f5f7fb;
   --muted:#9ea9ba;
   --muted2:#7f8ca0;
   --blue:#4aa3ff;
-  --blue2:#7cc0ff;
-  --cyan:#00d4ff;
-  --purple:#a855f7;
   --gold:#d7c39a;
-  --gold2:#f1dfb0;
   --shadow:0 28px 90px rgba(0,0,0,.58);
-  --shadow2:0 18px 50px rgba(0,0,0,.38);
-  --blur:blur(18px) saturate(160%);
-  --radius:24px;
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
@@ -46,10 +34,6 @@ body{
     linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 40%, #010203 100%);
   overflow-x:hidden;
 }
-
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-
 body::before{
   content:'';
   position:fixed;
@@ -63,7 +47,6 @@ body::before{
   pointer-events:none;
   z-index:-2;
 }
-
 body::after{
   content:'';
   position:fixed;
@@ -75,12 +58,10 @@ body::after{
   pointer-events:none;
   z-index:-1;
 }
-
 @keyframes drift{
   from{transform:translate3d(-1%, -1%, 0) scale(1)}
   to{transform:translate3d(1.5%, 1.2%, 0) scale(1.04)}
 }
-
 .intro{
   position:fixed;
   inset:0;
@@ -92,39 +73,8 @@ body::after{
   overflow:hidden;
   background:
     radial-gradient(circle at 50% 42%, rgba(255,255,255,.11) 0%, rgba(10,12,16,.86) 32%, rgba(0,0,0,.97) 68%, #000 100%);
-  animation:introOut 1s cubic-bezier(.7,0,.25,1) 7.2s forwards;
 }
-
-.intro::before{
-  content:'';
-  position:absolute;
-  inset:-30%;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,.12) 0%, transparent 25%),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,.05) 0%, transparent 45%);
-  filter:blur(28px);
-  animation:breath 7s ease-in-out infinite;
-}
-
-.intro::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(180deg, transparent 48%, rgba(255,255,255,.03) 50%, transparent 52%),
-    repeating-linear-gradient(180deg, transparent 0 2px, rgba(255,255,255,.02) 2px 4px);
-  opacity:.15;
-  pointer-events:none;
-}
-
-@keyframes introOut{
-  to{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.02)}
-}
-@keyframes breath{
-  0%,100%{transform:scale(.96);opacity:.46}
-  50%{transform:scale(1.03);opacity:.74}
-}
-
+.intro.hidden{display:none}
 .intro-shell{
   position:relative;
   width:min(1240px,100%);
@@ -133,30 +83,15 @@ body::after{
   gap:22px;
   padding:10px;
 }
-
-.intro-kicker{
+.intro-kicker,.intro-subtag{
   font-family:'Orbitron',sans-serif;
-  font-size:12px;
-  letter-spacing:12px;
   text-transform:uppercase;
+  letter-spacing:8px;
+}
+.intro-kicker{
+  font-size:12px;
   color:#bcc8d8;
-  opacity:0;
-  transform:translateY(-16px);
-  animation:kickerIn 1.2s ease .2s forwards;
 }
-@keyframes kickerIn{to{opacity:1;transform:translateY(0)}}
-
-.intro-line{
-  width:min(680px,86vw);
-  height:1px;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), rgba(255,255,255,.82), rgba(255,255,255,.18), transparent);
-  opacity:0;
-  transform:scaleX(.45);
-  animation:lineIn 1.3s ease 1.6s forwards;
-  filter:blur(.2px);
-}
-@keyframes lineIn{to{opacity:1;transform:scaleX(1)}}
-
 .intro-title{
   font-family:'Orbitron',sans-serif;
   font-size:clamp(42px,6.6vw,96px);
@@ -165,144 +100,25 @@ body::after{
   font-weight:900;
   text-transform:uppercase;
   color:#fbfcfe;
-  text-wrap:balance;
-  opacity:0;
-  filter:blur(18px);
-  transform:translateY(10px) scale(.98);
-  text-shadow:
-    0 0 18px rgba(255,255,255,.10),
-    0 0 50px rgba(74,163,255,.14);
-  animation:titleIn 2.1s cubic-bezier(.12,.84,.18,1) .8s forwards, titleGlow 4s ease-in-out 3.2s infinite;
 }
-@keyframes titleIn{
-  0%{
-    opacity:0;
-    filter:blur(24px);
-    transform:translateY(18px) scale(.94);
-    letter-spacing:28px;
-  }
-  55%{opacity:.88;filter:blur(6px)}
-  100%{
-    opacity:1;
-    filter:blur(0);
-    transform:translateY(0) scale(1);
-    letter-spacing:clamp(4px,1vw,18px);
-  }
-}
-@keyframes titleGlow{
-  0%,100%{
-    text-shadow:
-      0 0 18px rgba(255,255,255,.10),
-      0 0 50px rgba(74,163,255,.14),
-      0 0 100px rgba(0,212,255,.08);
-  }
-  50%{
-    text-shadow:
-      0 0 26px rgba(255,255,255,.14),
-      0 0 64px rgba(74,163,255,.22),
-      0 0 120px rgba(0,212,255,.12);
-  }
-}
-
 .intro-subtitle{
   font-family:'Orbitron',sans-serif;
   font-size:clamp(14px,1.9vw,24px);
   letter-spacing:clamp(3px,.55vw,8px);
   text-transform:uppercase;
   color:var(--muted2);
-  opacity:0;
-  transform:translateY(14px);
-  animation:subIn 1.4s ease 2.3s forwards, subGlow 4s ease-in-out 4s infinite;
 }
-@keyframes subIn{to{opacity:1;transform:translateY(0)}}
-@keyframes subGlow{
-  0%,100%{text-shadow:0 0 10px rgba(255,255,255,.08)}
-  50%{text-shadow:0 0 18px rgba(255,255,255,.16)}
-}
-
 .intro-subtag{
-  font-family:'Orbitron',sans-serif;
   font-size:14px;
   font-weight:700;
   color:#4aa3ff;
-  letter-spacing:8px;
-  text-transform:uppercase;
-  opacity:0;
-  transform:translateY(18px);
-  text-shadow:0 0 10px rgba(74,163,255,.45);
-  animation:subtagIn 1.5s cubic-bezier(.1,.8,.2,1) 3.8s forwards, subtagPulse 3s ease-in-out 5s infinite;
 }
-@keyframes subtagIn{
-  0%{opacity:0;transform:translateY(28px);letter-spacing:14px}
-  100%{opacity:1;transform:translateY(0);letter-spacing:8px}
-}
-@keyframes subtagPulse{
-  0%,100%{text-shadow:0 0 10px rgba(74,163,255,.36),0 0 30px rgba(74,163,255,.12)}
-  50%{text-shadow:0 0 16px rgba(74,163,255,.58),0 0 44px rgba(0,212,255,.16)}
-}
-
-.intro-center-group{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:2;
-  padding:20px 0;
-}
-.intro-center-group::before{
-  content:'';
-  position:absolute;
-  width:100vw;
-  max-width:1200px;
-  height:380px;
-  background:radial-gradient(circle at center, rgba(74,163,255,.18), transparent 64%);
-  filter:blur(24px);
-  z-index:-1;
-}
-
-.hero-rings{
-  position:absolute;
-  border-radius:50%;
-  border:1px solid rgba(74,163,255,.08);
-  box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;
-  animation:ringPulse 8s linear infinite;
-  pointer-events:none;
-}
-.hero-rings.r1{width:920px;height:920px}
-.hero-rings.r2{width:560px;height:560px;animation-duration:6.5s}
-@keyframes ringPulse{
-  0%{transform:scale(.92);opacity:.35}
-  50%{transform:scale(1);opacity:.72}
-  100%{transform:scale(.92);opacity:.35}
-}
-
-.intro-flare{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:150%;
-  height:1px;
-  transform:translate(-50%,-50%);
-  background:linear-gradient(90deg, transparent, rgba(74,163,255,.45), rgba(255,255,255,.85), rgba(0,212,255,.48), transparent);
-  box-shadow:0 0 40px 8px rgba(74,163,255,.22);
-  animation:flarePulse 4.2s ease-in-out infinite alternate;
-  pointer-events:none;
-  z-index:1;
-}
-@keyframes flarePulse{
-  0%{opacity:.35;width:110%}
-  100%{opacity:.82;width:150%}
-}
-
 main{
-  opacity:0;
-  animation:show 1s cubic-bezier(.4,0,.2,1) 7.35s forwards;
+  display:none;
   min-height:100vh;
   background:radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
 }
-@keyframes show{to{opacity:1}}
-
+main.active{display:block}
 header{
   display:flex;
   justify-content:space-between;
@@ -323,7 +139,6 @@ header b{
   letter-spacing:3px;
   text-transform:uppercase;
   font-size:15px;
-  text-shadow:0 0 10px rgba(74,163,255,.3);
 }
 .lang{
   display:flex;
@@ -352,24 +167,15 @@ header b{
   color:#fff;
   background:rgba(74,163,255,.16);
   border-color:rgba(74,163,255,.55);
-  box-shadow:0 0 18px rgba(74,163,255,.24), inset 0 0 0 1px rgba(255,255,255,.02);
 }
-
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:25px;
-  max-width:1400px;
-  margin:80px auto 28px;
-  padding:0 40px;
+  margin:80px 40px 28px;
 }
 @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:640px){
-  .grid{grid-template-columns:1fr}
-  .intro-title{letter-spacing:8px}
-  .intro-kicker,.intro-subtag{letter-spacing:8px}
-}
-
+@media (max-width:640px){.grid{grid-template-columns:1fr}}
 .card{
   position:relative;
   background:linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
@@ -378,68 +184,29 @@ header b{
   border:1px solid #1b263b;
   cursor:pointer;
   text-align:center;
-  transition:all .4s cubic-bezier(.25,.8,.25,1);
+  transition:all .25s ease;
   min-height:150px;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  opacity:1;
-  transform:translateY(0);
-  animation:cardIn .8s cubic-bezier(.15,.85,.35,1) forwards;
   box-shadow:0 4px 15px rgba(0,0,0,.42);
   overflow:hidden;
 }
-.card::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg, transparent, rgba(74,163,255,.06), rgba(255,255,255,.03), transparent);
-  transform:translateX(-120%);
-  transition:transform .65s;
-}
-.card::after{
-  content:'';
-  position:absolute;
-  inset:auto 12% -40% 12%;
-  height:68%;
-  background:radial-gradient(circle, rgba(74,163,255,.12) 0%, transparent 68%);
-  filter:blur(18px);
-  opacity:.85;
-}
-.card:hover::before{transform:translateX(120%)}
-.card:nth-child(1){animation-delay:0s}
-.card:nth-child(2){animation-delay:.08s}
-.card:nth-child(3){animation-delay:.16s}
-.card:nth-child(4){animation-delay:.24s}
-.card:nth-child(5){animation-delay:.32s}
-.card:nth-child(6){animation-delay:.40s}
-.card:nth-child(7){animation-delay:.48s}
-.card:nth-child(8){animation-delay:.56s}
-@keyframes cardIn{to{opacity:1;transform:translateY(0)}}
 .card:hover{
-  transform:translateY(-8px) scale(1.01);
+  transform:translateY(-6px);
   border-color:#4aa3ff;
-  background:linear-gradient(135deg, #141f38 0%, #0c1224 100%);
   box-shadow:0 15px 35px rgba(74,163,255,.25);
 }
-h3{
+.card h3{
   color:#4aa3ff;
   margin:0;
   font-size:17px;
   letter-spacing:.5px;
   line-height:1.5;
   font-weight:600;
-  transition:color .3s;
-  text-wrap:balance;
 }
-.card:hover h3{color:#ffffff;text-shadow:0 0 10px rgba(74,163,255,.4)}
 .card.archive h3{color:var(--gold)}
-.card.archive:hover h3{color:#fff4cc;text-shadow:0 0 14px rgba(251,191,36,.55)}
-
 .story-block{
-  max-width:1400px;
-  margin:0 auto;
   padding:0 40px 50px;
 }
 .story-panel{
@@ -462,12 +229,8 @@ h3{
   font-size:clamp(18px,2vw,30px);
   line-height:1.55;
   text-wrap:balance;
-  text-shadow:0 0 18px rgba(74,163,255,.18);
 }
-
 .footer{
-  max-width:1400px;
-  margin:0 auto;
   padding:0 40px 30px;
   display:flex;
   justify-content:space-between;
@@ -479,14 +242,8 @@ h3{
   font-size:11px;
 }
 .footer span{color:#f4f6fa}
-
 @media (max-width:700px){
-  body{overflow:auto}
-  header{
-    padding:18px 16px;
-    align-items:flex-start;
-    flex-direction:column;
-  }
+  header{padding:18px 16px;flex-direction:column;align-items:flex-start}
   .grid,.story-block,.footer{padding-left:16px;padding-right:16px}
   .grid{margin-top:28px}
 }
@@ -495,25 +252,17 @@ h3{
 <body>
 
 <div class="intro" id="intro">
-  <div class="intro-grid"></div>
-  <div class="intro-noise"></div>
-  <div class="intro-halo"></div>
-  <div class="intro-frame"></div>
-  <div class="intro-corner tl"></div>
-  <div class="intro-corner br"></div>
-  <div class="intro-glitch"></div>
-  <div class="hero-rings r1"></div>
-  <div class="hero-rings r2"></div>
-  <div class="intro-flare"></div>
-
   <div class="intro-shell">
     <div class="intro-kicker" id="intro-tag">G-Rock Media Presents</div>
-    <div class="intro-line"></div>
-    <div class="intro-center-group">
-      <h1 class="intro-title" id="intro-h1">G-Rock Corporation</h1>
-      <h2 class="intro-subtitle" id="intro-h2">Monkeys University of Gibraltar</h2>
-    </div>
+    <div class="intro-title" id="intro-h1">G-Rock Corporation</div>
+    <div class="intro-subtitle" id="intro-h2">Monkeys University of Gibraltar</div>
     <div class="intro-subtag" id="intro-subtag">powered by G-System</div>
+    <div class="lang" style="margin-top:18px">
+      <a class="active" onclick="showStory('en', this)">🇬🇧 EN</a>
+      <a onclick="showStory('pl', this)">🇵🇱 PL</a>
+      <a onclick="showStory('es', this)">🇪🇸 ES</a>
+      <a onclick="showStory('fr', this)">🇫🇷 FR</a>
+    </div>
   </div>
 </div>
 
@@ -529,21 +278,21 @@ h3{
   </header>
 
   <div class="grid">
-    <div class="card"><h3>Monkeys University of Gibraltar</h3></div>
-    <div class="card"><h3>Bank of the Monkeys from Gibraltar</h3></div>
-    <div class="card"><h3>Parliament of the Monkeys from Gibraltar</h3></div>
-    <div class="card"><h3>The Gibraltar Monkey Library</h3></div>
-    <div class="card"><h3>Campus de Ceuta</h3></div>
-    <div class="card"><h3>Caribbean Campus</h3></div>
-    <div class="card"><h3>Mapa</h3></div>
-    <div class="card archive"><h3>G-Rock Archive</h3></div>
+    <a class="card" href="active-g-rock.html"><h3>Monkeys University of Gibraltar</h3></a>
+    <a class="card" href="active-g-rock.html"><h3>Bank of the Monkeys from Gibraltar</h3></a>
+    <a class="card" href="active-g-rock.html"><h3>Parliament of the Monkeys from Gibraltar</h3></a>
+    <a class="card" href="active-g-rock.html"><h3>The Gibraltar Monkey Library</h3></a>
+    <a class="card" href="active-g-rock.html"><h3>Campus de Ceuta</h3></a>
+    <a class="card" href="active-g-rock.html"><h3>Caribbean Campus</h3></a>
+    <a class="card" href="active-g-rock.html"><h3>Mapa</h3></a>
+    <a class="card archive" href="archive-g-rock.html"><h3>G-Rock Archive</h3></a>
   </div>
 
   <div class="story-block">
     <div class="story-panel">
       <div class="story-kicker" id="story-kicker">A universe connecting</div>
       <div class="story-text" id="story-text">
-        A universe connecting Professor Sugriva, the first chimpanzee accepted by the British academic community as a professor in January 2025, Corporal Wojtek, the real-life soldier bear, and the Barbary macaques of Gibraltar, the only wild monkey population in Europe.
+        A universe connecting Professor Sugriva, a chimpanzee professor from the G-Rock universe, Corporal Wojtek, a real-life bear and World War II veteran who fought against Nazi Germany in Italy and later lived at Edinburgh Zoo, and the Barbary macaques of Gibraltar, the only wild monkey population in Europe.
       </div>
     </div>
   </div>
@@ -563,7 +312,7 @@ const content = {
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
     storyKicker:'A universe connecting',
-    storyText:`A universe connecting Professor Sugriva, the first chimpanzee accepted by the British academic community as a professor in January 2025, Corporal Wojtek, the real-life soldier bear, and the Barbary macaques of Gibraltar, the only wild monkey population in Europe.`,
+    storyText:'A universe connecting Professor Sugriva, a chimpanzee professor from the G-Rock universe, Corporal Wojtek, a real-life bear and World War II veteran who fought against Nazi Germany in Italy and later lived at Edinburgh Zoo, and the Barbary macaques of Gibraltar, the only wild monkey population in Europe.',
     cards:[
       'Monkeys University of Gibraltar',
       'Bank of the Monkeys from Gibraltar',
@@ -580,17 +329,17 @@ const content = {
     introTag:'G-Rock Media Presents',
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
-    storyKicker:'Wszechświat łączący',
-    storyText:`Wszechświat łączący profesora Sugriva, pierwszego szympansa zaakceptowanego przez brytyjskie środowisko akademickie jako profesora w styczniu 2025 roku, kaprala Wojtka, prawdziwego niedźwiedzia-żołnierza, oraz makaki berberyjskie z Gibraltaru, jedyną dziką populację małp w Europie.`,
+    storyKicker:'Świat łączący',
+    storyText:'Świat łączący profesora Sugrivę, pierwszego szympansa zaakceptowanego przez brytyjskie środowisko akademickie jako profesora w styczniu 2025 roku, kaprala Wojtka, prawdziwego niedźwiedzia-żołnierza i weterana II wojny światowej, który walczył przeciw nazistowskim Niemcom we Włoszech, a później mieszkał w zoo w Edynburgu, oraz makaki berberyjskie z Gibraltaru, jedyną dziką populację małp w Europie.',
     cards:[
-      'Uniwersytet Małp Gibraltaru',
-      'Bank Małp z Gibraltaru',
-      'Parlament Małp z Gibraltaru',
-      'Biblioteka Małp z Gibraltaru',
-      'Kampus w Ceucie',
-      'Kampus Karaibski',
+      'Monkeys University of Gibraltar',
+      'Bank of the Monkeys from Gibraltar',
+      'Parliament of the Monkeys from Gibraltar',
+      'The Gibraltar Monkey Library',
+      'Campus de Ceuta',
+      'Caribbean Campus',
       'Mapa',
-      'Archiwum G-Rock'
+      'G-Rock Archive'
     ]
   },
   es:{
@@ -598,17 +347,17 @@ const content = {
     introTag:'G-Rock Media Presents',
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
-    storyKicker:'Un universo que conecta',
-    storyText:`Un universo que conecta al profesor Sugriva, el primer chimpancé aceptado por la comunidad académica británica como profesor en enero de 2025, al cabo Wojtek, el auténtico oso soldado, y a los macacos de Gibraltar, la única población salvaje de monos en Europa.`,
+    storyKicker:'Un mundo que conecta',
+    storyText:'Un mundo que conecta al profesor Sugriva, un profesor chimpancé del universo G-Rock, al cabo Wojtek, un oso real y veterano de la Segunda Guerra Mundial que luchó contra la Alemania nazi en Italia y más tarde vivió en el Zoo de Edimburgo, y a los macacos de Berbería de Gibraltar, la única población salvaje de monos en Europa.',
     cards:[
-      'Universidad de los Monos de Gibraltar',
-      'Banco de los Monos de Gibraltar',
-      'Parlamento de los Monos de Gibraltar',
-      'La Biblioteca de Monos de Gibraltar',
+      'Monkeys University of Gibraltar',
+      'Bank of the Monkeys from Gibraltar',
+      'Parliament of the Monkeys from Gibraltar',
+      'The Gibraltar Monkey Library',
       'Campus de Ceuta',
-      'Campus del Caribe',
+      'Caribbean Campus',
       'Mapa',
-      'Archivo G-Rock'
+      'G-Rock Archive'
     ]
   },
   fr:{
@@ -616,38 +365,48 @@ const content = {
     introTag:'G-Rock Media Presents',
     introH2:'Monkeys University of Gibraltar',
     introSub:'powered by G-System',
-    storyKicker:'Un univers relié',
-    storyText:`Un univers relié au professeur Sugriva, le premier chimpanzé accepté par la communauté académique britannique comme professeur en janvier 2025, au caporal Wojtek, l’ours soldat réel, et aux macaques de Barbarie de Gibraltar, la seule population sauvage de singes en Europe.`,
+    storyKicker:'Un monde reliant',
+    storyText:'Un monde reliant le professeur Sugriva, un professeur chimpanzé de l’univers G-Rock, le caporal Wojtek, un véritable ours et vétéran de la Seconde Guerre mondiale qui a combattu l’Allemagne nazie en Italie puis a vécu au zoo d’Édimbourg, et les macaques de Barbarie de Gibraltar, la seule population sauvage de singes en Europe.',
     cards:[
-      'Université des Singes de Gibraltar',
-      'Banque des Singes de Gibraltar',
-      'Parlement des Singes de Gibraltar',
-      'La Bibliothèque des Singes de Gibraltar',
+      'Monkeys University of Gibraltar',
+      'Bank of the Monkeys from Gibraltar',
+      'Parliament of the Monkeys from Gibraltar',
+      'The Gibraltar Monkey Library',
       'Campus de Ceuta',
-      'Campus des Caraïbes',
+      'Caribbean Campus',
       'Mapa',
-      'Archive G-Rock'
+      'G-Rock Archive'
     ]
   }
 };
+
+let storyTimer, mainTimer;
 
 function setLang(lang, el){
   document.querySelectorAll('.lang a').forEach(a=>a.classList.remove('active'));
   if(el) el.classList.add('active');
   document.getElementById('header-title').innerText = content[lang].header;
-  document.getElementById('intro-tag').innerText = content[lang].introTag;
-  document.getElementById('intro-h2').innerText = content[lang].introH2;
-  document.getElementById('intro-subtag').innerText = content[lang].introSub;
   document.getElementById('story-kicker').innerText = content[lang].storyKicker;
   document.getElementById('story-text').innerText = content[lang].storyText;
   document.querySelectorAll('.grid h3').forEach((node,i)=>node.innerText = content[lang].cards[i]);
 }
 
+function showStory(lang, el){
+  clearTimeout(storyTimer);
+  clearTimeout(mainTimer);
+  document.getElementById('intro').classList.add('hidden');
+  document.getElementById('main').classList.remove('active');
+  setLang(lang, document.querySelectorAll('#main .lang a')[['en','pl','es','fr'].indexOf(lang)]);
+  storyTimer = setTimeout(()=>{
+    document.getElementById('main').classList.add('active');
+    setLang(lang, document.querySelectorAll('#main .lang a')[['en','pl','es','fr'].indexOf(lang)]);
+  }, 6000);
+}
+
 document.addEventListener('DOMContentLoaded', ()=>{
-  setLang('en', document.querySelector('.lang a.active'));
+  document.getElementById('main').classList.remove('active');
 });
 </script>
 
 </body>
-  </html>
-
+</html>
