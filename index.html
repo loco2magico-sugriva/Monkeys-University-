@@ -62,163 +62,8 @@ body{
   z-index:9999;
   overflow:hidden;
   padding:100px 20px;
-  background:#020305;
-  animation:introFadeOut 1.3s cubic-bezier(0.7,0,0.3,1) 7.4s forwards;
+  animation:introFadeOut 1.1s cubic-bezier(0.7,0,0.3,1) 5.6s forwards;
 }
-
-/* Cinematic scene layer — storm sky, sea, the Rock — sits behind all text */
-.intro-scene{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  overflow:hidden;
-  transform-origin:50% 62%;
-  animation:sceneZoom 8.7s cubic-bezier(.16,.4,.2,1) forwards;
-}
-@keyframes sceneZoom{0%{transform:scale(1.07);}100%{transform:scale(1);}}
-
-/* Base stormy sky gradient */
-.sky-base{
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(ellipse 900px 700px at 66% 30%, rgba(120,110,90,.30) 0%, rgba(60,58,55,.14) 38%, transparent 65%),
-    linear-gradient(180deg, #050505 0%, #0a0a0b 22%, #121110 46%, #08090c 72%, #020304 100%);
-}
-
-/* Turbulent cloud texture — layered blurred blobs, very slow drift */
-.cloud-layer{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(30px);
-  opacity:0;
-  mix-blend-mode:screen;
-  animation:cloudReveal 3s ease forwards, cloudDrift linear infinite;
-}
-.cloud-layer.c1{
-  top:-10%; left:20%; width:900px; height:420px;
-  background:radial-gradient(ellipse, rgba(200,195,180,.22) 0%, rgba(160,155,140,.10) 45%, transparent 75%);
-  animation-duration:3s, 70s; animation-delay:0s, 0s;
-}
-.cloud-layer.c2{
-  top:2%; left:48%; width:760px; height:360px;
-  background:radial-gradient(ellipse, rgba(225,215,190,.28) 0%, rgba(170,160,140,.12) 45%, transparent 75%);
-  animation-duration:3.4s, 55s; animation-delay:.3s, 0s;
-}
-.cloud-layer.c3{
-  top:14%; left:8%; width:640px; height:320px;
-  background:radial-gradient(ellipse, rgba(150,150,155,.20) 0%, rgba(110,110,120,.10) 50%, transparent 75%);
-  animation-duration:3.8s, 85s; animation-delay:.5s, 0s;
-}
-.cloud-layer.c4{
-  top:-4%; left:62%; width:520px; height:280px;
-  background:radial-gradient(ellipse, rgba(255,244,222,.32) 0%, rgba(200,185,150,.12) 45%, transparent 72%);
-  animation-duration:3.2s, 46s; animation-delay:.7s, 0s;
-}
-@keyframes cloudReveal{to{opacity:1;}}
-@keyframes cloudDrift{0%{transform:translateX(-4%);}100%{transform:translateX(4%);}}
-
-/* distant stars, twinkling, upper-left clear patch of sky */
-.star{
-  position:absolute;
-  border-radius:50%;
-  background:#d7e2f2;
-  opacity:0;
-  animation:twinkle 4s ease-in-out infinite;
-}
-@keyframes twinkle{0%,100%{opacity:.1;}50%{opacity:.75;}}
-
-/* faint warm town lights hugging the base of the rock */
-.horizon-light{
-  position:absolute;
-  border-radius:50%;
-  background:#ffd28a;
-  box-shadow:0 0 5px 1px rgba(255,200,140,.55);
-  opacity:.3;
-  animation:twinkle 3s ease-in-out infinite;
-}
-
-/* backlight glow — the light source breaking through clouds behind the peak */
-.backlight{
-  position:absolute;
-  top:13%; left:54%;
-  width:520px; height:520px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(255,248,225,.65) 0%, rgba(230,210,170,.28) 30%, rgba(180,160,130,.10) 55%, transparent 75%);
-  opacity:0;
-  animation:backlightReveal 3.4s ease .2s forwards, backlightPulse 7s ease-in-out 3.6s infinite;
-  filter:blur(3px);
-  mix-blend-mode:screen;
-}
-@keyframes backlightReveal{to{opacity:1;}}
-@keyframes backlightPulse{0%,100%{opacity:.8;}50%{opacity:1;}}
-
-
-
-/* Sea surface below the Rock — dark water with a reflected light column */
-.sea-wrap{
-  position:absolute;
-  bottom:0; left:0;
-  width:100%;
-  height:17%;
-  z-index:1;
-  overflow:hidden;
-  background:linear-gradient(180deg, #06070a 0%, #020203 100%);
-}
-.sea-reflection{
-  position:absolute;
-  top:0; left:54%;
-  width:220px; height:100%;
-  transform:translateX(-50%);
-  background:linear-gradient(180deg, rgba(230,215,180,.30) 0%, rgba(180,165,140,.10) 55%, transparent 100%);
-  opacity:0;
-  filter:blur(1px);
-  animation:reflectReveal 2.4s ease 3s forwards;
-}
-@keyframes reflectReveal{to{opacity:1;}}
-.sea-shimmer{
-  position:absolute;
-  left:-10%;
-  width:120%;
-  height:3px;
-  background:linear-gradient(90deg, transparent, rgba(200,210,225,.35), transparent);
-  opacity:0;
-  animation:shimmerReveal 1.5s ease forwards, shimmerDrift linear infinite;
-}
-.sea-shimmer.sh1{top:22%; animation-duration:1.5s, 9s; animation-delay:3.2s, 3.2s;}
-.sea-shimmer.sh2{top:48%; animation-duration:1.5s, 12s; animation-delay:3.5s, 3.5s;}
-.sea-shimmer.sh3{top:74%; animation-duration:1.5s, 7s; animation-delay:3.8s, 3.8s;}
-@keyframes shimmerReveal{to{opacity:.5;}}
-@keyframes shimmerDrift{0%{transform:translateX(-3%);}100%{transform:translateX(3%);}}
-
-/* tiny boat silhouette, gently bobbing on the water */
-.boat{
-  position:absolute;
-  bottom:7%; left:38%;
-  width:34px; height:12px;
-  opacity:0;
-  animation:boatReveal 1.5s ease 4s forwards, boatBob 4s ease-in-out 5s infinite;
-}
-.boat svg{width:100%;height:100%;fill:#0c1016;}
-@keyframes boatReveal{to{opacity:.85;}}
-@keyframes boatBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-2px);}}
-
-/* thin haze drifting just above the waterline, softening the rock's base */
-.mist-layer{
-  position:absolute;
-  left:-20%;
-  width:140%;
-  height:90px;
-  background:linear-gradient(90deg, transparent, rgba(180,190,205,.08), rgba(180,190,205,.13), rgba(180,190,205,.06), transparent);
-  filter:blur(6px);
-  opacity:0;
-  animation:mistReveal 2s ease forwards, mistDrift linear infinite;
-}
-.mist-layer.m1{bottom:14%; height:70px; animation-duration:2s, 30s; animation-delay:1.2s, 1.2s;}
-.mist-layer.m2{bottom:11%; height:100px; animation-duration:2s, 38s; animation-delay:1.6s, 1.6s;}
-@keyframes mistReveal{to{opacity:1;}}
-@keyframes mistDrift{0%{transform:translateX(-5%);}100%{transform:translateX(5%);}}
 
 .intro::before{
   content:"";
@@ -230,7 +75,7 @@ body{
   box-shadow:0 0 40px 6px rgba(74,163,255,0.35);
   animation:flarePulse 4s ease-in-out infinite alternate;
   pointer-events:none;
-  z-index:5;
+  z-index:1;
 }
 
 @keyframes flarePulse{0%{opacity:.3;width:100%;}100%{opacity:.85;width:150%;}}
@@ -265,7 +110,7 @@ body{
   text-shadow:0 0 18px rgba(74,163,255,.75), 0 0 55px rgba(74,163,255,.35);
   opacity:0;
   position:relative;
-  animation:cinematicReveal 2.4s cubic-bezier(.16,.6,.15,1) 1.6s forwards, glitchFlicker 6s linear 4.4s infinite;
+  animation:cinematicReveal 2.1s cubic-bezier(.1,.8,.2,1) 1.4s forwards, glitchFlicker 6s linear 3.6s infinite;
 }
 .intro h1::before,
 .intro h1::after{
@@ -276,16 +121,16 @@ body{
 }
 .intro h1::before{
   color:#ff3b6a;
-  animation:glitchSplitA 6s linear 4.4s infinite;
+  animation:glitchSplitA 6s linear 3.6s infinite;
   clip-path:inset(0 0 55% 0);
 }
 .intro h1::after{
   color:#39f2c8;
-  animation:glitchSplitB 6s linear 4.4s infinite;
+  animation:glitchSplitB 6s linear 3.6s infinite;
   clip-path:inset(55% 0 0 0);
 }
 
-@keyframes cinematicReveal{0%{opacity:0;filter:blur(24px);transform:scale(.93) translateY(10px);letter-spacing:26px;}60%{opacity:.85;filter:blur(3px);}100%{opacity:1;filter:blur(0);transform:scale(1) translateY(0);letter-spacing:14px;}}
+@keyframes cinematicReveal{0%{opacity:0;filter:blur(20px);transform:scale(.95);letter-spacing:22px;}50%{opacity:.7;filter:blur(6px);}100%{opacity:1;filter:blur(0);transform:scale(1);letter-spacing:14px;}}
 @keyframes glitchFlicker{0%,93%,100%{opacity:1;}94%{opacity:.6;transform:translateX(-2px);}95%{opacity:1;transform:translateX(2px);}96%{opacity:.7;}97%{opacity:1;transform:translateX(0);}}
 @keyframes glitchSplitA{0%,92%,100%{opacity:0;transform:translate(0,0);}93%{opacity:.7;transform:translate(-4px,-1px);}94%{opacity:0;}96%{opacity:.5;transform:translate(3px,1px);}97%{opacity:0;}}
 @keyframes glitchSplitB{0%,92%,100%{opacity:0;transform:translate(0,0);}93%{opacity:.6;transform:translate(4px,1px);}94%{opacity:0;}96%{opacity:.4;transform:translate(-3px,-1px);}97%{opacity:0;}}
@@ -300,7 +145,7 @@ body{
   letter-spacing:9px;
   opacity:0;
   filter:blur(8px);
-  animation:subtitleReveal 2s cubic-bezier(.16,.6,.15,1) 3.2s forwards;
+  animation:subtitleReveal 1.8s cubic-bezier(.1,.8,.2,1) 2.5s forwards;
 }
 @keyframes subtitleReveal{0%{opacity:0;filter:blur(10px);letter-spacing:3px;transform:translateY(15px);}100%{opacity:1;filter:blur(0);letter-spacing:9px;transform:translateY(0);}}
 
@@ -312,7 +157,7 @@ body{
   text-transform:uppercase;
   letter-spacing:8px;
   opacity:0;
-  animation:subtagReveal 1.8s cubic-bezier(.16,.6,.15,1) 4.3s forwards;
+  animation:subtagReveal 1.5s cubic-bezier(.1,.8,.2,1) 3.6s forwards;
   z-index:3;
   text-shadow:0 0 8px rgba(74,163,255,.5);
 }
@@ -329,7 +174,7 @@ body{
   color:#3a5a8a;
   letter-spacing:2px;
   opacity:0;
-  animation:bootReveal .6s ease 5s forwards;
+  animation:bootReveal .6s ease 4.3s forwards;
   z-index:3;
 }
 @keyframes bootReveal{to{opacity:1;}}
@@ -343,13 +188,13 @@ body{
   opacity:0;
   z-index:3;
   filter:drop-shadow(0 0 6px rgba(74,163,255,.6));
-  animation:hudReveal 1.2s ease .3s forwards;
+  animation:hudReveal 1s ease .2s forwards;
 }
 .hud-corner.tl{top:34px; left:34px; border-top:2px solid var(--blue); border-left:2px solid var(--blue);}
 .hud-corner.tr{top:34px; right:34px; border-top:2px solid var(--blue); border-right:2px solid var(--blue);}
 .hud-corner.bl{bottom:34px; left:34px; border-bottom:2px solid var(--blue); border-left:2px solid var(--blue);}
 .hud-corner.br{bottom:34px; right:34px; border-bottom:2px solid var(--blue); border-right:2px solid var(--blue);}
-@keyframes hudReveal{0%{opacity:0;transform:scale(1.4);}100%{opacity:.7;transform:scale(1);}}
+@keyframes hudReveal{0%{opacity:0;transform:scale(1.4);}100%{opacity:.8;transform:scale(1);}}
 
 /* Rotating HUD ring behind the title */
 .hud-ring{
@@ -362,11 +207,11 @@ body{
   -webkit-mask:radial-gradient(circle, transparent 62%, #000 63%, #000 64%, transparent 65%);
   mask:radial-gradient(circle, transparent 62%, #000 63%, #000 64%, transparent 65%);
   opacity:0;
-  animation:ringReveal 1.8s ease 1.6s forwards, ringSpin 18s linear infinite;
+  animation:ringReveal 1.5s ease 1.2s forwards, ringSpin 14s linear infinite;
   z-index:0;
   pointer-events:none;
 }
-@keyframes ringReveal{to{opacity:.7;}}
+@keyframes ringReveal{to{opacity:1;}}
 @keyframes ringSpin{to{transform:translate(-50%,-50%) rotate(360deg);}}
 
 /* One-shot chromatic flash at title impact */
@@ -377,10 +222,10 @@ body{
   opacity:0;
   z-index:20;
   pointer-events:none;
-  animation:flashPulse 8.7s ease-out forwards;
+  animation:flashPulse 6.2s ease-out .1s forwards;
   mix-blend-mode:screen;
 }
-@keyframes flashPulse{0%{opacity:0;}18%{opacity:0;}18.5%{opacity:.7;}19.5%{opacity:0;}100%{opacity:0;}}
+@keyframes flashPulse{0%{opacity:0;}22.5%{opacity:0;}23%{opacity:.85;}24%{opacity:0;}100%{opacity:0;}}
 
 /* ================= LANGUAGE SELECT ================= */
 .lang-select{
@@ -412,7 +257,6 @@ body{
   width:min(900px, 90vw);
 }
 @media (max-width:720px){.flag-grid{grid-template-columns:repeat(2,1fr);}}
-
 
 .flag-card{
   background:linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
@@ -688,26 +532,6 @@ h3{
 
 <!-- CINEMATIC INTRO -->
 <div class="intro" id="intro">
-  <div class="intro-scene" id="introScene">
-    <div class="sky-base"></div>
-    <div class="cloud-layer c1"></div>
-    <div class="cloud-layer c2"></div>
-    <div class="cloud-layer c3"></div>
-    <div class="cloud-layer c4"></div>
-    <div id="starField"></div>
-    <div class="backlight"></div>
-    <div class="sea-wrap">
-      <div class="sea-reflection"></div>
-      <div class="sea-shimmer sh1"></div>
-      <div class="sea-shimmer sh2"></div>
-      <div class="sea-shimmer sh3"></div>
-    </div>
-    <div class="boat">
-      <svg viewBox="0 0 34 12"><path d="M2,10 L32,10 L27,12 L7,12 Z M14,10 L14,2 L15,2 L15,10 Z M15,3 L24,8 L15,8 Z"/></svg>
-    </div>
-    <div class="mist-layer m1"></div>
-    <div class="mist-layer m2"></div>
-  </div>
   <div class="flash"></div>
   <div class="hud-corner tl"></div>
   <div class="hud-corner tr"></div>
@@ -824,52 +648,20 @@ const storyText = document.getElementById('storyText');
 const storyBar = document.getElementById('storyBar');
 const mainEl = document.getElementById('main');
 
-// Scatter stars + faint horizon lights across the intro sky
-(function spawnStars(){
-  const field = document.getElementById('starField');
-  if(!field) return;
-  const STAR_COUNT = 70;
-  for(let i=0;i<STAR_COUNT;i++){
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = (Math.random()*2 + 0.6).toFixed(1);
-    s.style.width = size + 'px';
-    s.style.height = size + 'px';
-    s.style.left = (Math.random()*100) + '%';
-    s.style.top = (Math.random()*55) + '%';
-    s.style.animationDelay = (Math.random()*4) + 's';
-    s.style.animationDuration = (3 + Math.random()*3) + 's';
-    field.appendChild(s);
-  }
-  const LIGHT_COUNT = 14;
-  for(let i=0;i<LIGHT_COUNT;i++){
-    const l = document.createElement('div');
-    l.className = 'horizon-light';
-    const size = (Math.random()*1.8 + 1.2).toFixed(1);
-    l.style.width = size + 'px';
-    l.style.height = size + 'px';
-    l.style.left = (58 + Math.random()*38) + '%';
-    l.style.top = (68 + Math.random()*10) + '%';
-    l.style.animationDelay = (Math.random()*3) + 's';
-    l.style.animationDuration = (2.4 + Math.random()*2) + 's';
-    field.appendChild(l);
-  }
-})();
-
-// Intro runs ~8.7s total (matches CSS animation delay + duration), then show language picker
+// Intro runs ~6.7s total (matches CSS animation delay + duration), then show language picker
 setTimeout(()=>{
   intro.style.display = 'none';
   langSelect.classList.add('active');
-}, 8700);
+}, 6700);
 
 // Cycling boot log for extra HUD flavor
 const bootline = document.getElementById('bootline');
 const BOOT_LINES = [
   { t: 0,    msg: "G-SYSTEM // INITIALIZING..." },
-  { t: 1800, msg: "AUTHENTICATING NODE: GIBRALTAR-01..." },
-  { t: 3400, msg: "LOADING CANON BIBLE // L0–L3..." },
-  { t: 5000, msg: "SIGNAL LOCKED // MONKEYS UNIVERSITY OF GIBRALTAR" },
-  { t: 6400, msg: "UPLINK ESTABLISHED // STATUS: ONLINE" }
+  { t: 1600, msg: "AUTHENTICATING NODE: GIBRALTAR-01..." },
+  { t: 2900, msg: "LOADING CANON BIBLE // L0–L3..." },
+  { t: 4100, msg: "SIGNAL LOCKED // MONKEYS UNIVERSITY OF GIBRALTAR" },
+  { t: 5200, msg: "UPLINK ESTABLISHED // STATUS: ONLINE" }
 ];
 BOOT_LINES.forEach(line=>{
   setTimeout(()=>{ bootline.textContent = line.msg; }, line.t);
@@ -922,6 +714,5 @@ function setLang(lang){
 </script>
 
 </body>
-</html>
-
+      </html>
   
