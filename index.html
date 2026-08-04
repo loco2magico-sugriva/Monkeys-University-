@@ -334,7 +334,7 @@ body{
   height:100%;
   width:0%;
   background:linear-gradient(90deg, var(--blue), #8da4ff);
-  animation:storyProgress 6s linear forwards;
+  animation:storyProgress 10s linear forwards;
 }
 @keyframes storyProgress{to{width:100%;}}
 
@@ -488,6 +488,40 @@ h3{
   box-shadow:0 15px 35px rgba(212,175,55,.35);
 }
 .card.gold:hover h3{color:var(--gold-bright);text-shadow:0 0 14px rgba(255,224,138,.7);}
+
+/* BIG STORY TILE — fills the space below the 8 cards */
+.story-card{
+  grid-column:1 / -1;
+  min-height:auto;
+  padding:44px 60px;
+  text-align:left;
+  align-items:flex-start;
+  justify-content:center;
+  animation-delay:.9s;
+}
+.story-card .story-eyebrow-small{
+  font-family:'Orbitron', sans-serif;
+  font-size:11px;
+  letter-spacing:8px;
+  color:var(--blue);
+  text-transform:uppercase;
+  margin-bottom:16px;
+  transition:color .3s;
+}
+.story-card p{
+  font-family:'Share Tech Mono', monospace;
+  color:var(--blue);
+  font-size:15px;
+  line-height:1.9;
+  margin:0;
+  letter-spacing:.3px;
+  transition:color .3s;
+}
+.story-card:hover .story-eyebrow-small,
+.story-card:hover p{
+  color:#ffffff;
+  text-shadow:0 0 10px rgba(74,163,255,.3);
+}
 </style>
 </head>
 
@@ -567,6 +601,10 @@ h3{
   <div class="card" onclick="location.href='caribbean.html'"><h3>Caribbean Campus</h3></div>
   <div class="card gold" onclick="location.href='archive.html'"><h3>G-Rock Archive</h3></div>
   <div class="card" onclick="location.href='map.html'"><h3>World Map</h3></div>
+  <div class="card story-card">
+    <div class="story-eyebrow-small">G-Rock Archive // Origin File</div>
+    <p id="storyCardText"></p>
+  </div>
 </div>
 </main>
 
@@ -642,14 +680,14 @@ function chooseLang(lang){
   story.classList.add('active');
   storyBar.style.animation = 'none';
   void storyBar.offsetWidth; // restart animation
-  storyBar.style.animation = 'storyProgress 6s linear forwards';
+  storyBar.style.animation = 'storyProgress 10s linear forwards';
 
   setTimeout(()=>{
     story.classList.remove('active');
     mainEl.classList.add('active');
     setLang(lang);
     highlightLang(lang);
-  }, 6000);
+  }, 10000);
 }
 
 function highlightLang(lang){
@@ -670,6 +708,7 @@ function setLang(lang){
     fr:["Université des Singes de Gibraltar","Banque des Singes de Gibraltar","Parlement des Singes de Gibraltar","La Bibliothèque des Singes de Gibraltar","Campus de Ceuta","Campus des Caraïbes","Archives G-Rock","Carte du Monde"]
   };
   document.querySelectorAll(".grid h3").forEach((el,i)=>{ el.innerText = data[lang][i]; });
+  document.getElementById('storyCardText').textContent = STORY[lang];
   highlightLang(lang);
 }
 </script>
