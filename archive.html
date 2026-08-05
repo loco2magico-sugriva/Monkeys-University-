@@ -1,130 +1,607 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>G-ROCK Archive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#04060a;--panel:#0a0e1a;--panel2:#0f1626;--blue:#4aa3ff;--blue-dim:#1b263b;--gold:#d4af37;--gold-bright:#ffe08a;--text:#e6e6e6;--muted:#9cb0d0;--ok:#39f2c8;--pink:#ff3b6a}
-*{box-sizing:border-box}html,body{margin:0;height:100%;background:radial-gradient(circle at top,#0d1322 0%,#05070d 40%,#03050a 100%);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
-body{min-height:100vh}
-#rain{position:fixed;inset:0;z-index:1;opacity:.22;pointer-events:none}
-.scanlines{position:fixed;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.16) 3px,rgba(0,0,0,0) 4px),radial-gradient(ellipse at center,rgba(0,0,0,0) 0,rgba(0,0,0,.5) 100%);mix-blend-mode:multiply}
-.shell{position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid rgba(74,163,255,.15);background:linear-gradient(180deg,rgba(10,14,26,.86),rgba(10,14,26,.45));backdrop-filter:blur(10px)}
-.brand{font-family:'Orbitron',sans-serif;letter-spacing:4px;font-size:14px;color:#dbe6ff;text-transform:uppercase}
-.brand b{color:var(--gold-bright)}
-.badge{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:#7fa8e0}
-.page{width:min(1400px,100%);margin:0 auto;padding:24px 18px 42px}
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+:root{
+  --bg:#04060a;
+  --panel:#0b1020;
+  --line:#22314d;
+  --blue:#4aa3ff;
+  --gold:#d4af37;
+  --gold2:#ffe08a;
+  --text:#e8eef9;
+  --muted:#9cb0d0;
+  --ok:#7cffb2;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  background:radial-gradient(circle at top,#0f1728 0%,#05070d 48%,#03050a 100%);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+#rain{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  opacity:.18;
+  pointer-events:none;
+}
+.scanlines{
+  position:fixed;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.16) 3px,rgba(0,0,0,0) 4px),radial-gradient(ellipse at center,rgba(0,0,0,0) 0,rgba(0,0,0,.45) 100%);
+  mix-blend-mode:multiply;
+}
+.shell{
+  position:relative;
+  z-index:3;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:18px 22px;
+  border-bottom:1px solid rgba(74,163,255,.14);
+  background:linear-gradient(180deg,rgba(10,14,26,.88),rgba(10,14,26,.42));
+  backdrop-filter:blur(10px);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.brand{
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:4px;
+  font-size:14px;
+  color:#dbe6ff;
+  text-transform:uppercase;
+}
+.brand b{color:var(--gold2)}
+.badge{
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;
+  letter-spacing:2px;
+  color:#7fa8e0;
+}
+.page{
+  width:min(1400px,100%);
+  margin:0 auto;
+  padding:24px 18px 46px;
+}
+.card{
+  background:linear-gradient(135deg,rgba(17,24,42,.96),rgba(10,14,26,.92));
+  border:1px solid rgba(74,163,255,.16);
+  border-radius:18px;
+  box-shadow:0 22px 70px rgba(0,0,0,.35);
+  overflow:hidden;
+  position:relative;
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+  align-items:stretch;
+}
 @media (max-width:980px){.hero{grid-template-columns:1fr}}
-.card{background:linear-gradient(135deg,rgba(15,22,38,.95),rgba(10,14,26,.92));border:1px solid rgba(74,163,255,.18);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden;position:relative}
-.card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.03),transparent 30%,transparent 70%,rgba(255,255,255,.02));pointer-events:none}
-.intro-panel{padding:30px 28px;min-height:360px;display:flex;flex-direction:column;justify-content:center;gap:18px}
-.kicker{font-family:'Orbitron',sans-serif;color:#8da4ff;letter-spacing:6px;text-transform:uppercase;font-size:12px}
-.title{font-family:'Orbitron',sans-serif;font-weight:900;letter-spacing:7px;line-height:1.03;margin:0;color:var(--blue);font-size:clamp(34px,4.6vw,68px);text-transform:uppercase;text-shadow:0 0 20px rgba(74,163,255,.25)}
-.subtitle{font-family:'Share Tech Mono',monospace;font-size:15px;letter-spacing:3px;color:#fff;text-transform:uppercase;opacity:.95}
-.lead{max-width:62ch;color:#d5deee;line-height:1.7;margin:0;font-size:15px}
-.row{display:flex;flex-wrap:wrap;gap:12px}
-.btn{appearance:none;border:none;border-radius:12px;padding:14px 18px;font-weight:700;cursor:pointer;transition:.25s ease;font-family:'Orbitron',sans-serif;letter-spacing:2px;text-transform:uppercase}
-.btn.primary{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#111;box-shadow:0 10px 30px rgba(212,175,55,.18)}
-.btn.primary:hover{transform:translateY(-2px);filter:brightness(1.03)}
+.panel{padding:30px 28px}
+.kicker{
+  font-family:'Orbitron',sans-serif;
+  color:#8da4ff;
+  letter-spacing:6px;
+  text-transform:uppercase;
+  font-size:12px;
+}
+.title{
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  letter-spacing:7px;
+  line-height:1.02;
+  margin:0;
+  color:var(--blue);
+  font-size:clamp(34px,4.6vw,68px);
+  text-transform:uppercase;
+}
+.subtitle{
+  font-family:'Share Tech Mono',monospace;
+  font-size:15px;
+  letter-spacing:3px;
+  color:#fff;
+  text-transform:uppercase;
+  opacity:.95;
+  margin-top:8px;
+}
+.lead{
+  max-width:68ch;
+  color:#d4dded;
+  line-height:1.7;
+  margin:0;
+  font-size:15px;
+}
+.row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:18px;
+}
+.btn{
+  appearance:none;
+  border:none;
+  border-radius:12px;
+  padding:14px 18px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.25s ease;
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.btn.primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#111}
 .btn.ghost{background:rgba(4,6,10,.45);border:1px solid rgba(74,163,255,.25);color:#dbe6ff}
-.btn.ghost:hover{border-color:var(--blue)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media (max-width:680px){.stats{grid-template-columns:1fr}}
-.stat{padding:18px;border-radius:14px;background:rgba(4,6,10,.35);border:1px solid rgba(74,163,255,.12)}
-.stat .n{font-family:'Orbitron',sans-serif;font-size:20px;color:var(--gold-bright);margin-bottom:6px}
-.stat .l{font-size:13px;color:var(--muted);line-height:1.5}
+.btn.outline{background:transparent;border:1px solid rgba(124,255,178,.25);color:#dfffea}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+@media (max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.stats{grid-template-columns:1fr}}
+.stat{
+  padding:18px;
+  border-radius:14px;
+  background:rgba(4,6,10,.35);
+  border:1px solid rgba(74,163,255,.12);
+}
+.stat .n{
+  font-family:'Orbitron',sans-serif;
+  font-size:20px;
+  color:var(--gold2);
+  margin-bottom:6px;
+}
+.stat .l{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.5;
+}
 .flow{padding:22px}
-.flow h3{margin:0 0 14px;font-family:'Orbitron',sans-serif;letter-spacing:4px;text-transform:uppercase;font-size:13px;color:#cfe0ff}
+.flow h3{
+  margin:0 0 14px;
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:13px;
+  color:#cfe0ff;
+}
 .flow-list{display:grid;gap:12px}
-.step{padding:16px 16px 16px 18px;border-radius:14px;background:rgba(4,6,10,.35);border:1px solid rgba(74,163,255,.12);display:flex;gap:14px;align-items:flex-start}
-.num{min-width:30px;width:30px;height:30px;border-radius:999px;background:rgba(74,163,255,.16);border:1px solid rgba(74,163,255,.22);display:grid;place-items:center;font-family:'Orbitron',sans-serif;color:#dbe6ff;font-size:12px}
+.step{
+  padding:16px 16px 16px 18px;
+  border-radius:14px;
+  background:rgba(4,6,10,.35);
+  border:1px solid rgba(74,163,255,.12);
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.num{
+  min-width:30px;
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  background:rgba(74,163,255,.16);
+  border:1px solid rgba(74,163,255,.22);
+  display:grid;
+  place-items:center;
+  font-family:'Orbitron',sans-serif;
+  color:#dbe6ff;
+  font-size:12px;
+}
 .step b{display:block;margin-bottom:4px}
 .step span{color:var(--muted);font-size:13px;line-height:1.5}
 .section{margin-top:18px;padding:22px}
-.section h2{margin:0 0 10px;font-family:'Orbitron',sans-serif;letter-spacing:4px;text-transform:uppercase;font-size:16px;color:#dbe6ff}
-.langs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.section h2{
+  margin:0 0 14px;
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:16px;
+  color:#dbe6ff;
+}
+.langs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
 @media (max-width:900px){.langs{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.langs{grid-template-columns:1fr}}
-.lang{padding:16px;border-radius:14px;background:rgba(4,6,10,.35);border:1px solid rgba(74,163,255,.12);cursor:pointer;transition:.2s ease}
-.lang:hover{transform:translateY(-2px);border-color:var(--blue)}
-.lang.active{border-color:var(--gold-bright);box-shadow:0 0 0 1px rgba(255,224,138,.15) inset}
-.lang .a{font-size:28px;margin-bottom:8px}.lang .b{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase}.lang .c{font-size:12px;color:var(--muted);margin-top:6px}
+.lang{
+  padding:16px;
+  border-radius:14px;
+  background:rgba(4,6,10,.35);
+  border:1px solid rgba(74,163,255,.12);
+  cursor:pointer;
+}
+.lang.active{border-color:var(--gold2)}
+.lang .a{font-size:28px;margin-bottom:8px}
+.lang .b{
+  font-family:'Orbitron',sans-serif;
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.lang .c{font-size:12px;color:var(--muted);margin-top:6px}
+.payment-box{
+  padding:18px;
+  border-radius:14px;
+  background:rgba(4,6,10,.35);
+  border:1px solid rgba(212,175,55,.20);
+}
+.payment-box .big{
+  font-family:'Orbitron',sans-serif;
+  font-size:16px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold2);
+  margin-bottom:8px;
+}
+.payment-box .small{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+input,select{
+  background:rgba(4,6,10,.38);
+  border:1px solid rgba(74,163,255,.18);
+  border-radius:12px;
+  padding:14px 14px;
+  color:#fff;
+  outline:none;
+  width:100%;
+}
+input:focus,select:focus{border-color:var(--gold2)}
+.searchbar{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  margin-bottom:14px;
+}
+@media (max-width:640px){.searchbar{grid-template-columns:1fr}}
+.filter-bar{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:14px;
+  margin-bottom:14px;
+}
+@media (max-width:900px){.filter-bar{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.filter-bar{grid-template-columns:repeat(2,1fr)}}
+.filter-btn{
+  padding:12px 10px;
+  border-radius:12px;
+  background:rgba(4,6,10,.35);
+  border:1px solid rgba(74,163,255,.12);
+  color:#dbe6ff;
+  cursor:pointer;
+  font-family:'Orbitron',sans-serif;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.filter-btn.active{border-color:var(--gold2);color:var(--gold2)}
+.latest-list{display:grid;gap:10px}
+.latest-item{
+  padding:14px 16px;
+  border-radius:12px;
+  background:rgba(4,6,10,.35);
+  border:1px solid rgba(74,163,255,.12);
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.latest-item b{color:#fff}
+.latest-item span{color:var(--muted)}
 .library{margin-top:18px;padding:22px}
-.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
-.pill{padding:10px 14px;border-radius:999px;border:1px solid rgba(74,163,255,.15);background:rgba(4,6,10,.28);color:#dbe6ff;font-size:12px;letter-spacing:1px;cursor:pointer}.pill.active{border-color:var(--gold-bright);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
 @media (max-width:1020px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:680px){.grid{grid-template-columns:1fr}}
-.item{padding:18px;border-radius:16px;background:linear-gradient(180deg,rgba(15,22,38,.95),rgba(9,12,21,.95));border:1px solid rgba(74,163,255,.13);position:relative;overflow:hidden}
-.item::after{content:"";position:absolute;inset:-40% -20% auto auto;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,224,138,.16),transparent 65%);pointer-events:none}
-.item h4{margin:0 0 8px;font-family:'Orbitron',sans-serif;font-size:15px;letter-spacing:2px}
-.meta{display:grid;gap:6px;font-size:13px;color:#ccd7e7}.meta b{color:#fff}.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(74,163,255,.12);border:1px solid rgba(74,163,255,.14);font-size:12px;color:#dbe6ff;margin-top:12px;width:max-content}
-.small{font-size:12px;color:var(--muted);line-height:1.5}
-.email{display:grid;grid-template-columns:1fr auto;gap:10px}.email input{background:rgba(4,6,10,.38);border:1px solid rgba(74,163,255,.18);border-radius:12px;padding:14px 14px;color:#fff;outline:none}.email input:focus{border-color:var(--gold-bright)}
-.footer{margin:18px 0 0;padding:22px}.partners{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media (max-width:800px){.partners{grid-template-columns:1fr}}
-.partner{padding:16px;border-radius:14px;background:rgba(4,6,10,.34);border:1px solid rgba(74,163,255,.12)}
-.partner h5{margin:0 0 8px;font-family:'Orbitron',sans-serif;letter-spacing:2px;text-transform:uppercase;font-size:13px}.partner p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-.hidden{display:none !important}
-.overlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(6,8,15,.90),rgba(3,4,8,.98));backdrop-filter:blur(12px)}
+.card-link{display:block}
+.item{
+  height:100%;
+  padding:18px;
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(17,24,42,.96),rgba(9,12,21,.96));
+  border:1px solid rgba(74,163,255,.13);
+  position:relative;
+  overflow:hidden;
+  transition:.2s ease;
+}
+.item:hover{transform:translateY(-4px);border-color:var(--gold2)}
+.item h4{
+  margin:0 0 8px;
+  font-family:'Orbitron',sans-serif;
+  font-size:15px;
+  letter-spacing:2px;
+}
+.meta{
+  display:grid;
+  gap:6px;
+  font-size:13px;
+  color:#ccd7e7;
+  line-height:1.5;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(74,163,255,.12);
+  border:1px solid rgba(74,163,255,.14);
+  font-size:12px;
+  color:#dbe6ff;
+  margin-top:12px;
+  width:max-content;
+}
+.footer{
+  margin-top:18px;
+  padding:18px 22px;
+  border-top:1px solid rgba(74,163,255,.14);
+  color:#9cb0d0;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.footer a{color:#dbe6ff}
+.student-table{
+  width:100%;
+  border-collapse:collapse;
+  overflow:hidden;
+  border-radius:14px;
+}
+.student-table th,.student-table td{
+  padding:14px 16px;
+  text-align:left;
+  border-bottom:1px solid rgba(74,163,255,.12);
+}
+.student-table th{
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:12px;
+  color:#dbe6ff;
+  background:rgba(4,6,10,.35);
+}
+.student-table td{color:#d4dded}
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(3,5,10,.92);
+  backdrop-filter:blur(12px);
+}
 .overlay.active{display:flex}
-.modal{width:min(960px,92vw);max-height:88vh;overflow:auto;background:linear-gradient(180deg,rgba(15,22,38,.96),rgba(8,11,18,.98));border:1px solid rgba(74,163,255,.2);border-radius:20px;box-shadow:0 20px 80px rgba(0,0,0,.5);padding:24px}
-.modal h2{margin:0 0 10px;font-family:'Orbitron',sans-serif;letter-spacing:4px;text-transform:uppercase;font-size:18px}
-.modal p,.modal li{color:#d4dded;line-height:1.65}
-.close{float:right;cursor:pointer;color:#fff;border:1px solid rgba(74,163,255,.18);background:rgba(4,6,10,.35);border-radius:10px;padding:10px 12px}
+.modal{
+  width:min(860px,92vw);
+  border:1px solid rgba(74,163,255,.22);
+  border-radius:20px;
+  background:linear-gradient(180deg,rgba(17,24,42,.98),rgba(8,11,18,.98));
+  padding:26px;
+  box-shadow:0 20px 80px rgba(0,0,0,.5);
+}
+.modal h2{
+  margin:0 0 10px;
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--gold2);
+}
+.modal .id{
+  font-family:'Orbitron',sans-serif;
+  font-size:30px;
+  color:#fff;
+  margin:10px 0 14px;
+}
+.modal .status{color:#d4dded;line-height:1.6}
+.modal input{width:100%;margin-top:16px}
+.intro-screen{
+  position:fixed;
+  inset:0;
+  z-index:130;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:radial-gradient(circle at center,#0b1220 0%,#03050a 70%);
+  overflow:hidden;
+  animation:introFade 7s ease forwards;
+}
+.intro-title{
+  position:relative;
+  z-index:2;
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(26px,4vw,56px);
+  font-weight:900;
+  letter-spacing:8px;
+  text-align:center;
+  color:var(--gold2);
+  text-transform:uppercase;
+}
+.intro-sub{
+  position:relative;
+  z-index:2;
+  margin-top:16px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:14px;
+  letter-spacing:6px;
+  color:#dbe6ff;
+  opacity:0;
+  animation:subIn 1s ease 1.2s forwards;
+}
+@keyframes subIn{to{opacity:.95}}
+@keyframes introFade{
+  0%,88%{opacity:1;visibility:visible}
+  100%{opacity:0;visibility:hidden;pointer-events:none}
+}
+.lang-select{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  background:radial-gradient(circle at center,#0a0f1d 0%,#03050a 100%);
+}
+.lang-select.active{display:flex}
+.flag-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  width:min(900px,90vw);
+}
+@media (max-width:720px){.flag-grid{grid-template-columns:repeat(2,1fr)}}
+.flag-card{
+  background:linear-gradient(135deg,#0f1626 0%,#0a0e1a 100%);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:34px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+}
+.flag-card .flag{font-size:56px;line-height:1}
+.flag-card .label{
+  font-family:'Orbitron',sans-serif;
+  font-size:13px;
+  letter-spacing:3px;
+  color:#dbe6ff;
+  text-transform:uppercase;
+}
+.badge-box{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(124,255,178,.08);
+  border:1px solid rgba(124,255,178,.14);
+  color:var(--ok);
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.admin-panel{
+  display:block;
+  margin-top:18px;
+  padding:22px;
+}
+.admin-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+@media (max-width:800px){.admin-grid{grid-template-columns:1fr}}
+.small-note{color:var(--muted);font-size:13px;line-height:1.6}
+.hidden-link{
+  position:absolute;
+  right:18px;
+  top:18px;
+  font-size:12px;
+  color:transparent;
+  user-select:none;
+}
 </style>
 </head>
 <body>
 <canvas id="rain"></canvas>
 <div class="scanlines"></div>
-<div class="shell">
-  <div class="topbar">
-    <div class="brand">G-ROCK <b>Archive</b></div>
-    <div class="badge" id="status">WELCOME SCREEN // READY</div>
+
+<div class="intro-screen" id="introScreen">
+  <div class="intro-title">Welcome all students in Monkeys University of Gibraltar</div>
+  <div class="intro-sub">G-ROCK Archive Access Terminal</div>
+</div>
+
+<div class="lang-select" id="langSelect">
+  <h2>Select Language / Wybierz Język / Elige idioma / Choisir la langue</h2>
+  <div class="flag-grid">
+    <div class="flag-card" data-lang="en"><div class="flag">🇬🇧</div><div class="label">English</div></div>
+    <div class="flag-card" data-lang="pl"><div class="flag">🇵🇱</div><div class="label">Polski</div></div>
+    <div class="flag-card" data-lang="es"><div class="flag">🇪🇸</div><div class="label">Español</div></div>
+    <div class="flag-card" data-lang="fr"><div class="flag">🇫🇷</div><div class="label">Français</div></div>
   </div>
+</div>
+
+<div class="overlay" id="welcomeOverlay">
+  <div class="modal">
+    <div class="badge-box">Access Granted</div>
+    <h2>WELCOME STUDENT</h2>
+    <div class="status">Your Student ID</div>
+    <div class="id" id="generatedId">—</div>
+    <div class="status">Choose your nickname and enter the archive.</div>
+    <input id="nicknameInput" type="text" placeholder="Choose your nickname">
+    <div class="row">
+      <button class="btn primary" id="finishAccess">Enter Archive</button>
+    </div>
+  </div>
+</div>
+
+<div class="shell" id="mainShell" style="display:none;">
+  <div class="topbar">
+    <div class="brand">G-ROCK <b>Universe</b></div>
+    <div class="badge" id="status">LANGUAGE // READY</div>
+  </div>
+
   <div class="page">
     <div class="hero">
-      <section class="card intro-panel">
+      <section class="card panel">
         <div class="kicker">Monkeys University of Gibraltar</div>
-        <h1 class="title">Welcome to G-ROCK Archive</h1>
-        <div class="subtitle">Student access, multilingual media, and curated archive delivery</div>
-        <p class="lead">This archive keeps the current site structure intact while adding a clean student access flow, a language-aware interface, and a content library where every item stays available across languages. Language selection changes the interface preference, not the depth of the archive.</p>
+        <h1 class="title">Welcome to G-ROCK Universe</h1>
+        <div class="subtitle">Choose language and continue</div>
+        <p class="lead">After approval by Professor Sugriva and Monkeys University of Gibraltar within the British academic community, we open recruitment among human candidates.</p>
         <div class="row">
-          <button class="btn primary" id="openAccess">Become a Student</button>
-          <button class="btn ghost" id="openLang">Select Language</button>
-          <button class="btn ghost" id="openLibrary">Open Archive</button>
+          <button class="btn primary" id="openLang">Select Language</button>
+          <button class="btn ghost" id="openPayment">Student Access</button>
+          <button class="btn outline" id="openContinue">Continue</button>
         </div>
-        <div class="stats">
-          <div class="stat"><div class="n">1</div><div class="l">One-time payment access flow, no rebuild of the rest of the site.</div></div>
-          <div class="stat"><div class="n">4</div><div class="l">Interface languages with per-item language labels in the archive.</div></div>
-          <div class="stat"><div class="n">∞</div><div class="l">All materials remain visible; language acts as preference and metadata.</div></div>
-        </div>
+        <div class="stats" id="statsGrid"></div>
       </section>
+
       <aside class="card flow">
         <h3>Flow</h3>
         <div class="flow-list">
-          <div class="step"><div class="num">1</div><div><b>Welcome Screen</b><span>Intro entry with short cinematic feel and immediate archive identity.</span></div></div>
-          <div class="step"><div class="num">2</div><div><b>Student Access</b><span>One-time payment step that unlocks access without forcing a site rewrite.</span></div></div>
-          <div class="step"><div class="num">3</div><div><b>Language Menu</b><span>Language selection sits inside the archive UI, not as a separate gate.</span></div></div>
-          <div class="step"><div class="num">4</div><div><b>Library</b><span>Books, audio, films, galleries, and documents remain available across all languages.</span></div></div>
-          <div class="step"><div class="num">5</div><div><b>Email Optional</b><span>Optional email can carry student ID and archive update notifications.</span></div></div>
-          <div class="step"><div class="num">6</div><div><b>Business Partners</b><span>Cooperation, sponsorship, and partnerships appear at the end.</span></div></div>
+          <div class="step"><div class="num">1</div><div><b>Intro</b><span>Animated English welcome screen.</span></div></div>
+          <div class="step"><div class="num">2</div><div><b>Language</b><span>Choose one of four languages.</span></div></div>
+          <div class="step"><div class="num">3</div><div><b>Access</b><span>Real archive access is issued by backend.</span></div></div>
+          <div class="step"><div class="num">4</div><div><b>Continue</b><span>Open the archive tiles.</span></div></div>
         </div>
       </aside>
     </div>
-    <section class="card section" id="accessSection">
-      <h2>Student Access</h2>
-      <div class="small">Become a Student · One-time payment · Full access to G-ROCK Archive</div>
-      <div class="row" style="margin-top:14px">
-        <button class="btn primary" id="buyBtn">Become a Student</button>
-        <button class="btn ghost" id="skipToLang">Continue to Language Menu</button>
-      </div>
-    </section>
+
     <section class="card section" id="languageSection">
       <h2>Select Language</h2>
       <div class="langs" id="langGrid">
@@ -134,83 +611,318 @@ body{min-height:100vh}
         <div class="lang" data-lang="fr"><div class="a">🇫🇷</div><div class="b">Français</div><div class="c">Langue de l’interface</div></div>
       </div>
     </section>
+
+    <section class="card section" id="paymentSection">
+      <h2>Student Access</h2>
+      <div class="payment-box">
+        <div class="big">One-time access payment</div>
+        <div class="small">PayPal checkout is connected to backend order creation and capture.</div>
+        <div id="paypal-button-container" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="card section" id="valueSection">
+      <h2>What’s Inside the Archive?</h2>
+      <div class="stats" id="valueGrid"></div>
+    </section>
+
+    <section class="card section" id="updatesSection">
+      <h2>Latest Updates</h2>
+      <div class="latest-list" id="latestList"></div>
+    </section>
+
+    <section class="card section">
+      <h2>Archive Search & Filters</h2>
+      <div class="searchbar">
+        <input id="searchInput" type="text" placeholder="Search archive...">
+        <button class="btn ghost" id="searchBtn">Search</button>
+      </div>
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="books">Books</button>
+        <button class="filter-btn" data-filter="audio">Audiobooks</button>
+        <button class="filter-btn" data-filter="video">Videos</button>
+        <button class="filter-btn" data-filter="docs">Documents</button>
+        <button class="filter-btn" data-filter="images">Images</button>
+      </div>
+    </section>
+
     <section class="card library" id="librarySection">
-      <h2 style="margin:0 0 10px;font-family:Orbitron,sans-serif;letter-spacing:4px;text-transform:uppercase;font-size:16px;color:#dbe6ff">Archive Library</h2>
-      <div class="filters">
-        <div class="pill active" data-filter="all">All</div>
-        <div class="pill" data-filter="ebooks">📚 E-Books</div>
-        <div class="pill" data-filter="audio">🎧 Audiobooks</div>
-        <div class="pill" data-filter="films">🎬 Films / Videos</div>
-        <div class="pill" data-filter="gallery">🖼 Gallery</div>
-        <div class="pill" data-filter="docs">📄 Documents</div>
-      </div>
-      <div class="grid" id="itemGrid">
-        <div class="item" data-type="ebooks"><h4>Book 1</h4><div class="meta"><div><b>Language:</b> English 🇬🇧</div><div><b>Format:</b> PDF</div><div><b>Access:</b> Full archive</div></div><div class="tag">E-Books</div></div>
-        <div class="item" data-type="ebooks"><h4>Book 2</h4><div class="meta"><div><b>Language:</b> Polski 🇵🇱</div><div><b>Format:</b> EPUB</div><div><b>Access:</b> Full archive</div></div><div class="tag">E-Books</div></div>
-        <div class="item" data-type="audio"><h4>Audiobook 1</h4><div class="meta"><div><b>Language:</b> Español 🇪🇸</div><div><b>Format:</b> MP3</div><div><b>Access:</b> Full archive</div></div><div class="tag">Audiobooks</div></div>
-        <div class="item" data-type="films"><h4>Film 1</h4><div class="meta"><div><b>Language:</b> Français 🇫🇷</div><div><b>Format:</b> MP4</div><div><b>Access:</b> Full archive</div></div><div class="tag">Films / Videos</div></div>
-        <div class="item" data-type="gallery"><h4>Gallery 1</h4><div class="meta"><div><b>Language:</b> English 🇬🇧 / Polski 🇵🇱</div><div><b>Format:</b> JPG</div><div><b>Access:</b> Full archive</div></div><div class="tag">Gallery</div></div>
-        <div class="item" data-type="docs"><h4>Document 1</h4><div class="meta"><div><b>Language:</b> English 🇬🇧</div><div><b>Format:</b> DOCX</div><div><b>Access:</b> Full archive</div></div><div class="tag">Documents</div></div>
+      <h2>Archive Sections</h2>
+      <div class="grid">
+        <a class="card-link" href="#"><article class="item" data-type="audio"><h4>Audiobooks</h4><div class="meta"><div>Requested from API</div><div>MP3 / M4A</div></div><div class="tag">Audiobooks</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="books"><h4>Ebooks</h4><div class="meta"><div>Requested from API</div><div>PDF / EPUB</div></div><div class="tag">Books</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="video"><h4>Video / Zdjęcia</h4><div class="meta"><div>Requested from API</div><div>MP4 / JPG / PNG</div></div><div class="tag">Videos</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="docs"><h4>Osiągnięcia naukowe / Dokumenty</h4><div class="meta"><div>Requested from API</div><div>PDF / DOCX</div></div><div class="tag">Documents</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="docs"><h4>Student Registry</h4><div class="meta"><div>Student ID and Nick only</div><div>Read-only view</div></div><div class="tag">Registry</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="docs"><h4>Info / Cooperation</h4><div class="meta"><div>Contact and partnerships</div><div>Public / Partners</div></div><div class="tag">Info</div></article></a>
       </div>
     </section>
-    <section class="card section" id="emailSection">
-      <h2>Email (optional)</h2>
-      <p class="small">If provided, this can be used for Student ID, new materials notifications, and archive updates.</p>
-      <div class="email"><input id="emailInput" type="email" placeholder="you@example.com"><button class="btn primary" id="saveEmail">Save</button></div>
-    </section>
-    <section class="card footer">
-      <h2 style="margin:0 0 10px;font-family:Orbitron,sans-serif;letter-spacing:4px;text-transform:uppercase;font-size:16px;color:#dbe6ff">Business Partners</h2>
-      <div class="partners">
-        <div class="partner"><h5>Cooperation</h5><p>Joint projects and content exchange.</p></div>
-        <div class="partner"><h5>Sponsorship</h5><p>Sponsored collections, events, and featured releases.</p></div>
-        <div class="partner"><h5>Partnerships</h5><p>Long-term archive and educational partnerships.</p></div>
+
+    <section class="card section">
+      <h2>Student Registry Preview</h2>
+      <div class="payment-box">
+        <table class="student-table">
+          <thead><tr><th>Student ID</th><th>Nick</th></tr></thead>
+          <tbody id="studentListBody">
+            <tr><td colspan="2">Waiting for backend</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
+
+    <section class="card section">
+      <h2>Admin Console</h2>
+      <div class="payment-box">
+        <div class="small">Protected by real authentication. Actions are sent to backend API only.</div>
+      </div>
+      <div class="admin-panel" id="adminPanel">
+        <h3 style="margin-top:0;font-family:'Orbitron',sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--gold2)">Add Student Manually</h3>
+        <div class="admin-grid">
+          <input id="adminNick" type="text" placeholder="Nickname">
+          <select id="adminAccess">
+            <option value="FULL ARCHIVE">FULL ARCHIVE</option>
+            <option value="STUDENT">STUDENT</option>
+            <option value="EVENT">EVENT</option>
+            <option value="PROMO">PROMO</option>
+          </select>
+          <input id="adminSource" type="text" placeholder="Source">
+          <input id="adminExpiry" type="date" placeholder="Expiry date">
+        </div>
+        <div class="row" style="margin-top:14px;">
+          <button class="btn primary" id="adminAdd">Generate Student ID</button>
+          <button class="btn ghost" id="adminExport">Export Student List</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div><a href="#">Contact</a> · <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></div>
+      <div>Copyright © G-ROCK Corporation</div>
+    </footer>
   </div>
 </div>
-<div class="overlay" id="overlay"><div class="modal"><button class="close" id="closeOverlay">Close</button><div id="modalBody"></div></div></div>
+
 <script>
-const canvas=document.getElementById('rain'),ctx=canvas.getContext('2d');let w,h,cols,drops;const glyphs='ΩΣΦΨΞ01GROCKΑΒΓ'.split('');const rare='🐒';
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/22);drops=new Array(cols).fill(0).map(()=>Math.random()*-100)}
-addEventListener('resize',resize);resize();
-function drawRain(){ctx.fillStyle='rgba(4,6,10,0.12)';ctx.fillRect(0,0,w,h);ctx.font='16px monospace';for(let i=0;i<cols;i++){const r=Math.random()<.002,c=r?rare:glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillStyle=r?'rgba(212,175,55,0.9)':(Math.random()<.06?'rgba(255,255,255,0.9)':'rgba(74,163,255,0.55)');ctx.fillText(c,i*22,drops[i]*20);if(drops[i]*20>h&&Math.random()>.975)drops[i]=0;drops[i]++}requestAnimationFrame(drawRain)}
-drawRain();
-const status=document.getElementById('status');const overlay=document.getElementById('overlay');const modalBody=document.getElementById('modalBody');
-const langGrid=document.getElementById('langGrid');const pills=[...document.querySelectorAll('.pill')];const items=[...document.querySelectorAll('.item')];
-let selectedLang='en';
-function openModal(html){modalBody.innerHTML=html;overlay.classList.add('active')}
-function closeModal(){overlay.classList.remove('active')}
-document.getElementById('closeOverlay').onclick=closeModal;overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
-function showWelcome(){openModal(`
-<h2>Welcome to Monkeys University of Gibraltar</h2>
-<p>Short cinematic entrance for the G-ROCK Archive student experience.</p>
-<p><b>Step:</b> Welcome Screen → Student Access → Language Menu → Archive Library → Optional Email → Business Partners</p>
-<p>Click <b>Become a Student</b> to continue.</p>`)}
-function showAccess(){openModal(`
-<h2>Student Access</h2>
-<p><b>Become a Student</b></p>
-<p>One-time payment.</p>
-<p>Full access to G-ROCK Archive.</p>
-<div class="row"><button class="btn primary" onclick="document.getElementById('overlay').classList.remove('active')">Become a Student</button></div>`)}
-function showLangMenu(){openModal(`
-<h2>Select Language</h2>
-<p>Choose your interface language. The archive still keeps all materials visible across languages.</p>
-<div class="langs" style="margin-top:14px">
-<div class="lang ${selectedLang==='en'?'active':''}" onclick="selectLang('en')"><div class="a">🇬🇧</div><div class="b">English</div><div class="c">Interface language</div></div>
-<div class="lang ${selectedLang==='pl'?'active':''}" onclick="selectLang('pl')"><div class="a">🇵🇱</div><div class="b">Polski</div><div class="c">Język interfejsu</div></div>
-<div class="lang ${selectedLang==='es'?'active':''}" onclick="selectLang('es')"><div class="a">🇪🇸</div><div class="b">Español</div><div class="c">Idioma de interfaz</div></div>
-<div class="lang ${selectedLang==='fr'?'active':''}" onclick="selectLang('fr')"><div class="a">🇫🇷</div><div class="b">Français</div><div class="c">Langue de l’interface</div></div>
-</div>`)}
-function selectLang(code){selectedLang=code;document.querySelectorAll('.lang').forEach(el=>el.classList.toggle('active',el.dataset.lang===code));status.textContent='LANGUAGE // '+code.toUpperCase();if(overlay.classList.contains('active'))showLangMenu()}
-function showLibrary(){document.getElementById('librarySection').scrollIntoView({behavior:'smooth',block:'start'});status.textContent='ARCHIVE // OPEN'}
-function setFilter(f){pills.forEach(p=>p.classList.toggle('active',p.dataset.filter===f));items.forEach(it=>it.classList.toggle('hidden',!(f==='all'||it.dataset.type===f)))}
-function langText(){const map={en:'English',pl:'Polski',es:'Español',fr:'Français'};return map[selectedLang]||'English'}
-function updateItems(){items[0].querySelector('.meta').children[0].innerHTML='<b>Language:</b> English 🇬🇧';items[1].querySelector('.meta').children[0].innerHTML='<b>Language:</b> Polski 🇵🇱';items[2].querySelector('.meta').children[0].innerHTML='<b>Language:</b> Español 🇪🇸';items[3].querySelector('.meta').children[0].innerHTML='<b>Language:</b> Français 🇫🇷';items[4].querySelector('.meta').children[0].innerHTML='<b>Language:</b> English 🇬🇧 / Polski 🇵🇱';items[5].querySelector('.meta').children[0].innerHTML='<b>Language:</b> English 🇬🇧'}
-updateItems();
-document.getElementById('openAccess').onclick=showAccess;document.getElementById('buyBtn').onclick=showAccess;document.getElementById('skipToLang').onclick=showLangMenu;document.getElementById('openLang').onclick=showLangMenu;document.getElementById('openLibrary').onclick=showLibrary;
-langGrid.addEventListener('click',e=>{const el=e.target.closest('.lang');if(!el)return;selectLang(el.dataset.lang);setTimeout(()=>{closeModal();showLibrary()},450)});
-pills.forEach(p=>p.onclick=()=>setFilter(p.dataset.filter));document.getElementById('saveEmail').onclick=()=>{const v=document.getElementById('emailInput').value.trim();openModal(`<h2>Email saved</h2><p>${v?`Stored: <b>${v}</b>.`:'Email left optional.'}</p><p>Student ID, notifications, and archive updates can be attached to this profile later.</p>`) };
-setTimeout(showWelcome,500);
+const canvas=document.getElementById('rain'),ctx=canvas.getContext('2d');
+let w,h,cols,drops;
+const glyphs='ΩΣΦΨΞ01GROCKΑΒΓ'.split('');
+const rare='🐒';
+function resize(){
+  w=canvas.width=innerWidth;
+  h=canvas.height=innerHeight;
+  cols=Math.floor(w/22);
+  drops=new Array(cols).fill(0).map(()=>Math.random()*-100);
+}
+addEventListener('resize',resize);
+resize();
+(function drawRain(){
+  ctx.fillStyle='rgba(4,6,10,0.12)';
+  ctx.fillRect(0,0,w,h);
+  ctx.font='16px monospace';
+  for(let i=0;i<cols;i++){
+    const r=Math.random()<.002;
+    const c=r?rare:glyphs[Math.floor(Math.random()*glyphs.length)];
+    ctx.fillStyle=r?'rgba(212,175,55,0.9)':(Math.random()<.06?'rgba(255,255,255,0.9)':'rgba(74,163,255,0.55)');
+    ctx.fillText(c,i*22,drops[i]*20);
+    if(drops[i]*20>h&&Math.random()>.975)drops[i]=0;
+    drops[i]++;
+  }
+  requestAnimationFrame(drawRain);
+})();
+
+const state={lang:localStorage.getItem('grock_lang')||'en'};
+const api={students:'/api/students',updates:'/api/updates',stats:'/api/stats',admin:'/api/admin/students'};
+const generatedIdEl=document.getElementById('generatedId');
+const welcomeOverlay=document.getElementById('welcomeOverlay');
+const introScreen=document.getElementById('introScreen');
+const mainShell=document.getElementById('mainShell');
+
+function renderLang(){
+  document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('active',x.dataset.lang===state.lang));
+  document.getElementById('status').textContent='LANGUAGE // '+state.lang.toUpperCase();
+  localStorage.setItem('grock_lang',state.lang);
+}
+document.querySelectorAll('.flag-card').forEach(el=>el.addEventListener('click',()=>{
+  state.lang=el.dataset.lang;
+  renderLang();
+  document.getElementById('langSelect').classList.remove('active');
+  mainShell.style.display='flex';
+}));
+document.getElementById('openLang').onclick=()=>document.getElementById('langSelect').classList.add('active');
+document.getElementById('openPayment').onclick=()=>document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'});
+document.getElementById('openContinue').onclick=()=>document.getElementById('librarySection').scrollIntoView({behavior:'smooth'});
+
+function setStats(s){
+  const grid=document.getElementById('statsGrid');
+  grid.innerHTML=[
+    ['Registered Students',s.registered],
+    ['Total Archive Files',s.totalFiles],
+    ['Archive Updates',s.archiveUpdates],
+    ['Supported Languages',s.languages]
+  ].map(([label,value])=>`<div class="stat"><div class="n">${value}</div><div class="l">${label}</div></div>`).join('');
+}
+function renderStudents(rows){
+  const body=document.getElementById('studentListBody');
+  if(!rows.length){
+    body.innerHTML='<tr><td colspan="2">No records</td></tr>';
+    return;
+  }
+  body.innerHTML=rows.map(r=>`<tr><td>${r.student_id}</td><td>${r.nickname}</td></tr>`).join('');
+}
+function renderUpdates(rows){
+  const list=document.getElementById('latestList');
+  if(!rows.length){
+    list.innerHTML='<div class="latest-item"><b>No updates</b><span>Waiting for backend</span></div>';
+    return;
+  }
+  list.innerHTML=rows.slice(0,10).map(r=>`<div class="latest-item"><b>${r.name}</b><span>${r.date}</span></div>`).join('');
+}
+function renderArchiveCounts(counts){
+  const labels=['Books','Audiobooks','Videos','Documents','Images'];
+  document.getElementById('valueGrid').innerHTML=labels.map(k=>`<div class="stat"><div class="n">${counts[k.toLowerCase()]||0}</div><div class="l">${k}</div></div>`).join('');
+}
+async function loadAll(){
+  try{
+    const [students,updates,stats]=await Promise.all([
+      fetch(api.students).then(r=>r.json()),
+      fetch(api.updates).then(r=>r.json()),
+      fetch(api.stats).then(r=>r.json())
+    ]);
+    renderStudents(students);
+    renderUpdates(updates);
+    renderArchiveCounts(stats.archive_counts||{});
+    setStats(stats);
+  }catch(e){
+    renderStudents([]);
+    renderUpdates([]);
+    renderArchiveCounts({});
+    setStats({registered:0,totalFiles:0,archiveUpdates:0,languages:4});
+  }
+}
+async function apiPost(url,data){
+  const res=await fetch(url,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  });
+  if(!res.ok) throw new Error('Request failed');
+  return res.json();
+}
+document.getElementById('adminAdd').onclick=async()=>{
+  const payload={
+    nickname:document.getElementById('adminNick').value.trim(),
+    access_type:document.getElementById('adminAccess').value,
+    source:document.getElementById('adminSource').value.trim(),
+    expiry_date:document.getElementById('adminExpiry').value || null
+  };
+  const result=await apiPost(api.admin,payload);
+  await loadAll();
+  alert(`Added: ${result.student_id}`);
+};
+document.getElementById('adminExport').onclick=()=>{
+  const rows=[...document.querySelectorAll('#studentListBody tr')].map(tr=>[...tr.children].map(td=>td.textContent.trim()).join(','));
+  const csv='Student ID,Nick
+'+rows.join('
+');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='grock-student-list.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+function filterItems(filter){
+  document.querySelectorAll('.item').forEach(item=>{
+    const type=item.dataset.type;
+    item.parentElement.style.display=(filter==='all'||type===filter)?'':'none';
+  });
+}
+document.getElementById('filterBar').addEventListener('click',e=>{
+  const btn=e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  filterItems(btn.dataset.filter);
+});
+document.getElementById('searchBtn').onclick=()=>{
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  document.querySelectorAll('.item').forEach(item=>{
+    item.parentElement.style.display=!q||item.innerText.toLowerCase().includes(q)?'':'none';
+  });
+};
+document.getElementById('searchInput').addEventListener('input',()=>document.getElementById('searchBtn').click());
+
+function openWelcome(){
+  const id='GROCK-2026-'+String(Math.floor(Math.random()*90000)+10000);
+  generatedIdEl.textContent=id;
+  welcomeOverlay.classList.add('active');
+}
+document.getElementById('finishAccess').onclick=()=>{
+  welcomeOverlay.classList.remove('active');
+  mainShell.style.display='flex';
+  loadAll();
+};
+setTimeout(openWelcome,900);
+
+renderLang();
+introScreen.addEventListener('animationend',()=>{
+  introScreen.style.display='none';
+});
+window.PayPalCheckoutReady = async function() {
+  if(!window.paypal) return;
+  paypal.Buttons({
+    style: {
+      layout: 'vertical',
+      color: 'gold',
+      shape: 'rect',
+      label: 'pay'
+    },
+    createOrder: async function () {
+      const res = await fetch('/api/paypal/order', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          amount: '5.00',
+          currency: 'EUR',
+          description: 'G-ROCK Archive Student Access'
+        })
+      });
+      const data = await res.json();
+      return data.orderID;
+    },
+    onApprove: async function (data) {
+      const res = await fetch('/api/paypal/order/capture', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ orderID: data.orderID })
+      });
+      const captureData = await res.json();
+      if (captureData.status === 'COMPLETED') {
+        alert('Payment completed. Student ID can now be issued.');
+        await fetch('/api/admin/students', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            nickname: document.getElementById('nicknameInput').value.trim() || 'PayPal User',
+            access_type: 'FULL ARCHIVE',
+            source: 'PAYPAL',
+            expiry_date: null
+          })
+        });
+        loadAll();
+      } else {
+        alert('Payment not completed.');
+      }
+    },
+    onError: function (err) {
+      console.error(err);
+      alert('PayPal error.');
+    }
+  }).render('#paypal-button-container');
+};
 </script>
+<script src="https://www.paypal.com/sdk/js?client-id=TWÓJ_CLIENT_ID&currency=EUR&intent=capture&components=buttons" onload="PayPalCheckoutReady()"></script>
 </body>
-</html>
+      </html>
