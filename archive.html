@@ -535,11 +535,28 @@ input:focus,select:focus{border-color:var(--gold2)}
   color:transparent;
   user-select:none;
 }
+.fatal-error{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(3,5,10,.96);
+  color:#ffb4b4;
+  font-family:'Share Tech Mono',monospace;
+  font-size:13px;
+  line-height:1.6;
+  text-align:center;
+}
 </style>
 </head>
 <body>
 <canvas id="rain"></canvas>
 <div class="scanlines"></div>
+
+<div class="fatal-error" id="fatalError"></div>
 
 <div class="intro-screen" id="introScreen">
   <div class="intro-title">Welcome all students in Monkeys University of Gibraltar</div>
@@ -704,6 +721,24 @@ input:focus,select:focus{border-color:var(--gold2)}
 </div>
 
 <script>
+// --- Global failsafe: if ANYTHING below throws, show a visible error
+// instead of a silent black screen, and force the main app open. ---
+window.addEventListener('error', function(e){
+  try{
+    var el = document.getElementById('fatalError');
+    if(el){
+      el.style.display = 'flex';
+      el.textContent = 'JS ERROR: ' + (e && e.message ? e.message : 'unknown error');
+    }
+    var intro = document.getElementById('introScreen');
+    if(intro) intro.style.display = 'none';
+    var overlay = document.getElementById('welcomeOverlay');
+    if(overlay) overlay.classList.remove('active');
+    var shell = document.getElementById('mainShell');
+    if(shell) shell.style.display = 'flex';
+  }catch(_e){}
+});
+
 const canvas=document.getElementById('rain'),ctx=canvas.getContext('2d');
 let w,h,cols,drops;
 const glyphs='ΩΣΦΨΞ01GROCKΑΒΓ'.split('');
@@ -731,7 +766,18 @@ resize();
   requestAnimationFrame(drawRain);
 })();
 
-const state={lang:localStorage.getItem('grock_lang')||'en'};
+// --- localStorage can throw in sandboxed webviews / in-app browsers /
+// private-mode Safari. That used to crash the whole script here and
+// silently kill every listener below it (including the one that opens
+// the welcome screen), leaving a black screen after the intro faded.
+function safeGet(key){
+  try{ return localStorage.getItem(key); }catch(_e){ return null; }
+}
+function safeSet(key,val){
+  try{ localStorage.setItem(key,val); }catch(_e){ /* ignore */ }
+}
+
+const state={lang:safeGet('grock_lang')||'en'};
 const api={students:'/api/students',updates:'/api/updates',stats:'/api/stats',admin:'/api/admin/students'};
 const generatedIdEl=document.getElementById('generatedId');
 const welcomeOverlay=document.getElementById('welcomeOverlay');
@@ -741,7 +787,7 @@ const mainShell=document.getElementById('mainShell');
 function renderLang(){
   document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('active',x.dataset.lang===state.lang));
   document.getElementById('status').textContent='LANGUAGE // '+state.lang.toUpperCase();
-  localStorage.setItem('grock_lang',state.lang);
+  safeSet('grock_lang',state.lang);
 }
 document.querySelectorAll('.flag-card').forEach(el=>el.addEventListener('click',()=>{
   state.lang=el.dataset.lang;
@@ -794,6 +840,7 @@ async function loadAll(){
     renderArchiveCounts(stats.archive_counts||{});
     setStats(stats);
   }catch(e){
+    console.error('loadAll failed (backend not reachable):', e);
     renderStudents([]);
     renderUpdates([]);
     renderArchiveCounts({});
@@ -810,21 +857,24 @@ async function apiPost(url,data){
   return res.json();
 }
 document.getElementById('adminAdd').onclick=async()=>{
-  const payload={
-    nickname:document.getElementById('adminNick').value.trim(),
-    access_type:document.getElementById('adminAccess').value,
-    source:document.getElementById('adminSource').value.trim(),
-    expiry_date:document.getElementById('adminExpiry').value || null
-  };
-  const result=await apiPost(api.admin,payload);
-  await loadAll();
-  alert(`Added: ${result.student_id}`);
+  try{
+    const payload={
+      nickname:document.getElementById('adminNick').value.trim(),
+      access_type:document.getElementById('adminAccess').value,
+      source:document.getElementById('adminSource').value.trim(),
+      expiry_date:document.getElementById('adminExpiry').value || null
+    };
+    const result=await apiPost(api.admin,payload);
+    await loadAll();
+    alert(`Added: ${result.student_id}`);
+  }catch(e){
+    console.error(e);
+    alert('Backend unavailable — cannot add student right now.');
+  }
 };
 document.getElementById('adminExport').onclick=()=>{
   const rows=[...document.querySelectorAll('#studentListBody tr')].map(tr=>[...tr.children].map(td=>td.textContent.trim()).join(','));
-  const csv='Student ID,Nick
-'+rows.join('
-');
+  const csv='Student ID,Nick\n'+rows.join('\n');
   const blob=new Blob([csv],{type:'text/csv'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -865,6 +915,17 @@ document.getElementById('finishAccess').onclick=()=>{
   loadAll();
 };
 setTimeout(openWelcome,900);
+
+// --- Extra failsafe: if openWelcome somehow never fires (e.g. this
+// timer got cleared or blocked by the host app), force the main shell
+// visible once the intro animation would have finished anyway, so the
+// user never lands on a blank black screen. ---
+setTimeout(()=>{
+  if(!welcomeOverlay.classList.contains('active') && mainShell.style.display==='none'){
+    mainShell.style.display='flex';
+    loadAll();
+  }
+},8000);
 
 renderLang();
 introScreen.addEventListener('animationend',()=>{
@@ -925,4 +986,5 @@ window.PayPalCheckoutReady = async function() {
 </script>
 <script src="https://www.paypal.com/sdk/js?client-id=TWÓJ_CLIENT_ID&currency=EUR&intent=capture&components=buttons" onload="PayPalCheckoutReady()"></script>
 </body>
-      </html>
+</html>
+
