@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -72,6 +72,25 @@ a{color:inherit;text-decoration:none}
   text-transform:uppercase;
 }
 .brand b{color:var(--gold2)}
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.hub-link{
+  padding:10px 14px;
+  font-size:11px;
+  border-radius:10px;
+  background:rgba(4,6,10,.45);
+  border:1px solid rgba(74,163,255,.25);
+  color:#dbe6ff;
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.hub-link:hover{border-color:var(--gold2);color:var(--gold2)}
 .badge{
   font-family:'Share Tech Mono',monospace;
   font-size:11px;
@@ -575,14 +594,14 @@ input:focus,select:focus{border-color:var(--gold2)}
 
 <div class="overlay" id="welcomeOverlay">
   <div class="modal">
-    <div class="badge-box">Access Granted</div>
-    <h2>WELCOME STUDENT</h2>
-    <div class="status">Your Student ID</div>
+    <div class="badge-box" data-i18n="welcomeBadge">Access Granted</div>
+    <h2 data-i18n="welcomeTitle">WELCOME STUDENT</h2>
+    <div class="status" data-i18n="welcomeIdLabel">Your Student ID</div>
     <div class="id" id="generatedId">—</div>
-    <div class="status">Choose your nickname and enter the archive.</div>
-    <input id="nicknameInput" type="text" placeholder="Choose your nickname">
+    <div class="status" data-i18n="welcomeChoose">Choose your nickname and enter the archive.</div>
+    <input id="nicknameInput" type="text" data-i18n-placeholder="nicknamePlaceholder" placeholder="Choose your nickname">
     <div class="row">
-      <button class="btn primary" id="finishAccess">Enter Archive</button>
+      <button class="btn primary" id="finishAccess" data-i18n="enterArchive">Enter Archive</button>
     </div>
   </div>
 </div>
@@ -590,37 +609,40 @@ input:focus,select:focus{border-color:var(--gold2)}
 <div class="shell" id="mainShell" style="display:none;">
   <div class="topbar">
     <div class="brand">G-ROCK <b>Universe</b></div>
-    <div class="badge" id="status">LANGUAGE // READY</div>
+    <div class="topbar-right">
+      <a class="hub-link" id="returnHub" href="../index.html" data-i18n="hub">Return to Hub</a>
+      <div class="badge" id="status">LANGUAGE // READY</div>
+    </div>
   </div>
 
   <div class="page">
     <div class="hero">
       <section class="card panel">
-        <div class="kicker">Monkeys University of Gibraltar</div>
-        <h1 class="title">Welcome to G-ROCK Universe</h1>
-        <div class="subtitle">Choose language and continue</div>
-        <p class="lead">After approval by Professor Sugriva and Monkeys University of Gibraltar within the British academic community, we open recruitment among human candidates.</p>
+        <div class="kicker" data-i18n="kicker">Monkeys University of Gibraltar</div>
+        <h1 class="title" data-i18n="title">Welcome to G-ROCK Universe</h1>
+        <div class="subtitle" data-i18n="subtitle">Choose language and continue</div>
+        <p class="lead" data-i18n="lead">After approval by Professor Sugriva and Monkeys University of Gibraltar within the British academic community, we open recruitment among human candidates.</p>
         <div class="row">
-          <button class="btn primary" id="openLang">Select Language</button>
-          <button class="btn ghost" id="openPayment">Student Access</button>
-          <button class="btn outline" id="openContinue">Continue</button>
+          <button class="btn primary" id="openLang" data-i18n="btnLang">Select Language</button>
+          <button class="btn ghost" id="openPayment" data-i18n="btnPayment">Student Access</button>
+          <button class="btn outline" id="openContinue" data-i18n="btnContinue">Continue</button>
         </div>
         <div class="stats" id="statsGrid"></div>
       </section>
 
       <aside class="card flow">
-        <h3>Flow</h3>
+        <h3 data-i18n="flowTitle">Flow</h3>
         <div class="flow-list">
-          <div class="step"><div class="num">1</div><div><b>Intro</b><span>Animated English welcome screen.</span></div></div>
-          <div class="step"><div class="num">2</div><div><b>Language</b><span>Choose one of four languages.</span></div></div>
-          <div class="step"><div class="num">3</div><div><b>Access</b><span>Real archive access is issued by backend.</span></div></div>
-          <div class="step"><div class="num">4</div><div><b>Continue</b><span>Open the archive tiles.</span></div></div>
+          <div class="step"><div class="num">1</div><div><b data-i18n="flow1Title">Intro</b><span data-i18n="flow1Desc">Animated English welcome screen.</span></div></div>
+          <div class="step"><div class="num">2</div><div><b data-i18n="flow2Title">Language</b><span data-i18n="flow2Desc">Choose one of four languages.</span></div></div>
+          <div class="step"><div class="num">3</div><div><b data-i18n="flow3Title">Access</b><span data-i18n="flow3Desc">Real archive access is issued by backend.</span></div></div>
+          <div class="step"><div class="num">4</div><div><b data-i18n="flow4Title">Continue</b><span data-i18n="flow4Desc">Open the archive tiles.</span></div></div>
         </div>
       </aside>
     </div>
 
     <section class="card section" id="languageSection">
-      <h2>Select Language</h2>
+      <h2 data-i18n="secLanguage">Select Language</h2>
       <div class="langs" id="langGrid">
         <div class="lang active" data-lang="en"><div class="a">🇬🇧</div><div class="b">English</div><div class="c">Interface language</div></div>
         <div class="lang" data-lang="pl"><div class="a">🇵🇱</div><div class="b">Polski</div><div class="c">Język interfejsu</div></div>
@@ -630,92 +652,92 @@ input:focus,select:focus{border-color:var(--gold2)}
     </section>
 
     <section class="card section" id="paymentSection">
-      <h2>Student Access</h2>
+      <h2 data-i18n="secPayment">Student Access</h2>
       <div class="payment-box">
-        <div class="big">One-time access payment</div>
-        <div class="small">PayPal checkout is connected to backend order creation and capture.</div>
+        <div class="big" data-i18n="paymentBig">One-time access payment</div>
+        <div class="small" data-i18n="paymentSmall">PayPal checkout is connected to backend order creation and capture.</div>
         <div id="paypal-button-container" style="margin-top:16px;"></div>
       </div>
     </section>
 
     <section class="card section" id="valueSection">
-      <h2>What’s Inside the Archive?</h2>
+      <h2 data-i18n="secValue">What’s Inside the Archive?</h2>
       <div class="stats" id="valueGrid"></div>
     </section>
 
     <section class="card section" id="updatesSection">
-      <h2>Latest Updates</h2>
+      <h2 data-i18n="secUpdates">Latest Updates</h2>
       <div class="latest-list" id="latestList"></div>
     </section>
 
     <section class="card section">
-      <h2>Archive Search & Filters</h2>
+      <h2 data-i18n="secSearch">Archive Search & Filters</h2>
       <div class="searchbar">
-        <input id="searchInput" type="text" placeholder="Search archive...">
-        <button class="btn ghost" id="searchBtn">Search</button>
+        <input id="searchInput" type="text" data-i18n-placeholder="searchPlaceholder" placeholder="Search archive...">
+        <button class="btn ghost" id="searchBtn" data-i18n="searchBtn">Search</button>
       </div>
       <div class="filter-bar" id="filterBar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="books">Books</button>
-        <button class="filter-btn" data-filter="audio">Audiobooks</button>
-        <button class="filter-btn" data-filter="video">Videos</button>
-        <button class="filter-btn" data-filter="docs">Documents</button>
-        <button class="filter-btn" data-filter="images">Images</button>
+        <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
+        <button class="filter-btn" data-filter="books" data-i18n="filterBooks">Books</button>
+        <button class="filter-btn" data-filter="audio" data-i18n="filterAudio">Audiobooks</button>
+        <button class="filter-btn" data-filter="video" data-i18n="filterVideo">Videos</button>
+        <button class="filter-btn" data-filter="docs" data-i18n="filterDocs">Documents</button>
+        <button class="filter-btn" data-filter="images" data-i18n="filterImages">Images</button>
       </div>
     </section>
 
     <section class="card library" id="librarySection">
-      <h2>Archive Sections</h2>
+      <h2 data-i18n="secLibrary">Archive Sections</h2>
       <div class="grid">
-        <a class="card-link" href="#"><article class="item" data-type="audio"><h4>Audiobooks</h4><div class="meta"><div>Requested from API</div><div>MP3 / M4A</div></div><div class="tag">Audiobooks</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="books"><h4>Ebooks</h4><div class="meta"><div>Requested from API</div><div>PDF / EPUB</div></div><div class="tag">Books</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="video"><h4>Video / Zdjęcia</h4><div class="meta"><div>Requested from API</div><div>MP4 / JPG / PNG</div></div><div class="tag">Videos</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="docs"><h4>Osiągnięcia naukowe / Dokumenty</h4><div class="meta"><div>Requested from API</div><div>PDF / DOCX</div></div><div class="tag">Documents</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="docs"><h4>Student Registry</h4><div class="meta"><div>Student ID and Nick only</div><div>Read-only view</div></div><div class="tag">Registry</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="docs"><h4>Info / Cooperation</h4><div class="meta"><div>Contact and partnerships</div><div>Public / Partners</div></div><div class="tag">Info</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="audio"><h4 data-i18n="tileAudioTitle">Audiobooks</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>MP3 / M4A</div></div><div class="tag" data-i18n="tileAudioTag">Audiobooks</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="books"><h4 data-i18n="tileBooksTitle">Ebooks</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>PDF / EPUB</div></div><div class="tag" data-i18n="tileBooksTag">Books</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="video"><h4 data-i18n="tileVideoTitle">Video / Photos</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>MP4 / JPG / PNG</div></div><div class="tag" data-i18n="tileVideoTag">Videos</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="docs"><h4 data-i18n="tileDocsTitle">Scientific Achievements / Documents</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>PDF / DOCX</div></div><div class="tag" data-i18n="tileDocsTag">Documents</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="docs"><h4 data-i18n="tileRegistryTitle">Student Registry</h4><div class="meta"><div data-i18n="tileRegistryMeta1">Student ID and Nick only</div><div data-i18n="tileRegistryMeta2">Read-only view</div></div><div class="tag" data-i18n="tileRegistryTag">Registry</div></article></a>
+        <a class="card-link" href="#"><article class="item" data-type="docs"><h4 data-i18n="tileInfoTitle">Info / Cooperation</h4><div class="meta"><div data-i18n="tileInfoMeta1">Contact and partnerships</div><div data-i18n="tileInfoMeta2">Public / Partners</div></div><div class="tag" data-i18n="tileInfoTag">Info</div></article></a>
       </div>
     </section>
 
     <section class="card section">
-      <h2>Student Registry Preview</h2>
+      <h2 data-i18n="secRegistry">Student Registry Preview</h2>
       <div class="payment-box">
         <table class="student-table">
-          <thead><tr><th>Student ID</th><th>Nick</th></tr></thead>
+          <thead><tr><th data-i18n="thId">Student ID</th><th data-i18n="thNick">Nick</th></tr></thead>
           <tbody id="studentListBody">
-            <tr><td colspan="2">Waiting for backend</td></tr>
+            <tr><td colspan="2" data-i18n="waitingBackend">Waiting for backend</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
     <section class="card section">
-      <h2>Admin Console</h2>
+      <h2 data-i18n="secAdmin">Admin Console</h2>
       <div class="payment-box">
-        <div class="small">Protected by real authentication. Actions are sent to backend API only.</div>
+        <div class="small" data-i18n="adminProtected">Protected by real authentication. Actions are sent to backend API only.</div>
       </div>
       <div class="admin-panel" id="adminPanel">
-        <h3 style="margin-top:0;font-family:'Orbitron',sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--gold2)">Add Student Manually</h3>
+        <h3 style="margin-top:0;font-family:'Orbitron',sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--gold2)" data-i18n="adminAddManual">Add Student Manually</h3>
         <div class="admin-grid">
-          <input id="adminNick" type="text" placeholder="Nickname">
+          <input id="adminNick" type="text" data-i18n-placeholder="adminNickPlaceholder" placeholder="Nickname">
           <select id="adminAccess">
-            <option value="FULL ARCHIVE">FULL ARCHIVE</option>
-            <option value="STUDENT">STUDENT</option>
-            <option value="EVENT">EVENT</option>
-            <option value="PROMO">PROMO</option>
+            <option value="FULL ARCHIVE" data-i18n="adminAccessFull">FULL ARCHIVE</option>
+            <option value="STUDENT" data-i18n="adminAccessStudent">STUDENT</option>
+            <option value="EVENT" data-i18n="adminAccessEvent">EVENT</option>
+            <option value="PROMO" data-i18n="adminAccessPromo">PROMO</option>
           </select>
-          <input id="adminSource" type="text" placeholder="Source">
+          <input id="adminSource" type="text" data-i18n-placeholder="adminSourcePlaceholder" placeholder="Source">
           <input id="adminExpiry" type="date" placeholder="Expiry date">
         </div>
         <div class="row" style="margin-top:14px;">
-          <button class="btn primary" id="adminAdd">Generate Student ID</button>
-          <button class="btn ghost" id="adminExport">Export Student List</button>
+          <button class="btn primary" id="adminAdd" data-i18n="adminGenerate">Generate Student ID</button>
+          <button class="btn ghost" id="adminExport" data-i18n="adminExport">Export Student List</button>
         </div>
       </div>
     </section>
 
     <footer class="footer">
-      <div><a href="#">Contact</a> · <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></div>
-      <div>Copyright © G-ROCK Corporation</div>
+      <div><a href="#" data-i18n="footerContact">Contact</a> · <a href="#" data-i18n="footerPrivacy">Privacy Policy</a> · <a href="#" data-i18n="footerTerms">Terms of Service</a></div>
+      <div data-i18n="footerCopy">Copyright © G-ROCK Corporation</div>
     </footer>
   </div>
 </div>
@@ -738,6 +760,158 @@ window.addEventListener('error', function(e){
     if(shell) shell.style.display = 'flex';
   }catch(_e){}
 });
+
+// ============ TRANSLATIONS ============
+const translations = {
+  en: {
+    statusLabel:"LANGUAGE", hub:"Return to Hub",
+    kicker:"Monkeys University of Gibraltar",
+    title:"Welcome to G-ROCK Universe", subtitle:"Choose language and continue",
+    lead:"After approval by Professor Sugriva and Monkeys University of Gibraltar within the British academic community, we open recruitment among human candidates.",
+    btnLang:"Select Language", btnPayment:"Student Access", btnContinue:"Continue",
+    statRegistered:"Registered Students", statFiles:"Total Archive Files", statUpdates:"Archive Updates", statLangs:"Supported Languages",
+    flowTitle:"Flow",
+    flow1Title:"Intro", flow1Desc:"Animated English welcome screen.",
+    flow2Title:"Language", flow2Desc:"Choose one of four languages.",
+    flow3Title:"Access", flow3Desc:"Real archive access is issued by backend.",
+    flow4Title:"Continue", flow4Desc:"Open the archive tiles.",
+    secLanguage:"Select Language",
+    secPayment:"Student Access", paymentBig:"One-time access payment", paymentSmall:"PayPal checkout is connected to backend order creation and capture.",
+    secValue:"What’s Inside the Archive?",
+    secUpdates:"Latest Updates",
+    secSearch:"Archive Search & Filters", searchPlaceholder:"Search archive...", searchBtn:"Search",
+    filterAll:"All", filterBooks:"Books", filterAudio:"Audiobooks", filterVideo:"Videos", filterDocs:"Documents", filterImages:"Images",
+    secLibrary:"Archive Sections",
+    tileMetaApi:"Requested from API",
+    tileAudioTitle:"Audiobooks", tileAudioTag:"Audiobooks",
+    tileBooksTitle:"Ebooks", tileBooksTag:"Books",
+    tileVideoTitle:"Video / Photos", tileVideoTag:"Videos",
+    tileDocsTitle:"Scientific Achievements / Documents", tileDocsTag:"Documents",
+    tileRegistryTitle:"Student Registry", tileRegistryMeta1:"Student ID and Nick only", tileRegistryMeta2:"Read-only view", tileRegistryTag:"Registry",
+    tileInfoTitle:"Info / Cooperation", tileInfoMeta1:"Contact and partnerships", tileInfoMeta2:"Public / Partners", tileInfoTag:"Info",
+    secRegistry:"Student Registry Preview", thId:"Student ID", thNick:"Nick",
+    secAdmin:"Admin Console", adminProtected:"Protected by real authentication. Actions are sent to backend API only.",
+    adminAddManual:"Add Student Manually", adminNickPlaceholder:"Nickname",
+    adminAccessFull:"FULL ARCHIVE", adminAccessStudent:"STUDENT", adminAccessEvent:"EVENT", adminAccessPromo:"PROMO",
+    adminSourcePlaceholder:"Source", adminGenerate:"Generate Student ID", adminExport:"Export Student List",
+    footerContact:"Contact", footerPrivacy:"Privacy Policy", footerTerms:"Terms of Service", footerCopy:"Copyright © G-ROCK Corporation",
+    welcomeBadge:"Access Granted", welcomeTitle:"WELCOME STUDENT", welcomeIdLabel:"Your Student ID",
+    welcomeChoose:"Choose your nickname and enter the archive.", nicknamePlaceholder:"Choose your nickname", enterArchive:"Enter Archive",
+    waitingBackend:"Waiting for backend", noRecords:"No records", noUpdates:"No updates"
+  },
+  pl: {
+    statusLabel:"JĘZYK", hub:"Powrót do Huba",
+    kicker:"Uniwersytet Małp Gibraltaru",
+    title:"Witamy w G-ROCK Universe", subtitle:"Wybierz język i kontynuuj",
+    lead:"Po zatwierdzeniu przez Profesora Sugriva oraz Uniwersytet Małp Gibraltaru w ramach brytyjskiej społeczności akademickiej, otwieramy rekrutację wśród kandydatów ludzkich.",
+    btnLang:"Wybierz Język", btnPayment:"Dostęp Studencki", btnContinue:"Kontynuuj",
+    statRegistered:"Zarejestrowani Studenci", statFiles:"Wszystkie Pliki Archiwum", statUpdates:"Aktualizacje Archiwum", statLangs:"Obsługiwane Języki",
+    flowTitle:"Przebieg",
+    flow1Title:"Wstęp", flow1Desc:"Animowany ekran powitalny w języku angielskim.",
+    flow2Title:"Język", flow2Desc:"Wybierz jeden z czterech języków.",
+    flow3Title:"Dostęp", flow3Desc:"Prawdziwy dostęp do archiwum jest przyznawany przez backend.",
+    flow4Title:"Kontynuuj", flow4Desc:"Otwórz kafelki archiwum.",
+    secLanguage:"Wybierz Język",
+    secPayment:"Dostęp Studencki", paymentBig:"Jednorazowa opłata za dostęp", paymentSmall:"Płatność PayPal jest połączona z tworzeniem i realizacją zamówień w backendzie.",
+    secValue:"Co Jest W Archiwum?",
+    secUpdates:"Najnowsze Aktualizacje",
+    secSearch:"Wyszukiwanie i Filtry Archiwum", searchPlaceholder:"Szukaj w archiwum...", searchBtn:"Szukaj",
+    filterAll:"Wszystko", filterBooks:"Książki", filterAudio:"Audiobooki", filterVideo:"Wideo", filterDocs:"Dokumenty", filterImages:"Zdjęcia",
+    secLibrary:"Sekcje Archiwum",
+    tileMetaApi:"Pobierane z API",
+    tileAudioTitle:"Audiobooki", tileAudioTag:"Audiobooki",
+    tileBooksTitle:"E-booki", tileBooksTag:"Książki",
+    tileVideoTitle:"Wideo / Zdjęcia", tileVideoTag:"Wideo",
+    tileDocsTitle:"Osiągnięcia naukowe / Dokumenty", tileDocsTag:"Dokumenty",
+    tileRegistryTitle:"Rejestr Studentów", tileRegistryMeta1:"Tylko ID studenta i pseudonim", tileRegistryMeta2:"Widok tylko do odczytu", tileRegistryTag:"Rejestr",
+    tileInfoTitle:"Informacje / Współpraca", tileInfoMeta1:"Kontakt i partnerstwa", tileInfoMeta2:"Publiczne / Partnerzy", tileInfoTag:"Informacje",
+    secRegistry:"Podgląd Rejestru Studentów", thId:"ID Studenta", thNick:"Pseudonim",
+    secAdmin:"Panel Administratora", adminProtected:"Chronione prawdziwym uwierzytelnianiem. Akcje są wysyłane wyłącznie do API backendu.",
+    adminAddManual:"Dodaj Studenta Ręcznie", adminNickPlaceholder:"Pseudonim",
+    adminAccessFull:"PEŁNE ARCHIWUM", adminAccessStudent:"STUDENT", adminAccessEvent:"WYDARZENIE", adminAccessPromo:"PROMOCJA",
+    adminSourcePlaceholder:"Źródło", adminGenerate:"Wygeneruj ID Studenta", adminExport:"Eksportuj Listę Studentów",
+    footerContact:"Kontakt", footerPrivacy:"Polityka Prywatności", footerTerms:"Regulamin", footerCopy:"Copyright © G-ROCK Corporation",
+    welcomeBadge:"Dostęp Przyznany", welcomeTitle:"WITAJ STUDENCIE", welcomeIdLabel:"Twój ID Studenta",
+    welcomeChoose:"Wybierz swój pseudonim i wejdź do archiwum.", nicknamePlaceholder:"Wybierz swój pseudonim", enterArchive:"Wejdź do Archiwum",
+    waitingBackend:"Oczekiwanie na backend", noRecords:"Brak rekordów", noUpdates:"Brak aktualizacji"
+  },
+  es: {
+    statusLabel:"IDIOMA", hub:"Volver al Hub",
+    kicker:"Universidad de los Monos de Gibraltar",
+    title:"Bienvenido a G-ROCK Universe", subtitle:"Elige idioma y continúa",
+    lead:"Tras la aprobación del Profesor Sugriva y la Universidad de los Monos de Gibraltar dentro de la comunidad académica británica, abrimos la convocatoria entre candidatos humanos.",
+    btnLang:"Elegir Idioma", btnPayment:"Acceso de Estudiante", btnContinue:"Continuar",
+    statRegistered:"Estudiantes Registrados", statFiles:"Archivos Totales", statUpdates:"Actualizaciones del Archivo", statLangs:"Idiomas Disponibles",
+    flowTitle:"Proceso",
+    flow1Title:"Introducción", flow1Desc:"Pantalla de bienvenida animada en inglés.",
+    flow2Title:"Idioma", flow2Desc:"Elige uno de los cuatro idiomas.",
+    flow3Title:"Acceso", flow3Desc:"El acceso real al archivo lo emite el backend.",
+    flow4Title:"Continuar", flow4Desc:"Abre los mosaicos del archivo.",
+    secLanguage:"Elegir Idioma",
+    secPayment:"Acceso de Estudiante", paymentBig:"Pago único de acceso", paymentSmall:"El pago con PayPal está conectado a la creación y captura de pedidos en el backend.",
+    secValue:"¿Qué Hay En El Archivo?",
+    secUpdates:"Últimas Actualizaciones",
+    secSearch:"Búsqueda y Filtros del Archivo", searchPlaceholder:"Buscar en el archivo...", searchBtn:"Buscar",
+    filterAll:"Todo", filterBooks:"Libros", filterAudio:"Audiolibros", filterVideo:"Vídeos", filterDocs:"Documentos", filterImages:"Imágenes",
+    secLibrary:"Secciones del Archivo",
+    tileMetaApi:"Solicitado desde la API",
+    tileAudioTitle:"Audiolibros", tileAudioTag:"Audiolibros",
+    tileBooksTitle:"Libros Electrónicos", tileBooksTag:"Libros",
+    tileVideoTitle:"Vídeo / Fotos", tileVideoTag:"Vídeos",
+    tileDocsTitle:"Logros Científicos / Documentos", tileDocsTag:"Documentos",
+    tileRegistryTitle:"Registro de Estudiantes", tileRegistryMeta1:"Solo ID y apodo del estudiante", tileRegistryMeta2:"Vista de solo lectura", tileRegistryTag:"Registro",
+    tileInfoTitle:"Información / Cooperación", tileInfoMeta1:"Contacto y colaboraciones", tileInfoMeta2:"Público / Socios", tileInfoTag:"Información",
+    secRegistry:"Vista Previa del Registro de Estudiantes", thId:"ID de Estudiante", thNick:"Apodo",
+    secAdmin:"Panel de Administración", adminProtected:"Protegido por autenticación real. Las acciones se envían únicamente a la API del backend.",
+    adminAddManual:"Añadir Estudiante Manualmente", adminNickPlaceholder:"Apodo",
+    adminAccessFull:"ARCHIVO COMPLETO", adminAccessStudent:"ESTUDIANTE", adminAccessEvent:"EVENTO", adminAccessPromo:"PROMOCIÓN",
+    adminSourcePlaceholder:"Origen", adminGenerate:"Generar ID de Estudiante", adminExport:"Exportar Lista de Estudiantes",
+    footerContact:"Contacto", footerPrivacy:"Política de Privacidad", footerTerms:"Términos de Servicio", footerCopy:"Copyright © G-ROCK Corporation",
+    welcomeBadge:"Acceso Concedido", welcomeTitle:"BIENVENIDO ESTUDIANTE", welcomeIdLabel:"Tu ID de Estudiante",
+    welcomeChoose:"Elige tu apodo y entra al archivo.", nicknamePlaceholder:"Elige tu apodo", enterArchive:"Entrar al Archivo",
+    waitingBackend:"Esperando al backend", noRecords:"Sin registros", noUpdates:"Sin actualizaciones"
+  },
+  fr: {
+    statusLabel:"LANGUE", hub:"Retour au Hub",
+    kicker:"Université des Singes de Gibraltar",
+    title:"Bienvenue dans G-ROCK Universe", subtitle:"Choisissez la langue et continuez",
+    lead:"Après approbation du Professeur Sugriva et de l'Université des Singes de Gibraltar au sein de la communauté académique britannique, nous ouvrons le recrutement aux candidats humains.",
+    btnLang:"Choisir la Langue", btnPayment:"Accès Étudiant", btnContinue:"Continuer",
+    statRegistered:"Étudiants Inscrits", statFiles:"Fichiers Totaux", statUpdates:"Mises à Jour de l'Archive", statLangs:"Langues Disponibles",
+    flowTitle:"Déroulement",
+    flow1Title:"Introduction", flow1Desc:"Écran d'accueil animé en anglais.",
+    flow2Title:"Langue", flow2Desc:"Choisissez l'une des quatre langues.",
+    flow3Title:"Accès", flow3Desc:"L'accès réel à l'archive est délivré par le backend.",
+    flow4Title:"Continuer", flow4Desc:"Ouvrez les tuiles de l'archive.",
+    secLanguage:"Choisir la Langue",
+    secPayment:"Accès Étudiant", paymentBig:"Paiement d'accès unique", paymentSmall:"Le paiement PayPal est connecté à la création et à la capture des commandes côté backend.",
+    secValue:"Que Contient L'Archive ?",
+    secUpdates:"Dernières Mises à Jour",
+    secSearch:"Recherche et Filtres de l'Archive", searchPlaceholder:"Rechercher dans l'archive...", searchBtn:"Rechercher",
+    filterAll:"Tout", filterBooks:"Livres", filterAudio:"Livres Audio", filterVideo:"Vidéos", filterDocs:"Documents", filterImages:"Images",
+    secLibrary:"Sections de l'Archive",
+    tileMetaApi:"Demandé via l'API",
+    tileAudioTitle:"Livres Audio", tileAudioTag:"Livres Audio",
+    tileBooksTitle:"Livres Numériques", tileBooksTag:"Livres",
+    tileVideoTitle:"Vidéo / Photos", tileVideoTag:"Vidéos",
+    tileDocsTitle:"Réalisations Scientifiques / Documents", tileDocsTag:"Documents",
+    tileRegistryTitle:"Registre des Étudiants", tileRegistryMeta1:"ID étudiant et pseudo uniquement", tileRegistryMeta2:"Vue en lecture seule", tileRegistryTag:"Registre",
+    tileInfoTitle:"Info / Coopération", tileInfoMeta1:"Contact et partenariats", tileInfoMeta2:"Public / Partenaires", tileInfoTag:"Info",
+    secRegistry:"Aperçu du Registre des Étudiants", thId:"ID Étudiant", thNick:"Pseudo",
+    secAdmin:"Console d'Administration", adminProtected:"Protégé par une authentification réelle. Les actions sont envoyées uniquement à l'API backend.",
+    adminAddManual:"Ajouter un Étudiant Manuellement", adminNickPlaceholder:"Pseudo",
+    adminAccessFull:"ARCHIVE COMPLÈTE", adminAccessStudent:"ÉTUDIANT", adminAccessEvent:"ÉVÉNEMENT", adminAccessPromo:"PROMOTION",
+    adminSourcePlaceholder:"Source", adminGenerate:"Générer un ID Étudiant", adminExport:"Exporter la Liste des Étudiants",
+    footerContact:"Contact", footerPrivacy:"Politique de Confidentialité", footerTerms:"Conditions d'Utilisation", footerCopy:"Copyright © G-ROCK Corporation",
+    welcomeBadge:"Accès Accordé", welcomeTitle:"BIENVENUE ÉTUDIANT", welcomeIdLabel:"Votre ID Étudiant",
+    welcomeChoose:"Choisissez votre pseudo et entrez dans l'archive.", nicknamePlaceholder:"Choisissez votre pseudo", enterArchive:"Entrer dans l'Archive",
+    waitingBackend:"En attente du backend", noRecords:"Aucun enregistrement", noUpdates:"Aucune mise à jour"
+  }
+};
+function t(key){
+  const tr = translations[state.lang] || translations.en;
+  return tr[key] != null ? tr[key] : (translations.en[key] || key);
+}
 
 const canvas=document.getElementById('rain'),ctx=canvas.getContext('2d');
 let w,h,cols,drops;
@@ -766,10 +940,10 @@ resize();
   requestAnimationFrame(drawRain);
 })();
 
-// --- localStorage can throw in sandboxed webviews / in-app browsers /
-// private-mode Safari. That used to crash the whole script here and
-// silently kill every listener below it (including the one that opens
-// the welcome screen), leaving a black screen after the intro faded.
+// localStorage can throw in sandboxed webviews / in-app browsers / private
+// Safari. That used to crash the whole script and silently kill every
+// listener below it (including the one that opens the welcome screen),
+// leaving a black screen after the intro faded. Guard every access.
 function safeGet(key){
   try{ return localStorage.getItem(key); }catch(_e){ return null; }
 }
@@ -784,49 +958,78 @@ const welcomeOverlay=document.getElementById('welcomeOverlay');
 const introScreen=document.getElementById('introScreen');
 const mainShell=document.getElementById('mainShell');
 
-function renderLang(){
+// cache of last-loaded backend data so switching language re-renders
+// the same data with new translations instead of re-fetching
+let lastStats={registered:0,totalFiles:0,archiveUpdates:0,languages:4};
+let lastStudents=[];
+let lastUpdates=[];
+let lastCounts={};
+
+function applyI18n(lang){
+  state.lang = translations[lang] ? lang : 'en';
+  document.documentElement.lang = state.lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    el.textContent = t(k);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-placeholder');
+    el.placeholder = t(k);
+  });
+  document.getElementById('status').textContent = t('statusLabel')+' // '+state.lang.toUpperCase();
   document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('active',x.dataset.lang===state.lang));
-  document.getElementById('status').textContent='LANGUAGE // '+state.lang.toUpperCase();
-  safeSet('grock_lang',state.lang);
+  safeSet('grock_lang', state.lang);
+  // re-render dynamic (backend-driven) content in the new language
+  setStats(lastStats);
+  renderStudents(lastStudents);
+  renderUpdates(lastUpdates);
+  renderArchiveCounts(lastCounts);
 }
+
 document.querySelectorAll('.flag-card').forEach(el=>el.addEventListener('click',()=>{
-  state.lang=el.dataset.lang;
-  renderLang();
+  applyI18n(el.dataset.lang);
   document.getElementById('langSelect').classList.remove('active');
   mainShell.style.display='flex';
+}));
+document.querySelectorAll('#langGrid .lang').forEach(el=>el.addEventListener('click',()=>{
+  applyI18n(el.dataset.lang);
 }));
 document.getElementById('openLang').onclick=()=>document.getElementById('langSelect').classList.add('active');
 document.getElementById('openPayment').onclick=()=>document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'});
 document.getElementById('openContinue').onclick=()=>document.getElementById('librarySection').scrollIntoView({behavior:'smooth'});
 
 function setStats(s){
+  lastStats=s;
   const grid=document.getElementById('statsGrid');
   grid.innerHTML=[
-    ['Registered Students',s.registered],
-    ['Total Archive Files',s.totalFiles],
-    ['Archive Updates',s.archiveUpdates],
-    ['Supported Languages',s.languages]
+    [t('statRegistered'),s.registered],
+    [t('statFiles'),s.totalFiles],
+    [t('statUpdates'),s.archiveUpdates],
+    [t('statLangs'),s.languages]
   ].map(([label,value])=>`<div class="stat"><div class="n">${value}</div><div class="l">${label}</div></div>`).join('');
 }
 function renderStudents(rows){
+  lastStudents=rows;
   const body=document.getElementById('studentListBody');
   if(!rows.length){
-    body.innerHTML='<tr><td colspan="2">No records</td></tr>';
+    body.innerHTML=`<tr><td colspan="2">${t('noRecords')}</td></tr>`;
     return;
   }
   body.innerHTML=rows.map(r=>`<tr><td>${r.student_id}</td><td>${r.nickname}</td></tr>`).join('');
 }
 function renderUpdates(rows){
+  lastUpdates=rows;
   const list=document.getElementById('latestList');
   if(!rows.length){
-    list.innerHTML='<div class="latest-item"><b>No updates</b><span>Waiting for backend</span></div>';
+    list.innerHTML=`<div class="latest-item"><b>${t('noUpdates')}</b><span>${t('waitingBackend')}</span></div>`;
     return;
   }
   list.innerHTML=rows.slice(0,10).map(r=>`<div class="latest-item"><b>${r.name}</b><span>${r.date}</span></div>`).join('');
 }
 function renderArchiveCounts(counts){
-  const labels=['Books','Audiobooks','Videos','Documents','Images'];
-  document.getElementById('valueGrid').innerHTML=labels.map(k=>`<div class="stat"><div class="n">${counts[k.toLowerCase()]||0}</div><div class="l">${k}</div></div>`).join('');
+  lastCounts=counts;
+  const labels=[['books',t('filterBooks')],['audiobooks',t('filterAudio')],['videos',t('filterVideo')],['documents',t('filterDocs')],['images',t('filterImages')]];
+  document.getElementById('valueGrid').innerHTML=labels.map(([key,label])=>`<div class="stat"><div class="n">${counts[key]||0}</div><div class="l">${label}</div></div>`).join('');
 }
 async function loadAll(){
   try{
@@ -916,10 +1119,9 @@ document.getElementById('finishAccess').onclick=()=>{
 };
 setTimeout(openWelcome,900);
 
-// --- Extra failsafe: if openWelcome somehow never fires (e.g. this
-// timer got cleared or blocked by the host app), force the main shell
-// visible once the intro animation would have finished anyway, so the
-// user never lands on a blank black screen. ---
+// Extra failsafe: if openWelcome somehow never fires, force the main
+// shell visible once the intro would have finished anyway, so the user
+// never lands on a blank black screen.
 setTimeout(()=>{
   if(!welcomeOverlay.classList.contains('active') && mainShell.style.display==='none'){
     mainShell.style.display='flex';
@@ -927,7 +1129,7 @@ setTimeout(()=>{
   }
 },8000);
 
-renderLang();
+applyI18n(state.lang);
 introScreen.addEventListener('animationend',()=>{
   introScreen.style.display='none';
 });
@@ -987,4 +1189,5 @@ window.PayPalCheckoutReady = async function() {
 <script src="https://www.paypal.com/sdk/js?client-id=TWÓJ_CLIENT_ID&currency=EUR&intent=capture&components=buttons" onload="PayPalCheckoutReady()"></script>
 </body>
 </html>
+
 
