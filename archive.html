@@ -241,10 +241,9 @@ a{color:inherit;text-decoration:none}
 }
 .langs{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
-@media (max-width:900px){.langs{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:560px){.langs{grid-template-columns:repeat(2,1fr)}}
 .lang{
   padding:16px;
@@ -589,6 +588,7 @@ input:focus,select:focus{border-color:var(--gold2)}
     <div class="flag-card" data-lang="es"><div class="flag">🇪🇸</div><div class="label">Español</div></div>
     <div class="flag-card" data-lang="fr"><div class="flag">🇫🇷</div><div class="label">Français</div></div>
     <div class="flag-card" data-lang="ru"><div class="flag">🇷🇺</div><div class="label">Русский</div></div>
+    <div class="flag-card" data-lang="nl"><div class="flag">🇳🇱</div><div class="label">Nederlands</div></div>
   </div>
 </div>
 
@@ -639,6 +639,7 @@ input:focus,select:focus{border-color:var(--gold2)}
         <div class="lang" data-lang="es"><div class="a">🇪🇸</div><div class="b">Español</div><div class="c">Idioma de interfaz</div></div>
         <div class="lang" data-lang="fr"><div class="a">🇫🇷</div><div class="b">Français</div><div class="c">Langue de l’interface</div></div>
         <div class="lang" data-lang="ru"><div class="a">🇷🇺</div><div class="b">Русский</div><div class="c">Язык интерфейса</div></div>
+        <div class="lang" data-lang="nl"><div class="a">🇳🇱</div><div class="b">Nederlands</div><div class="c">Interfacetaal</div></div>
       </div>
     </section>
 
@@ -933,6 +934,42 @@ const translations = {
     welcomeBadge:"Доступ Разрешён", welcomeTitle:"ДОБРО ПОЖАЛОВАТЬ, СТУДЕНТ", welcomeIdLabel:"Ваш ID Студента",
     welcomeChoose:"Выберите никнейм и войдите в архив.", nicknamePlaceholder:"Выберите никнейм", enterArchive:"Войти в Архив",
     waitingBackend:"Ожидание сервера", noRecords:"Нет записей", noUpdates:"Нет обновлений"
+  },
+  nl: {
+    statusLabel:"TAAL", hub:"Terug naar Hub",
+    kicker:"Universiteit van de Apen van Gibraltar",
+    title:"Welkom bij G-ROCK", subtitle:"Kies een taal en ga verder",
+    lead:"Na goedkeuring door professor Sugriva en de Universiteit van de Apen van Gibraltar binnen de Britse academische gemeenschap, openen we de werving onder menselijke kandidaten.",
+    btnLang:"Taal Kiezen", btnPayment:"Studententoegang", btnContinue:"Doorgaan",
+    statRegistered:"Geregistreerde Studenten", statFiles:"Totaal Aantal Bestanden", statUpdates:"Archiefupdates", statLangs:"Ondersteunde Talen",
+    flowTitle:"Verloop",
+    flow1Title:"Intro", flow1Desc:"Geanimeerd Engelstalig welkomstscherm.",
+    flow2Title:"Taal", flow2Desc:"Kies een van de talen.",
+    flow3Title:"Toegang", flow3Desc:"Echte archieftoegang wordt door de server verleend.",
+    flow4Title:"Doorgaan", flow4Desc:"Open de archieftegels.",
+    secLanguage:"Taal Kiezen",
+    secPayment:"Studententoegang", paymentBig:"Eenmalige toegangsbetaling", paymentSmall:"PayPal-afrekenen is gekoppeld aan het aanmaken en verwerken van bestellingen op de server.",
+    secValue:"Wat Zit Er In Het Archief?",
+    secUpdates:"Laatste Updates",
+    secSearch:"Archief Zoeken & Filters", searchPlaceholder:"Zoek in het archief...", searchBtn:"Zoeken",
+    filterAll:"Alles", filterBooks:"Boeken", filterAudio:"Luisterboeken", filterVideo:"Video's", filterDocs:"Documenten", filterImages:"Afbeeldingen",
+    secLibrary:"Archiefsecties",
+    tileMetaApi:"Opgevraagd via API",
+    tileAudioTitle:"Luisterboeken", tileAudioTag:"Luisterboeken",
+    tileBooksTitle:"E-books", tileBooksTag:"Boeken",
+    tileVideoTitle:"Video / Foto's", tileVideoTag:"Video's",
+    tileDocsTitle:"Wetenschappelijke Prestaties / Documenten", tileDocsTag:"Documenten",
+    tileRegistryTitle:"Studentenregister", tileRegistryMeta1:"Alleen student-ID en bijnaam", tileRegistryMeta2:"Alleen-lezen weergave", tileRegistryTag:"Register",
+    tileInfoTitle:"Info / Samenwerking", tileInfoMeta1:"Contact en partnerschappen", tileInfoMeta2:"Openbaar / Partners", tileInfoTag:"Info",
+    secRegistry:"Voorbeeld Studentenregister", thId:"Student-ID", thNick:"Bijnaam",
+    secAdmin:"Adminconsole", adminProtected:"Beveiligd met echte authenticatie. Acties worden alleen naar de backend-API gestuurd.",
+    adminAddManual:"Student Handmatig Toevoegen", adminNickPlaceholder:"Bijnaam",
+    adminAccessFull:"VOLLEDIG ARCHIEF", adminAccessStudent:"STUDENT", adminAccessEvent:"EVENEMENT", adminAccessPromo:"PROMO",
+    adminSourcePlaceholder:"Bron", adminGenerate:"Genereer Student-ID", adminExport:"Exporteer Studentenlijst",
+    footerContact:"Contact", footerPrivacy:"Privacybeleid", footerTerms:"Servicevoorwaarden", footerCopy:"Copyright © G-ROCK Corporation",
+    welcomeBadge:"Toegang Verleend", welcomeTitle:"WELKOM STUDENT", welcomeIdLabel:"Jouw Student-ID",
+    welcomeChoose:"Kies je bijnaam en betreed het archief.", nicknamePlaceholder:"Kies je bijnaam", enterArchive:"Betreed het Archief",
+    waitingBackend:"Wachten op server", noRecords:"Geen records", noUpdates:"Geen updates"
   }
 };
 function t(key){
@@ -987,7 +1024,7 @@ const mainShell=document.getElementById('mainShell');
 
 // cache of last-loaded backend data so switching language re-renders
 // the same data with new translations instead of re-fetching
-let lastStats={registered:0,totalFiles:0,archiveUpdates:0,languages:5};
+let lastStats={registered:0,totalFiles:0,archiveUpdates:0,languages:6};
 let lastStudents=[];
 let lastUpdates=[];
 let lastCounts={};
@@ -1078,7 +1115,7 @@ async function loadAll(){
     renderStudents([]);
     renderUpdates([]);
     renderArchiveCounts({});
-    setStats({registered:0,totalFiles:0,archiveUpdates:0,languages:5});
+    setStats({registered:0,totalFiles:0,archiveUpdates:0,languages:6});
   }
 }
 async function apiPost(url,data){
