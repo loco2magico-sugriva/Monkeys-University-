@@ -112,11 +112,10 @@ a{color:inherit;text-decoration:none}
 }
 .hero{
   display:grid;
-  grid-template-columns:1.2fr .8fr;
+  grid-template-columns:1fr;
   gap:18px;
   align-items:stretch;
 }
-@media (max-width:980px){.hero{grid-template-columns:1fr}}
 .panel{padding:30px 28px}
 .kicker{
   font-family:'Orbitron',sans-serif;
@@ -149,7 +148,7 @@ a{color:inherit;text-decoration:none}
   color:#d4dded;
   line-height:1.7;
   margin:0;
-  font-size:15px;
+  font-size:16.5px;
 }
 .row{
   display:flex;
@@ -242,11 +241,11 @@ a{color:inherit;text-decoration:none}
 }
 .langs{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   gap:12px;
 }
-@media (max-width:900px){.langs{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:560px){.langs{grid-template-columns:1fr}}
+@media (max-width:900px){.langs{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.langs{grid-template-columns:repeat(2,1fr)}}
 .lang{
   padding:16px;
   border-radius:14px;
@@ -497,7 +496,7 @@ input:focus,select:focus{border-color:var(--gold2)}
 .lang-select.active{display:flex}
 .flag-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:18px;
   width:min(900px,90vw);
 }
@@ -589,6 +588,7 @@ input:focus,select:focus{border-color:var(--gold2)}
     <div class="flag-card" data-lang="pl"><div class="flag">🇵🇱</div><div class="label">Polski</div></div>
     <div class="flag-card" data-lang="es"><div class="flag">🇪🇸</div><div class="label">Español</div></div>
     <div class="flag-card" data-lang="fr"><div class="flag">🇫🇷</div><div class="label">Français</div></div>
+    <div class="flag-card" data-lang="ru"><div class="flag">🇷🇺</div><div class="label">Русский</div></div>
   </div>
 </div>
 
@@ -610,7 +610,7 @@ input:focus,select:focus{border-color:var(--gold2)}
   <div class="topbar">
     <div class="brand">G-ROCK <b>Universe</b></div>
     <div class="topbar-right">
-      <a class="hub-link" id="returnHub" href="../index.html" data-i18n="hub">Return to Hub</a>
+      <a class="hub-link" id="returnHub" href="index.html" data-i18n="hub">Return to Hub</a>
       <div class="badge" id="status">LANGUAGE // READY</div>
     </div>
   </div>
@@ -629,16 +629,6 @@ input:focus,select:focus{border-color:var(--gold2)}
         </div>
         <div class="stats" id="statsGrid"></div>
       </section>
-
-      <aside class="card flow">
-        <h3 data-i18n="flowTitle">Flow</h3>
-        <div class="flow-list">
-          <div class="step"><div class="num">1</div><div><b data-i18n="flow1Title">Intro</b><span data-i18n="flow1Desc">Animated English welcome screen.</span></div></div>
-          <div class="step"><div class="num">2</div><div><b data-i18n="flow2Title">Language</b><span data-i18n="flow2Desc">Choose one of four languages.</span></div></div>
-          <div class="step"><div class="num">3</div><div><b data-i18n="flow3Title">Access</b><span data-i18n="flow3Desc">Real archive access is issued by backend.</span></div></div>
-          <div class="step"><div class="num">4</div><div><b data-i18n="flow4Title">Continue</b><span data-i18n="flow4Desc">Open the archive tiles.</span></div></div>
-        </div>
-      </aside>
     </div>
 
     <section class="card section" id="languageSection">
@@ -648,6 +638,7 @@ input:focus,select:focus{border-color:var(--gold2)}
         <div class="lang" data-lang="pl"><div class="a">🇵🇱</div><div class="b">Polski</div><div class="c">Język interfejsu</div></div>
         <div class="lang" data-lang="es"><div class="a">🇪🇸</div><div class="b">Español</div><div class="c">Idioma de interfaz</div></div>
         <div class="lang" data-lang="fr"><div class="a">🇫🇷</div><div class="b">Français</div><div class="c">Langue de l’interface</div></div>
+        <div class="lang" data-lang="ru"><div class="a">🇷🇺</div><div class="b">Русский</div><div class="c">Язык интерфейса</div></div>
       </div>
     </section>
 
@@ -906,6 +897,42 @@ const translations = {
     welcomeBadge:"Accès Accordé", welcomeTitle:"BIENVENUE ÉTUDIANT", welcomeIdLabel:"Votre ID Étudiant",
     welcomeChoose:"Choisissez votre pseudo et entrez dans l'archive.", nicknamePlaceholder:"Choisissez votre pseudo", enterArchive:"Entrer dans l'Archive",
     waitingBackend:"En attente du backend", noRecords:"Aucun enregistrement", noUpdates:"Aucune mise à jour"
+  },
+  ru: {
+    statusLabel:"ЯЗЫК", hub:"Вернуться в Хаб",
+    kicker:"Университет Обезьян Гибралтара",
+    title:"Добро пожаловать в G-ROCK Universe", subtitle:"Выберите язык и продолжите",
+    lead:"После одобрения профессором Сугривой и Университетом Обезьян Гибралтара в рамках британского академического сообщества мы открываем набор среди кандидатов-людей.",
+    btnLang:"Выбрать Язык", btnPayment:"Доступ для Студентов", btnContinue:"Продолжить",
+    statRegistered:"Зарегистрированные Студенты", statFiles:"Всего Файлов в Архиве", statUpdates:"Обновления Архива", statLangs:"Поддерживаемые Языки",
+    flowTitle:"Процесс",
+    flow1Title:"Вступление", flow1Desc:"Анимированный приветственный экран на английском.",
+    flow2Title:"Язык", flow2Desc:"Выберите один из языков.",
+    flow3Title:"Доступ", flow3Desc:"Реальный доступ к архиву выдаётся сервером.",
+    flow4Title:"Продолжить", flow4Desc:"Откройте плитки архива.",
+    secLanguage:"Выбрать Язык",
+    secPayment:"Доступ для Студентов", paymentBig:"Единоразовая оплата доступа", paymentSmall:"Оплата через PayPal связана с созданием и подтверждением заказа на сервере.",
+    secValue:"Что Внутри Архива?",
+    secUpdates:"Последние Обновления",
+    secSearch:"Поиск и Фильтры Архива", searchPlaceholder:"Поиск в архиве...", searchBtn:"Поиск",
+    filterAll:"Все", filterBooks:"Книги", filterAudio:"Аудиокниги", filterVideo:"Видео", filterDocs:"Документы", filterImages:"Изображения",
+    secLibrary:"Разделы Архива",
+    tileMetaApi:"Запрошено через API",
+    tileAudioTitle:"Аудиокниги", tileAudioTag:"Аудиокниги",
+    tileBooksTitle:"Электронные Книги", tileBooksTag:"Книги",
+    tileVideoTitle:"Видео / Фото", tileVideoTag:"Видео",
+    tileDocsTitle:"Научные Достижения / Документы", tileDocsTag:"Документы",
+    tileRegistryTitle:"Реестр Студентов", tileRegistryMeta1:"Только ID студента и никнейм", tileRegistryMeta2:"Только для просмотра", tileRegistryTag:"Реестр",
+    tileInfoTitle:"Информация / Сотрудничество", tileInfoMeta1:"Контакты и партнёрство", tileInfoMeta2:"Публично / Партнёры", tileInfoTag:"Информация",
+    secRegistry:"Просмотр Реестра Студентов", thId:"ID Студента", thNick:"Никнейм",
+    secAdmin:"Панель Администратора", adminProtected:"Защищено настоящей аутентификацией. Действия отправляются только на сервер через API.",
+    adminAddManual:"Добавить Студента Вручную", adminNickPlaceholder:"Никнейм",
+    adminAccessFull:"ПОЛНЫЙ АРХИВ", adminAccessStudent:"СТУДЕНТ", adminAccessEvent:"СОБЫТИЕ", adminAccessPromo:"ПРОМО",
+    adminSourcePlaceholder:"Источник", adminGenerate:"Сгенерировать ID Студента", adminExport:"Экспортировать Список Студентов",
+    footerContact:"Контакты", footerPrivacy:"Политика Конфиденциальности", footerTerms:"Условия Использования", footerCopy:"Copyright © G-ROCK Corporation",
+    welcomeBadge:"Доступ Разрешён", welcomeTitle:"ДОБРО ПОЖАЛОВАТЬ, СТУДЕНТ", welcomeIdLabel:"Ваш ID Студента",
+    welcomeChoose:"Выберите никнейм и войдите в архив.", nicknamePlaceholder:"Выберите никнейм", enterArchive:"Войти в Архив",
+    waitingBackend:"Ожидание сервера", noRecords:"Нет записей", noUpdates:"Нет обновлений"
   }
 };
 function t(key){
@@ -960,7 +987,7 @@ const mainShell=document.getElementById('mainShell');
 
 // cache of last-loaded backend data so switching language re-renders
 // the same data with new translations instead of re-fetching
-let lastStats={registered:0,totalFiles:0,archiveUpdates:0,languages:4};
+let lastStats={registered:0,totalFiles:0,archiveUpdates:0,languages:5};
 let lastStudents=[];
 let lastUpdates=[];
 let lastCounts={};
@@ -994,6 +1021,10 @@ document.querySelectorAll('.flag-card').forEach(el=>el.addEventListener('click',
 document.querySelectorAll('#langGrid .lang').forEach(el=>el.addEventListener('click',()=>{
   applyI18n(el.dataset.lang);
 }));
+document.getElementById('returnHub').addEventListener('click',(e)=>{
+  e.preventDefault();
+  window.location.href='index.html';
+});
 document.getElementById('openLang').onclick=()=>document.getElementById('langSelect').classList.add('active');
 document.getElementById('openPayment').onclick=()=>document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'});
 document.getElementById('openContinue').onclick=()=>document.getElementById('librarySection').scrollIntoView({behavior:'smooth'});
@@ -1047,7 +1078,7 @@ async function loadAll(){
     renderStudents([]);
     renderUpdates([]);
     renderArchiveCounts({});
-    setStats({registered:0,totalFiles:0,archiveUpdates:0,languages:4});
+    setStats({registered:0,totalFiles:0,archiveUpdates:0,languages:5});
   }
 }
 async function apiPost(url,data){
@@ -1189,5 +1220,3 @@ window.PayPalCheckoutReady = async function() {
 <script src="https://www.paypal.com/sdk/js?client-id=TWÓJ_CLIENT_ID&currency=EUR&intent=capture&components=buttons" onload="PayPalCheckoutReady()"></script>
 </body>
 </html>
-
-
