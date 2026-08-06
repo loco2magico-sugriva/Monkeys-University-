@@ -549,7 +549,7 @@ h3{
 
 <!-- LANGUAGE SELECT -->
 <div class="lang-select" id="langSelect">
-  <h2>Select Language / Wybierz Język / Elige idioma / Choisir la langue / Выберите язык</h2>
+  <h2>Select Language / Wybierz Język / Elige idioma / Choisir la langue / Выберите язык / Kies taal</h2>
   <div class="flag-grid">
     <div class="flag-card" onclick="chooseLang('en')">
       <div class="flag">🇬🇧</div>
@@ -570,6 +570,10 @@ h3{
     <div class="flag-card" onclick="chooseLang('ru')">
       <div class="flag">🇷🇺</div>
       <div class="label">Русский</div>
+    </div>
+    <div class="flag-card" onclick="chooseLang('nl')">
+      <div class="flag">🇳🇱</div>
+      <div class="label">Nederlands</div>
     </div>
   </div>
 </div>
@@ -594,6 +598,7 @@ h3{
 <a onclick="setLang('es')">ES</a>
 <a onclick="setLang('fr')">FR</a>
 <a onclick="setLang('ru')">RU</a>
+<a onclick="setLang('nl')">NL</a>
 </div>
 </header>
 
@@ -677,7 +682,8 @@ en: "A world uniting Professor Sugriva, the first chimpanzee accepted by British
 pl: "Świat łączący profesora Sugrivę, pierwszego szympansa zaakceptowanego przez brytyjskie środowisko akademickie jako profesora w styczniu 2025 roku, kaprala Wojtka, prawdziwego niedźwiedzia-żołnierza i weterana II wojny światowej, który walczył przeciw nazistowskim Niemcom we Włoszech, a później mieszkał w zoo w Edynburgu, oraz makaki berberyjskie z Gibraltaru, jedyną dziką populację małp w Europie.",
 es: "Un mundo que une al profesor Sugriva, el primer chimpancé aceptado por el mundo académico británico como profesor en enero de 2025, al cabo Wojtek, un auténtico oso-soldado y veterano de la Segunda Guerra Mundial que luchó contra la Alemania nazi en Italia y luego vivió en el zoológico de Edimburgo, y a los macacos de Berbería de Gibraltar, la única población salvaje de monos de Europa.",
 fr: "Un monde reliant le professeur Sugriva, le premier chimpanzé accepté par le monde universitaire britannique en tant que professeur en janvier 2025, le caporal Wojtek, un authentique ours-soldat et vétéran de la Seconde Guerre mondiale qui a combattu l'Allemagne nazie en Italie avant de vivre au zoo d'Édimbourg, et les macaques de Barbarie de Gibraltar, la seule population sauvage de singes d'Europe.",
-ru: "Мир, объединяющий профессора Сугриву, первого шимпанзе, принятого британским академическим сообществом в качестве профессора в январе 2025 года, капрала Войтека, настоящего медведя-солдата и ветерана Второй мировой войны, который сражался против нацистской Германии в Италии, а позже жил в Эдинбургском зоопарке, и берберийских макак Гибралтара — единственную дикую популяцию обезьян в Европе."
+ru: "Мир, объединяющий профессора Сугриву, первого шимпанзе, принятого британским академическим сообществом в качестве профессора в январе 2025 года, капрала Войтека, настоящего медведя-солдата и ветерана Второй мировой войны, который сражался против нацистской Германии в Италии, а позже жил в Эдинбургском зоопарке, и берберийских макак Гибралтара — единственную дикую популяцию обезьян в Европе.",
+nl: "Een wereld die professor Sugriva verenigt, de eerste chimpansee die in januari 2025 door de Britse academische wereld als hoogleraar werd aanvaard, korporaal Wojtek, een echte soldatenbeer en veteraan van de Tweede Wereldoorlog die in Italië tegen nazi-Duitsland vocht en later in de dierentuin van Edinburgh woonde, en de Berberapen van Gibraltar, Europa's enige wilde apenpopulatie."
 };
 
 function chooseLang(lang){
@@ -698,7 +704,7 @@ function chooseLang(lang){
 
 function highlightLang(lang){
   document.querySelectorAll('#headerLang a:not(.hub)').forEach(a=>a.classList.remove('on'));
-  const map = {en:0, pl:1, es:2, fr:3, ru:4};
+  const map = {en:0, pl:1, es:2, fr:3, ru:4, nl:5};
   document.querySelectorAll('#headerLang a:not(.hub)')[map[lang]].classList.add('on');
 }
 
@@ -712,7 +718,8 @@ function setLang(lang){
     pl:["Uniwersytet Małp Gibraltaru","Bank Małp z Gibraltaru","Parlament Małp z Gibraltaru","Biblioteka Małp z Gibraltaru","Kampus w Ceucie","Kampus Karaibski","Archiwum G-Rock","Mapa Świata"],
     es:["Universidad de los Monos de Gibraltar","Banco de los Monos de Gibraltar","Parlamento de los Monos de Gibraltar","La Biblioteca de Monos de Gibraltar","Campus de Ceuta","Campus del Caribe","Archivo G-Rock","Mapa del Mundo"],
     fr:["Université des Singes de Gibraltar","Banque des Singes de Gibraltar","Parlement des Singes de Gibraltar","La Bibliothèque des Singes de Gibraltar","Campus de Ceuta","Campus des Caraïbes","Archives G-Rock","Carte du Monde"],
-    ru:["Университет Обезьян Гибралтара","Банк Обезьян Гибралтара","Парламент Обезьян Гибралтара","Библиотека Обезьян Гибралтара","Кампус Сеуты","Карибский Кампус","Архив G-Rock","Карта Мира"]
+    ru:["Университет Обезьян Гибралтара","Банк Обезьян Гибралтара","Парламент Обезьян Гибралтара","Библиотека Обезьян Гибралтара","Кампус Сеуты","Карибский Кампус","Архив G-Rock","Карта Мира"],
+    nl:["Universiteit van de Apen van Gibraltar","Bank van de Apen van Gibraltar","Parlement van de Apen van Gibraltar","De Apenbibliotheek van Gibraltar","Campus Ceuta","Caribische Campus","G-Rock Archief","Wereldkaart"]
   };
   document.querySelectorAll(".grid h3").forEach((el,i)=>{ el.innerText = data[lang][i]; });
   document.getElementById('storyCardText').textContent = STORY[lang];
@@ -722,4 +729,7 @@ function setLang(lang){
 
 </body>
       </html>
+  
+
+
   
