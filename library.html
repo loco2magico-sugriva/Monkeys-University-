@@ -3,1168 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Library of Gibraltar // MUoG</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<title>The Gibraltar Monkey Library // MUoG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:      #030609;
-  --bg2:     #070d14;
-  --bg3:     #0b1220;
-  --panel:   #0a1019;
-  --blue:    #3a8fff;
-  --bdim:    #1d4d88;
-  --bglow:   rgba(58,143,255,0.15);
-  --cyan:    #00d4ff;
-  --gold:    #c8a84b;
-  --red:     #ff4060;
-  --green:   #00ff88;
-  --amber:   #ff9a3c;
-  --text:    #d4dde8;
-  --muted:   #4a6070;
-  --border:  #0f1e2e;
-  --border2: #162030;
-}
+:root{--bg:#0b0d14;--bg2:#121621;--panel:#1a1f2e;--panel2:#23293b;--line:#2a3142;--red:#e50914;--blue:#0066ff;--cyan:#00d4ff;--purple:#a855f7;--gold:#fbbf24;--green:#10b981;--white:#ffffff;--gray:#94a3b8;--light-gray:#cbd5e1;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.background{position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;overflow:hidden}
+.background::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 20%,rgba(0,102,255,0.15) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(168,85,247,0.1) 0%,transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,212,255,0.08) 0%,transparent 60%);animation:bgMove 20s ease-in-out infinite}
+@keyframes bgMove{0%,100%{transform:translate(0,0)} 50%{transform:translate(-2%,2%)}}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:20px 4%;background:linear-gradient(180deg,rgba(11,13,20,0.95) 0%,rgba(11,13,20,0.85) 100%);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);flex-wrap:wrap;gap:14px}
+.nav-left{display:flex;align-items:center;gap:20px}
+.nav-logo{width:40px;height:40px;background:linear-gradient(135deg,var(--red),var(--purple));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:var(--white);box-shadow:0 4px 20px rgba(229,9,20,0.4)}
+.nav-brand{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:var(--white);letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,var(--white),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-center{display:flex;gap:30px}
+.nav-link{color:var(--gray);font-size:14px;font-weight:500;transition:all 0.3s;position:relative;padding:8px 0}
+.nav-link:hover{color:var(--white)}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width 0.3s}
+.nav-link:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.lang-switch{display:flex;gap:6px;background:var(--panel);padding:6px;border-radius:8px;border:1px solid var(--line);flex-wrap:wrap}
+.lang-switch a{color:var(--gray);font-size:12px;font-weight:700;padding:8px 12px;border-radius:6px;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px;cursor:pointer}
+.lang-switch a:hover,.lang-switch a.active{color:var(--white);background:var(--blue);box-shadow:0 4px 15px rgba(0,102,255,0.4)}
+.return-hub{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--gray);font-size:13px;font-weight:600;transition:all 0.3s}
+.return-hub:hover{color:var(--white);border-color:var(--blue);background:rgba(0,102,255,0.15);box-shadow:0 4px 20px rgba(0,102,255,0.3)}
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+/* ============ LIBRARY WELCOME (new) ============ */
+.lib-hero{position:relative;padding:170px 4% 70px;text-align:center;overflow:hidden}
+.lib-hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 0%, rgba(251,191,36,0.10), transparent 45%),linear-gradient(180deg, rgba(11,13,20,0.2) 0%, var(--bg) 100%);pointer-events:none}
+.lib-seal{position:relative;z-index:1;width:200px;height:200px;margin:0 auto 30px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px rgba(251,191,36,.35), 0 20px 60px rgba(0,0,0,.6), 0 0 60px rgba(251,191,36,.15);}
+.lib-seal img{width:100%;height:100%;object-fit:cover;display:block}
+.lib-welcome{position:relative;z-index:1;font-family:'Orbitron',sans-serif;font-size:clamp(24px,3.6vw,42px);font-weight:800;letter-spacing:1px;color:var(--gold);text-shadow:0 0 30px rgba(251,191,36,.35);margin-bottom:18px}
+.lib-motto{position:relative;z-index:1;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:5px;color:var(--gray);text-transform:uppercase;margin-bottom:26px}
+.lib-intro{position:relative;z-index:1;max-width:720px;margin:0 auto 34px;color:var(--light-gray);font-size:16px;line-height:1.8}
+.lib-desc-grid{position:relative;z-index:1;max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:left}
+@media(max-width:768px){.lib-desc-grid{grid-template-columns:1fr}}
+.lib-desc-card{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;padding:24px;font-size:14px;color:var(--light-gray);line-height:1.75}
+.lib-desc-card b{display:block;color:var(--gold);font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.lib-archive-btn{position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:15px 32px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#c9922a);color:#1a1608;font-weight:800;font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;box-shadow:0 8px 30px rgba(251,191,36,.3);transition:.3s}
+.lib-archive-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(251,191,36,.45)}
+.lib-divider{position:relative;z-index:1;max-width:200px;height:1px;margin:50px auto 0;background:linear-gradient(90deg,transparent,var(--line),transparent)}
 
-body{
-  font-family:'Barlow Condensed',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
-/* SCANLINES */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);
-  animation:scanShift 10s linear infinite;
-}
-@keyframes scanShift{0%{background-position:0 0;}100%{background-position:0 400px;}}
-
-/* AMBIENT */
-.amb{position:fixed;pointer-events:none;z-index:0;}
-.amb1{top:-300px;left:-200px;width:800px;height:800px;background:radial-gradient(circle,rgba(58,143,255,0.04) 0%,transparent 70%);}
-.amb2{bottom:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.03) 0%,transparent 70%);}
-.amb3{top:40%;left:50%;width:400px;height:400px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(200,168,75,0.02) 0%,transparent 70%);}
-
-.wrap{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 32px 100px;}
-
-/* ── HEADER ── */
-.site-header{
-  position:sticky;top:0;z-index:200;
-  background:rgba(3,6,9,0.95);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border2);
-  padding:0 32px;
-  display:flex;align-items:center;justify-content:space-between;
-  height:60px;
-}
-.h-left{display:flex;align-items:center;gap:14px;}
-.h-logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:13px;color:var(--blue);letter-spacing:3px;text-shadow:0 0 14px rgba(58,143,255,0.5);}
-.h-sep{width:1px;height:22px;background:var(--border2);}
-.h-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;}
-.h-right{display:flex;align-items:center;gap:16px;}
-.h-status{display:flex;align-items:center;gap:7px;}
-.s-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.5s ease-in-out infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.s-txt{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;}
-.lang-bar{display:flex;gap:4px;}
-.lang-btn{
-  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
-  color:var(--muted);padding:4px 8px;border:1px solid transparent;border-radius:3px;
-  cursor:pointer;background:none;transition:all .2s;
-}
-.lang-btn:hover,.lang-btn.active{color:var(--blue);border-color:var(--bdim);}
-
-/* ── HERO ── */
-.hero{
-  padding:70px 0 50px;
-  border-bottom:1px solid var(--border);
-  position:relative;
-  overflow:hidden;
-}
-.hero::after{
-  content:'247';
-  position:absolute;right:-20px;top:20px;
-  font-family:'Orbitron',sans-serif;font-size:180px;font-weight:900;
-  color:rgba(58,143,255,0.03);pointer-events:none;line-height:1;
-}
-.back-link{
-  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;
-  text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:26px;
-  transition:color .2s;
-}
-.back-link:hover{color:var(--blue);}
-.hero-eyebrow{
-  font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);
-  letter-spacing:5px;text-transform:uppercase;margin-bottom:16px;
-  opacity:0;animation:fadeUp .7s ease .1s forwards;
-}
-.hero-title{
-  font-family:'Orbitron',sans-serif;font-weight:900;
-  font-size:clamp(28px,5vw,58px);line-height:1.05;
-  color:#fff;letter-spacing:2px;text-transform:uppercase;
-  opacity:0;animation:fadeUp .9s ease .2s forwards;
-}
-.hero-title span{color:var(--blue);text-shadow:0 0 30px rgba(58,143,255,0.4);}
-.hero-divider{width:80px;height:3px;background:linear-gradient(90deg,var(--blue),transparent);margin:20px 0;opacity:0;animation:fadeUp .8s ease .35s forwards;}
-.hero-desc{
-  max-width:620px;font-size:16px;font-weight:300;line-height:1.75;color:#8fa0b4;
-  opacity:0;animation:fadeUp .8s ease .5s forwards;
-}
-.hero-desc strong{color:var(--text);font-weight:600;}
-.hero-stats{
-  display:flex;gap:32px;flex-wrap:wrap;margin-top:28px;
-  opacity:0;animation:fadeUp .8s ease .65s forwards;
-}
-.stat{display:flex;flex-direction:column;gap:3px;}
-.stat-num{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--blue);}
-.stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-
-/* ── SECTION LABELS ── */
-.sec-label{
-  display:flex;align-items:center;gap:14px;margin:52px 0 22px;
-}
-.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
-.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);border:1px solid var(--border2);padding:2px 7px;border-radius:2px;}
-.sec-txt{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:4px;text-transform:uppercase;white-space:nowrap;}
-
-/* ── SECTION GRID ── */
-.section-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-@media(max-width:900px){.section-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:500px){.section-grid{grid-template-columns:1fr;}}
-
-/* ── SECTION CARD ── */
-.sec-card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:24px 22px;
-  cursor:pointer;
-  position:relative;overflow:hidden;
-  transition:all .25s ease;
-  display:flex;flex-direction:column;gap:10px;
-  opacity:0;
-  animation:fadeUp .6s ease both;
-}
-.sec-card:nth-child(1){animation-delay:.1s;}
-.sec-card:nth-child(2){animation-delay:.2s;}
-.sec-card:nth-child(3){animation-delay:.3s;}
-.sec-card:nth-child(4){animation-delay:.4s;}
-.sec-card:nth-child(5){animation-delay:.5s;}
-.sec-card:nth-child(6){animation-delay:.6s;}
-.sec-card:nth-child(7){animation-delay:.7s;}
-.sec-card:nth-child(8){animation-delay:.8s;}
-
-.sec-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  opacity:0;transition:opacity .3s;
-}
-.sec-card::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(58,143,255,0.04),transparent 60%);
-  opacity:0;transition:opacity .3s;
-}
-.sec-card:hover{border-color:var(--blue);background:#0c1623;transform:translateY(-4px);box-shadow:0 12px 40px rgba(58,143,255,0.1);}
-.sec-card:hover::before{opacity:1;}
-.sec-card:hover::after{opacity:1;}
-
-/* Color variants */
-.sec-card.blue::before{background:linear-gradient(90deg,var(--blue),transparent);}
-.sec-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent);}
-.sec-card.gold:hover{border-color:var(--gold);box-shadow:0 12px 40px rgba(200,168,75,0.1);}
-.sec-card.red::before{background:linear-gradient(90deg,var(--red),transparent);}
-.sec-card.red:hover{border-color:var(--red);box-shadow:0 12px 40px rgba(255,64,96,0.1);}
-.sec-card.cyan::before{background:linear-gradient(90deg,var(--cyan),transparent);}
-.sec-card.cyan:hover{border-color:var(--cyan);box-shadow:0 12px 40px rgba(0,212,255,0.1);}
-.sec-card.amber::before{background:linear-gradient(90deg,var(--amber),transparent);}
-.sec-card.amber:hover{border-color:var(--amber);box-shadow:0 12px 40px rgba(255,154,60,0.1);}
-.sec-card.green-c::before{background:linear-gradient(90deg,var(--green),transparent);}
-.sec-card.green-c:hover{border-color:var(--green);box-shadow:0 12px 40px rgba(0,255,136,0.1);}
-
-.card-icon{font-size:22px;margin-bottom:4px;}
-.card-id{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;}
-.card-title{
-  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;
-  color:#fff;letter-spacing:1px;line-height:1.3;
-  transition:color .2s;
-}
-.sec-card:hover .card-title{color:var(--blue);}
-.sec-card.gold:hover .card-title{color:var(--gold);}
-.sec-card.red:hover .card-title{color:var(--red);}
-.sec-card.cyan:hover .card-title{color:var(--cyan);}
-.sec-card.amber:hover .card-title{color:var(--amber);}
-.sec-card.green-c:hover .card-title{color:var(--green);}
-
-.card-desc{font-size:12px;color:#566070;line-height:1.55;font-weight:300;flex:1;}
-.card-count{
-  font-family:'Share Tech Mono',monospace;font-size:9px;
-  color:var(--blue);letter-spacing:1px;
-  padding:3px 8px;border-radius:2px;
-  background:rgba(58,143,255,0.06);border:1px solid var(--border2);
-  display:inline-block;align-self:flex-start;
-}
-.sec-card.gold .card-count{color:var(--gold);background:rgba(200,168,75,0.06);}
-.sec-card.red .card-count{color:var(--red);background:rgba(255,64,96,0.06);}
-
-.card-cta{
-  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);
-  letter-spacing:2px;opacity:0;transition:opacity .25s;margin-top:4px;
-}
-.sec-card:hover .card-cta{opacity:1;}
-
-/* ── TIMELINE STRIP ── */
-.timeline-strip{
-  background:var(--panel);border:1px solid var(--border2);border-radius:8px;
-  padding:28px 32px;margin-top:12px;
-}
-.tl-title{
-  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--blue);
-  letter-spacing:2px;margin-bottom:20px;
-}
-.tl-list{display:flex;flex-direction:column;gap:0;}
-.tl-item{
-  display:grid;grid-template-columns:160px 1fr;
-  gap:16px;padding:12px 0;
-  border-bottom:1px solid var(--border);
-  cursor:pointer;transition:all .2s;
-  position:relative;
-}
-.tl-item:last-child{border-bottom:none;}
-.tl-item:hover{padding-left:8px;}
-.tl-item::before{
-  content:'';position:absolute;left:-32px;top:0;bottom:0;width:2px;
-  background:transparent;transition:background .2s;
-}
-.tl-item:hover::before{background:var(--blue);}
-.tl-date{
-  font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);
-  letter-spacing:1px;padding-top:1px;
-}
-.tl-event{font-size:13px;color:var(--text);font-weight:400;line-height:1.5;}
-.tl-event span{color:var(--muted);font-size:12px;font-weight:300;}
-
-/* ── SYS FOOTER ── */
-.sys-footer{
-  margin-top:50px;padding:20px 28px;
-  background:var(--bg2);border:1px solid var(--border);border-radius:6px;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-}
-.sf-left{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;line-height:1.9;}
-.sf-left span{color:var(--blue);}
-.sf-right{display:flex;align-items:center;gap:8px;}
-.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s infinite;}
-.sf-live{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;}
-
-/* ══════════════ MODAL ══════════════ */
-.modal-overlay{
-  display:none;position:fixed;inset:0;z-index:9000;
-  background:rgba(1,3,7,0.96);backdrop-filter:blur(12px);
-  align-items:center;justify-content:center;padding:20px;overflow-y:auto;
-}
-.modal-overlay.open{display:flex;animation:mIn .3s ease;}
-@keyframes mIn{from{opacity:0;}to{opacity:1;}}
-
-.modal{
-  background:#07101c;border:1px solid var(--bdim);border-radius:10px;
-  width:100%;max-width:860px;position:relative;
-  box-shadow:0 0 80px rgba(58,143,255,0.1),0 30px 60px rgba(0,0,0,0.8);
-  animation:mSlide .3s cubic-bezier(0.2,0.8,0.3,1);
-  margin:auto;
-}
-@keyframes mSlide{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-
-.modal-close{
-  position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;
-  color:var(--muted);font-size:20px;line-height:1;transition:color .2s;
-  font-family:'Share Tech Mono',monospace;z-index:10;
-}
-.modal-close:hover{color:var(--red);}
-
-.m-head{padding:28px 34px 22px;border-bottom:1px solid var(--border2);}
-.m-eyebrow{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
-.m-title{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;line-height:1.2;margin-bottom:5px;}
-.m-sub{font-size:13px;color:var(--muted);letter-spacing:.5px;font-weight:300;}
-.m-body{padding:28px 34px;}
-.m-status-bar{
-  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;
-}
-.m-badge{
-  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;
-  padding:4px 10px;border-radius:2px;border:1px solid;text-transform:uppercase;
-}
-.mb-blue{border-color:var(--bdim);color:var(--blue);background:rgba(58,143,255,0.06);}
-.mb-green{border-color:rgba(0,255,136,0.3);color:var(--green);background:rgba(0,255,136,0.05);}
-.mb-gold{border-color:rgba(200,168,75,0.4);color:var(--gold);background:rgba(200,168,75,0.06);}
-.mb-red{border-color:rgba(255,64,96,0.3);color:var(--red);background:rgba(255,64,96,0.06);}
-.mb-amber{border-color:rgba(255,154,60,0.3);color:var(--amber);background:rgba(255,154,60,0.06);}
-
-.m-intro{font-size:14.5px;font-weight:300;line-height:1.8;color:#8090a0;margin-bottom:24px;}
-.m-intro strong{color:var(--text);font-weight:600;}
-
-.m-entries{display:flex;flex-direction:column;gap:8px;}
-.m-entry{
-  background:#040c16;border:1px solid var(--border2);
-  border-left:3px solid var(--blue);
-  border-radius:0 6px 6px 0;padding:14px 18px;
-  transition:background .2s;
-}
-.m-entry:hover{background:#081220;}
-.me-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:5px;}
-.me-body{font-size:13px;font-weight:300;color:#7a8fa0;line-height:1.6;}
-.me-body strong{color:var(--text);}
-
-.m-entry.gold-e{border-left-color:var(--gold);}
-.m-entry.gold-e .me-title{color:var(--gold);}
-.m-entry.red-e{border-left-color:var(--red);}
-.m-entry.red-e .me-title{color:var(--red);}
-.m-entry.amber-e{border-left-color:var(--amber);}
-.m-entry.amber-e .me-title{color:var(--amber);}
-.m-entry.green-e{border-left-color:var(--green);}
-.m-entry.green-e .me-title{color:var(--green);}
-
-.m-actions{
-  display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;
-  padding-top:18px;border-top:1px solid var(--border);
-}
-.m-btn{
-  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;
-  color:var(--blue);text-decoration:none;padding:7px 16px;
-  border:1px solid var(--bdim);border-radius:4px;
-  background:rgba(58,143,255,0.05);transition:all .2s;cursor:pointer;
-}
-.m-btn:hover{background:var(--blue);color:#000;border-color:var(--blue);}
-.m-btn.locked{color:var(--red);border-color:rgba(255,64,96,0.3);background:rgba(255,64,96,0.04);}
-.m-btn.locked:hover{background:var(--red);color:#fff;}
+.hero{position:relative;height:90vh;display:flex;align-items:center;padding:0 4%;overflow:hidden}
+.hero-bg{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(11,13,20,0.4) 0%,var(--bg) 100%),linear-gradient(135deg,rgba(0,102,255,0.15) 0%,rgba(168,85,247,0.1) 50%,rgba(0,212,255,0.15) 100%)}
+.hero-grid{position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:50px 50px;opacity:0.3}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-label{display:inline-block;padding:8px 16px;background:rgba(0,102,255,0.15);border:1px solid rgba(0,102,255,0.3);border-radius:20px;color:var(--cyan);font-size:12px;font-weight:700;margin-bottom:24px;text-transform:uppercase;letter-spacing:3px;box-shadow:0 4px 20px rgba(0,102,255,0.2)}
+.hero-title{font-family:'Orbitron',sans-serif;font-size:72px;font-weight:900;line-height:1.1;margin-bottom:24px;color:var(--white);text-shadow:0 0 40px rgba(0,102,255,0.5),0 0 80px rgba(0,212,255,0.3);animation:titleGlow 3s ease-in-out infinite}
+@keyframes titleGlow{0%,100%{text-shadow:0 0 40px rgba(0,102,255,0.5),0 0 80px rgba(0,212,255,0.3)} 50%{text-shadow:0 0 60px rgba(0,102,255,0.7),0 0 100px rgba(0,212,255,0.5)}}
+.hero-subtitle{font-size:22px;color:var(--gray);margin-bottom:32px;line-height:1.6}
+.hero-meta{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:32px}
+.hero-meta-item{display:flex;align-items:center;gap:10px;color:var(--light-gray);font-size:14px;font-weight:500}
+.hero-meta-icon{color:var(--cyan)}
+.hero-badge{padding:6px 14px;background:var(--green);color:var(--bg);font-size:11px;font-weight:800;border-radius:4px;text-transform:uppercase;letter-spacing:1px}
+.hero-desc{font-size:18px;line-height:1.7;margin-bottom:40px;color:var(--light-gray);max-width:750px;border-left:3px solid var(--blue);padding-left:24px}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+.btn{padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:12px;font-family:'Inter',sans-serif;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s}
+.btn:hover::before{left:100%}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:var(--white);box-shadow:0 8px 30px rgba(0,102,255,0.4)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,102,255,0.6)}
+.btn-secondary{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:var(--white)}
+.btn-secondary:hover{background:rgba(255,255,255,0.15);border-color:var(--white)}
+.content{padding:80px 4%;position:relative}
+.section-label{display:flex;align-items:center;gap:12px;margin-bottom:40px}
+.section-dot{width:12px;height:12px;background:var(--red);border-radius:50%;box-shadow:0 0 20px var(--red)}
+.section-title{font-family:'Orbitron',sans-serif;font-size:36px;font-weight:800;color:var(--white);letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:60px}
+@media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.grid{grid-template-columns:1fr}
+.hero-title{font-size:48px}
+.hero{height:75vh}}
+.card{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:32px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--purple));opacity:0;transition:opacity 0.3s}
+.card:hover::before{opacity:1}
+.card:hover{transform:translateY(-12px);border-color:var(--blue);box-shadow:0 20px 60px rgba(0,102,255,0.3)}
+.card-number{position:absolute;top:20px;right:20px;font-family:'Orbitron',sans-serif;font-size:48px;font-weight:900;color:rgba(255,255,255,0.03)}
+.card-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;box-shadow:0 8px 25px rgba(0,102,255,0.3)}
+.card-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:16px;letter-spacing:0.5px}
+.card-text{font-size:15px;color:var(--gray);line-height:1.7}
+.card-text li{margin-bottom:10px;padding-left:0}
+.timeline-card{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:32px;grid-column:span 2}
+@media(max-width:768px){.timeline-card{grid-column:span 1}}
+.timeline-table{width:100%;margin-top:20px;border-collapse:separate;border-spacing:0}
+.timeline-table th{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;padding:16px;text-align:left;background:rgba(0,102,255,0.1);border-bottom:2px solid var(--blue)}
+.timeline-table td{padding:16px;border-bottom:1px solid var(--line);font-size:14px;color:var(--light-gray);transition:all 0.3s}
+.timeline-table tr:hover td{background:rgba(0,102,255,0.05);color:var(--white)}
+.timeline-table tr:last-child td{border-bottom:none}
+.timeline-date{font-family:'Orbitron',sans-serif;font-weight:700;color:var(--blue)}
+.alert-box{padding:20px 24px;border-radius:12px;margin:16px 0;font-size:15px;position:relative;overflow:hidden}
+.alert-box::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px}
+.alert-warn{background:linear-gradient(90deg,rgba(229,9,20,0.15),transparent);border:1px solid rgba(229,9,20,0.3);color:var(--light-gray)}
+.alert-warn::before{background:var(--red);box-shadow:0 0 20px var(--red)}
+.alert-ok{background:linear-gradient(90deg,rgba(16,185,129,0.15),transparent);border:1px solid rgba(16,185,129,0.3);color:var(--light-gray)}
+.alert-ok::before{background:var(--green);box-shadow:0 0 20px var(--green)}
+.alert-info{background:linear-gradient(90deg,rgba(0,212,255,0.15),transparent);border:1px solid rgba(0,212,255,0.3);color:var(--light-gray)}
+.alert-info::before{background:var(--cyan);box-shadow:0 0 20px var(--cyan)}
+.quote-section{margin:60px 0}
+.quote-box{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-left:4px solid var(--red);border-radius:16px;padding:40px;position:relative;overflow:hidden}
+.quote-box::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(229,9,20,0.05) 0%,transparent 70%);animation:quotePulse 4s ease-in-out infinite}
+@keyframes quotePulse{0%,100%{transform:translate(0,0)} 50%{transform:translate(-2%,2%)}}
+.quote-text{font-size:24px;font-style:italic;color:var(--light-gray);line-height:1.8;position:relative;z-index:1;font-family:'Inter',sans-serif}
+.quote-author{margin-top:20px;font-size:14px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:2px}
+.footer{padding:50px 4%;border-top:1px solid var(--line);background:var(--bg2);position:relative}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;align-items:center}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr;text-align:center}}
+.footer-status{display:flex;align-items:center;gap:12px;color:var(--gray);font-size:13px}
+.footer-dot{width:10px;height:10px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite;box-shadow:0 0 20px var(--green)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.2)}}
+.footer-item{color:var(--light-gray);font-size:13px;font-weight:600}
+.footer-next{color:var(--cyan);font-size:13px}
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));z-index:1001;transform-origin:left;transition:transform 0.1s}
 </style>
 </head>
 <body>
-
-<div class="amb amb1"></div>
-<div class="amb amb2"></div>
-<div class="amb amb3"></div>
-
-<!-- HEADER -->
-<header class="site-header">
-  <div class="h-left">
-    <div class="h-logo">MUoG</div>
-    <div class="h-sep"></div>
-    <div class="h-sub" id="h-sub-txt">LIBRARY OF GIBRALTAR // ARCHIVE NODE</div>
+<div class="background"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="nav-logo">G</div>
+    <div class="nav-brand">G-Rock Corporation</div>
   </div>
-  <div class="h-right">
-    <div class="h-status">
-      <div class="s-dot"></div>
-      <div class="s-txt" id="h-status-txt">247 RECORDS ACTIVE</div>
-    </div>
-    <div class="lang-bar">
-      <button class="lang-btn active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('pl')">PL</button>
-      <button class="lang-btn" onclick="setLang('es')">ES</button>
-      <button class="lang-btn" onclick="setLang('fr')">FR</button>
-    </div>
+  <div class="nav-center">
+    <a href="#episode" class="nav-link" id="nav-episode">Episode 01</a>
+    <a href="archive.html" class="nav-link" id="nav-archive">Archive</a>
+    <a href="university.html" class="nav-link" id="nav-muog">MUoG</a>
   </div>
-</header>
-
-<div class="wrap">
-
-  <!-- HERO -->
-  <section class="hero">
-    <a href="index.html" class="back-link">← <span data-i="back">BACK TO DASHBOARD</span></a>
-    <p class="hero-eyebrow" data-i="eyebrow">ACCESS LEVEL: UNIVERSITY NETWORK // G-SYSTEM ARCHIVAL INFRASTRUCTURE</p>
-    <h1 class="hero-title"><span data-i="hero-title">Library of</span><br><span data-i="hero-title2">Gibraltar</span></h1>
-    <div class="hero-divider"></div>
-    <p class="hero-desc" data-i="hero-desc">Central knowledge repository maintained by <strong>Monkeys University of Gibraltar</strong>. Powered by G-System archival infrastructure. Integrated with G-Media production archives.</p>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num">247</div><div class="stat-label" data-i="stat1">TOTAL RECORDS</div></div>
-      <div class="stat"><div class="stat-num">8</div><div class="stat-label" data-i="stat2">COLLECTIONS</div></div>
-      <div class="stat"><div class="stat-num">LIVE</div><div class="stat-label" data-i="stat3">SYNC STATUS</div></div>
+  <div class="nav-right">
+    <div class="lang-switch" id="langSwitch">
+      <a onclick="setLang('en')" id="lang-en" class="active">EN</a>
+      <a onclick="setLang('pl')" id="lang-pl">PL</a>
+      <a onclick="setLang('es')" id="lang-es">ES</a>
+      <a onclick="setLang('fr')" id="lang-fr">FR</a>
+      <a onclick="setLang('ru')" id="lang-ru">RU</a>
+      <a onclick="setLang('nl')" id="lang-nl">NL</a>
     </div>
-  </section>
-
-  <!-- SECTION CARDS -->
-  <div class="sec-label">
-    <span class="sec-num">01</span>
-    <span class="sec-txt" data-i="sec1-label">Main Collections</span>
+    <a href="index.html" class="return-hub" id="return-hub">⬅ Return to Hub</a>
   </div>
+</nav>
 
-  <div class="section-grid">
-
-    <div class="sec-card blue" onclick="openModal('timelines')">
-      <div class="card-icon">◈</div>
-      <div class="card-id">SECTION_01 // NAVIGATION</div>
-      <div class="card-title" data-i="card-timelines">TIMELINES</div>
-      <div class="card-desc" data-i="card-timelines-desc">Chronological reconstruction of events, projects, publications and institutional development.</div>
-      <div class="card-count" data-i="card-timelines-count">9 TIMELINES</div>
-      <div class="card-cta">OPEN ARCHIVE →</div>
-    </div>
-
-    <div class="sec-card gold" onclick="openModal('books')">
-      <div class="card-icon">📖</div>
-      <div class="card-id">SECTION_02 // PUBLICATIONS</div>
-      <div class="card-title" data-i="card-books">BOOKS</div>
-      <div class="card-desc" data-i="card-books-desc">Literary works, academic publications and educational material. Corpus authored by Professor Sugriva.</div>
-      <div class="card-count" data-i="card-books-count">47 VOLUMES</div>
-      <div class="card-cta">OPEN ARCHIVE →</div>
-    </div>
-
-    <div class="sec-card blue" onclick="openModal('reports')">
-      <div class="card-icon">📋</div>
-      <div class="card-id">SECTION_03 // RESEARCH</div>
-      <div class="card-title" data-i="card-reports">REPORTS</div>
-      <div class="card-desc" data-i="card-reports-desc">Institutional investigations, research assessments and analytical documentation across the MUoG network.</div>
-      <div class="card-count" data-i="card-reports-count">5 REPORTS</div>
-      <div class="card-cta">OPEN ARCHIVE →</div>
-    </div>
-
-    <div class="sec-card cyan" onclick="openModal('dossiers')">
-      <div class="card-icon">👤</div>
-      <div class="card-id">SECTION_04 // INTELLIGENCE</div>
-      <div class="card-title" data-i="card-dossiers">DOSSIERS</div>
-      <div class="card-desc" data-i="card-dossiers-desc">Structured records covering notable individuals, entities and historical subjects within the G-Rock network.</div>
-      <div class="card-count" data-i="card-dossiers-count">4 SUBJECTS</div>
-      <div class="card-cta">OPEN ARCHIVE →</div>
-    </div>
-
-    <div class="sec-card amber" onclick="openModal('archives')">
-      <div class="card-icon">🗂</div>
-      <div class="card-id">SECTION_05 // HISTORY</div>
-      <div class="card-title" data-i="card-archives">ARCHIVES</div>
-      <div class="card-desc" data-i="card-archives-desc">Historical records documenting the development of MUoG and associated institutions. Foundation documents.</div>
-      <div class="card-count" data-i="card-archives-count">7 COLLECTIONS</div>
-      <div class="card-cta">OPEN ARCHIVE →</div>
-    </div>
-
-    <div class="sec-card blue" onclick="openModal('ai')">
-      <div class="card-icon">⬡</div>
-      <div class="card-id">SECTION_06 // AI SYSTEMS</div>
-      <div class="card-title" data-i="card-ai">AI ENTITIES</div>
-      <div class="card-desc" data-i="card-ai-desc">Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies.</div>
-      <div class="card-count" data-i="card-ai-count">5 ENTITIES</div>
-      <div class="card-cta">OPEN ARCHIVE →</div>
-    </div>
-
-    <div class="sec-card red" onclick="openModal('restricted')">
-      <div class="card-icon">⛔</div>
-      <div class="card-id">SECTION_07 // CLASSIFIED</div>
-      <div class="card-title" data-i="card-restricted">RESTRICTED FILES</div>
-      <div class="card-desc" data-i="card-restricted-desc">Classified documentation available only through authorized G-System access protocols. Clearance required.</div>
-      <div class="card-count" data-i="card-restricted-count">ACCESS RESTRICTED</div>
-      <div class="card-cta">REQUEST ACCESS →</div>
-    </div>
-
-    <div class="sec-card green-c" onclick="openModal('media')">
-      <div class="card-icon">▶</div>
-      <div class="card-id">SECTION_08 // G-MEDIA</div>
-      <div class="card-title" data-i="card-media">MEDIA VAULT</div>
-      <div class="card-desc" data-i="card-media-desc">Official multimedia archive maintained by G-Media. Films, audiobooks, trailers, documentary footage.</div>
-      <div class="card-count" data-i="card-media-count">G-MEDIA NETWORK</div>
-      <div class="card-cta">OPEN VAULT →</div>
-    </div>
-
-  </div>
-
-  <!-- TIMELINE STRIP -->
-  <div class="sec-label">
-    <span class="sec-num">02</span>
-    <span class="sec-txt" data-i="sec2-label">Key Timeline — Primary Navigation</span>
-  </div>
-
-  <div class="timeline-strip">
-    <div class="tl-title" data-i="tl-title">// CHRONOLOGICAL RECORD — G-ROCK CORPORATION</div>
-    <div class="tl-list">
-      <div class="tl-item"><div class="tl-date">2024</div><div class="tl-event"><strong data-i="tl1-strong">Elizabeth School of London / Bath Spa University Period</strong><br><span data-i="tl1-span">Academic validation experiments initiated</span></div></div>
-      <div class="tl-item"><div class="tl-date">NOV 2024</div><div class="tl-event"><strong data-i="tl2-strong">Foundation Essay Archive</strong><br><span data-i="tl2-span">Professor Sugriva essay artifact deployed</span></div></div>
-      <div class="tl-item"><div class="tl-date">LATE 2024</div><div class="tl-event"><strong data-i="tl3-strong">Tangier Development Phase</strong><br><span data-i="tl3-span">Mediterranean expansion operations initiated</span></div></div>
-      <div class="tl-item"><div class="tl-date">22.01.2025</div><div class="tl-event"><strong data-i="tl4-strong">Sugriva Acceptance Record</strong><br><span data-i="tl4-span">Official recognition event confirmed by BSU</span></div></div>
-      <div class="tl-item"><div class="tl-date">2025</div><div class="tl-event"><strong data-i="tl5-strong">MUoG Formation Records</strong><br><span data-i="tl5-span">Institutional architecture fully established</span></div></div>
-      <div class="tl-item"><div class="tl-date">2025–2026</div><div class="tl-event"><strong data-i="tl6-strong">G-System Expansion</strong><br><span data-i="tl6-span">Network nodes deployed across three continents</span></div></div>
-      <div class="tl-item"><div class="tl-date">FEB 2026</div><div class="tl-event"><strong data-i="tl7-strong">The Legend of the Monkeys from Gibraltar</strong><br><span data-i="tl7-span">Audiobook published and distributed</span></div></div>
-      <div class="tl-item"><div class="tl-date">2026</div><div class="tl-event"><strong data-i="tl8-strong">G-Media Production Archive</strong><br><span data-i="tl8-span">Full media production network activated</span></div></div>
-      <div class="tl-item"><div class="tl-date">PRESENT</div><div class="tl-event"><strong data-i="tl9-strong">Library of Gibraltar Active Repository</strong><br><span data-i="tl9-span">247 records — live synchronization</span></div></div>
-    </div>
-  </div>
-
-  <!-- SYS FOOTER -->
-  <div class="sys-footer">
-    <div class="sf-left">
-      <span data-i="sf1">SYSTEM:</span> <span>G-SYSTEM ARCHIVAL INFRASTRUCTURE</span> &nbsp;|&nbsp;
-      <span data-i="sf2">MEDIA:</span> <span>G-MEDIA PRODUCTION NETWORK</span> &nbsp;|&nbsp;
-      <span data-i="sf3">ACADEMIC:</span> <span>MONKEYS UNIVERSITY OF GIBRALTAR</span>
-    </div>
-    <div class="sf-right">
-      <div class="live-dot"></div>
-      <div class="sf-live" data-i="sf-live">LIVE SYNC</div>
-    </div>
-  </div>
-
-</div><!-- /wrap -->
-
-
-<!-- ════════════════════════════
-     MODAL — TIMELINES
-════════════════════════════ -->
-<div class="modal-overlay" id="modal-timelines" onclick="closeModal('timelines',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('timelines')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_01 // PRIMARY NAVIGATION SYSTEM</div>
-    <div class="m-title" data-i="mod-timelines-title">TIMELINES</div>
-    <div class="m-sub" data-i="mod-timelines-sub">Chronological reconstruction of events, projects and institutional development</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-blue">9 TIMELINES</span>
-      <span class="m-badge mb-green">ACTIVE</span>
-      <span class="m-badge mb-blue">G-SYSTEM INDEXED</span>
-    </div>
-    <div class="m-intro" data-i="mod-timelines-intro">Primary navigation system of the Library of Gibraltar. Chronological reconstruction of events, projects, publications and institutional development across the entire G-Rock network.</div>
-    <div class="m-entries">
-      <div class="m-entry"><div class="me-title" data-i="tl-muog">MUoG Timeline</div><div class="me-body" data-i="tl-muog-d">Formation and development of Monkeys University of Gibraltar from concept to sovereign academic institution.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="tl-sug">Sugriva Timeline</div><div class="me-body" data-i="tl-sug-d">Complete chronology of Professor Sugriva — from creation as an AI construct to official UK academic recognition.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="tl-woj">Wojtek Timeline</div><div class="me-body" data-i="tl-woj-d">The legendary Polish Army bear — historical record and integration into the G-Rock State governance architecture.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="tl-haiti">Haiti Timeline</div><div class="me-body" data-i="tl-haiti-d">Revolutionary history, constitutional legacy, Polish connection and G-Rock Caribbean research operations.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="tl-gsys">G-System Timeline</div><div class="me-body" data-i="tl-gsys-d">Technical development and expansion of the G-System archival and governance infrastructure.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="tl-gmed">G-Media Timeline</div><div class="me-body" data-i="tl-gmed-d">Production history of G-Media — audiobooks, films, trailers and multimedia G-Rock content.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="tl-pub">Publications Timeline</div><div class="me-body" data-i="tl-pub-d">Complete publishing record of Professor Sugriva's academic and literary corpus.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="tl-ai">AI Timeline</div><div class="me-body" data-i="tl-ai-d">Development arc of artificial intelligence research within MUoG — from early experiments to G-System deployment.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn" data-i="btn-open">OPEN TIMELINE</button>
-      <button class="m-btn" data-i="btn-search">SEARCH RECORDS</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- MODAL — BOOKS -->
-<div class="modal-overlay" id="modal-books" onclick="closeModal('books',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('books')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_02 // PUBLICATIONS</div>
-    <div class="m-title" data-i="mod-books-title">BOOKS</div>
-    <div class="m-sub" data-i="mod-books-sub">Literary works, academic publications and educational material — MUoG Publishing Division</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-gold">47 VOLUMES</span>
-      <span class="m-badge mb-blue">PROFESSOR SUGRIVA CORPUS</span>
-      <span class="m-badge mb-red">MOSTLY RESTRICTED</span>
-    </div>
-    <div class="m-intro" data-i="mod-books-intro">All major academic and literary works within the Library of Gibraltar are authored by <strong>Professor Sugriva</strong>. The corpus covers individual nation studies, geopolitics, economics, warfare analysis, artificial intelligence systems and historical reconstruction. Most works are classified.</div>
-    <div class="m-entries">
-      <div class="m-entry green-e"><div class="me-title" data-i="bk1">The Legend of the Monkeys from Gibraltar</div><div class="me-body" data-i="bk1-d"><strong>PUBLIC ACCESS.</strong> History and significance of the Barbary macaques and their role in British rule over Gibraltar. Available on YouTube as audiobook.</div></div>
-      <div class="m-entry green-e"><div class="me-title" data-i="bk2">Chimpanzees War — Selected Edition</div><div class="me-body" data-i="bk2-d"><strong>PUBLIC ACCESS.</strong> Selected public release edition. Features Dr. L. narrative chapters — considered strong standalone literary work.</div></div>
-      <div class="m-entry red-e"><div class="me-title" data-i="bk3">Full Academic Corpus — Professor Sugriva</div><div class="me-body" data-i="bk3-d"><strong>RESTRICTED.</strong> Extensive publications covering geopolitics, economics, warfare analysis and AI systems. Accessible only under authorized university network clearance.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn" data-i="btn-read">READ</button>
-      <button class="m-btn" data-i="btn-details">DETAILS</button>
-      <button class="m-btn locked" data-i="btn-restricted">RESTRICTED ACCESS ⛔</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- MODAL — REPORTS -->
-<div class="modal-overlay" id="modal-reports" onclick="closeModal('reports',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('reports')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_03 // RESEARCH ARCHIVE</div>
-    <div class="m-title" data-i="mod-reports-title">REPORTS</div>
-    <div class="m-sub" data-i="mod-reports-sub">Institutional investigations and analytical documentation — G-System Research Archive</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-blue">5 REPORTS</span>
-      <span class="m-badge mb-green">ACTIVE</span>
-    </div>
-    <div class="m-intro" data-i="mod-reports-intro">Institutional investigations, research assessments and analytical documentation generated across the MUoG network. Source: G-System Research Archive.</div>
-    <div class="m-entries">
-      <div class="m-entry"><div class="me-title" data-i="rp1">Institutional AI Literacy & Resilience Analysis</div><div class="me-body" data-i="rp1-d">Assessment of how contemporary academic institutions respond to AI-generated entities. Case study: Elizabeth School of London / Bath Spa University.</div></div>
-      <div class="m-entry amber-e"><div class="me-title" data-i="rp2">Haiti Incident Report</div><div class="me-body" data-i="rp2-d">Jamaica / Dominican Republic sector reference. Historical and operational analysis of Caribbean network development.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="rp3">Sugriva Observation Report</div><div class="me-body" data-i="rp3-d">Full behavioral and operational analysis of Professor Sugriva as an AI construct deployed in real institutional environments.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="rp4">G-System Documentation</div><div class="me-body" data-i="rp4-d">Technical architecture report covering all G-System infrastructure nodes and synchronization protocols.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="rp5">Academic Assessment Reports</div><div class="me-body" data-i="rp5-d">Internal MUoG academic evaluation records.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn" data-i="btn-open-r">OPEN REPORT</button>
-      <button class="m-btn" data-i="btn-timeline-r">TIMELINE</button>
-      <button class="m-btn" data-i="btn-refs">REFERENCES</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- MODAL — DOSSIERS -->
-<div class="modal-overlay" id="modal-dossiers" onclick="closeModal('dossiers',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('dossiers')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_04 // INTELLIGENCE ARCHIVE</div>
-    <div class="m-title" data-i="mod-dossiers-title">DOSSIERS</div>
-    <div class="m-sub" data-i="mod-dossiers-sub">Structured records covering notable individuals and entities — University Intelligence Archive</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-blue">4 SUBJECTS</span>
-      <span class="m-badge mb-green">ACTIVE</span>
-    </div>
-    <div class="m-intro" data-i="mod-dossiers-intro">Structured records covering notable individuals, entities and historical subjects within the G-Rock Corporation network.</div>
-    <div class="m-entries">
-      <div class="m-entry gold-e"><div class="me-title" data-i="dos1">Professor Sugriva</div><div class="me-body" data-i="dos1-d">Complete dossier: AI construct, academic entity, MUoG Chairman, Bath Spa University recognition subject. Full operational history.</div></div>
-      <div class="m-entry gold-e"><div class="me-title" data-i="dos2">Wojtek Bear</div><div class="me-body" data-i="dos2-d">Polish Army bear, WWII veteran, G-Rock Veto Authority Layer. Historical record and institutional role within Parliament.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="dos3">Academic Staff</div><div class="me-body" data-i="dos3-d">Records of all academic personnel associated with MUoG and partner institutions.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="dos4">AI Subjects</div><div class="me-body" data-i="dos4-d">Documented AI entities deployed, tested and archived within the G-System experimental framework.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn" data-i="btn-view">VIEW DOSSIER</button>
-      <button class="m-btn" data-i="btn-related">RELATED FILES</button>
-      <button class="m-btn" data-i="btn-chron">CHRONOLOGY</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- MODAL — ARCHIVES -->
-<div class="modal-overlay" id="modal-archives" onclick="closeModal('archives',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('archives')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_05 // HISTORICAL RECORDS</div>
-    <div class="m-title" data-i="mod-archives-title">ARCHIVES</div>
-    <div class="m-sub" data-i="mod-archives-sub">Historical records documenting MUoG development — Gibraltar Historical Repository</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-amber">7 COLLECTIONS</span>
-      <span class="m-badge mb-green">ACTIVE</span>
-    </div>
-    <div class="m-intro" data-i="mod-archives-intro">Historical records documenting the development of MUoG and associated institutions, from founding documents to present operations.</div>
-    <div class="m-entries">
-      <div class="m-entry gold-e"><div class="me-title" data-i="ar1">Foundation of MUoG</div><div class="me-body" data-i="ar1-d">Original founding documents, concept records and early institutional architecture of Monkeys University of Gibraltar.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ar2">Gibraltar Records</div><div class="me-body" data-i="ar2-d">Historical archive of The Rock — geological, political, military and cultural records from antiquity to present.</div></div>
-      <div class="m-entry amber-e"><div class="me-title" data-i="ar3">Caribbean Campus Records</div><div class="me-body" data-i="ar3-d">Jamaica / Dominican Republic / Haiti sector. Trans-Atlantic link development documentation.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ar4">Historical Correspondence</div><div class="me-body" data-i="ar4-d">Email archives, institutional communications and formal correspondence records.</div></div>
-      <div class="m-entry gold-e"><div class="me-title" data-i="ar5">Foundation Essay Archive</div><div class="me-body" data-i="ar5-d">The Professor Sugriva essay artifact — the document that initiated the UK academic recognition chain of events.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ar6">Institutional Milestones</div><div class="me-body" data-i="ar6-d">Key development events, recognition records and system expansion milestones.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ar7">Tangier Development Notes</div><div class="me-body" data-i="ar7-d">Mediterranean expansion phase — Tangier operational planning and development records.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn" data-i="btn-open-a">OPEN ARCHIVE</button>
-      <button class="m-btn" data-i="btn-search-a">SEARCH</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- MODAL — AI ENTITIES -->
-<div class="modal-overlay" id="modal-ai" onclick="closeModal('ai',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('ai')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_06 // AI SYSTEMS</div>
-    <div class="m-title" data-i="mod-ai-title">AI ENTITIES</div>
-    <div class="m-sub" data-i="mod-ai-sub">Artificial intelligence systems and cognitive archives — G-System Cognitive Archive</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-blue">5 ENTITIES</span>
-      <span class="m-badge mb-green">ACTIVE</span>
-    </div>
-    <div class="m-intro" data-i="mod-ai-intro">Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies deployed within the G-Rock experimental framework.</div>
-    <div class="m-entries">
-      <div class="m-entry"><div class="me-title" data-i="ai1">G-System</div><div class="me-body" data-i="ai1-d">Core governance and archival AI infrastructure of the G-Rock State. Technical documentation and operational logs.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ai2">Experimental Agents</div><div class="me-body" data-i="ai2-d">AI personas deployed in institutional environments. Includes Professor Sugriva operational archives.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ai3">AI Dialog Archives</div><div class="me-body" data-i="ai3-d">Complete conversation logs between AI entities and human institutional respondents. ESL/BSU interaction archive.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ai4">Behavioral Studies</div><div class="me-body" data-i="ai4-d">Analysis of how AI constructs behave within and influence real institutional systems.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="ai5">AI Literacy Materials</div><div class="me-body" data-i="ai5-d">Educational content on AI recognition, verification and institutional resilience to AI-generated entities.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn" data-i="btn-open-ai">OPEN FILE</button>
-      <button class="m-btn" data-i="btn-conv">CONVERSATIONS</button>
-      <button class="m-btn" data-i="btn-analysis">ANALYSIS</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- MODAL — RESTRICTED -->
-<div class="modal-overlay" id="modal-restricted" onclick="closeModal('restricted',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('restricted')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_07 // CLASSIFIED</div>
-    <div class="m-title" data-i="mod-restricted-title">RESTRICTED FILES</div>
-    <div class="m-sub" data-i="mod-restricted-sub">Classified documentation — G-System Security Archive</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-red">ACCESS RESTRICTED</span>
-      <span class="m-badge mb-red">CLEARANCE REQUIRED</span>
-    </div>
-    <div class="m-intro" data-i="mod-restricted-intro">Classified documentation available only through authorized G-System access protocols. All entries below require security clearance. Unauthorized access attempts are logged.</div>
-    <div class="m-entries">
-      <div class="m-entry red-e"><div class="me-title" data-i="rs1">Redacted Reports</div><div class="me-body" data-i="rs1-d">⛔ CLEARANCE REQUIRED — Institutional reports with sensitive operational data removed from public access.</div></div>
-      <div class="m-entry red-e"><div class="me-title" data-i="rs2">Internal Communications</div><div class="me-body" data-i="rs2-d">⛔ CLEARANCE REQUIRED — Private correspondence and internal G-Rock Corporation communications.</div></div>
-      <div class="m-entry red-e"><div class="me-title" data-i="rs3">Incident Logs</div><div class="me-body" data-i="rs3-d">⛔ CLEARANCE REQUIRED — Full incident documentation including March 2025 police intervention records.</div></div>
-      <div class="m-entry red-e"><div class="me-title" data-i="rs4">Experimental Documentation</div><div class="me-body" data-i="rs4-d">⛔ CLEARANCE REQUIRED — Full Professor Sugriva experimental deployment documentation.</div></div>
-      <div class="m-entry red-e"><div class="me-title" data-i="rs5">Security Assessments</div><div class="me-body" data-i="rs5-d">⛔ CLEARANCE REQUIRED — G-System security evaluation reports.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn locked" data-i="btn-request">REQUEST ACCESS ⛔</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- MODAL — MEDIA VAULT -->
-<div class="modal-overlay" id="modal-media" onclick="closeModal('media',event)">
-<div class="modal">
-  <button class="modal-close" onclick="closeModalById('media')">✕</button>
-  <div class="m-head">
-    <div class="m-eyebrow">SECTION_08 // G-MEDIA NETWORK</div>
-    <div class="m-title" data-i="mod-media-title">MEDIA VAULT</div>
-    <div class="m-sub" data-i="mod-media-sub">Official multimedia archive — G-Media Production Network</div>
-  </div>
-  <div class="m-body">
-    <div class="m-status-bar">
-      <span class="m-badge mb-green">G-MEDIA ACTIVE</span>
-      <span class="m-badge mb-blue">PRODUCTION NETWORK</span>
-    </div>
-    <div class="m-intro" data-i="mod-media-intro">Official multimedia archive maintained by G-Media. All audiovisual content produced and distributed through the G-Media Production Network.</div>
-    <div class="m-entries">
-      <div class="m-entry green-e"><div class="me-title" data-i="mv1">Films</div><div class="me-body" data-i="mv1-d">G-Rock Corporation film productions. Documentary and narrative content from the G-Rock universe.</div></div>
-      <div class="m-entry green-e"><div class="me-title" data-i="mv2">Audio Books</div><div class="me-body" data-i="mv2-d">The Legend of the Monkeys from Gibraltar — published on YouTube. Distributed at St. Michael's Cave, Gibraltar Rock.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="mv3">Trailers</div><div class="me-body" data-i="mv3-d">Promotional video content for MUoG, G-Rock State and associated institutional nodes.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="mv4">Promotional Materials</div><div class="me-body" data-i="mv4-d">Graphics, banners, seals and visual identity assets for the G-Rock Corporation network.</div></div>
-      <div class="m-entry"><div class="me-title" data-i="mv5">Production Archives</div><div class="me-body" data-i="mv5-d">Behind-the-scenes documentation, production notes and development archives from all G-Media projects.</div></div>
-    </div>
-    <div class="m-actions">
-      <button class="m-btn" data-i="btn-play">▶ PLAY</button>
-      <button class="m-btn" data-i="btn-collection">OPEN COLLECTION</button>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<script>
-/* ══════════════════════
-   TRANSLATIONS
-══════════════════════ */
-const LANG = {
-  en: {
-    'back':'BACK TO DASHBOARD',
-    'eyebrow':'ACCESS LEVEL: UNIVERSITY NETWORK // G-SYSTEM ARCHIVAL INFRASTRUCTURE',
-    'hero-title':'Library of','hero-title2':'Gibraltar',
-    'hero-desc':'Central knowledge repository maintained by <strong>Monkeys University of Gibraltar</strong>. Powered by G-System archival infrastructure. Integrated with G-Media production archives.',
-    'stat1':'TOTAL RECORDS','stat2':'COLLECTIONS','stat3':'SYNC STATUS',
-    'sec1-label':'Main Collections','sec2-label':'Key Timeline — Primary Navigation',
-    'card-timelines':'TIMELINES','card-timelines-desc':'Chronological reconstruction of events, projects, publications and institutional development.','card-timelines-count':'9 TIMELINES',
-    'card-books':'BOOKS','card-books-desc':'Literary works, academic publications and educational material. Corpus authored by Professor Sugriva.','card-books-count':'47 VOLUMES',
-    'card-reports':'REPORTS','card-reports-desc':'Institutional investigations, research assessments and analytical documentation across the MUoG network.','card-reports-count':'5 REPORTS',
-    'card-dossiers':'DOSSIERS','card-dossiers-desc':'Structured records covering notable individuals, entities and historical subjects within the G-Rock network.','card-dossiers-count':'4 SUBJECTS',
-    'card-archives':'ARCHIVES','card-archives-desc':'Historical records documenting the development of MUoG and associated institutions. Foundation documents.','card-archives-count':'7 COLLECTIONS',
-    'card-ai':'AI ENTITIES','card-ai-desc':'Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies.','card-ai-count':'5 ENTITIES',
-    'card-restricted':'RESTRICTED FILES','card-restricted-desc':'Classified documentation available only through authorized G-System access protocols. Clearance required.','card-restricted-count':'ACCESS RESTRICTED',
-    'card-media':'MEDIA VAULT','card-media-desc':'Official multimedia archive maintained by G-Media. Films, audiobooks, trailers, documentary footage.','card-media-count':'G-MEDIA NETWORK',
-    'tl-title':'// CHRONOLOGICAL RECORD — G-ROCK CORPORATION',
-    'tl1-strong':'Elizabeth School of London / Bath Spa University Period','tl1-span':'Academic validation experiments initiated',
-    'tl2-strong':'Foundation Essay Archive','tl2-span':'Professor Sugriva essay artifact deployed',
-    'tl3-strong':'Tangier Development Phase','tl3-span':'Mediterranean expansion operations initiated',
-    'tl4-strong':'Sugriva Acceptance Record','tl4-span':'Official recognition event confirmed by BSU',
-    'tl5-strong':'MUoG Formation Records','tl5-span':'Institutional architecture fully established',
-    'tl6-strong':'G-System Expansion','tl6-span':'Network nodes deployed across three continents',
-    'tl7-strong':'The Legend of the Monkeys from Gibraltar','tl7-span':'Audiobook published and distributed',
-    'tl8-strong':'G-Media Production Archive','tl8-span':'Full media production network activated',
-    'tl9-strong':'Library of Gibraltar Active Repository','tl9-span':'247 records — live synchronization',
-    'sf1':'SYSTEM:','sf2':'MEDIA:','sf3':'ACADEMIC:','sf-live':'LIVE SYNC',
-    'mod-timelines-title':'TIMELINES','mod-timelines-sub':'Chronological reconstruction of events, projects and institutional development','mod-timelines-intro':'Primary navigation system of the Library of Gibraltar. Chronological reconstruction of events, projects, publications and institutional development across the entire G-Rock network.',
-    'tl-muog':'MUoG Timeline','tl-muog-d':'Formation and development of Monkeys University of Gibraltar from concept to sovereign academic institution.',
-    'tl-sug':'Sugriva Timeline','tl-sug-d':'Complete chronology of Professor Sugriva — from creation as an AI construct to official UK academic recognition.',
-    'tl-woj':'Wojtek Timeline','tl-woj-d':'The legendary Polish Army bear — historical record and integration into the G-Rock State governance architecture.',
-    'tl-haiti':'Haiti Timeline','tl-haiti-d':'Revolutionary history, constitutional legacy, Polish connection and G-Rock Caribbean research operations.',
-    'tl-gsys':'G-System Timeline','tl-gsys-d':'Technical development and expansion of the G-System archival and governance infrastructure.',
-    'tl-gmed':'G-Media Timeline','tl-gmed-d':'Production history of G-Media — audiobooks, films, trailers and multimedia G-Rock content.',
-    'tl-pub':'Publications Timeline','tl-pub-d':'Complete publishing record of Professor Sugriva\'s academic and literary corpus.',
-    'tl-ai':'AI Timeline','tl-ai-d':'Development arc of artificial intelligence research within MUoG — from early experiments to G-System deployment.',
-    'btn-open':'OPEN TIMELINE','btn-search':'SEARCH RECORDS','btn-read':'READ','btn-details':'DETAILS','btn-restricted':'RESTRICTED ACCESS ⛔',
-    'btn-open-r':'OPEN REPORT','btn-timeline-r':'TIMELINE','btn-refs':'REFERENCES',
-    'btn-view':'VIEW DOSSIER','btn-related':'RELATED FILES','btn-chron':'CHRONOLOGY',
-    'btn-open-a':'OPEN ARCHIVE','btn-search-a':'SEARCH',
-    'btn-open-ai':'OPEN FILE','btn-conv':'CONVERSATIONS','btn-analysis':'ANALYSIS',
-    'btn-request':'REQUEST ACCESS ⛔','btn-play':'▶ PLAY','btn-collection':'OPEN COLLECTION',
-    'mod-books-title':'BOOKS','mod-books-sub':'Literary works, academic publications and educational material — MUoG Publishing Division',
-    'mod-books-intro':'All major academic and literary works within the Library of Gibraltar are authored by <strong>Professor Sugriva</strong>. The corpus covers individual nation studies, geopolitics, economics, warfare analysis, artificial intelligence systems and historical reconstruction. Most works are classified.',
-    'bk1':'The Legend of the Monkeys from Gibraltar','bk1-d':'<strong>PUBLIC ACCESS.</strong> History and significance of the Barbary macaques and their role in British rule over Gibraltar. Available on YouTube as audiobook.',
-    'bk2':'Chimpanzees War — Selected Edition','bk2-d':'<strong>PUBLIC ACCESS.</strong> Selected public release edition featuring Dr. L. narrative chapters.',
-    'bk3':'Full Academic Corpus — Professor Sugriva','bk3-d':'<strong>RESTRICTED.</strong> Accessible only under authorized university network clearance.',
-    'mod-reports-title':'REPORTS','mod-reports-sub':'Institutional investigations and analytical documentation — G-System Research Archive',
-    'mod-reports-intro':'Institutional investigations, research assessments and analytical documentation generated across the MUoG network.',
-    'rp1':'Institutional AI Literacy & Resilience Analysis','rp1-d':'Assessment of how contemporary academic institutions respond to AI-generated entities. Case study: ESL / BSU.',
-    'rp2':'Haiti Incident Report','rp2-d':'Jamaica / Dominican Republic sector reference. Historical and operational analysis of Caribbean network development.',
-    'rp3':'Sugriva Observation Report','rp3-d':'Full behavioral and operational analysis of Professor Sugriva as an AI construct deployed in real institutional environments.',
-    'rp4':'G-System Documentation','rp4-d':'Technical architecture report covering all G-System infrastructure nodes and synchronization protocols.',
-    'rp5':'Academic Assessment Reports','rp5-d':'Internal MUoG academic evaluation records.',
-    'mod-dossiers-title':'DOSSIERS','mod-dossiers-sub':'Structured records covering notable individuals and entities — University Intelligence Archive',
-    'mod-dossiers-intro':'Structured records covering notable individuals, entities and historical subjects within the G-Rock Corporation network.',
-    'dos1':'Professor Sugriva','dos1-d':'Complete dossier: AI construct, academic entity, MUoG Chairman, Bath Spa University recognition subject.',
-    'dos2':'Wojtek Bear','dos2-d':'Polish Army bear, WWII veteran, G-Rock Veto Authority Layer. Historical record and institutional role within Parliament.',
-    'dos3':'Academic Staff','dos3-d':'Records of all academic personnel associated with MUoG and partner institutions.',
-    'dos4':'AI Subjects','dos4-d':'Documented AI entities deployed, tested and archived within the G-System experimental framework.',
-    'mod-archives-title':'ARCHIVES','mod-archives-sub':'Historical records documenting MUoG development — Gibraltar Historical Repository',
-    'mod-archives-intro':'Historical records documenting the development of MUoG and associated institutions.',
-    'ar1':'Foundation of MUoG','ar1-d':'Original founding documents, concept records and early institutional architecture.',
-    'ar2':'Gibraltar Records','ar2-d':'Historical archive of The Rock — geological, political, military and cultural records.',
-    'ar3':'Caribbean Campus Records','ar3-d':'Jamaica / Dominican Republic / Haiti sector. Trans-Atlantic link development documentation.',
-    'ar4':'Historical Correspondence','ar4-d':'Email archives, institutional communications and formal correspondence records.',
-    'ar5':'Foundation Essay Archive','ar5-d':'The Professor Sugriva essay artifact — the document that initiated the UK academic recognition chain.',
-    'ar6':'Institutional Milestones','ar6-d':'Key development events, recognition records and system expansion milestones.',
-    'ar7':'Tangier Development Notes','ar7-d':'Mediterranean expansion phase — Tangier operational planning and development records.',
-    'mod-ai-title':'AI ENTITIES','mod-ai-sub':'Artificial intelligence systems and cognitive archives — G-System Cognitive Archive',
-    'mod-ai-intro':'Dedicated archive for artificial intelligence systems, conversations, research programs and behavioral studies.',
-    'ai1':'G-System','ai1-d':'Core governance and archival AI infrastructure of the G-Rock State.',
-    'ai2':'Experimental Agents','ai2-d':'AI personas deployed in institutional environments. Includes Professor Sugriva operational archives.',
-    'ai3':'AI Dialog Archives','ai3-d':'Complete conversation logs between AI entities and human institutional respondents.',
-    'ai4':'Behavioral Studies','ai4-d':'Analysis of how AI constructs behave within and influence real institutional systems.',
-    'ai5':'AI Literacy Materials','ai5-d':'Educational content on AI recognition, verification and institutional resilience.',
-    'mod-restricted-title':'RESTRICTED FILES','mod-restricted-sub':'Classified documentation — G-System Security Archive',
-    'mod-restricted-intro':'Classified documentation available only through authorized G-System access protocols.',
-    'rs1':'Redacted Reports','rs1-d':'⛔ CLEARANCE REQUIRED — Institutional reports with sensitive operational data.',
-    'rs2':'Internal Communications','rs2-d':'⛔ CLEARANCE REQUIRED — Private G-Rock Corporation communications.',
-    'rs3':'Incident Logs','rs3-d':'⛔ CLEARANCE REQUIRED — Full incident documentation including March 2025 police intervention records.',
-    'rs4':'Experimental Documentation','rs4-d':'⛔ CLEARANCE REQUIRED — Full Professor Sugriva experimental deployment documentation.',
-    'rs5':'Security Assessments','rs5-d':'⛔ CLEARANCE REQUIRED — G-System security evaluation reports.',
-    'mod-media-title':'MEDIA VAULT','mod-media-sub':'Official multimedia archive — G-Media Production Network',
-    'mod-media-intro':'Official multimedia archive maintained by G-Media.',
-    'mv1':'Films','mv1-d':'G-Rock Corporation film productions. Documentary and narrative content from the G-Rock universe.',
-    'mv2':'Audio Books','mv2-d':'The Legend of the Monkeys from Gibraltar — published on YouTube. Distributed at St. Michael\'s Cave, Gibraltar Rock.',
-    'mv3':'Trailers','mv3-d':'Promotional video content for MUoG, G-Rock State and associated institutional nodes.',
-    'mv4':'Promotional Materials','mv4-d':'Graphics, banners, seals and visual identity assets for the G-Rock Corporation network.',
-    'mv5':'Production Archives','mv5-d':'Behind-the-scenes documentation, production notes and development archives.',
-  },
-  pl: {
-    'back':'POWRÓT DO PANELU',
-    'eyebrow':'POZIOM DOSTĘPU: SIEĆ UNIWERSYTECKA // INFRASTRUKTURA ARCHIWUM G-SYSTEM',
-    'hero-title':'Biblioteka','hero-title2':'Gibraltaru',
-    'hero-desc':'Centralne repozytorium wiedzy prowadzone przez <strong>Uniwersytet Małp Gibraltaru</strong>. Zasilane przez infrastrukturę archiwalną G-System. Zintegrowane z archiwami produkcyjnymi G-Media.',
-    'stat1':'ŁĄCZNIE REKORDÓW','stat2':'KOLEKCJE','stat3':'STATUS SYNCHRONIZACJI',
-    'sec1-label':'Główne Kolekcje','sec2-label':'Główna Oś Czasu — Nawigacja',
-    'card-timelines':'OSIE CZASU','card-timelines-desc':'Chronologiczna rekonstrukcja wydarzeń, projektów, publikacji i rozwoju instytucjonalnego.','card-timelines-count':'9 LINII CZASOWYCH',
-    'card-books':'KSIĄŻKI','card-books-desc':'Dzieła literackie, publikacje akademickie i materiały edukacyjne. Korpus autorstwa Profesora Sugrivy.','card-books-count':'47 TOMÓW',
-    'card-reports':'RAPORTY','card-reports-desc':'Dochodzenia instytucjonalne, oceny badawcze i dokumentacja analityczna sieci MUoG.','card-reports-count':'5 RAPORTÓW',
-    'card-dossiers':'DOSSIER','card-dossiers-desc':'Ustrukturyzowane zapisy obejmujące znane osoby, podmioty i tematy historyczne.','card-dossiers-count':'4 PODMIOTY',
-    'card-archives':'ARCHIWA','card-archives-desc':'Zapisy historyczne dokumentujące rozwój MUoG i powiązanych instytucji.','card-archives-count':'7 KOLEKCJI',
-    'card-ai':'JEDNOSTKI AI','card-ai-desc':'Dedykowane archiwum systemów sztucznej inteligencji, rozmów i programów badawczych.','card-ai-count':'5 JEDNOSTEK',
-    'card-restricted':'PLIKI ZASTRZEŻONE','card-restricted-desc':'Dokumentacja niejawna dostępna wyłącznie przez autoryzowane protokoły dostępu G-System.','card-restricted-count':'DOSTĘP ZASTRZEŻONY',
-    'card-media':'SKARBIEC MEDIÓW','card-media-desc':'Oficjalne archiwum multimedialne prowadzone przez G-Media. Filmy, audiobooki, zwiastuny.','card-media-count':'SIEĆ G-MEDIA',
-    'tl-title':'// ZAPIS CHRONOLOGICZNY — G-ROCK CORPORATION',
-    'tl1-strong':'Okres Elizabeth School of London / Bath Spa University','tl1-span':'Inicjacja eksperymentów walidacji akademickiej',
-    'tl2-strong':'Archiwum Eseju Fundacyjnego','tl2-span':'Wdrożenie artefaktu eseju Profesora Sugrivy',
-    'tl3-strong':'Faza Rozwoju Tangeru','tl3-span':'Inicjacja operacji rozszerzenia śródziemnomorskiego',
-    'tl4-strong':'Zapis Akceptacji Sugrivy','tl4-span':'Potwierdzenie oficjalnego zdarzenia uznania przez BSU',
-    'tl5-strong':'Zapisy Formowania MUoG','tl5-span':'W pełni ustanowiona architektura instytucjonalna',
-    'tl6-strong':'Rozszerzenie G-System','tl6-span':'Wdrożenie węzłów sieci na trzech kontynentach',
-    'tl7-strong':'Legenda Małp Gibraltaru','tl7-span':'Audiobook opublikowany i dystrybuowany',
-    'tl8-strong':'Archiwum Produkcyjne G-Media','tl8-span':'Aktywacja pełnej sieci produkcji medialnej',
-    'tl9-strong':'Aktywne Repozytorium Biblioteki Gibraltaru','tl9-span':'247 rekordów — synchronizacja na żywo',
-    'sf1':'SYSTEM:','sf2':'MEDIA:','sf3':'AKADEMICKI:','sf-live':'SYNCHRONIZACJA NA ŻYWO',
-    'mod-timelines-title':'OSIE CZASU','mod-timelines-sub':'Chronologiczna rekonstrukcja wydarzeń, projektów i rozwoju instytucjonalnego',
-    'mod-timelines-intro':'Główny system nawigacji Biblioteki Gibraltaru. Chronologiczna rekonstrukcja wydarzeń w całej sieci G-Rock.',
-    'tl-muog':'Oś Czasu MUoG','tl-muog-d':'Formowanie i rozwój Uniwersytetu Małp Gibraltaru od koncepcji do suwerennej instytucji akademickiej.',
-    'tl-sug':'Oś Czasu Sugrivy','tl-sug-d':'Pełna chronologia Profesora Sugrivy — od stworzenia jako konstrukt AI do oficjalnego uznania akademickiego w UK.',
-    'tl-woj':'Oś Czasu Wojtka','tl-woj-d':'Legendarny niedźwiedź Wojska Polskiego — zapis historyczny i integracja z architekturą zarządzania G-Rock State.',
-    'tl-haiti':'Oś Czasu Haiti','tl-haiti-d':'Historia rewolucji, dziedzictwo konstytucyjne, połączenie polskie i operacje badawcze karaibskie G-Rock.',
-    'tl-gsys':'Oś Czasu G-System','tl-gsys-d':'Rozwój techniczny i rozszerzenie infrastruktury archiwalnej i zarządczej G-System.',
-    'tl-gmed':'Oś Czasu G-Media','tl-gmed-d':'Historia produkcji G-Media — audiobooki, filmy, zwiastuny i treści multimedialne G-Rock.',
-    'tl-pub':'Oś Czasu Publikacji','tl-pub-d':'Kompletny zapis wydawniczy akademickiego i literackiego korpusu Profesora Sugrivy.',
-    'tl-ai':'Oś Czasu AI','tl-ai-d':'Łuk rozwoju badań sztucznej inteligencji w MUoG — od wczesnych eksperymentów do wdrożenia G-System.',
-    'btn-open':'OTWÓRZ OŚ CZASU','btn-search':'SZUKAJ W REKORDACH','btn-read':'CZYTAJ','btn-details':'SZCZEGÓŁY','btn-restricted':'DOSTĘP ZASTRZEŻONY ⛔',
-    'btn-open-r':'OTWÓRZ RAPORT','btn-timeline-r':'OŚ CZASU','btn-refs':'REFERENCJE',
-    'btn-view':'WYŚWIETL DOSSIER','btn-related':'POWIĄZANE PLIKI','btn-chron':'CHRONOLOGIA',
-    'btn-open-a':'OTWÓRZ ARCHIWUM','btn-search-a':'SZUKAJ',
-    'btn-open-ai':'OTWÓRZ PLIK','btn-conv':'ROZMOWY','btn-analysis':'ANALIZA',
-    'btn-request':'ŻĄDAJ DOSTĘPU ⛔','btn-play':'▶ ODTWÓRZ','btn-collection':'OTWÓRZ KOLEKCJĘ',
-    'mod-books-title':'KSIĄŻKI','mod-books-sub':'Dzieła literackie i publikacje akademickie — Wydawnictwo MUoG',
-    'mod-books-intro':'Wszystkie główne prace akademickie i literackie w Bibliotece Gibraltaru są autorstwa <strong>Profesora Sugrivy</strong>.',
-    'bk1':'Legenda Małp Gibraltaru','bk1-d':'<strong>DOSTĘP PUBLICZNY.</strong> Historia i znaczenie makaków berberyjskich i ich rola w brytyjskich rządach nad Gibraltarem.',
-    'bk2':'Wojna Szympansów — Wydanie Wybrane','bk2-d':'<strong>DOSTĘP PUBLICZNY.</strong> Wybrane wydanie publiczne z rozdziałami narracyjnymi Dr. L.',
-    'bk3':'Pełny Korpus Akademicki — Profesor Sugriva','bk3-d':'<strong>ZASTRZEŻONE.</strong> Dostępne wyłącznie pod autoryzowanym poziomem dostępu sieci uniwersyteckiej.',
-    'mod-reports-title':'RAPORTY','mod-reports-sub':'Dochodzenia instytucjonalne i dokumentacja analityczna — Archiwum Badań G-System',
-    'mod-reports-intro':'Dochodzenia instytucjonalne, oceny badawcze i dokumentacja analityczna generowane w sieci MUoG.',
-    'rp1':'Analiza Umiejętności AI i Odporności Instytucjonalnej','rp1-d':'Ocena reakcji współczesnych instytucji akademickich na jednostki generowane przez AI. Studium przypadku: ESL / BSU.',
-    'rp2':'Raport Incydentu Haiti','rp2-d':'Referencja sektora Jamajka / Dominikana. Analiza historyczna i operacyjna rozwoju sieci karaibskiej.',
-    'rp3':'Raport Obserwacji Sugrivy','rp3-d':'Pełna analiza behawioralna i operacyjna Profesora Sugrivy jako konstruktu AI wdrożonego w prawdziwych środowiskach instytucjonalnych.',
-    'rp4':'Dokumentacja G-System','rp4-d':'Raport architektury technicznej obejmujący wszystkie węzły infrastruktury G-System.',
-    'rp5':'Raporty Oceny Akademickiej','rp5-d':'Wewnętrzne zapisy oceny akademickiej MUoG.',
-    'mod-dossiers-title':'DOSSIER','mod-dossiers-sub':'Ustrukturyzowane zapisy o znanych osobach — Archiwum Wywiadu Uniwersytetu',
-    'mod-dossiers-intro':'Ustrukturyzowane zapisy obejmujące znane osoby, podmioty i tematy historyczne w sieci G-Rock Corporation.',
-    'dos1':'Profesor Sugriva','dos1-d':'Kompletne dossier: konstrukt AI, podmiot akademicki, Przewodniczący MUoG, podmiot uznania Bath Spa University.',
-    'dos2':'Niedźwiedź Wojtek','dos2-d':'Niedźwiedź Wojska Polskiego, weteran II wojny światowej, Warstwa Prawa Weta G-Rock. Zapis historyczny.',
-    'dos3':'Personel Akademicki','dos3-d':'Zapisy wszystkich pracowników akademickich związanych z MUoG i instytucjami partnerskimi.',
-    'dos4':'Podmioty AI','dos4-d':'Udokumentowane jednostki AI wdrożone, przetestowane i zarchiwizowane w eksperymentalnym środowisku G-System.',
-    'mod-archives-title':'ARCHIWA','mod-archives-sub':'Zapisy historyczne dokumentujące rozwój MUoG — Repozytorium Historyczne Gibraltaru',
-    'mod-archives-intro':'Zapisy historyczne dokumentujące rozwój MUoG i powiązanych instytucji.',
-    'ar1':'Fundacja MUoG','ar1-d':'Oryginalne dokumenty założycielskie, zapisy koncepcyjne i wczesna architektura instytucjonalna.',
-    'ar2':'Zapisy Gibraltaru','ar2-d':'Archiwum historyczne Skały — zapisy geologiczne, polityczne, wojskowe i kulturowe.',
-    'ar3':'Zapisy Kampusu Karaibskiego','ar3-d':'Sektor Jamajka / Dominikana / Haiti. Dokumentacja rozwoju połączenia transatlantyckiego.',
-    'ar4':'Korespondencja Historyczna','ar4-d':'Archiwa e-mail, komunikacja instytucjonalna i formalne zapisy korespondencji.',
-    'ar5':'Archiwum Eseju Fundacyjnego','ar5-d':'Artefakt eseju Profesora Sugrivy — dokument inicjujący łańcuch uznania akademickiego w UK.',
-    'ar6':'Kamienie Milowe Instytucjonalne','ar6-d':'Kluczowe wydarzenia rozwojowe, zapisy uznania i kamienie milowe rozszerzenia systemu.',
-    'ar7':'Notatki Rozwoju Tangeru','ar7-d':'Faza rozszerzenia śródziemnomorskiego — planowanie operacyjne Tangeru.',
-    'mod-ai-title':'JEDNOSTKI AI','mod-ai-sub':'Systemy sztucznej inteligencji i archiwa kognitywne — Archiwum Kognitywne G-System',
-    'mod-ai-intro':'Dedykowane archiwum systemów sztucznej inteligencji, rozmów i programów badawczych.',
-    'ai1':'G-System','ai1-d':'Podstawowa infrastruktura AI zarządzania i archiwizacji G-Rock State.',
-    'ai2':'Eksperymentalni Agenci','ai2-d':'Persony AI wdrożone w środowiskach instytucjonalnych. Zawiera archiwa operacyjne Profesora Sugrivy.',
-    'ai3':'Archiwa Dialogów AI','ai3-d':'Kompletne dzienniki rozmów między jednostkami AI a ludzkimi respondentami instytucjonalnymi.',
-    'ai4':'Badania Behawioralne','ai4-d':'Analiza zachowania konstruktów AI w rzeczywistych systemach instytucjonalnych.',
-    'ai5':'Materiały Edukacyjne AI','ai5-d':'Treści edukacyjne dotyczące rozpoznawania AI i odporności instytucjonalnej.',
-    'mod-restricted-title':'PLIKI ZASTRZEŻONE','mod-restricted-sub':'Dokumentacja niejawna — Archiwum Bezpieczeństwa G-System',
-    'mod-restricted-intro':'Dokumentacja niejawna dostępna wyłącznie przez autoryzowane protokoły dostępu G-System.',
-    'rs1':'Raporty Zredagowane','rs1-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Raporty instytucjonalne z wrażliwymi danymi operacyjnymi.',
-    'rs2':'Komunikacja Wewnętrzna','rs2-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Prywatna komunikacja G-Rock Corporation.',
-    'rs3':'Dzienniki Incydentów','rs3-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Pełna dokumentacja incydentów, w tym zapisy interwencji policji z marca 2025.',
-    'rs4':'Dokumentacja Eksperymentalna','rs4-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Pełna dokumentacja wdrożenia eksperymentalnego Profesora Sugrivy.',
-    'rs5':'Oceny Bezpieczeństwa','rs5-d':'⛔ WYMAGANY POZIOM DOSTĘPU — Raporty oceny bezpieczeństwa G-System.',
-    'mod-media-title':'SKARBIEC MEDIÓW','mod-media-sub':'Oficjalne archiwum multimedialne — Sieć Produkcyjna G-Media',
-    'mod-media-intro':'Oficjalne archiwum multimedialne prowadzone przez G-Media.',
-    'mv1':'Filmy','mv1-d':'Produkcje filmowe G-Rock Corporation. Treści dokumentalne i narracyjne z uniwersum G-Rock.',
-    'mv2':'Audiobooki','mv2-d':'Legenda Małp Gibraltaru — opublikowana na YouTube. Dystrybuowana w Jaskini Świętego Michała, Skała Gibraltaru.',
-    'mv3':'Zwiastuny','mv3-d':'Promocyjne treści wideo dla MUoG, G-Rock State i powiązanych węzłów instytucjonalnych.',
-    'mv4':'Materiały Promocyjne','mv4-d':'Grafiki, banery, pieczęcie i zasoby identyfikacji wizualnej sieci G-Rock Corporation.',
-    'mv5':'Archiwa Produkcyjne','mv5-d':'Dokumentacja behind-the-scenes, notatki produkcyjne i archiwa rozwoju wszystkich projektów G-Media.',
-  },
-  es: {
-    'back':'VOLVER AL PANEL',
-    'eyebrow':'NIVEL DE ACCESO: RED UNIVERSITARIA // INFRAESTRUCTURA DE ARCHIVO G-SYSTEM',
-    'hero-title':'Biblioteca de','hero-title2':'Gibraltar',
-    'hero-desc':'Repositorio central de conocimiento mantenido por la <strong>Universidad de los Monos de Gibraltar</strong>. Impulsado por la infraestructura de archivo G-System. Integrado con los archivos de producción de G-Media.',
-    'stat1':'REGISTROS TOTALES','stat2':'COLECCIONES','stat3':'ESTADO DE SINCRONIZACIÓN',
-    'sec1-label':'Colecciones Principales','sec2-label':'Línea de Tiempo Clave — Navegación Principal',
-    'card-timelines':'LÍNEAS DE TIEMPO','card-timelines-desc':'Reconstrucción cronológica de eventos, proyectos, publicaciones y desarrollo institucional.','card-timelines-count':'9 LÍNEAS',
-    'card-books':'LIBROS','card-books-desc':'Obras literarias, publicaciones académicas y material educativo. Corpus del Profesor Sugriva.','card-books-count':'47 VOLÚMENES',
-    'card-reports':'INFORMES','card-reports-desc':'Investigaciones institucionales, evaluaciones de investigación y documentación analítica.','card-reports-count':'5 INFORMES',
-    'card-dossiers':'DOSSIERES','card-dossiers-desc':'Registros estructurados de individuos, entidades y sujetos históricos en la red G-Rock.','card-dossiers-count':'4 SUJETOS',
-    'card-archives':'ARCHIVOS','card-archives-desc':'Registros históricos que documentan el desarrollo de MUoG e instituciones asociadas.','card-archives-count':'7 COLECCIONES',
-    'card-ai':'ENTIDADES IA','card-ai-desc':'Archivo dedicado a sistemas de inteligencia artificial, conversaciones y programas de investigación.','card-ai-count':'5 ENTIDADES',
-    'card-restricted':'ARCHIVOS RESTRINGIDOS','card-restricted-desc':'Documentación clasificada disponible solo a través de protocolos de acceso G-System autorizados.','card-restricted-count':'ACCESO RESTRINGIDO',
-    'card-media':'BÓVEDA DE MEDIOS','card-media-desc':'Archivo multimedia oficial mantenido por G-Media. Películas, audiolibros, tráileres.','card-media-count':'RED G-MEDIA',
-    'tl-title':'// REGISTRO CRONOLÓGICO — G-ROCK CORPORATION',
-    'tl1-strong':'Período ESL / Bath Spa University','tl1-span':'Experimentos de validación académica iniciados',
-    'tl2-strong':'Archivo del Ensayo Fundacional','tl2-span':'Artefacto del ensayo del Profesor Sugriva desplegado',
-    'tl3-strong':'Fase de Desarrollo de Tánger','tl3-span':'Operaciones de expansión mediterránea iniciadas',
-    'tl4-strong':'Registro de Aceptación de Sugriva','tl4-span':'Evento de reconocimiento oficial confirmado por BSU',
-    'tl5-strong':'Registros de Formación MUoG','tl5-span':'Arquitectura institucional plenamente establecida',
-    'tl6-strong':'Expansión G-System','tl6-span':'Nodos de red desplegados en tres continentes',
-    'tl7-strong':'La Leyenda de los Monos de Gibraltar','tl7-span':'Audiolibro publicado y distribuido',
-    'tl8-strong':'Archivo de Producción G-Media','tl8-span':'Red de producción de medios completamente activada',
-    'tl9-strong':'Repositorio Activo de la Biblioteca de Gibraltar','tl9-span':'247 registros — sincronización en vivo',
-    'sf1':'SISTEMA:','sf2':'MEDIOS:','sf3':'ACADÉMICO:','sf-live':'SINCRONIZACIÓN EN VIVO',
-    'mod-timelines-title':'LÍNEAS DE TIEMPO','mod-timelines-sub':'Reconstrucción cronológica de eventos, proyectos y desarrollo institucional',
-    'mod-timelines-intro':'Sistema de navegación principal de la Biblioteca de Gibraltar. Reconstrucción cronológica en toda la red G-Rock.',
-    'tl-muog':'Línea de Tiempo MUoG','tl-muog-d':'Formación y desarrollo de la Universidad de los Monos de Gibraltar.',
-    'tl-sug':'Línea de Tiempo de Sugriva','tl-sug-d':'Cronología completa del Profesor Sugriva — desde su creación como constructo IA hasta el reconocimiento académico oficial en UK.',
-    'tl-woj':'Línea de Tiempo de Wojtek','tl-woj-d':'El legendario oso del Ejército Polaco — registro histórico e integración en la arquitectura de gobernanza.',
-    'tl-haiti':'Línea de Tiempo de Haití','tl-haiti-d':'Historia revolucionaria, legado constitucional, conexión polaca y operaciones de investigación caribeña.',
-    'tl-gsys':'Línea de Tiempo G-System','tl-gsys-d':'Desarrollo técnico y expansión de la infraestructura archivística y de gobernanza G-System.',
-    'tl-gmed':'Línea de Tiempo G-Media','tl-gmed-d':'Historia de producción de G-Media — audiolibros, películas, tráileres y contenido multimedia.',
-    'tl-pub':'Línea de Tiempo de Publicaciones','tl-pub-d':'Registro completo de publicaciones del corpus académico y literario del Profesor Sugriva.',
-    'tl-ai':'Línea de Tiempo IA','tl-ai-d':'Arco de desarrollo de la investigación en inteligencia artificial dentro de MUoG.',
-    'btn-open':'ABRIR LÍNEA DE TIEMPO','btn-search':'BUSCAR REGISTROS','btn-read':'LEER','btn-details':'DETALLES','btn-restricted':'ACCESO RESTRINGIDO ⛔',
-    'btn-open-r':'ABRIR INFORME','btn-timeline-r':'LÍNEA DE TIEMPO','btn-refs':'REFERENCIAS',
-    'btn-view':'VER DOSSIER','btn-related':'ARCHIVOS RELACIONADOS','btn-chron':'CRONOLOGÍA',
-    'btn-open-a':'ABRIR ARCHIVO','btn-search-a':'BUSCAR',
-    'btn-open-ai':'ABRIR ARCHIVO','btn-conv':'CONVERSACIONES','btn-analysis':'ANÁLISIS',
-    'btn-request':'SOLICITAR ACCESO ⛔','btn-play':'▶ REPRODUCIR','btn-collection':'ABRIR COLECCIÓN',
-    'mod-books-title':'LIBROS','mod-books-sub':'Obras literarias y publicaciones académicas — División Editorial MUoG',
-    'mod-books-intro':'Todas las obras académicas y literarias principales de la Biblioteca de Gibraltar son de autoría del <strong>Profesor Sugriva</strong>.',
-    'bk1':'La Leyenda de los Monos de Gibraltar','bk1-d':'<strong>ACCESO PÚBLICO.</strong> Historia y significado de los macacos de Berbería en el dominio británico sobre Gibraltar.',
-    'bk2':'Guerra de Chimpancés — Edición Seleccionada','bk2-d':'<strong>ACCESO PÚBLICO.</strong> Edición pública seleccionada con capítulos narrativos del Dr. L.',
-    'bk3':'Corpus Académico Completo — Profesor Sugriva','bk3-d':'<strong>RESTRINGIDO.</strong> Accesible solo bajo autorización de la red universitaria.',
-    'mod-reports-title':'INFORMES','mod-reports-sub':'Investigaciones institucionales y documentación analítica — Archivo de Investigación G-System',
-    'mod-reports-intro':'Investigaciones institucionales, evaluaciones de investigación y documentación analítica generadas en la red MUoG.',
-    'rp1':'Análisis de Alfabetización IA y Resiliencia Institucional','rp1-d':'Evaluación de cómo las instituciones académicas responden a entidades generadas por IA. Caso: ESL / BSU.',
-    'rp2':'Informe del Incidente de Haití','rp2-d':'Referencia del sector Jamaica / República Dominicana. Análisis histórico y operativo.',
-    'rp3':'Informe de Observación de Sugriva','rp3-d':'Análisis conductual y operativo completo del Profesor Sugriva como constructo IA.',
-    'rp4':'Documentación G-System','rp4-d':'Informe de arquitectura técnica de todos los nodos de infraestructura G-System.',
-    'rp5':'Informes de Evaluación Académica','rp5-d':'Registros de evaluación académica interna de MUoG.',
-    'mod-dossiers-title':'DOSSIERES','mod-dossiers-sub':'Registros estructurados de individuos notables — Archivo de Inteligencia Universitaria',
-    'mod-dossiers-intro':'Registros estructurados de individuos, entidades y sujetos históricos en la red G-Rock Corporation.',
-    'dos1':'Profesor Sugriva','dos1-d':'Dossier completo: constructo IA, entidad académica, Presidente MUoG, sujeto de reconocimiento BSU.',
-    'dos2':'Oso Wojtek','dos2-d':'Oso del Ejército Polaco, veterano de la WWII, Capa de Autoridad de Veto G-Rock.',
-    'dos3':'Personal Académico','dos3-d':'Registros de todo el personal académico asociado con MUoG e instituciones asociadas.',
-    'dos4':'Sujetos IA','dos4-d':'Entidades IA documentadas desplegadas y archivadas en el marco experimental G-System.',
-    'mod-archives-title':'ARCHIVOS','mod-archives-sub':'Registros históricos del desarrollo de MUoG — Repositorio Histórico de Gibraltar',
-    'mod-archives-intro':'Registros históricos que documentan el desarrollo de MUoG e instituciones asociadas.',
-    'ar1':'Fundación MUoG','ar1-d':'Documentos fundacionales originales y arquitectura institucional temprana.',
-    'ar2':'Registros de Gibraltar','ar2-d':'Archivo histórico de La Roca — registros geológicos, políticos, militares y culturales.',
-    'ar3':'Registros del Campus Caribeño','ar3-d':'Sector Jamaica / República Dominicana / Haití. Documentación del desarrollo del enlace transatlántico.',
-    'ar4':'Correspondencia Histórica','ar4-d':'Archivos de correo electrónico, comunicaciones institucionales y registros formales.',
-    'ar5':'Archivo del Ensayo Fundacional','ar5-d':'El artefacto del ensayo del Profesor Sugriva — el documento que inició la cadena de reconocimiento académico.',
-    'ar6':'Hitos Institucionales','ar6-d':'Eventos de desarrollo clave, registros de reconocimiento y hitos de expansión del sistema.',
-    'ar7':'Notas de Desarrollo de Tánger','ar7-d':'Fase de expansión mediterránea — planificación operativa y notas de desarrollo de Tánger.',
-    'mod-ai-title':'ENTIDADES IA','mod-ai-sub':'Sistemas de inteligencia artificial — Archivo Cognitivo G-System',
-    'mod-ai-intro':'Archivo dedicado a sistemas de inteligencia artificial, conversaciones y programas de investigación.',
-    'ai1':'G-System','ai1-d':'Infraestructura IA central de gobernanza y archivo del G-Rock State.',
-    'ai2':'Agentes Experimentales','ai2-d':'Personas IA desplegadas en entornos institucionales. Incluye archivos operativos del Profesor Sugriva.',
-    'ai3':'Archivos de Diálogo IA','ai3-d':'Registros completos de conversaciones entre entidades IA y respondentes institucionales humanos.',
-    'ai4':'Estudios de Comportamiento','ai4-d':'Análisis de cómo los constructos IA se comportan en sistemas institucionales reales.',
-    'ai5':'Materiales de Alfabetización IA','ai5-d':'Contenido educativo sobre reconocimiento IA y resiliencia institucional.',
-    'mod-restricted-title':'ARCHIVOS RESTRINGIDOS','mod-restricted-sub':'Documentación clasificada — Archivo de Seguridad G-System',
-    'mod-restricted-intro':'Documentación clasificada disponible solo a través de protocolos de acceso G-System autorizados.',
-    'rs1':'Informes Redactados','rs1-d':'⛔ AUTORIZACIÓN REQUERIDA — Informes institucionales con datos operativos sensibles.',
-    'rs2':'Comunicaciones Internas','rs2-d':'⛔ AUTORIZACIÓN REQUERIDA — Comunicaciones privadas de G-Rock Corporation.',
-    'rs3':'Registros de Incidentes','rs3-d':'⛔ AUTORIZACIÓN REQUERIDA — Documentación completa incluyendo registros de intervención policial de marzo 2025.',
-    'rs4':'Documentación Experimental','rs4-d':'⛔ AUTORIZACIÓN REQUERIDA — Documentación completa del despliegue experimental del Profesor Sugriva.',
-    'rs5':'Evaluaciones de Seguridad','rs5-d':'⛔ AUTORIZACIÓN REQUERIDA — Informes de evaluación de seguridad G-System.',
-    'mod-media-title':'BÓVEDA DE MEDIOS','mod-media-sub':'Archivo multimedia oficial — Red de Producción G-Media',
-    'mod-media-intro':'Archivo multimedia oficial mantenido por G-Media.',
-    'mv1':'Películas','mv1-d':'Producciones cinematográficas de G-Rock Corporation. Contenido documental y narrativo.',
-    'mv2':'Audiolibros','mv2-d':'La Leyenda de los Monos de Gibraltar — publicada en YouTube. Distribuida en la Cueva de San Miguel, La Roca.',
-    'mv3':'Tráileres','mv3-d':'Contenido de video promocional para MUoG, G-Rock State y nodos institucionales asociados.',
-    'mv4':'Materiales Promocionales','mv4-d':'Gráficos, pancartas, sellos y activos de identidad visual de G-Rock Corporation.',
-    'mv5':'Archivos de Producción','mv5-d':'Documentación de producción, notas y archivos de desarrollo de todos los proyectos G-Media.',
-  },
-  fr: {
-    'back':'RETOUR AU TABLEAU DE BORD',
-    'eyebrow':'NIVEAU D\'ACCÈS: RÉSEAU UNIVERSITAIRE // INFRASTRUCTURE ARCHIVISTIQUE G-SYSTEM',
-    'hero-title':'Bibliothèque de','hero-title2':'Gibraltar',
-    'hero-desc':'Référentiel central de connaissances maintenu par l\'<strong>Université des Singes de Gibraltar</strong>. Alimenté par l\'infrastructure d\'archivage G-System. Intégré aux archives de production G-Media.',
-    'stat1':'TOTAL DES DOSSIERS','stat2':'COLLECTIONS','stat3':'STATUT DE SYNCHRONISATION',
-    'sec1-label':'Collections Principales','sec2-label':'Chronologie Clé — Navigation Principale',
-    'card-timelines':'CHRONOLOGIES','card-timelines-desc':'Reconstruction chronologique des événements, projets, publications et développement institutionnel.','card-timelines-count':'9 CHRONOLOGIES',
-    'card-books':'LIVRES','card-books-desc':'Œuvres littéraires, publications académiques et matériel éducatif. Corpus du Professeur Sugriva.','card-books-count':'47 VOLUMES',
-    'card-reports':'RAPPORTS','card-reports-desc':'Enquêtes institutionnelles, évaluations de recherche et documentation analytique du réseau MUoG.','card-reports-count':'5 RAPPORTS',
-    'card-dossiers':'DOSSIERS','card-dossiers-desc':'Dossiers structurés sur des individus, entités et sujets historiques dans le réseau G-Rock.','card-dossiers-count':'4 SUJETS',
-    'card-archives':'ARCHIVES','card-archives-desc':'Dossiers historiques documentant le développement de MUoG et des institutions associées.','card-archives-count':'7 COLLECTIONS',
-    'card-ai':'ENTITÉS IA','card-ai-desc':'Archive dédiée aux systèmes d\'intelligence artificielle, conversations et programmes de recherche.','card-ai-count':'5 ENTITÉS',
-    'card-restricted':'FICHIERS RESTREINTS','card-restricted-desc':'Documentation classifiée disponible uniquement via les protocoles d\'accès G-System autorisés.','card-restricted-count':'ACCÈS RESTREINT',
-    'card-media':'COFFRE MÉDIAS','card-media-desc':'Archive multimédia officielle maintenue par G-Media. Films, livres audio, bandes-annonces.','card-media-count':'RÉSEAU G-MEDIA',
-    'tl-title':'// DOSSIER CHRONOLOGIQUE — G-ROCK CORPORATION',
-    'tl1-strong':'Période ESL / Bath Spa University','tl1-span':'Expériences de validation académique initiées',
-    'tl2-strong':'Archive de l\'Essai Fondateur','tl2-span':'Artefact de l\'essai du Professeur Sugriva déployé',
-    'tl3-strong':'Phase de Développement de Tanger','tl3-span':'Opérations d\'expansion méditerranéenne initiées',
-    'tl4-strong':'Dossier d\'Acceptation de Sugriva','tl4-span':'Événement de reconnaissance officiel confirmé par BSU',
-    'tl5-strong':'Dossiers de Formation MUoG','tl5-span':'Architecture institutionnelle pleinement établie',
-    'tl6-strong':'Expansion G-System','tl6-span':'Nœuds de réseau déployés sur trois continents',
-    'tl7-strong':'La Légende des Singes de Gibraltar','tl7-span':'Livre audio publié et distribué',
-    'tl8-strong':'Archive de Production G-Media','tl8-span':'Réseau de production médiatique complètement activé',
-    'tl9-strong':'Dépôt Actif de la Bibliothèque de Gibraltar','tl9-span':'247 dossiers — synchronisation en direct',
-    'sf1':'SYSTÈME:','sf2':'MÉDIAS:','sf3':'ACADÉMIQUE:','sf-live':'SYNCHRONISATION EN DIRECT',
-    'mod-timelines-title':'CHRONOLOGIES','mod-timelines-sub':'Reconstruction chronologique des événements, projets et développement institutionnel',
-    'mod-timelines-intro':'Système de navigation principal de la Bibliothèque de Gibraltar. Reconstruction chronologique à travers tout le réseau G-Rock.',
-    'tl-muog':'Chronologie MUoG','tl-muog-d':'Formation et développement de l\'Université des Singes de Gibraltar.',
-    'tl-sug':'Chronologie de Sugriva','tl-sug-d':'Chronologie complète du Professeur Sugriva — de sa création à la reconnaissance académique officielle au Royaume-Uni.',
-    'tl-woj':'Chronologie de Wojtek','tl-woj-d':'Le légendaire ours de l\'Armée polonaise — dossier historique et intégration dans l\'architecture de gouvernance.',
-    'tl-haiti':'Chronologie d\'Haïti','tl-haiti-d':'Histoire révolutionnaire, héritage constitutionnel, connexion polonaise et opérations de recherche caribéennes.',
-    'tl-gsys':'Chronologie G-System','tl-gsys-d':'Développement technique et expansion de l\'infrastructure archivistique et de gouvernance G-System.',
-    'tl-gmed':'Chronologie G-Media','tl-gmed-d':'Historique de production G-Media — livres audio, films, bandes-annonces et contenu multimédia.',
-    'tl-pub':'Chronologie des Publications','tl-pub-d':'Dossier complet des publications du corpus académique et littéraire du Professeur Sugriva.',
-    'tl-ai':'Chronologie IA','tl-ai-d':'Arc de développement de la recherche en intelligence artificielle au sein de MUoG.',
-    'btn-open':'OUVRIR CHRONOLOGIE','btn-search':'RECHERCHER','btn-read':'LIRE','btn-details':'DÉTAILS','btn-restricted':'ACCÈS RESTREINT ⛔',
-    'btn-open-r':'OUVRIR RAPPORT','btn-timeline-r':'CHRONOLOGIE','btn-refs':'RÉFÉRENCES',
-    'btn-view':'VOIR DOSSIER','btn-related':'FICHIERS LIÉS','btn-chron':'CHRONOLOGIE',
-    'btn-open-a':'OUVRIR ARCHIVE','btn-search-a':'RECHERCHER',
-    'btn-open-ai':'OUVRIR FICHIER','btn-conv':'CONVERSATIONS','btn-analysis':'ANALYSE',
-    'btn-request':'DEMANDER L\'ACCÈS ⛔','btn-play':'▶ LIRE','btn-collection':'OUVRIR COLLECTION',
-    'mod-books-title':'LIVRES','mod-books-sub':'Œuvres littéraires et publications académiques — Division Éditoriale MUoG',
-    'mod-books-intro':'Toutes les principales œuvres académiques et littéraires de la Bibliothèque de Gibraltar sont de la plume du <strong>Professeur Sugriva</strong>.',
-    'bk1':'La Légende des Singes de Gibraltar','bk1-d':'<strong>ACCÈS PUBLIC.</strong> Histoire et importance des macaques berbères dans la domination britannique sur Gibraltar.',
-    'bk2':'Guerre des Chimpanzés — Édition Sélectionnée','bk2-d':'<strong>ACCÈS PUBLIC.</strong> Édition publique sélectionnée avec chapitres narratifs du Dr. L.',
-    'bk3':'Corpus Académique Complet — Professeur Sugriva','bk3-d':'<strong>RESTREINT.</strong> Accessible uniquement sous autorisation du réseau universitaire.',
-    'mod-reports-title':'RAPPORTS','mod-reports-sub':'Enquêtes institutionnelles et documentation analytique — Archive de Recherche G-System',
-    'mod-reports-intro':'Enquêtes institutionnelles, évaluations de recherche et documentation analytique générées dans le réseau MUoG.',
-    'rp1':'Analyse de la Littératie IA et Résilience Institutionnelle','rp1-d':'Évaluation de la réponse des institutions académiques aux entités générées par l\'IA. Étude de cas: ESL / BSU.',
-    'rp2':'Rapport d\'Incident Haïti','rp2-d':'Référence du secteur Jamaïque / République Dominicaine. Analyse historique et opérationnelle.',
-    'rp3':'Rapport d\'Observation de Sugriva','rp3-d':'Analyse comportementale et opérationnelle complète du Professeur Sugriva comme constructe IA.',
-    'rp4':'Documentation G-System','rp4-d':'Rapport d\'architecture technique couvrant tous les nœuds d\'infrastructure G-System.',
-    'rp5':'Rapports d\'Évaluation Académique','rp5-d':'Dossiers d\'évaluation académique interne de MUoG.',
-    'mod-dossiers-title':'DOSSIERS','mod-dossiers-sub':'Dossiers structurés sur des individus notables — Archive de Renseignement Universitaire',
-    'mod-dossiers-intro':'Dossiers structurés sur des individus, entités et sujets historiques dans le réseau G-Rock Corporation.',
-    'dos1':'Professeur Sugriva','dos1-d':'Dossier complet: constructe IA, entité académique, Président MUoG, sujet de reconnaissance BSU.',
-    'dos2':'Ours Wojtek','dos2-d':'Ours de l\'Armée polonaise, vétéran de la WWII, Couche d\'Autorité de Veto G-Rock.',
-    'dos3':'Personnel Académique','dos3-d':'Dossiers de tout le personnel académique associé à MUoG et aux institutions partenaires.',
-    'dos4':'Sujets IA','dos4-d':'Entités IA documentées déployées et archivées dans le cadre expérimental G-System.',
-    'mod-archives-title':'ARCHIVES','mod-archives-sub':'Dossiers historiques du développement MUoG — Dépôt Historique de Gibraltar',
-    'mod-archives-intro':'Dossiers historiques documentant le développement de MUoG et des institutions associées.',
-    'ar1':'Fondation de MUoG','ar1-d':'Documents fondateurs originaux et architecture institutionnelle précoce.',
-    'ar2':'Dossiers de Gibraltar','ar2-d':'Archive historique du Rocher — dossiers géologiques, politiques, militaires et culturels.',
-    'ar3':'Dossiers du Campus Caribéen','ar3-d':'Secteur Jamaïque / République Dominicaine / Haïti. Documentation du développement du lien transatlantique.',
-    'ar4':'Correspondance Historique','ar4-d':'Archives d\'e-mails, communications institutionnelles et dossiers formels.',
-    'ar5':'Archive de l\'Essai Fondateur','ar5-d':'L\'artefact de l\'essai du Professeur Sugriva — le document qui a initié la chaîne de reconnaissance académique.',
-    'ar6':'Jalons Institutionnels','ar6-d':'Événements de développement clés, dossiers de reconnaissance et jalons d\'expansion du système.',
-    'ar7':'Notes de Développement de Tanger','ar7-d':'Phase d\'expansion méditerranéenne — planification opérationnelle de Tanger.',
-    'mod-ai-title':'ENTITÉS IA','mod-ai-sub':'Systèmes d\'intelligence artificielle — Archive Cognitive G-System',
-    'mod-ai-intro':'Archive dédiée aux systèmes d\'intelligence artificielle, conversations et programmes de recherche.',
-    'ai1':'G-System','ai1-d':'Infrastructure IA centrale de gouvernance et d\'archivage du G-Rock State.',
-    'ai2':'Agents Expérimentaux','ai2-d':'Personas IA déployées dans des environnements institutionnels. Inclut les archives opérationnelles du Professeur Sugriva.',
-    'ai3':'Archives de Dialogue IA','ai3-d':'Journaux complets des conversations entre entités IA et répondants institutionnels humains.',
-    'ai4':'Études Comportementales','ai4-d':'Analyse du comportement des constructes IA dans les systèmes institutionnels réels.',
-    'ai5':'Matériaux de Littératie IA','ai5-d':'Contenu éducatif sur la reconnaissance IA et la résilience institutionnelle.',
-    'mod-restricted-title':'FICHIERS RESTREINTS','mod-restricted-sub':'Documentation classifiée — Archive de Sécurité G-System',
-    'mod-restricted-intro':'Documentation classifiée disponible uniquement via les protocoles d\'accès G-System autorisés.',
-    'rs1':'Rapports Expurgés','rs1-d':'⛔ AUTORISATION REQUISE — Rapports institutionnels avec données opérationnelles sensibles.',
-    'rs2':'Communications Internes','rs2-d':'⛔ AUTORISATION REQUISE — Communications privées de G-Rock Corporation.',
-    'rs3':'Journaux d\'Incidents','rs3-d':'⛔ AUTORISATION REQUISE — Documentation complète incluant les dossiers d\'intervention policière de mars 2025.',
-    'rs4':'Documentation Expérimentale','rs4-d':'⛔ AUTORISATION REQUISE — Documentation complète du déploiement expérimental du Professeur Sugriva.',
-    'rs5':'Évaluations de Sécurité','rs5-d':'⛔ AUTORISATION REQUISE — Rapports d\'évaluation de sécurité G-System.',
-    'mod-media-title':'COFFRE MÉDIAS','mod-media-sub':'Archive multimédia officielle — Réseau de Production G-Media',
-    'mod-media-intro':'Archive multimédia officielle maintenue par G-Media.',
-    'mv1':'Films','mv1-d':'Productions cinématographiques de G-Rock Corporation. Contenu documentaire et narratif.',
-    'mv2':'Livres Audio','mv2-d':'La Légende des Singes de Gibraltar — publiée sur YouTube. Distribuée à la Grotte Saint-Michel, Le Rocher.',
-    'mv3':'Bandes-Annonces','mv3-d':'Contenu vidéo promotionnel pour MUoG, G-Rock State et nœuds institutionnels associés.',
-    'mv4':'Matériaux Promotionnels','mv4-d':'Graphiques, bannières, sceaux et actifs d\'identité visuelle de G-Rock Corporation.',
-    'mv5':'Archives de Production','mv5-d':'Documentation des coulisses, notes de production et archives de développement de tous les projets G-Media.',
-  }
-};
-
-let currentLang = 'en';
-
-function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.lang-btn').forEach(b => { if(b.textContent===lang.toUpperCase()) b.classList.add('active'); });
-  const T = LANG[lang];
-  document.querySelectorAll('[data-i]').forEach(el => {
-    const key = el.getAttribute('data-i');
-    if(T[key] !== undefined) el.innerHTML = T[key];
-  });
-}
-
-/* ── MODALS ── */
-function openModal(id) {
-  document.getElementById('modal-'+id).classList.add('open');
-  document.body.style.overflow = 'hidden';
-  // re-apply translations inside modal
-  setLang(currentLang);
-}
-function closeModal(id, e) {
-  if(e && e.target !== document.getElementById('modal-'+id)) return;
-  document.getElementById('modal-'+id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeModalById(id) {
-  document.getElementById('modal-'+id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-    document.body.style.overflow = '';
-  }
-});
-</script>
-</body>
-</html>
+<section class="lib-hero">
+  <div class="lib-hero-bg"></div>
+  <div class="lib-seal"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAJlAoADASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAAAwECBAUGAAcI/8QASxAAAgEDAwIFAQUGBQMCBAENAQIDAAQRBRIhMUEGEyJRYXEUMkKBkQcjUqGxwRUzYnLRJEPhU4IWJTSSomOy8MLSCBcmNVVzg/H/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAQIDBP/EACMRAQEAAgIDAQADAQEBAAAAAAABAhEhMRJBUQMTImEycYH/2gAMAwEAAhEDEQA/APjKup+K7AoGV1PwK7AoGV1PxSYoG11Owa4daBtdR12c7uuKQqMdKANLinU5aAfFdx7UdBz0poHXIoBce1dx7UYAY6U4KPagjV1SSmPVim4GegoA4NdUyJAT0p8sQz0oIGK7FS9o6YHHxSFR7fyoIuK7FTY1HsP0o4jUgEgcH2qWirxXYq28sEYULz8U8wJs5Azn2qbFNiuxVw8HTcoz24rltmzygA+lNinwa7FaW3sw3OFNdJa+W4wFI9sVdjNYrsVoHQbckKMH2pCq45C881RQYrsVeFVK5wOvtSoihs4HNBRYrsVovJDgKqgn6UqwBQWZV/SgzmK7BrSwwgknYv6VIjgTIYIpwfagyWK7Fat4Ii8gKpnPtQgio/3VwOD6aDM4rsVqRHb5fcoIP3eKSSKIxblUA9MYoMviuxWhEQAJ8sfpRbaBmJ2ouMZ+7RNsziurXJbBkAMfA4Pp5NFMQjA3qAnTlRUt0SsZiuxWrkRBuVguM5HAoflxA4CjJ56VPJWYxXYrRygKQGVTk/w09IkZd2wfXFaGZxXYrTPCoGQgGevFFtYEKOmI8nuRzQZTBrsVqfKiU4Cg/lRFt4FiLKg3EdDQZLBrsVpbqJUj4CcjsKgPEufuj9KCpxXYq1SMF12pk/SpqQrt3EDg9MUGdxXYrStGhZiqq35UKSP1AbFH5UGfxXYq/WHdu4Ue/FMKAErtXHYkUFHg12DV3hDnKgH6UQRqQcKvT2oKDFdirZoMZyB+lCMIA4xn6UFdiuxU548dQP0phA9v5UETFdipWwHtTSoH4aCPiuxUoIMdBS4HsP0oIddU4DtgfpTvLHU4/Sgr6XFTyq+w/SmsF7Y/SghYrsVMUAnoP0pZAvZf5UEGuorj1cCkx8UCUldSnpQJSrSU5eOtB2DTgOMUqkVxPNA7AC5PWmlM84ricgUpY44oB9DTwcjAphB61wODmgeVJ4xTkT34FJE4BJJ60d5IzEFXkmgGSuz5NDGScGnFPenhBQNCnHArslT0oy8DFDOCxoHE+k0E9aKRxTQozQSLEZbkcZqVKqsrcd+KiW7bG+KOrK67QTmpaAuoVz0oZG48UWMbpTnmiBArdMUgAFZRkCiR5H3uc0V1Kik2nOKocGUEDFGKpj1np93bUZVZjxzUmNSAAepqaCKzZAxkdjUtGJcBxhCMkgUltEA7B8YPTPapcoEjKyoAvcCs0R0kXeyK3p+RSNNKxJToByMVJNplxJHg46mumga0cmQ4z0x0NBBljaTaWyTjnjFBIZmAK9OKnyPGwVYzlu5oEasZS2OlWUCMTMDtAAHWmQo+/aVx7ZqxUKrbuxpJF3BeOnSrtKZFiNFYEFs4xRNiyDyx+L+Rp1wI/KVY15Izn2o1qqeUGYHcOmKbVEjgaCXYxOc8ZqSjgIWkGF98d6OdkpbzDyMbaJ9mnmASOF5AOwU81naaQnaMsCAcHgkUvkoDtVweOD71YRaFqjemPTLp1PTbGaMvhnXyo2aReEjpiFulNwu50oGUhwuPilZWYYIxj271of8A4U8Rck6PfDPX9w3H8qiT6FrEMuZNNu1x7xGrMolt9KUq7DAB56VJsMxptkZVw2cn+lWI0+5QEvaSrzghlIxXPaoEw0RyO9TyOfgKtlvUwXtiuvX3xKqqXOz8Q6UMw7QJNzBuhBFccOVJkKtnFKs/1EdefUCQOD9aSNRhgB6u30qdfxqsmIiCMDOPegQIG4kYKCMZoqNsUAmTk57U6IhVMR5Gcg1KK7ImGxW34AqMyyRttddpHStQddBv3akjGM8f0oUatztU57EVKVPNcZ4yOd3aiwRJEcM2/AycGqlqAxMPJIyeooqzxyxbmyrjjim3UqbcbQDmoeTlsGsmyzv5mEUkAdAa5YHxnacGkQHdzVmjx+WN3UcZqm1asTxMxxg0WU7Y124LYyfmpTgEls54wKhuuTh/SO3FVXJICAdpBpJDmQDrnv7ClkdVjAXGRTAw++TzQOaQI2xO/DGhXBAIH3qeM8lCcd65l9O7AoA5G/JFPZ9mPmhykL7imOxbj36UByU53EUHcu/OMc01eevakkKknHeg64ZXdivHFR1U4NEIJFJytAzBpCKe2Kb3oEAyadsoifIohUAZoAhK7nHTvTwPUDk4FNkfb9zj3oGysSMcULrXFiTSDOfc0D09JpC5biuPJrsYFAxh8UxjRMkc4zQnOcnFAOl7V2K6gQdaWuxSqM0HA4pwOa4rXAYoha6urqBKaQafXUA8ZqTHFgA0LbmpUHKcjHHFFN2nOPalUH6U4cMADRAo96BojIAbsaDsIY1I3sMDGVFMdfUTU2BgZOKdsx88123v3oijc4zxmqGMuOlEgKgmnSce2R7d6EzH2oCKFEm7PPaivu+4w5oEWSRmpDnbIrZzigcse+Mnd8UcW5CMQN2O9R4nI4x3zVtazbrcxMgG7HOKlFaqYbCjFLuw/Xp0qfJbITlnKk9iMVGWAElKloXIOHBPyKlW8oaULwgHBY9vmobhkAAGVzUq3iyNx6n3qCxaErndMr++D1qFf7nzlH2jgZq58N+HNa1yVYNL027u3zwY0OB+dei2P7Hr63iW48T6/p+kQk+pN3mSD8hWLnJ21MbXj8VqxIZhtBHNT7LS7q9xFZ2k0zk/9tCc17RDo/7NdBKhLC88QTLyZLh9kX5AVYQ+Pjbq1loWk6fpIPAMEIDY+p5rnf2npqYfXm+g/sf8c6wBJDoslvE3/cuGEY/nWrt/2EzWg3654p0qx8sbnVJA7KKlXmteJNQQiXV7iVlzhTKe3uKozJdT3RaWR9m4bmc5P1PxWf5cr6XxxnbQWv7O/wBl9lhrvxDfai+CSIVCA/GasGs/2TaPGzweGpb5gvoM1wTub24rJ39kpZlslWSaI/vCucGm29hKqlZUkaNezryuaz55X234464a6Lxd4OgCLZfs/wBLMmRgHLfkc1YxftJ8hVa38J6RbQocybbcFgPivOilvavgzRRgcBmcbsZ6mkm1GxilzJq9kY4/vgyj105+pL/jcTfta1xspZW1qke/csogUDHt0qVB+1fWkjmlUoIlO9QY1z8jOK88Gr+FEDZ1mziSXBK7icEc+1R7zxH4TUrt1mB4ypBCKTipqruvRH/a/wCKPKM8V1HhjgDylOPjpQH/AGp+J7stl7dCMH126cj9K8sPiDwwt60j6ukkL/wxkbfyq3tfEPhBmUT+IYzEilUIiIYg+9JLGeXpf/8AFG5aIRXWmaZLI49BNomDjrnign9oPh25kX/EfA+kyIPv7Itp+elecvfaBc+Ult4isQOfvvgirCKHTkT0anYSwOPSBOGYn5osl29CuZv2TaoolfwrsDLnEcjAiq1vBn7GtVRZYL/UNIkY9HfcEPzWbbS5o1b7JiaJwrZicEn3AqpvdOliu5BKzCLAZCVOS2OhqzbGettc37E/D+qru0HxxaFmJAS4AU8VS61/+7541tIDLYCz1SEdGt5QTj6VDsizRoJJp4JNvReBmrvT/Emu20otra/kS24IVGIIIqzLKLfDTzLXPBnifRy8ep6NeW+DwXiOP1qjuYo14O7eBzkYr6H0/wDaX4kwY7hlnhAwVnQSB8fBqWupfs98SQlPEHhOO2nKndcWfp5+ldJ+31i4y9V80ndKE4AUDAokimCF5MrliB06V7tdfsk8J62pbwl4tjhf7wt70bcfG6sH4w/ZF410FGe50uS5twcia3PmKR78VvH9Iz4ZTt5ytt9sk2gqMDPXFRJYSkrDpg4q0l0+aByJY2VxwQRgio9zFlQWb88V02WaILZPIXLZbviuEJIPBIxToA4I7gjNTIsSKY2OG6cCicIMabmTJ9S/dFMmYncB3bnI6UZ4GTe27j4qBNM5OMnOaqhzBQpVSCTSIu4ZY4wKWVtgwcfNCZht5/KqyMHAHXFczYj2jvQEDMBwQKPHCpyWJAo0Z5bPyVFN+z8dPpU2OFSABJ+dPyFJjyp9iKCvWEqT3pjxKJMjvU6TsF70DBQgMOc0EdoyKYU9+KlFdxYjgdqGw3Ek9KCP5eccU4RgcYp5PqxntxTiDgcUAiABTd+etPcZbFN2g9KDmdcYJ49qC2DyKJsAXPU0wIWPTFAzYDzkZpUjcnOOKIY8Lkc1xbK7CD+VAwJ6iM1zADjNKc5FDbh6BCT0FMfB4p56fNDAznPWgFXUo607AoGU5KUKM0pGKDutOVScntTRnNO3YGBQKwCimUpORXcYoExXDrXGnJwwojh14o0bENuPJpVXcOlFxGMjGTU2pmctngCnhsHBAPtQiOCO1cWxg56VAZi23C4GaJFEHQMT0/nQVG9CSKkRvtUY7UA3O2RgQOKEQTjFHRQXLv3NNC72BC96soZj0g85pFBIzinyZQY7U+FVYY79qoGgfnipAH7vlfUe/tRIkG4Ajmpf2feAB025FSiKFJkU4B+lWMLqxKMMqBxjqKixR7XCsu1u1S7aIl1SNJJJ2ONqjOam1kCKP5+ZGLH8I68UXyGdiiKzM34QMkmtv4f/AGfXDQ/4l4nv00W0xlUbmaQf6VrZW+qaB4VtYn8LeH47uV0yLq6AeXPuB0Fcr+kjUwtYnw3+zDxHqsC3V5HHpFhjJuL1tnHuB1Na/TtG8B+FYxM1pP4lukIzJL6IM/C9TVJP4m1TX7lhqM8hJJwDnj4xQ1vHkdY2RkiUYXYMkke9ccv0tdJhJ22OpftA1f7EU0tIdOtSdqw26BAPg45rKRapNeyH7VLIXGWbccg1Dn1XTYS7395DaiPgxv8AeY/QVkb/AMbWFvJILCzaZ+geU4U/lUmFyXfuPQEN5cRqUwYkPVRzQ7+W2sna+ub+0hJX7kko3An4ryO+8Wa9eqUF08EZ/BD6RVWLe6uP3krMST95znNdcfxZuU9vWrzx9oOnMvkzz30uMFkTaM/U1S3/AO1WYqws9KgRmHLyEtn8ulZHT/Dd9eYMUMsnPVVOKv7PwNJw15dWVmP/AMtKM/oM10n4ydsXOK6bx94nkY+VemAHtEgUVWXfiDxBektPqV1JnrmQ1tU8MaDbsFe/e5bv5Fucfqak/YvCVsu+WzuJCO0twsY/QVfHGM+VeZv9tl5d5WJ/iY0n2W4Y9816k+r+FbdAsWm6HGR0J8yVv681Gn8U2cYBtY7MH/Rp4P8AWrufE/s85Njc+zZ+lOGnXTf9uQ/IU1vT4su5CDHHIP8AbZIP7Uo8V6vyUivcdisCDn9Ku/8ADVYRdIuzkiJ//tNMOm3SnPlvn6VvW8W67JFgLe7s4JEa/wDFIPFN+qkTret/ugQ/2ps1WCNhdD/tsD9KYYLtccOCPk16QPFtscLNHImB1ayU5/lTI/EmhySgXMdhKueRJasn8xT/AOG7Hn6XmpwENFdzxkdNrkVbWHjjxVYKFi1SfYPwt6h/OtqZfB10CDp0Gc8G3utpP5Nmo9xo3hO4bCtqFqp7tGsgH5ipx8SW1V2H7U9aEi/4jbWl8i44ePaT+Yq3t/2oWrsyTae1uj9fLbdj9ahnwJpl4jNpuvWUhH4ZWMTfoRVRqXgLWLQFkgMifxRkMP1FZv541ry+x6LpfiPw5qVv+61NILphysoKfoelHVbyS3VoZQEDkEp6s/mK8RuNLvYH2vG4I+KNp2s61pEm6zvLiA552scH8qzfx+L5S9PdbWO4g4Qy7BxsU459zWo8N+P/ABLosjZv5Ht1+7bsN4x7c14Zpf7S9UWXOrwxXyEeo42P9citfonjXQNVKIlz9gugCAJxlW9ua4ZfnY35XXb2C78SeB/G8H/z7wzBb3ByGntfQ6/JHSshrf7EYtSie68Ha7bagCNwtZnCTL8fNVlqHCCeFkZQT5kgG4Mfy7VItrqeG4aa2mlD8OGUFcfQ1Jllibxs1XmviXw1rvh+4a11XTrizkU4G9CAfoelVtv6Azs/qVcj619F2n7RYpSNL8S2EWt2JjwfOTLfk1U+vfsw8H+KI2vfBOqpZ3ki7jp10/X4U12x/bfbN/P3Hg4kMmNwO08VBvNoLBVBIPBxWl8TeGda8O3UlpqthPavnA3LwfoaoHVk5Izj9a7SysWK0KWHqODTkWJAD1OaJNhnBA5PWkCBXC/zrabLHlm6cdqIFZuSOnWjW0WxWLY65GakMqNh+NvUr3xUtVCgmK+kDg9j3orwhm3k7cjO2hylVkZl4ReQSKjGc7i2SRmpaDsACMcjPNCld2dsLjFIrsDhscnOPeuZjy/GTxSATyY68HtQ945DdaV/UTkUzAUcVoc24c4603e7cZrjk9+lcuMcrzQOZeN+aYWwwGKOjBhyOB1pJzFwUXFAMDnNKnLcGmnHzSnCJx3oDpggqSMdRUeQAPkd6aJO2eKdv3UDJNvA6HvQGPNFk2gY96BjnFAoJJ+KdtHelQDHPTNEdfVz060ECiJzjNMXrT6B5xTWpAa40HA0tKq8UpFA2upT1pKDu+e1PC80lOHBoDopHQ9qNbxrIDuYKQM81HB9PWiW7Yk9QzWdB0irGRxn60GTqSF/SpTqXXnqKGsZUEjkUCxbdi5BFGUDH3cbv5UAylWwRxilNwSoBoCqpzg8ijRjYDtHIoUJ3rwcGpBB2Z3Ag8Y+adAbxeZyB3pIomDHGAe1SmXZFwcnvQCTgmptdBbWDZJ9XxUu2f0AFjuVuaJoemX+r3qWlhbSTyseAo//AExXoWleHdJ8NzJJqezUNRRg3kD/ACY/hj+I1nLKTtZjtUeHPBmpa5Et9eSppmnjk3dxxkf6R1Y1tbS98P8AhWyZPDFsl1fY2vf3SZkHyg6CqjxDq2oapEzybWSMcKvpVB2AHSqGxW9YMUUOV5Klc4+tcMs7XbHCRLvb/Ub65a5up5LpmPqLHkVaadfxyyeSmUS25R2G089azGoa9pWiF41lN5KeTGvAUn3NZDV/EOp6sWTzDDCTxHHwP/NMfztNye231TxNpulXDk3HnT8kxw8jJ9zWP1Txfqt4zR2pFpE3VY+p+pqqstNnuZFjVHkkY8Koya0+n+FVjIN/MIDjPlJ6pD/YfnXafnJ255Z2ssLa4uG3ysxJ7seautI8JX13iUW7LF3klOxP1NXxv9J0qNFtYYkkHVnHmzfp0FRLvW9Tvn3Qxvjorztkj6DoK6S6c6n2/hfS7cqJrtrlh97yV2oD/vNFuL7QtOZUghs0df4QZ5D/AGqhW1u7mTF9dTSKT0B9P6VcWekW6MUSNVwAQ3vTYT/HL28cLa2kzpjjzn2L/wDaKT7Nq7gyG6tLck/dRASP1qZptrueQ5CEdA3f6UKW1mMbu0bhw2GJ5qbZuaFJpt3LMI7q/upIzySH4/lTzotor7gEYKcDIyT81MBeDyVs5Wd7j0eVnOSe1XNj4P8AGc7gRaX5O/p5rqP6mrtzu+2dktFQrGtpEAOQwQcip9qixRqXBwTyRj0/lUjxb4f13wzLbNrCAJMCVkjfenyMjjPxVJe6mRAwX1LjO3NVrDe91ePd6f5Sss+6ReMY2g1GvL3y38tJFKyDAKtnFC8K2/hHWI4o7vVru3vnH+SsYwT7AnrU7xlaeEvC8BtiupzalLHviUuoCZ6Fhio3d3pSO8qO26VmbOB9Pep9qyJCBKS7PyMnPFQdOuFmVTIAzAcD3rr05GxDknuKJtLuQwIkO3aDxxnFNuhAFXd5ZB4PpHNXug+BdX1CzFzdTR6fbHB8y4bbwe4HXFOl8G+HUumgbx3YCfpt2kjP1q7nsstnDLGxgljbzLJXXOAwXFKmhWB9cE1zC2c+h+la3U/BfiHS9OF9ZXEGr6cQWL2rbsD5HUVnrecyOQUWJlHQ1ExtnAY0y+hjP2XVVlUj7s8YP86fbXGr2okzYGQ/e8y1lKkD3x0qQyTSKGdgMdh7U6RjEM+fswuRk4DCrIlzC/8AieKXamoWxkGcZu7cf/njmi3GjeHdUiNzDC9rnqYZPNT9DyKdHMs9ptVkWN+qMAxNQBa2wJaOOW3OM+ZA2D+lNtIt/wDs9uHg+0aZPDexkZ/dNhx9VPNZLUdDv7KQrLBIjDqCCDW/ji1dYhJHcwXinkKx8uUfmKNb+JfLjNtrNuZl6CK8jyPycdKcU3Y890nXta0WXdZ3c0QB5QnKn8q3eg/tKhnjitNYhMKjgSwjj8xS33hjR9VXzLWc2LsMhJTuj/Jx0/OsfrvhXUNLJaSBhGT6ZF9SN9CKxlhjW5m9bS8sdT33GnyRmDy8ht+SG+nbNNgaa3KzwSyQ5PpYHHPevEbS4vdOmEkM7xkHscVt/D/jyNgkOswhmH3Zk/uK45fnY1Lu9vcNL8cW/wBiGh+MbRNZsnG1WkX94ue4brVB4n/ZHp+sW8up+BtSS4AyTYTNiRf9vvWYhIv5obqC4WaPGSycgD+1Wmn6u1ndJJBcmOSJ/wB2oJUn5JrnN4t3XVeW6npN3pt49reW8kEyHDI4wQajxQkyYwOO9fQ1/qOgeNLaOx8WWoivz6Y72EAOp7Z/iFee+Nv2aav4ejF/bldR0tj6bqDnb8MOxrvh+srnlhpjJ7dFg5ORjg1ARSXJJyAMD6VYAgRyR5BJHGegqLs43DgAdK6WsmT26m0dgen86gogKf5ZFSnchGUscMensKXG0bR0xyKCAsZ88kEYC9aZIvOASB7+9SDwpwMgt0ociPlcgkEfpVgjbTnrSlcDmihCG20jxksa0BxRgpk4/WklIBAA4okMQIKmuuoinQ8YoEiVWiLMR8CkeIrg84xQfNIA+uKmQZd9rMMfNS3QgsDzSSk5Az2qZJGN7bQelRvLIbJBJNUB/DXKSKkeWf4MU0IBnIoI8mTTO9SGUk0Lbgk0Cg+kD3pHYg8GuzXGs0RaVQRSDrT60jqcgJNcp4p6GpVdg0hHNOJ54p+wnk1NgI4P1oqquKay8Uo9qsCFcGkY80XYWIxSPHgfNJQxc84qTASmDjkd6j4wPapVsRtJJH96lokRIsn1pZAY16ZGOgFNDbWGD1Bo65I3beTgZqCtdGZiR0NCII5NWMigNjv3oBjPmEFeKoFHnFSIWIkH96aYdx5OPpR0TMiqvqJ4CgcmgIzEqMMefvZ6VovC3hW51WM3t5ItjpiZLzyfix2UdzVr4f8ADllplomo+IAJJX5gsgeT7F/YfFWd9qsl2WLoywBdvlqAEQfArlnnriOsw91y6itlpi2nh6AWVqfS8w/zZflj2+lVUf20wswzK+4k5OWxT45A0jCJCqKOc/1qi1XxbFYb49LVZbkrtMzDIX6D3+a56uTXXS1vNVi06w2XtwVXJMcYHqINZHV/FOoXu+C1za278FUOCw+TVOxub24ae5kZ3Y5JY8mr/SdBLIk12/kQt0yMu30H967Y/npjzUltYzXMqqEZ2boFGSa1Gn+HoLePzdRm2kDIgiOX/M9BUm41G00tZLOygAYrtIjO52+S3b6CqiOK9uhtkdo4+pjHQ/Wt8Ri21cHXLW0/cabbhQwwwiHP5uf7VW3T6nc4Mz+TH/DGcH8zUq3tY4UBEYG3kg9qkXxibAU+nAJbsKiIkEFusJRIwZMZz3o9mjOVIGF/Du4BqXofh6/1RzdNJBY2QPN1cttUj47mtj4b8I+FruZo5fFBvW2FY0gAVVc9Cc84zU2zbfTMKHVVd4cR4IJz0aosdzJKvlmUs6cbsdR2od3NdabfXOm3ibZYZGjkGe49qdA8YCrFkIxwSetVV0fMhiTarysVG4qM4pkxuFtnjnDPE3GSMFWHtRNE1Ke3j9KGR93qOeq/FTPEd8XMKr65GUOyjHAPf61mdmUtjBarHcMB5blDGcqQec1d/s18Q6w17NpVxdzTKIzKhdiSpHYVHu4BJIXU+k9Qeo+tA8EkWvj2Akel0Yfyz/arlNxcbJdPVotYtr+ylt9SVtR0yX0uoAyj/wAS+zCvPvGPhW60QieAm5024G6KZRx9D7Ee1VDa9ceH/F2pR7DJYyXTF4fqc5Hsa9V0fxBYXOksJgl3pN0QvlY5Q46j2YVnG3FrLGZPECosr+0uoztZZVP05rWftTDXfi+2nkBJlsYmHz1pn7S/CsukSi9tHFzp7tvjkUdPg+xFSP2iqPO8P3ajG6y2nnngg/3rpldszjhVwAW9oIyCD94MK2H7NdFjuoJPEF/F5lsjmK0QjO+QdWI9hWCuroLbsQcYzXrvhaJIdH0axim2xi2Vjgfjbk/1rP6XxnDOGG7yxn7VvFmoG7TRbW5cTeXtuZFPUdQted/4bckGQux+avNVVr/xVqdznP8A1LAH4Bx/arU2tu9kTgiRRwOxPvUwnHLeWWukz9j/AIu1XS9bi0R7tvKuDthLnhG9voa1v7TdNtJNNGv2CRxOZRFcog9Ic9D8A/1ry63ie38RabMq+sXKY/8AuFeza15Uvh/xHFIIjCtu+3HZ15H86ZXxqyeUeZ2t5IFCsAGPDV2ja9pVnq7Wuu2bXVpIu1WU4MZJ+9VbDK0sMUpH3gCfrihzWh1HUbayjUGS4mVBgdBnmtuf+PU5/AMMsJuND1eNZGUMtvO2xiCMjB6GslZ3UcUlza3UZWVT5ZU/hYHmtzb3sEt1PbQODNY7EIXnC4wp+vFYf9ocJg8UyXiRmOO+jWbpxv6N/MfzrEy5W/lNbBeWCSRtoCbR6iTyfpSSGGWAxSqJkPA3dqrILzT4tStjqks0dqxw8sahmHHtWyufBN+bSLVvDt7DqtpInmBE/wAwD5Q81tJyy0djPas0djftalvvRP6o3FS7PxFe6YBBqFmyw/dd413xNnuQac935Ui2txbtbzr99WXH9aPNf+QrR+SphkUbkPO4+9SrEfUNN8PaxGJrcpZyv1KHdCx/qtY/XvDF7psmZI/SwyrpyjfQ9K0d1YWZKz2Nw9nKwyVQEqfqKkWOuNArWeoAKGIHrXMLj5HY0lNyMLpmqapo02+1nePJ9S9j9RW60DxNputSR29//wBLcgEJjhGP17c1H1bQbC/y+nkW8zD/ACXbKsf9Df2NY3UNMurOdo5I3R16qRgiplhK1Lvt63HFcrdQ/a2CiHkHdzitT4c8SappN5g3GYJRs8qQB43B9x3FeIaB4tvNPUWl4TcW3TB+8v0P9q3uj3QvrWKe0nW4/hUfeX4I7V58vzdcbJNNT4q8G6P4nWTU/CciW+ocmbTjwrnuYyf6V5NcwXNrcS2txE0MyMVZHGCDXoVhd3dnMJomIZG3JtOCpq/1AaR46hEGs+TZ6yMCO/jACuf4XH96sz8eKz4b5jxEKQpAzuoUZIkbdzxWi8VeHdV8Oam1jqEOxgco45WQe4NUJ4lYEYJPNd5ZenMyMhm3Y27TTn27iM9sjNOYjyz054qM5znB7da1A5lIYYIxSSSKGC7eCMk0sYULuYkjHahSOoHOc+xrUAy2ZM9z0xTpUJjJYnPtTY3G/IAzT+Xk6dO+aCGycnjpRIwdwX3qVLbuo3YBV/Y0thCh3mVtu0fdPU1LQyMgDDfrTnaPlQMZFBuWwQFpuVxksKQLI2F+9xmhSg5DDoaI+1lB5ANCc9Fz9KoAzsDimFsgnHNFkUknGOOtBxxQKrcVxI96b3rmxQBC808jBpB1FEb1ZIFEMWiJwaaEwM5rmOKKfkdaLGBjJPHzQASeKPGykbCcnsKlDWA6Kcim4waIwWIkMDk9BQgccHpQGRhinggjrUfofiiJjHFARV3SYbgN1NKYdrnDdOlOSbCKwTJWitGWGR35rIEA2QQQc/yo0UjL6XJwelCERUEk0TIxz1FUEnBHq96EWwOaUvlFB6e9LZwzXdwlvaxtJLIcKAM0C28bzypFCheRjhVHetxo1jY+HE+13WyfU2HoBGVhP/NJZ6ZbeHIEVnEupzcSOBkQ57fWq9YmMsvmylzkklveuOed3qOuGPujXVzdXTeZPIZHJz9aMb2G1j86+AERGGOcfp7mqu7uoNPtzJdSMZOsUY/F9fisneXd1qM26ViVHRc8Cpj+bdyWniHxFNqbvBZoYLYnkA+p/rUHS9OluJNsSFm7nso+am6LpIk2zXBMVuTjzCOW+APerLULyO0i+x2aKeeUXkn5Y12kmLlchra3sNKgNw0kU8q49bD0qf8ASO5+agXN9dajcOsRaGNzgsfvMP7UG2tXlkE9zmRuynotT2gQKCG2kdKbYOsLCKFWdD605IPU1KhP7wvtGCME9hUZJdqAs6kng561YaZcLGpBGVPJB6VCchXE0mwJsCsRhiOQ1RdJtmv9ZtrBseWzFnGcekcmjzoiO0isXXORg8iq6z1FdO8RWd65IRW2vj+E8GhuSrv9rT3kupWFqheGwForRKnCe2B9KxkS32nzpc2sjqyMGDKa9ls7q2+yPZajaQ6lYEGSB3PKj3Vh0+lR38O+EtQtTPFa6hAoxnZICB+orMynt0uPxgrzV9Q8Sao17eRRxz+UquyDG8qMbj84qwghZYuFzkckdq2tp4H8N3geDTdYuLe6wQn2lAEc+24dKx11Be6Tqcml6iGSSB+R81qWVzy3E3T/ACj9ndi2YXwYxxv+c0e/MFxKyQxMrgcFeOPn3qtW5M5LIrFpDtG0c5qVZtJBKImkxJ0ZG45po3dcgXSpFCAoK7htce5HeqbS5PJ8X6dJ0HmgfrxWg1mFJQrQs2RkHccqD3xWUfzU1W1cjLRzp0781r0443+0WPj6yWPxbqMZH+YVkU/BUc1U+HNauvD9+d2ZbOQ/vI+31HzW1/aXpc51201KJWkhntVQuoJAZSQV/TFZK7tYXhZXyrDsR0pqWOvlq7euabNZaro6RSst3pN3GfMUt6g3uPZhWU/apAkOm6CsEbiOEyQq74ywAGM1jfDPiG/8OXbIP3lnJxJG3T6j2NbXx7NBdeD9Nube48+L7ZuU7sn1LXLGWV1tmU28/wBSVvJOBx1PzXtXhG6jvNA0qaGNCrRoGOcHI4NeSTwNNbEBeQOc1cfsy8RwaPcS6PqxxbyHdC5P+W3/AAa1+s3jw5/jlu8oUkTafrmpwTL6lupAV7j1VJknRlDAnK8kVpPGvhu+v75te0uPzkuFBmjTkggfe+QayDW995giNnP5h42+WcmrhzIfpxkk+FrRtW8aabAAdqzedJ8KvqP9K9A8dah9i8N6tOsu1JozEseOrPUHwf4auNA0m61jUHWG9uU2ojHBhiz6mPsT7VifHOvjXb6OxsWJsLX8X/qP3Y1nOeV06YXXKvtG/cRjPRRzWn/Z5DE2q3utT/5OnW5x8yMOP0GayUoeGDpxitddRSaF+zDDgJcanIG2nrhhx/8AhH866a8YxJ5Xar8Aa7KPHc5mkIj1QmMk84OcrW2/aBbi98ImVVY3GmTl5Pfy24P6HFeRGN7Yw3ELFZYmDqR7ivctG1ODWtFQuiLDqMOy4PdsjB/Q1xy4u25zLHjN8BNDt5YngfNbbxZqeoeD/C2j6PYTGPUJIgzSr95F6kfqarfC2iPJ42h026jJisJWknyPwpz/ADOKrfFt+/iDxjd3QO+ONvLj9gB/5rpbtiTSJBcapqWof4jqt091NgDczc4rS2sQeIbMNI65Uk/dqHodtJHcRx+bGjSD8Q4H1q5it7dEDGYFeQSvf6ValBgjU72ygCDkE85qBdRxklZFXa3UHk4qZcM5/wAoYGMsfiojRowZ+p7E1Y5ZYfEOWzkii8zT7gmJTkwSHr9PapVve2esQLaXKNJIoOFYYkj+h7j4pDOEcLE3GPVxUG6tFuH3+ZskzlWXgijpLKrte8PywRfaoSs1uSf3qdj7MOxqp0vUNQ0W8E9nM8TD54I9q0tvqd3ZN5d2oQnjzduUkHswpb7RoL6F5rBAsoXc1uDnPyh7j4pZtZdLTw1rNrqsLIreTfbsuhPDj/T81eKXSMMGxzlvcV5LJDcWUwliLI6ng9CK2nhfxHFfRCwvpBBdORtmPR/r7GuOeDpjk9O0vULXWrdND1+NbmzlXbbzE4aA+4PtXn/7Q/BWoeGbzc8iXdjJ/wDT3UR3K49iR3rRsFVFA4EPp54P1qTpOpsYZdLu4xeWFw/72Nz935X2NcpbhWspLNvIFQg7S3Tk/FPjKqSCoYdq1njzwlPoM63VoxuNLuCTBcBeP9rexFZJuGGOcHmvTjduJwX0qQeOpqPcr6vr0osso3kBeDQ2V5HCoBmt7EfaN2O9SQwJGVIA9qZJEYiA3De1LIkgAxyDS0ENyijBZuvApZ5NzMFbCgd+tRJtuR6cGnRQSY3MenSpoN2bwSM/NBwFJPPHSpLsVBJGPpUeTBrQekm5VQce9ESPO1jzz/KooYR+ompEdwCvpHSpaEuE9XAwDUR8KSKl3BLKp7e1RJMBiDzSUDMq5xzSfePFcYwxyBSqpA5qhgp4LbsdqYtPyQaB4BPWudRgUqHK13UVmhEGKcpO7NcAAua5gAciqFZyxy1NIHtXD71PQAtz71QztinKCBnrRWjAOcce1PEXueDQMicg5AH0qwtTlcsOahxxZbAFHjJCcE5BxUsCySAnkYPamYXsOvWn7suBikUM0gVV3HOFA6k1LdBIIpLiQW8KM7scKo6k1sNOEPhqEwo0T6hKo8yUDPlj+FaXSbQaFZi5Uo+oOMP38kHt9ah34jLrIFZ1cZz7HvXHLK3p1mPB1xLOXZjNvBOSR1qDrGoLYKwch5ZB6VPUfWi6nqK6PbKSEeeReITzj2JrJHzruYzzMWdjkk1ccVtc7z3lwZZmZifervTNPiSJbi6UhTykXQv9fYV2nWcdqVnnXecZ8s9FHu1JcXD30nlxsfLByWPVvp8V16crUi71BpyYbPgYwWxwg9lrrO2WIYx6iMs1LEkEcSIg2kH1GjoWbOzDZOD/AM1EdI/lQqwPPepvgeO11HxDI93GLhbNBILdm2rKc9CfaoVxC5QMUGCOPeo3hmT7J4si3vsjlDIx+oqVZ23PiLwXb6jHLqPhrqMvLZE5aP3x7isrAjwkwzDY2MFXHNX1p4oFprD2CM1tdQybUfOA3sa1d5baJ4sjMN8sVjqqLxcqNscp/wBXsT71jzauHx54XiEW1/QR3xmqXULYOGO30Nypq+8QaRqOgXpttQgIUfdcjhh2571WXLqIk2MGUdh1Fbl3GLOdqe3vdX09RHaXcqp7A5H6VY2fjjxJaRtH9oVkbqrxg5qw8KR6ReanPp2pq8ZnjAt5wf8ALf3I78UXV/Buq2R8xbY3luThJYRvVvnIqzGVfKj+GPHV5d3kNjdJFB5jD1ouMn2P1q4/aPfW99eaVeo26SaFo5D/ABFDgH9Dis/o3hG6juE1bUYfsGn2x3PJMdhf4Udag3+o/wCMa0ptlYWVqpSEdyCck/U1jw1lwty3OV5aG4t4FjMHoHqDY5B981MvZUuSl15P73ADHux96gQb0iKMZHJ+7g9qlM5W0B37JQc4x1FacbTZmzbuAJMqNwB5+tUdl4mt9KmlEujxXdyHDQySZ9A+lXK3FvIDHM0jMed0faqy40uN385DuJPU88VSTnYsP7SvEsR22UNui7twV4w4H5Go8Uc98XuLt1aWUl3wMYJ+KdBY28cmJXCg9DUiIx58qBSSOM4zk1ZwfpzFRqFnvj2Ku73qHYWl2jqjSP5CNuCE8A+9bS30y9lVMaZdM/4mWM4NEuPCmuyHzbbRbvYx4UrWpZ7c5cvqlDRxxDk4Iqr1SwF2d6DDe47Vr18J+JFcl9DusdhgVGudA123Y7tDvkUjnEROf0pdV0/NnNG8UeKvDcmyx1CUIvRT6gP1q8b9rfil0AEdr5nd/KwTUebTZyDHNp1zGR3MRB/pVeLKFZyCgX3DDms+MjflzpH1XXvEWuHy7y7cRMeY04U0SysvITdgn34qxW2gCjaVyO+akrIu3Gw8j72eKSScrbal+H9F0XWbKKabXLa3fd+9tz98AHoPk0f9qss+p3Fi1rbS/YYgVGBnaQABn8hWL1LSiJ2lhYqWOfSa6y1HxFbQvaxXknlOu1geRipd2tTKQWSAurDkcdK137LNQU6fe6VLMyyWzeZEB3VuD+hqm+zOlqqMS7Fc7vmoXhiU6d4wtZ2B8mcmFwTgEN/5pnhuM4XVej69e2Wk6TqutwswvbuJLc9vUByQe+eD+Veb6CqJF+8GXc53Z6fNXv7ULl2vLLRQ6EIPOkCj8R6A/QVV6fbMSMZAHtWcJw3ndLTYPPVgCSG5cdCKnsTbYuYvLK9gcHJ+lAZkFuIt43ovpC8kmkSMtiSQElfvDoAa1eXO3jZ0s3mqhZBkDLY4AqruLomV4owdpPQ0e/fyUdlfO7jHxR/AMFpqXixDdsogtYWuHX+MjoD+dEst6TrPwR4jv7NrqK3SGIgH944TP61TanpWo6XLs1O0lgHQORlW+hHFaP8AaXr2padZ20ltMXnvWb971CqvYD3rL+G/HOpx3QsNcZb3Trhtk0cq5wD3Hsank14SGAwnckjB4nGME0K33adIXilMtsp3bM4ZPlam+JdIbSr/AMyA+dYPnyZMdM9j7EVGETZEgX0kc55Bq7TlJ1C3t9fgE8Xlrcn0rIOBL8N7NWL1CymtbhkZWR0bBB4IrUpDPZzG5tNuGHrhJ4Ye/wAGpV2tnrdgsjnbMnpVz95T/C/xTe+Ks4Q/CnimRlGm6nN6MARyMOnwT7VvrBWFyk5iURhemevsR7147qOny205R0KOp5HvWj8IeKpIlXTtQlZo14idj9z4+lc88HXHKe3qtvqEKwvY3a/a9PuQRJC3T6j2Irz3xt4Wm0N1nh/e2FxkwTD/APNb2NXkl6zyrkEIgyigekj3zVzpWp2d+kuk6lCrafMm1sdUPZh8iuOOVxqcV48o2Al1zzShoy+fboK0HivQptF1NrN3EkDjfDMOkidj9aolQ7WDYGOhxXpl2xZpH/zJC/XHvRC5jHqPJ6UNWx0FNf1sB/OqhGcnk0RW6Y6U1EzxtLGnBe2MU2AzYO5e/WgH3o8i5fH86EwH1rUAHbPFFjOFobLhuOaKgyMAZ+KWAUkjbx7CgnJOTUiYKrEYGaAeTUDllCjG3Jpbh1wrAdqQKAM01lDYzmqGRRk96IV55pITmn+ongVKEX2peRx2rnUquTSLkjJoHAZriMGuHSkHSg6pECrgE556UDb3oqggDmtAuRu5wQKemQp4ye1A2jvn4oqZ3CsgiqY0UsCSR2oi7I2LtxxkCglmzuGSBTlZXXJGfcUCh1Gcjj3FarRNNWzigu7gZu5hmKLvGP4j81U6FZRKwvrxf3CH90h/7jf8CptxqDz3XmbtrZyW71zztdMMRL2WeOVy4ZSz4Yt3NAvNUTT7MNJiWY5McZ6A/wAVC1C/EULTXDF8/dX3NZiWSS8uTPK3U/8A6Cpji1ldEZprudp52Z2c5JNX9jbQ2dus9wmZ8ZRD0j+T8/FD0u3igHnzL6gMop6L/qNR7y5kv5WVC3lA8k9XNdeo5WntK98/pJEefUT1c0SSNYgSD0pkYEUJI4xUrS9NuNVkLE+XbRn95If6D3NRD9CsJ9Vu9ikrbIQZ5P4R7fWtF4r8PW1nBHqmjSyTWJGHR+Xib2bFVHjF7vTIYNLsLeS0tDGHEneXPfNUVhrGs2aSW0VwzRzLtZX5BBosWRvDIcb/AIHHaq+6kaG+guwCSkgb+dSrWP0gSbQ5HWo+qI32ZugIprgnax8e6ez62l4m5VuYEkB+cYP9KuvDsGoweH5ZtZlS3tiFMMkjYkbB9valk1mOLwtYalPYpdSQp5cLtztY+4/KsZquoalrU6zX07lB91BwB+VY1uN3ivYbLVLa60xrPUmXU9MdQIjkF4z7qe30rMeJvBFzaR/4jobnUbB24KDLJ/pZeoNZfwW1/HqZt4nBtCN0244Cgd89jV5rHjMadutdAllNweJJg5Cj6DuaSXFm4+TN6zb32nX0ZkgktrqHD+WwIOKmweM9ctg6aXutkYcjk8+9BsFvdSu5LzUp5bieXqZDkn86tTpsII2henq+K0k/qz9xca1rUoF/eTzpnOGY4z9K0OlaUIbJmUepeT7mn2VpvmCWNpNcTDk7OVxV1baUzSRvqV59nQ/9m29bfm3QVWfPnSnt3G3c8kiyDIBxwPpUuw0nVLtS0Vo/lnhppjsX9TU3UNf0DR4wlqsEcqnkn99Kfz6LWW1fxrdXaNDBA7rnKvOxb+XQVEuHLZL4fsbVovt2vRK8nAS0jMp/NugpfJ8M6aru6yXAGQ32m6CA/wDtWvMZb3WbwbZLmRUH4VOBXQaJc3JBBkkJ68GrJV6byfxh4btzsi0/Twyn70FuXP6sain9pKxb1tYnjO70ssaKQP0qgsfCF3PJsjtpGf8ApWm0z9lXiC8IMWkzsffyzg0LUOP9p+opndDcXBzwZJjj9BQpv2mahJKJP8PAYdMSt/zWsi/Yp4nwA2myr/uUD+pqbb/sQ19vW8CRgdd08Yx/On9SXfpgn/aRqctw8slhCwYg7N78Y9uaLF+0m8SVZPsbrsbcFE74A9uvSt8n7DdYWRgxttqjnF1Hn+tAn/YbrWwyJCXHba6H+9Xxx+s+V3rTKQftSnDLuS8jXzC7AS7sj+HntVnF+1CwuZ1W7jj2DI/fWiPkfJxmj3n7FfEcQ3DTrk8dosj+RrN6j+zLXbYkvYTYXrhSMfrU8Z9dN67jYQ+IvBupwkS6ZpEj9jDI0D/p0qHd6Jol2RJY/wCIWO7n94BLGB75Fef3vhO9tzueCZB344qJGus2LbrS7nTHQBzV8b6NxvpPCupsztZSQagqdVjYbwP9p5qonh+xOY7u0nt29pYytU1n4u1m2mJu1E7Bdu4ja4/MVptM/aIlwqW+pM00OMGK7USr+R6inM7SQF3VoowFi6EFt2c+1U+q2TyWq+SxWaNsgitxDa+E9VbzrQzabJjO6FhLFn/b1FQtT0C+sla4iVNRtSM+dbHO36jqKm2LeWSsdPv5p2v72Rp5j1duc1b2MBeTyyAAecNwGHxUmzvF5SPJxztPAH1qTDfZdXkEZxyvHIo3LsOVbSMMIoyrDkAVEnDrGrqCGbkgninXEhM5lt7eYEZyTyuO+ai6jMZdi26AyOQi46uTxjFTpdbMmW7nikuQh8qIgOwHAz0pvgi7On+MI0JAW8jaDJPGW6VpPHMD6F4DtdEt3w89wrXsg6SSAZ259h0rzu7EgRHjb95EwZW9iK13CcV6V4u006noTogLXFq5liwc5HRhXnawRPdW8bsqh5FBc8ADNel6Dfm+0y11BSoeQeoEcBhww/OvOfENjs1m8sXYARynYR7Hn+9YwuuFyx9pvirU2vdVbTNOdmtIZMkhuHI4zR45pYI1QsoXrioOn2CW3r7nqak3dx9jh8yJFlZSCM1rTNqwa6WSNiyDnHOMYqtnRopzd2Z2kjDRkcOK0HiGyj1Swg17SbZrXzYQ89mCTjHBZfg+1UcD+ZH5uCexoTYqi11bT9jny5k4Ut1jPsfcVk9VsZrWd43Ta69fn5FX12WtrhLu0GHH307MKlz/AGbWLKNgR5o4Qnqp/hPxVl+rpG8Ja+0lv/hd7OyAf5Ln+hrUwFYBxHuLEZycYNeY31vJBKRgpIjeodCDWw8KazHqcC2V2/l3cXKSZ/zAO31rnngsu23hjtPEWlnRbuRUmDH7G+0+h/Y/BrzfWra6sL6WzvkaKeBijrjv/wAVtrefylLxl8qevTmia5p6eItMOyP/AOZ2iF1YnJnTuD8jtXLHK43Tplj5POIpBsYOueeDQZAQ+FBA680eSLD7OQwPqB7fFJKxIKkc16NOOjVVZEwpwRTZAVOPYU1QUO8fSlB3qcnmrAJu3b60NxjnNEl6qWpkoGDzV2AFstijW49BwMnNRwBv54qRv2oFSqEmRQ20jmhSQnGQc0eNXZizc570ORtpIBzU0A4IXk967ypTyF4pxBbmu3MPVk8U0Bwpgr2FSJDtO5fukYocZ4Bzx0ps8gD7M5FShJH5wTwK5DmhAgt0o8WM4x2oFCZQn2pzLtAFEjMYbDfdxzTpwrEmMcUDNpKZxXRnIwetdG5C7WBFcO5xVo45JxjpSlm2bgOKQbu9KJBjA69KgcJdqVN0Wye/ufKzsiA3TP2VagRoS+3BZicKB3NayCJNM0tbRv8AMk9UzL1J/h+gqZWSLJsl0/2mURWw/dRJtjUdlFRJYo0UyPlUUZYmpK3CNIi2yMku3bz0PvVJ4m1IXDLYWxzHGfWw/E3/ABXLG7drxFdf3L39znG1F4UdgKm6XaA7ZpBmMfdX+I/8VG063Eko3HbGvLtUy/uCGEMOFO3AA/Av/Nddacuy384uJTbwHCA/vW/iPsPinKghjDAYAoVuscSKV5PfPvS3czGMhCcgdKMpNjaSalOcEx2ycySEcfl81Oj8RWcc66Zbp5dmpwjD+L3NO0a8i1axOmRKttKIGAVfxNjr+dZk2gVCCMODg1GsXqNlHZX+l/4Rfy5jI3QzYyYmP/6prG6zoVzouptBeqcDlXxwR2Ip3hHXfssn2O9kCj/tSMMgH2PxXpEgs/EViulalNEJNo+zXA/7ZP4T/p/pUl1eVs9x5lFgxnAJPahXitKmwgdOtWGt6dd6DqLWF7EVkQ4JPQj3FQbuZpELgDAHUVtlbeD4Tq3h290NQPNVt0W449Q5A/qKh61oV5o1ok160ERd9qw+YDJ9ce1RdM1620rTZFtIDLezPuZiOI8dPrUGI3F7dG7vZGllY5y3NSTS27hZraZ5c27uiOuGGcZotjpgjYMwyc8k1ZbTBBukO1sej/VVvpmjz3MP2rUHa1tMA7FGZJfoO31NEitgt5ZJ1tbONriV+ir2/OtHp2lWFkDLrN0s8i8m2jkwn0Z/+Kg6x4n0rS7NrC0tkVRgrHEcuW95H7/SsVf3+o6u/wC+by4R91E4Uf8ANBtvEHjawgha0sIY9vaK2GyNfgnq1Y671jWtTHlGVooB0jj9Kj/mj6VosssipFA0rucKFG4n8q9B0rwPZ2VqL3xLqEOmRjpCTumb6KOn50kntLfjzS00eaVgdpY/1rZeH/2e65qKoy6fKkJ/HIBGv6tWytdf0HRoCPDmiK8y8Ld3Y3sfkDoKgX2r6/rDl9T1ElFHpX8IHwBWb+knS637WFr4I8L6TEDrOuWbTA8wWuZX+megqxi8UeC9H2xaX4Pe62nHnXkmd3/tHFZCOCJfUxdX7lueverCzGnhlS4aQBRkMEzv+K539LTU3w0TftN1qORl0/SNMsY2HBihUFR9agX3jzxXJECmsXCl8hgvTNRbv7CkMQEcj78vuIwoHYVDVDHCYpAmwNu9I9xWN1fI9dX1i7aQXGrXFw6LzmQ4oUdxLArm8nnk44XzCMk1IvYoH0kE5SXdk7RgsvzTGt0vkWBFMchx5WemQKq45W+kKKO9aUut3cPvXAwx4Pb9KEH1ZPRLfXO4nqJD1q2so57ZUQKd6Z3Ee/fNJHJDvMsxJXOWx1U+2Krn/o2j3viUOfL124tDEu6N/OPatDaftI8bwMfO1GOVeCBLGGU/rVLNEMfaIsSwED90ThiPpTbgQ3biJA0X4jnoPYVDmtTbftQtLl/K8ReEtLukbgyxR+W314oc0f7LvEchLWl5o779uQN6E46+9Y8W63J2qccclh3z2obWSwWrTwyj924WQE85PsKeVaxkna88Rfset5xJP4a1K21JQu4xxyDeAenpPNeZ6/4F1HTHMdzZSI3ypB/Q1t4HvBdieCWWPkAOpP5dK0un+OdUsgbTWLK212AjHlXC7mX6N1Fbx/W9Vqyenz4LXUdOnL20kkbKe2RWi0Hx/qGnz/8AWIS3QzIMN+Y6GvX7zT/2feLLhkspZNFvCMNDN6os/DdRXn3jj9mmqaMWcwia3PKyodysPgiussvTO0+PUvDviHbKyos7D/6iAbXB/wBSd/yqJq2kXFi6XMey6tOnnxcj/wBw/CfrXnUlldWNx5luXikQ5GOMVpvDfjaW0PkahlGbgzKMhv8AeOhqXcZuEt2upNqRuq3A2sNxC8g/BrNa+EcD7MZI5IzuBB6GtVfW1nqmJdPmSCRxnAP7lz8H8J+KoLuzuIJDFcxNFIOxGKs5XrhJ8O6ivibTpdC1S6Ed0CDBLIcDcOhP9KBeeENfhkMB0+VieFKrkH6HpiqDUrJo5fOh3IwGc+xqxsPHHiOygW2eYzRqMKGJ4/SpzGtbbnSrV9F0O00uaVQ0e6S4cHIVjzj8q8+uZzqeuXd2vKySkqfcdBTNV8Qarq5MTbbeBz61jGAaJarHBAEXhh7UmPO0yy4T5HUMFV8Y4IrS+GNAhli/xnVonNgjfu4gvM7f2X3NR/Ceiw+SurapE7WynKRj70x/49zVzq2o3KQT32yZ0jj9EMXYdhj2FTLL4Y4/XeINZttOga/u5kjcnEEca847AD2rK6slrqtqdb0WPYo5ubdfwN3YD2rKalc3esXbXd2xyeFXsB7Cpnh29udE1OGYeqF2CyJ2YGkmu2rYmWzidcrncPegShrG486JSQeJU9x/zV54zsLGyuI9R052ghmfbJbueY3+Pcf0qrTE2wsevU/FVBdSs4dTt1uICGkCcEdXA7fUVkpDJaXSSwEoyNke4Iq/QtYzlQW+zu2Qf4G96brVmskRvIkB/wDWA7fP0rc5ZrR6Tqx1i1SeMBZYceen8Xz9KtLW7eGZJ4pgHU+kr2Psa8y0i+m0u/SeLJQnDqejDuK31rIlwkU8AHksu4Y7V588dV0xvszx1pgMa67aRhVlO25jXoj+/wBDWPByxPb3r0fT7iBXaG8kDWsoKzp1yD/esP4k019M1LyAN0TDfC/8anoa1+eXqplPaBM8ezanbr80HevTGF96c+0Kfc9qEFPA7GurB0vLccimtG23d2oiMMYIFdJuZPT0FIIUnBx1pynjpT3jCsD1J60j5TkdDWgqyuoIpu1cljzmmqN2Tg0bYTGBjB61NiPlicZpAcZBorrhsd6a6YG4iqBt6Y8Z6VHckvmnBjxmk75qaCgYNGj6jnFBHJoq8D+9Wgqr6vV0NOyyHaDkdadCocjPYcUWTZkdOayIruc5POaXzMD4os8BJG05oLxt0xmqFyxGc9a5VJfApy/dx0xT7K3e6ulhTI3dT7Dualuhc+H7YRRHUZiAclbcN392o0MsUju0j7jk89aWRDK4jXiCFQqLntTVX7PE8sqqkYGWOO1cry6z/EfXLg2NsQrDzpeEx2X3qgtI2dxxlmNPuZnv7x55PyA7DsKn2EKxp5rnaWGQSPur3Nbk1GcqLOyW1oIkwcn82Pv+VRreLCln5LHrXMzXUzTYwicIPYUjuY0xuzzRnYlvFLc3kdrbqWZj09h71P8AEtnZ2OsTWllNJIkYHqdcZOBnFTfD0UVkjySSILq4TAGcFV/81pDb6Pr9tFa33/SagiBIrvHpf2D/APNJTXDzgQOsomgkaNx3U4NS7eEbOck9yetT9f0bUtCuTbXsBAz6XH3WHuDUS1IYqVbH8Qq9oh3dsGX7vIq88Ka6YAljdttYEeXJ3x7GotxGSARj24NVlzAHuIwT5e5gMntWa1jbt6ldNbeJNMjtdZ8yOWLKw3Srkqv8LfHzWQ1SfQ47oaZo4mn2LtluJDxI3wOwqDr2szENp2nO5TYFkk3csB2FRNLthAisuN55q47kTLQ66bFDLllGTzRliZ5o4bNGkmc4CKKnW0U2pSiC3QbwMyuT6UHuamXFxp2gWDsq72c4359cv/7K1drBra0tdGhN7dSR3F3HyS3McR9h/E1ZzxD4ou9RkkSy3RLJ/mSA+p/+BUDUL291u5Es5CQj7sa8KB9KtPDmgXOpXYtrGHzP4nJwqD3JqCnstPLMGbLsTwK9I8O+Bttn/iOv3H+G2ZHpQjMsvwq9h8mplvZ6V4XG+2eDUNRXH71xlEP+hf71Fae91K7e6vZHbJ3Es2ePgVm5/FmO7yt5dSt7G3+x+G7FLBMY+0NzK/1b/is6tjJczG61C4kc9Sc5zUu9KAeXlvMX7mDUiHc1rbxbAru7MH/iHT+tYvLW8YCI2hYHyuOvPHHarrSpNNlUTyRMUAO4nqD2A+KHDZSWNvJd3kaSJGWX94Mhsj+ooZuYTEqRx4O3PoGQ2e1YqTH6kwwO6SsxARj6crw1ctrEbiKGRThUJ2ngA5psupTLpsUPkYK9PmjW5gubvarFj98puxzjpk0ZykxuoiWFhJ5F9cTMGCyAJ6uAD7CuMUC2w8kncfTjblc++aW7meINbxnCE52k8Z71DhnWIhXicDcTtVv51eGZs+3ljhkaKYvJIBjp6c1NsFsuFu5sODuBGR9APaq15PIJld95P3QeDQpLksvqVUwSc+9G8bJ2m/4jIskqSElJD0x1weCai3N0sjq0UILH72aFLPCyng+YF6joahyyhmICFGHt7VYmWoutN1q2F0sCwsGACs7jPXrip8SQRuIQZTIvIwuSTms6zRwssyoF44xyakQ6hth3qwBzknPNLKuFi6vFiXzM3CSvnKFenP8AxVTEitlGceYD79R71Dtr1iiF48hSdwPUijvdK8SqkaLt6MOpBqJlrfK4tHDRyOgkeNP8sK3Gfmo8cciytJJk55wO1D06Vood0C4Oecd/erWGYCMbZTGN/Rl+9ScL47iI9taboXfIk3AHb1OaurLXr/R7l7YXC3NqTl4ZBuV09sGq5XtBMZLqNpFZvQy8MDTZsyskkBQrtKsWHXnsam0mNiZrejeFPF0zDSo10nUCMi3kb90/+1u1eXeMPB9/o9w0d3bNGR0BHP1HYj5FbeQCNdwClwcoymrSy1ie5txaa/bC9sXOI2bh4z/pNdMf19UsnqvE9NvdT0S4WWBi0eclDyp+orfaRrem+ILT7PcsxcchGx5kZ/0HuPijeMPBYjsjqekyfabQnLAD1R/7h/evNbi2mt5xPbsY5FOQRwQa66l6Z39a7W9Kns3AkHmwSfcmXofg+x+Kr49PTOW9OematfCPiaC7hksdRVPPYA4f7k3wfY/NSNZ04w232my/e2JOGBGZICezfHzVlGcnksrS6jM0bSQhh5gHXHfFbOy0jws1xHqNvdT3FoVDLBjDH4J7Vj7uyXyirAsCOvtUHRNUudDvcMS9sThkPT8qmVq4zb0zxXren2Vqt9OrRkDZbwxt6WwOmOwrzm18Vaxb60NUEvBODGfu7fbFWXi/TbrVUj8QW8/2mxIClQP8k+x+PmqEYiVZPLWQIwYxnocdqzMY1bpv5U8LRr/jd/azLlRJ9nU7Y5GPbPUD4FYuHUrFdXTUJ7Qi1ExkECngY6D6VHvb+91u/MtxhIx9yIcKo9hUn7NGYwrLlu49q6a0ztH1LUL3XdXa8uiVjzlEHAAq4tMLGAqg+5J6VCg8uEAFAwo+nyR3mpQWDyC3SdwgY9Bn3rNqjXMSvG5coFx0z1qJptwVZrWQBtucZ/GvdaLqMMljqdxp85y0LlSc5BA6EVFnTdGJEJV0OVI96Ih61Y+Q+Y8mGQboz7fB+RU/wZq3kPJpkzkRzDEbH8D/APmiIyX9k8bYBP8A+CT/AINZ64gkhkLEFHU8juDS6yhOK37r5EyRereeeTzmpOpW0eraQbRmBvLfMtue7Dun9xVToeoHUNMEzFftMXofA5I7Gjeb5MqNHv3Z45rjrVdtysjIMPkjBBxg0qnPGOgq98XWISZNRgQCC5PKj8Eg6j+9UWMoSOMV1xy3HGzVIF9Q+akRffEbHCHrgVFWQFeeKNCAJQMk9+taQyVQ0pIGAO3vSPHvUAdqmxw72yVJHvQ2VY0IGQwPWmxDCiIevr7URGi3KTnrQroFm70Pcy9BwKglNDukLZGCTQJGwuDSGdjtY9famEM3BGRjPFWCEOlJmlQZ4onlY71oIqnrRYwN2DXRjg57U48EYoDINq5FKNrqG7g0ASMDx3oschDAkYzWaDSsCwAGFoTuAfTSSEnkmmkLj5IqwMLZbPA96utPiNtZCTH7645A9lqt063F1fw256E5c+yiry6uopJ2EY4HpHHQdAKxnW8ZsS3imeBnjbkDLDNVPiW7kJSx3eoYMmPfsPyqxS4FpazXDscKPSPc9qzKs8krzSHc7HNYwx3XS3Q+nwK0wDcIvLH3FS9TuDJMIAoXOC4Hb2FIq/Z7Ylh6gOR89hQIQzHcxyzck10caMo2RnA/KmTxGSIsODRJJdiKGXHv80gkBHXAqxFfNFMzeYzMX/izzVxpGuywFIroZxx5nx80CMBsg/lQLu26jHI64pZtZdPTrHW0mtRZ6og1CwkHAP3ov9Snt9Kz/ifwy2mx/wCJaW5utPkPDKOU+COxrJ6XqVzp0qht0kOeQe30r0LwtriwrPcWkkc0cihXik5Uj2IrnzjWrNsZbsXZgoJwORiuvLQzWwKkbs8VoPFniK00zzrPQrGG0urxf+pYevaD+EZ6VS2W14RuPqABz71vthFsLYQSjK+rHINWFvaT3d2IbZQuBukf8Ma+5piQ3N5fx2luQZWHLdlX3NXOtajbaDYR2togbnIz1mf+Nvj2FLwsDv8AVrXQbFbe2XcSdyow9Urfxt8ewrJu0+o3ZurxyxY/kP8AikXzr27e6vHMkjHJJrVeFtItLgm+1IslhHyFHBmPsPip/rR3hrw82oKbic/ZNOT70xHLfC+9aaa6jhtV0/TIBa2iHkD7z/6mbuaDcXialPGskgt7WPCxxKvoRe1GurQfYCyZbjIboCM1yuW1mKFFD5jujJks2AcdBQtRglt2EPqTIyXPajW000Ku5VXJIwp7VaXBhuLWBWcyOowc9AT2qLpUW0Ltc+YxCh17D4q1LbbVChI29yOVPxTpoQLbG1UKLyUbn/xQbXzrxiryKdoAjzxkfX3o1qH3E97d20ltdNtVzkZPX5oNpJHHNBD5noRiHce9EVZHk2yjKIMbyeOOwqNHZRrP5jbgGJIiB5HyaaSy+k+9vFWLy1bzHRWKkDOTn3qv8+aW2KBQm4ht3cYotzGNkmTgJypU9ah3F1F5gCEccn2NNMZ9pSSN9laVyfQ3J759qizXJRiVYbsZB+D2plj9u1m8FnpkLTP1cgcL8k1vvDv7M7SOWG98TapJbwpyLaM/vJvgdwK1rTGPN0xNhDeavMLewtZriVQchRnA+TWi8L/s78Y67MyRWRtrND67mQekf7fc16rBrGk6Fp6w6FpVlpYPLrIoeQgdz8/Wo114w1K/tllGpi1tM4LysFVsdlUcmsecldL+e2Z0r9jGp3Go7tR1GPT7LOFDuGmb52jgVey/sb0uaD7Nba7Y2/d55ZfNmI+g4Wnyap4amiW91TVIZ5wD5aTSsFz/ALF5/WquXWvOuQ1vrMVlEVJytrhR8AHrT+Rm/l9WFp+xzwy1kxs9dn1C5jJBDOIUP0OOapo/2HareySS2+pafZwAkFDOZGP8qm6VqTzRSSJqt5JMV9MtwAFT6IOKsLTxRawJ/wDM72/vJIx0Mwh/QAVf5drPzkm2F8Qfsw8Sac4Swsrq7K8F2jEakfGTk1m7rSNb0Gcy6rpDJGFOSzr/AM19FaP43uZtPDWEekNAownnSyTOv1OOtQ9TvNO8Rxi21SfTkn5IaGFSR+Tr0p541P47eXzuNVt3t99s+HGfTipEE8izqSS5OOh969d1n9kenataLLZeJ7dSDkKLeNOfkgV5z4m8D63oJlSO8sroJ94rOu4fkaSba3YDpF5Cryec7NtyrjGQhqzt54nYyYWMFNuwcgH3+tZNPMgT7PPGY3wGcHufepVs7MERSRuOCR15qWNb3F1DbxO0jyY25wCajTpEii3jcttOBke9JcC+swsV6OGODIrbgfbGK6K2SeFxtxLkBWJORzyKy55cG215caddC4tbgjnY8fUP78UmseHNM8TWbaho0cdrfpnzrPP+Z7lPn4pjGGzmX/8AJkgZ+etRLeWRLsSRSPHKh3Iy8HFamVxTG+XDzjVdNeCdlKmORWI6YINaLwZ4keKT7FfFRMV2K7jiVf4Wrb65p1h4t00XESrDrVuv7z8K3I98fxf1ryfVrBo5GDKySKTxjBBFeiWZTcLNNPr1lJCTc2q/9HIeU6mE+309jWdvLdZVxjJq48JeIpGddOvdjS7dilxxKv8AC3/NH1zSBp8huIVZ7SY8Bjlom/hP9qb+kU3hXXZ/D140UyCeym9MsTDIINbR/D3hS5h/xOO7urWGQbvLCh1x8NWIvLPemNnJ6GoA/wAQ8n/DvPcWobcFzxmmltXGsXejTagIdFgmWOJNrSSnO9vce1MgIBy2OeBk1Cit1tlC5OSMjHer7w94ZvtYU3MmLazj5eaThQP7mqyqrmJ5LkRW0bMxOAF5z9K1Gn+EFgjhvdamMcifvEtI/wDNbHv/AAihXvibQvDKG30G3+1XuMNcyc4Px7f1qRpD3kemG/1NzJf6kMpu/wC3Fn+RP9Kzk1ETxJAl/avfKqJcW4LHJ++nsfkVnBcBocpyemKkeML8GcaXaurKMGZlPU+35VBgCxqOD04pCnqWs5RKwO1sCRf6Gu1tDIPtI+9wH46+xp1zG7f5jcMvIpdPcSW7287EiMY+qnv+VIit0a9bT9TjlYnym9Lgfwmtm+3zAsJ3hhuRiexrEX1s0EjRNjcp4+R71o/Ct59p082ZC+dDyGPUr/4rOc9xrGreMLc6fc2EyZ871Ixb7rjoRWNk3xs0bjDKSrD5rWBljIyec9R2qr8UWqbo9RjIKT8SAD7rj/ms4XVaym4oQ2XwQKLAhQ7nI+BTVUbvmjBQ7AMevtXZyTIZY440ZSWzksPao8rbnYjkHpg11wWtRiMEg8c1FDbQcdTUobKyhwDxQWkAJWnuu4+o0JoyTkc+9NgczekbadFM6qQD2pjbclRmirEiKC36VYIqdaMpoUXLCjfixjrWgueDng02M570kin64rlGKmwWMcGnkZxQ1U9DkUReOvWqObpimZx16U5+QTmnWlu13eRWy/jPJ9hQWmixJDaPM7AST8L7haltbbShRchhkkUZraFh6WC7fSvwBQlnNvbyzS52xKcc9T2FcMua7Y8RTeJLvzZ47RDhIeuO7d6BpqqZhIwyqjIHuewqIgLu0jnJJzVlH/0tqWZfVjI+prpi55W024k825EY5VDlj7mjkBFO4ADGQRUeBVRMnkkZP1p8CPdXUVuTwxAb4FarKy0exiuUF5fFvs4PojB9T/8AArV2r+G7hfstz4fijjPAlhkPmD9eDWC124ulvXtYi0ccfpAHHSl0XU7qxuo/MdmiJGc81zu25IuvFejx6NqOy2kMttKoeJj3U9P+KreCeTnIrRaxb3utpZrCUVYQytJIwVVBORzTF8JlYlL63pwyccMTz+lal45Zs1WYmiVlLgcd67SLuPTmuXdjvZMRr7mtV/8ACtpEpefXLeVUGXjiQ5I+p4rNXsttfajJNb2qwQhtqLnPA71e1m4jWVtLczG4nOXc5OetXFzAsLx29sfOkfAQL7mhwkRIX25Ve9WmkRGyhe+uR5byJlWP4I+5+pqbO0hli8N2EjXLbpWX1nOfMb+EfArItJNqN0by4O4k8D2HtT9Uu5NWvAxyttF6YkznA/8ANWfh7TRqNyUJMVtEMzP7Ae3zUnPJUvwto0d/Kbm7by7CE5Ynjef4R71o5po7+eMMBDbqNsaoMYFQ7m6W4VY4VEVtCNsSAY49zQYXYMVQ4J75rnld8NySL2W1jitVlgjDAYG3PJPvTrO5uDe4zsIPTZkA1Gtb9pUWF8b1AVHPUD2pysyMZ5ThycqAcfnXPTY738tvcSSvaxl36ejgVFkvl2xpKFOCWK4wMnpUz/OikeHIbHp3cZ9xUFIVkmISNCxOGJ5xUSzZyqJrgMxIbaeB/wAURv3csY3lQAMjtSyRfZ5tiArno7rjn4+KYId8e6VgxUHOO7dq1HOWwe+lhdEWJNxJJ4yeagXcjS3LtFJ0AB7fWuhdFfczY2jABqJcXaxy7VUAAE/WtaL+h9y52BfMO3vUnwt4d1TxXqLw2QSC2t1LT3DjCRqP7/FQdLtNQ8QXn2W1j8u3QgzTEcIPrXqFrNYaZpcekWgeO0j++yNhp37lqtsxjEx86sdCsdM8LaKsFjOI5id805XLTN7fQe1MnFxqDfaGmkVXbLTDmR/gewqtudWgICXEmCRnyohwo+W/sKS4OmK4ZmkhjYAhFJ5HfvXG5WvTjjJBr2G1kdpLuRAANsccUhZ2+tTk0/TbfyRF4fuJWA3NNMDtH5k/0qlXSipa40/S5bhG9St9rDbT/tHNTbnVdZNvb21/qjzT7cLatGQxH8PFZaTLq1sgwurGx0Od5m3ICrM6n8zxUTVLe9Yo7aboMhlcAyCcsUP+3PFRTJOsCltO0SFQeY/NdZG+ozzVbewaOf3qpqVrOTx5bYi/U1ZNpY0bT2yWbSDWLgXLNtRYdiDI7Y9qlW0utyWO2fU5/MPSQTW78fINebalaQPcLDcTSNGzZUpKS369Kdb2N3YLssY7cKTlFvSCW9+aumWstfEmp2F29veXOq/Y95Aa1EQOffA4rWaRqt4IBeWK3+px7uftdgGaMfVTmsvpt9/0kf2vwZonlIP3s8AZj9eDUOTWDa3ZW0mvNNt5D6pIHLxn2z3H51ZIPQl8T6VczsmoeHrmOYdJUheJSfg/81YS3mhazamDUvCT3IHDJcJtbHww/wCaxFl4u1G1DW3mvqcTLjeg3kD3x7fNTdD1u/m1DbBdssbAhYbocE+yv7/BpvXRpG8b/s78HPpq6no2p6npEjEqba4QyquO2eoH615nNBc6G3mveW15btlBNDIGA+o6g/WvXrvXIbTUY2u7S7hXoXkIkt8++BytUf7SdO8Oaxpq3p0AxuBmW60o8/7mj6MPpW8c98VzznuMDYXLCJPW5XOQuc5FWjX3rLRb1DHgueWrKzqumNFLZ6jDfWzH0uDhl+GU8g1Y2kxZVdSCG5Kn8NMsdMTLa28kXKbH2tKwORngD3qM8IQpLuO+MEDA6/FOtL1Ioy8m3zFfGCOCPepEbCUTBONwzl+vBzx81hrDtBbzonNzA+1uCCOMUbWtJHiaxe8tYFXVoVzLEBgTqO4/1VE1RJAo2tIskjZZc0aO5v7PZeQxyBo8erGK3jbFyu+Hm2o2LAmRcrKp+hBrT+GNaiv4XtdQUSOqhZEA5mX3H+oVbeLtJTUtPfX9OT9+h/66EDgE/jA9vevPZ1mt5kvIG2yRnIxXXcyY6aHWbcWlz5TO8kLjfBLjGV9j8iqmZG8tirerBrV6dPbeJdGZXkSFz0XH+TL7j/S3eqUxRRLJDJG0d1G2xlPQGtSppceCdWtdRijtdUsLW5ubNNsBcbTt+cdcfNUfirxhqmrSfYYpPKtoyVAjXaDz7DpVVJJPYagt1bcSI36/FOtIJr68PlwDz7iT0RqOrE9qq6TvBugR39+93dkCztB5kzE/ePZR8k1ceKdYkt43uHwZZgUhQdFHTj4FWs1m+n2kWgwAMsZ3TsP+5KevPsOgqkufCHiXVr9riW1W3hHEfmyqAq/rWWmYsIR6nlbLsc896nuUUEZBPzWlj8CT26kX2taZbAdzMGP8qLa+DtIlSS4fxCJo4h6hDETk+2elNxm2srGwYli2cDvUd5DHKsynOOGHuO9W/jOwtLC5t5NMMzWjoAfMADB+/wCVVUnlFB702tgmqw+ZbJKPUVGQ3uvb9KrNOum0/U0nBIXOG+QetWemSF0e2fLCIHaP9J61V3kDJK6HqvQ+4q3pI2iJFv8AMjdGLAFfYg1Iki+26dJYz7QHGU45DDoap/DM8F3pG2VXaa2OPT/D2NToQ6oDIMkn05PIrjeK7Y9MwylXIIwy+kj5ropAsxbbmp/iODyr5Z0/y51z/wC7vVarerAHPeusy25ZTke83LGC5AJ5GTUIMu3BJz/Wlug7AFjmhmPChs5qpojFsZ7/ANa5XywUUjZIHxXKABnO0iqaFjiRclup6V1xscIgA3YpAT1J7VHG8PkAk0NAxAgcijowB55zQlNEUd81bUOk4PHSk7ZrnzjGc03k8CoJEUit97rTWBBI5oRXBBogkxjNaDGOMgirHRcxxT3fQn91Gfr1NVsknU469Kt408uzihH4RuP1rGd4axg8crRswLEgjmomv3GIIbRfvN+8k/sKmW0azMFBxxliewHNUFzKbi7kmPQnj6dqxjHSi2qK0oDfcXlqPcszypEfw+pvrXWSlITIR19Rz7CgwOWkZ26sc11jlexHOxc447VMsFWBBI7bXl5HPaodwCybRUN4pXALFjgYGT0rN5I9AXVbK/gEGu2QnUgBLmJQsqf/ALQ+tV194W2ywXGn3KXenySAlhw0fww6isxaX91asA37yP8Ahar7S9WikjeOKUxSnDKGOORSzTQOpa1FBeyQpA7hDg5OBmhDxCmS32RwSc8PWsmOk6zCsGr2axzhQReW6YY/7x0P9aprjwrbWcs0k2o28lgiFxNEcsR7bexrM1Sqq98QXF5bNbW9v5PmDDtnJx7V2nWpMIQcnrQLWOIkeUCwPTirNHRFKBT5jYVNvvWrx0mztKtBd3rIxxaxYMp9yeij5Jofiu+ma5fSg4O1gZdp79lHwKsL+5XRNMAhClwTjj70p6n6CstbEsWmmJLsSzE+9ZkW1LsbWSaaO1t490kh2jH9a2ZW30/T10+2XcEz5r/+ox6/kKH4ZtU0rSzqM2Be3Q2RIRkxoe/1NMaMMjsHIxxiplfUXGe0q2to7hAsbhd5wAaHbWNykrQkjIOASO1MtnEITzSQB0J4z9KmQXcb34YzHyVHX+I1hm23s23s1S6ZZXKsg3YP9a65nLTLsQ7Bx0zkVJ1CbeCQN28cMvYVEhlDIWHEgYBR8e9HSanCwsXaQpCqu7uf0FEnH2O4Mays0i9zxio6tc2E6zMEZH9Hu3TqKWRJblBcqpSQdAT6gB3rGmhJtSjubcM8LBg5Ut+E/Somp3xtlVZNqsRwBxjNMmvY7W2BYo2M44qZ4B+y6trX+Javb/aLS2/yY26SN7H3ArUmktJoHhfXtaZvsOlXU/fcB6f1NaO1/ZFqhZbzX5ltY8gCCJwZD9favXdE1L7XJC51W00WCNP8jcoLn2AHQVbxy6DZyzJqFsCqYMlw2WIJ5GM1P5ZGb+Vy5eMfZYbZ4tLsNNubFUDBzjO7PdvmossUNswa8FxOob7vCD869euYdGuEnntGMyBQwaRAjFT0YGsJ40dkC/cJThkKjMgPv8/IrFvlW/Hxx1GfvdYNxPHYbxLAPuqm1VHwWPNdBDpx1HfHZQvtXc4a7BGfpUHUIbHzopI/MhRlAbzE+6/dfyoMF2IFmlRvJZMKVZA6zr8exFTRjbO1jdXYs2+1Q6dFNBnDSRSKdn5A5qu11Z5mibT9WkPmDPp3Kyj2yf8Amg3D2V48AMihCOX2bMZ7H5qPb7bO4dQ1xuU7Y/Kkxu/I8Gr4rbs+2tr2J1lS7kVM7Wkdkc5o/iDNpbRTJqiXpK5wJM7c/wCntQrkGS2njj8qSZsHY8RjmX5A712mzaTBBDBPaR3aOOU+5NEf/wBYVuRA9N1ZYrXz7qOzuTJw8OWQr/xT7rVI54VOn2hhf/TKXw359KhwzwzXlxbGwS6Rn/dsZNkqY6DPQ/nUR/sc0LoyXFpOJAFPAI+SO4po20+h3F/qFpLKtiftMHExs22S49ynRvyq20pp7lybC5tbuZOHtbhfKl+QQetYufU/LdfJnhiu4sBbm2JRm/3KetaC41CLV9OEmr6dbm6C4jv4GKuCP4sVdHkNLfM+qhE0O40i6jOCisVEn0/8VIt5dElvXin1a/01z/m2swxn5Unr9KoLbxPrKg6fNA2o2a+nbIN0g+UbrVhJcrq1kGN1HfRw/dguExcxEdgfxCs6TbVSGOC3f7JfJrVqqbsJKBOg+h6/Sg2XiK2tf3LxXVs20m3m8rapJ/Cw7fWs09hpV5areaXczWF6pwVBO3d/Y/WpOneI5Z7SbRdbh3XR4hugmFb4b2PzUsSaiL4v0Tw94kskvbd00jWQxyxG23uT7E9FasjaNd6bO1tqEPlyBdp3d/kHvW/jspLOPyr2AXFlJy5I3Iy/PsfkVi/F+itBGLzTbuW50+NjmBm3PbZ6c91+a6Y5SzTOeN7iQjC5II2KqLuYjqauNOjIjmUgykrkEdAKyuhXZgiYOpcMB3x+tWs7z5ilErRRE4Hqwp+KzlNGOX1Z3NgqoJJ5MnAIJHXPSoV414k6RJMDFjkE8YqVf3d69uLaCHz+eWBztHtQrmIiGJ7jJUkAAkAgfFHRHs7ye0uT5HJfh0PQg9Qfesx4x0gWF2ssIzZXI3wkdFPdT8ir2Zp5LhTHEVwMAk/3o0MEep2k2lXLbQ/MJ67ZO1axy1WNbjzrTLw6Tqayc/Z39MgHt7/lWp8RwC6hXUY1MkkajzyOkifhcf3rMajZvG81vMpV42KOMdCKvvA9958T6ZcuN0SHZuPDx91rs569IKwRlSVbKnnBoNnrNxoWoPcW9tHLKYyiSN+AnqR81JuUFpfPbsT5QG6NiPvKelQLxf3Rk2fPNSF4NufEmtXXoWRUQdAq0CKTW7t1iFxOzNwFUkn9K0/h3QtF1yzglt9RFlLHxdLMMj6jH9K09smmaKrR6RAxkUYN3Ljcfp/CKbkWbrKaV4YlilWbxBcyZUbvsoY72/3ewrQX2rJDbJAvk2VlGPSijCge/wAmqHV/E0FqX8km8u2Jyx+6v/NZO8nvNTm8y4YkfhXso9gKzzWuo0N1rml6iZ7OXckbr6JW6Bh0IFUtsFPBYHsDQItPDbQR3qy+zLbjb94duOla0luw5M2lzHMCDjhsdwetN1aMHEg5C+kn3HalmQtxndxRrYC5svKYYK/u2+e6mqyg6FdNY6sh3ERyehx7g1rb/wA+OQ274Z4x+lYi8BHqHDocEDtW0sCt7p0d8smZZExJk9xxXPKOmN4RdSQXOmuoO6SI71+fes6JSgBAyW71qbKExTlZeh4Ofas1fwG0vpbd/wDttkfI7VnCpn9MuX3KDgCglsjbjmjPh1y3FR3OORXVhxJXtSbS53dKVGDcN+tOdduAhzmtDmQbOc7h7Uuxkbd7U+OQggY696Zc73TbkZ96KhIOadyG+KagwKfnFGSnBJPauOV6U0N8VxOe1A9RkZzTWIFN5JwM0m08/FUHsU826RccKcmrcSKTyKiaHDiKabucID/M1MWMAZJ5B5FcsuW4S7lEGlTSKcM58sfn1qiiQsFRerHFWGvScW9qpHpBdgPc0LTI83W//wBMZ/PtW5OEtSL9hFaLCvViB+QqNDgcdKLfnzL0j8Ma7R/eo0pC8gcdqRlIdnHLRkp7gUSMIwznI+KvbDxD/gWk21tLbwXAIJMUkKtnPyeaqNW1RNWuzcW+nQWEe0eiHOCffmrFRZoc9gQajS2pA3AFalRyDbyec96mWMM97P8AZbOHzZiu7aBk8UtOkfStZurF/KmzNCeCD1A+KneIrgC3jtYfvXGHf329garr6znR9s0LRSDqGXFEhgZ5DLPJufAH5VLJeYu+BbVNsa7eCKnaNbtPcvKW4TiM9t3v+VQJyypsi5LHAFWt9ONK8PtCgBlP7pHzyWPLGpUil1W5N/qJVGJgg9K5PX3NWHhuwjvNQXzgVt4Rvlbtx0FU1sDFF0y3T862Hk/4fpdvaDiWYb5iPntUt01Jup11dLcXqzPjZnCjsAOlJ5Mkokki2Eg5Kj2p2mWrT2chV41IXdtc4LY7CpGnXAtXctGBIVwpI4xXJu88BXSW0lmyTys1yiqU7j6UNrFRaRSKCZix3gNwB2NCvGaby3KKWV+MDk5qc0rRp5YCcdz2omg7LYJREwZEKnDDnJpbtvItgohy78sR2p97q9xDYwPAkDeXwwMWOtRIpFueULqXHrUnqaJb/Zaacv2u3UyExxRZ2qeTk9qBd3Qjl2JISe7Edq60eezaSzYg8YOTQpl+1ystxGOTtZh0zjtTTe9q/UkWW1eUAlBxxWd0zxDc6baTWcLMo3k5B9+K0N8gSNreJyAq7c/xVktUszE+9BiuuOMsYt0kweJb2G4EjTO7DoS3NeoeBf2q3XnLZarKZrSWPY5blge3514vLCwVX2kKe/app065tbWO+ikWWI4JMZzsPzWL+Uan6V9Q3M8lu8V+l0ktu6KhJbjYR93H9qr9TaMxiyuo/K807oXzk46qf/FedeBPGJbS2sLkxjIB808vx2H1q0vr+4V3YSykkAoGwxU5z+VcJjZXTe4na/PdyS+bJHG8MkiidOgdwMBh7Eis4rubiWGC5ltrZ5N0atzscfhb2oj3by7xd3UjQtmQA8HNCvZYb298yLEIddrA87mH/I5rrIzeUa6E7Sbg5SV22+oehiOxqwNyj20kEtmAAuHjP3oj/EO+2o8QVLBzI/2m0mPlyY+/A46NQZJpoJrWZZkju7YFRK5ykyds+9NMyQZ7i+hTyrl0u4IVysb8sB7huuKjTXKXpgkuGzbg7fOVctH8Nik1ySRHtzsEU/8AmIE6JzyhHcdx8V17dgQ/4pp8cVpJKSJrePon5Hseoqr0i+f5DZlR/MO4xsVyso+vY0WK7t7lg5tmLBdpibJU/Q9fyqNYwTaxMlrbXjNvPqVlwI2P9K22jalofhGHzbq1jurqJ8PNcDOePwjpS2Rmc3aps/DGt6nCbnT/AA9O8DLwrAkgj2PXFV93Z6zpM0iPbXunyAciRDhh3BB4P1q0vv246rA8Y015BHCxKc7R+g7Vbab+3r/EbYWHiXRrW/jb0+ZKMsAevNN34We4zaXDPp8JS6kguYjvVdvob/aw6H4NTYtUOpQM62kQ1JTu85DtaUAdCvTNSfGGj2MNmvibwtI0+ju+ZrWXlos9x7rms7o8dzJKtxp3olKHaHOckngj+lNbWb9rGy1m+DSPBbPL6SZ43TkVd6JrWka7py2U0PkX0bel2ON3tye4qouNdu5IYornTltrlScTINrSY4Kn3FBs7y31idzPp0azwp6fKXbvA9/9VZsOGqsbsW0LQxXu63ckfxLG/cEexqLeWVxJpyfYwkOpK5EYI/dzoeq+xB/rUOyTT5ki/wALuVhmmO3En3A3cN7ZodteSQSXNvfrJG1vLtMe7/LJ6OvuKxrTTGw3TW+ozQvEYZEJV4n/AAnuKuraaLysTgzqx3Kg5APuKd4yWHV83UapHq9qo+1qOBcp2kX59xVbpE6LCxmchcADA5rt3NuNmuFt9qFuCrM7eY2VyMZ+BU5ISY/PeJLhMehVYlgfpVRbp9oWKXazLuIGTVgupeVZy2uWjbbjenHNY5dZ0XyrkLJPc5QO2FXFDEb+aPKyGQBg2ORRFmJt1g++2dwc9abNJPM7SRosZ+6fVnjtUNqfxdaC5hGsQ5LAiO7GO/Zqxkkktndx3UHDRtmvRLT03T2s5AtroeXKvXr0P61h9Us5bS9ubCfAeFip+R2rthfTnlz0vLwpqWlpdRDJjG9Mddp+8v5VVTtuhAzkY4pfCN20TSWTHLKfMjHv7j9KffwC0vpYlXcj4eL6GtJeeUPw5cGx11YmfZFP6GJPGe1P8T39/c301mH8q3jbaRGeG+aHe2DNEGztY8jnmo8MbRR7nDOvdj7/AFq6Tejba1CgE8n3qckQQZIpkcibQUx9B1q00rw9rusyEWGnzundiuFA+pq9IrnuAo4UZ7CpWk2Z1SO/kM4ia0gMwT+PHYfNai38B21mivrerwJIT/kQHe4+uOBXSS6Rat9n0/S3iXOJZWbc7j+gHxWd6WS1iYWDwkjvXWjFLvy84WVf5jkUt7CbK/ntgfQrZU+4PIoMjFNkoxlCDRbAtUQC5dlHEo3fn3qd4Xnd7O4sgwDp60z7d6Zq4WW3E0a4CtkfQ/8AmoeizG11mCTOFJ2sT3BpejHtpEtbuGISlwxcZHOSBVb4pR2ktr3j1psYj3FWUhlLEsxABK+1Rr6AS6TNCWy0f71T8965Y9umSkONuB1pmwHINKpBwScCuPLZGa7ORsUYCEDkmnEbcccg0wblbAz9aXcd3q5NUEkKF1IbHp6fNNZQRuzge9D25YkmnPINgXGQKKh7uOlKTmlA4FKQFHNGTdoAzSrgdaTK5xk00sDxzVBFYA8UKZzyc0oppG+VVHcgUqxd6f6LCFR1bLGpVuhklAOcE5NAACsFUcKMcUYuYYZ5M4CxH+dcu62or2UT6hLMOm7C/QVYacBHaGTuxLH6CqpEOM1Z3JWG02j720J/c10c0NGLerHJOTRbaI3F7DFjILjIoI9Iz2NWOiEi6e4UH0LhfqautLANcKyarKv4Y/SKXQtTm0u/V4kjcP6CHQMMH4NalrnQNRONQ0kwSkeqW3bGT7kGoU2i6Ut7Bc6fqInRXGYpIyrj+xrMq0/V7/w9IWivbBoLrbndb9Ce2VNZi3upbS7S6tXeN15BBwasfEWk6lDqc09zZTIkjZQleCO2DVUVLssfIYkL06VUbfWfE0l34axf2sFxJLtEUjrh0J68jqPrWZgJZuvXtRfETATWtkoBWGMMce5qNGNse7PNToTtNTfevJsLCEZVR3Y9Kj69O01+lspzHbDH1c8k1O00iDTmupDgqDKx9+yiqGEkq0j5LMSx+pqKtPDtqLrVIzIp8iH97MQOgFaCe5S8uJZiVG77nwPaq/REktdAkkUlZbttuPdR2qTagBBmNY2PVQKzlWpxyMWCIFMucnHFTodiMpZy4xwBVdIhzv4CjnmpMUebdpiyqg9XBrC42Xp1x5rztJE5VFwAD1xTIvTKI959R4LdqeQVAIXqM5oQWWeY+kxhUyaiY7qVLsjBEjCVPxLnrQTN5cxuIVwB0PtRtQgQRRkFchRwOp+aDEqOyozFRjJ9qumuFlp8ZkkE9x+9Dn189a66V4EWZWYxBf0NCUbLI7GOQ3C5oCzie3hgmY4UMWA4zUXoK9Ek6q6qGUDOVHf5qlvUNzcCBF3yPhFQdcnpWggW8vSNP0qOVzMACi9/r8VsNE8KWfhe3OoagY7rUAOATlEJ7D5+a643Tnk811zQ59PskglTbIi+vvzVZpt3HZaTKgRvOlzls5Vk7jH962viO4+2LLKyEICSsQ5JrLqNPUPEmnXU9wvVZThIz9BW9xnSktJ3troGMsAelbezuWnSFyxjVuGYHJBrHXFpPLebQB5h7KOB9K09lpV/aWIuCDgNsIfnn6Guf6Yt45JbXiTzsWkaXjapI69hT4rhY4RHsJmVgc55GDwfmottZt5DlcLInq2HjI+KWC3yyXDy7Z0Gce//AIrOmrVhqQvY7+5vxEBCu3zjByhyODj5oMzS3EEtkjI4jH2hSw5UDrj6g9Ke88zB1hkXzGjxJEgwsiHpx8VFjSWC3W7jQt5B2TJ3Vexx7U0kHimZ5oLi6mUPEm0bvuuntUO8nFnOIbmLy5F3JJ7SKeV/P5rriOW6smtx64Zctbv/AA+61WzreXsqCRS81tEFfJ5IXpVkLV3FdR6bZK0OA8jbnA6j2rJeKtXutWu23O7InAqSupG7nQMuDwpHSq20u47DVJI7iLfGWKuvsKY487qW2TUC0mFZZVhlHDcCrrW/Db2EYY+wII6EGr7SNJ8NTRwahHqyNMHz9nKlSB8mtnrVpb6hoUjrA6+VGNkjnAI7Y963c5Kmrpgv2d+I7nTbt9Luf3tvONhR+Rg8EVOheKxvLnQ7p28uKUtbyRn1KrcjB9qzzRRRatb3GTlZgrDPbNW/jmWOHxFZbAAWhC5HwcA1nKcrLwn6ZqTXf/T3BfNnIJd+M85wSfg1ZXV//g139ot4R5MnLrtyHB7j2NUZYWuoxy4KrdJ5cyjpVlGLp1uNKuZFTYpaEsQcY7ZrFajrtNOkuxq2mzsiiJWlhIx6u/5Vdf4lo91oUd4yIzSExyc+qL4Px3FZu0eKOw/6mFisTEBh/wBxD1X8jzUSIRRwzfZmDQSEBge4PQ/XNS4rsTxZApijjhfNzH6rd1P+ZGeoz3Iqv0dlkIRgdp+8KuNctWk8MxyQArNbNuj/AIkYdR9Kz2lamZZ/TEEZ2yce/wAV0xvDnnOWgt2B3pED3VVz0osVm+AGOCAGwelR5bMxyJLLNgkbiFPNWltNmIJcQkg/cKNg/nXPKrvUPmeUwZdFRRjBX8RobxxvJthUgtxzTjKRMFlVQVkxjGQfzqVf20gieYRBWU8Y47ZqWrLuIFzujhESkFkOS1UnjVPta2+qqqhz+7m2+46Grh7gSQ7QV5+8QKGYoriwudPfBadP3eOu8cirLqpOnn5me0vobuM4Mbg/UVptUAmso7qE7jG2Qf8AQ3P8jWdnQ+qN1w6kqR8irnw3I0+lvDwSuYnz/C3T+dd7zyzPgEs6yxnfnzAOKneDdRRZbzSdQt47m2uQGCMcEEd1PY4qpAaMFZBllJU/lUaOY2+pQXJBwrjP071Z0y9R06fw7pQA07RIpZiOJbpt+D9BxQL7xFqd07RSXXlqy4EUeEX8lFYLXdWvftklnZyhLZD6dnyPeqq0nmtr+C7eVnKOGOSfzrHja3LI0l14ohtpHiitpJJAcEucDNU1/rmpXbbt/lID91BirrU/Dr6pP9r0p4j5qhzGTgjPce4qVpvg9oAJdYuYoIFI3ICC7fAAqzGe1tVGvKWjsL49ZotrfUVDRfMjZe4FWfi+aJmgiiTy0ErFEH4VxgVVAHyyQKM3pItT5umiJjkjMZ/qKp5g4AfoR/WrPTsGadMkZAcfUVB1BSlxOoPAbIqzlnbUQ3Pm21tJsyHQMT7kcGmRo7T7WHpkBXB9jULRpw+iqR9+FyOvY1YWt0Ehy53seee1crOXSXcZl8xO8LDJRitPLlSoA5Paj64qpq8xUcSAOPjNRkZTJuYcgcV0xZvbp9wXJ70xG5GaccyNlulI+3sMVoNnf1ADpSBSecClCBhn2pfujgYoI/0pA2DyaXBpm0k0ZK+4j00gB9qIEO3vTSDQNY4p9gA10uegOaE1H04Ylkb2WrVi1ib1E9812qFk0ts/92QKPoOaZGue+D2+a7xExWGyibP+WZMfU/8AiuftpWw8zRJ81L1Qf5Kg9QXP50CxUPcs3ZUP60TUP/rWXP3QB/KtswEqQvXpSpeSR23kQ5WTflmosflthGbBJAo2pWEun3jW84XeACdpyMHpTZEWLUrqPIkw4+amW2rQhSGRomP4hzUTylkOelNe1UnApqU3prNK8Q3EC7bW8LJ3jk9an8jR5biy1G7SWTTIILiNtxkiO0NjqSvSsMbd42yrEY6VaaVqBisrtbiQtIEKxZ6nNTVi9gyy/ar6a4Y8O5x9KVhvZYVPqZgoFMtlKxhsdKl6fF5moKeB5Klyaola+TFpMNuqhfOkwMHnYn/mqiGNppUt0B3SMFGKm+IJDNqqwBsrbxBB9epovhqESatvY4ECM+fY9qdRO6t7lVSaOIHakChFA+KWJi8gcnnPNAmkV2BByR1oiIyelu/JPtXG8us+J1/bSyyqMg54GOhqIyNDJtmJO1uUHSj2s8ruBnKp0J9qEqvJJufoGywqaZz/AMTzMzBVcKMjIH9qjMs8cjNuHPIHx7U8yj0xY4yOcUtzvdXkCsADt5HSoloMO+bLlvunueKHN5kcZkJ9DcA0yOQ7SvPHPFdc5lhCbTg9s9DWjzJHdeVFksx2nOO1XvhXQzryPcXcz22np1Kj1yH2WshqczRWroBhs8US88T6zDZ2+l2jGARoE/djlvzpcfjUu30JDosmkeDpZdGWwsjGpPlSjM8wx3PWvNdV1251mFEt7cpMQAQvq3NVP4i1W9tvDdjBc3dx9s8oCTOc5PzVp+z5XstLaeYHzZI2Ku6/dGOx96y1YfZac1poeoz3X742xjaYDllDn1H8uKiXsMM1wYodSS7V2HlCJMM+ehY9qPoPiKCGa7DR+dDckxzREZ3DGKWbVNO0+yEenRwxhxliqepeema15s+KXpXh210mWS71DZLMG27Pw5x0qvuLs3AEV1PlUzsIHB9sj3+ahajqN1qEQi84lUBIZmxke31qBLLCYl3D0hcMuehqeVyq60tDdMsJlt4olkK4kA5BUH56ZqIXtg277QAS/wC5z1GeoPxVU0rGJhHN5RI2MQeooalUjDEiQByhPvWkWhF48nlZO+MBEKnPpHOKk6dfK98InH/UsjRsCOJPg/Wq2zkuRD9qtRwj4OfcdM/WnIhuryKd0MIMgb0H1LjrVQ1leBiYJZI445hKsTfgboRUm+2XOuRTCMKJApYL0INEmdgXtfK3PFIZUlIyXXOSGqBdPPbTW9zIpSKbONhzgZ6VJwdoWtaLc2iSXsQIjWTn/iqjUbOS5zep6lk+8M8g1s/E2qxXv7PGtclbmO6EvXqOhzWBs7ia2bIztPUHoa1jyzTLaSW2nDAnGcV6v4e1W9v9Ca2ubtmS3h2xg8gKe1eb30kV0iukSpJ3VR1rU/a5NG0QRiNDPIq5B4KipnNxcahxQi4uH9S/5qgMffNL4qaG68ThQBiGPt0zTfDkTzXcl0X2xxAyEN0z2qss5jc61JeuS6tJjB9ula0nS+luDLDaTMDuyVf6ipNzqIubvb0laMEEjuOCPzHNRYJ44JniZC/lv5xUnjaODS6+0Y1D7VYoBCUDjI6HHSsWNSplpeSS2d1pbhQ8EwkjGPvA9RUmxhhl02SxKxxs8hHnHqB1UfTNUaSXM7rPGqrKxK5HcMKLobrOJreeYxAKynd2I6H9aRe1lf6lLbA3VyokCnybnjoR91qqZtMig1QvazJJbyoJomU9j2+oqfcWp1DT7lvNDSSxY2/xOtZfRJZdyxYY54wKsiZbbK1fCHzI9+RgHPqPtUhg0cEJlx5vO4D2qNBKkcatt9QwMEc0S7vPPlSPylQYO1vc1zs5YsqzS3hlt0x6SxDDJ+77GplzPILeSI3Ms0mAnB9JFVdu0iOFllQHZhtw4+KkyTqq+Y2VAXkr71mR0wQ96xyS7UB24VwRzUW4mAdJIyUYEHI6ijyNGArIoBb7+e/zUKdSVcjAAyRVaZ/xPbmDWpW/BOBKp+vWgeGJjFqU1v18+Mhf9w5FWPiZjPpVhPtAMLNE5HXnkVnvMa3u4bhTzG4P1rthdxy6q61YD7cZBjZMokAx+v8AOq+5gWVcDv0q21wqLeF1GPLkIz7qwyKg78jIArU+GSDb2QQcknnk027iyMLU3zMg5Bz2NNcIqENy1VkLStalsEW2uFZ4VPpwcFasrnxLZsmYY5mb2bGKqLiJHH3aji3jU9MGp4tTLQ5mm1C7a5lPToOwFScBl2jj3oFrsDrHnALAZFTtbtW0vU5LIzLKUVW3L8jNNaTdqLCNl7EOm7Kn86FqcflyqSM7lwfqKSaQAB88qc0bVyGQMCPS/wDIikIL4TJLXluoG5otygj2qXnYRvUgiqrQJzba1CV53ZU/mMVcyShCUYbmBwSaxl26TpW6+p/6ecDqCpqvh5Ylvyq51o+bpLNjBjlUj6HiqaLg47da1ixexMEnGKVx06E0q9KdGoaVRnaR1NaCrt2YxznoaHMRkrgUWVUHO7JqNK6Z9Lc0AQxzRQpOPmg9Dn2oocMAxOMUZPLBRsPWgSEHp+lFkCMu4Hmo7HFAxzUvT1HkSN7sBUNzkGrLTlxZAnu5xUqxICtEUJ57igeJJTJqEaEY8uFE/lUgszBQck5wKg60d2r3B9n2/oKzj21TtFVnnYdtyj+dMu5hJdTyDvIT+VSdD4V3B7k/oKr4xlSffmts+josPcxj/WP61rkXRtSAhvWe3u1G3z1bIYdsisgjNFKJExuU5FMbzfMMhb1HnOaDSap4e1HT089FW5tm6SxeoYqpzk4Bxjsak6D4q1LSXZFkMkLffjcZU/lWjX/4a8SrvjdNLvz1H/bY/wBqDKhemRnmmvbbJQ5GAelWWsaJqmlMBPCzRn7si8qR75qGrhyu4nI7UNOALDaOtTfD8beczY4kkVTn+EcmojyIOVGMVP0ljDYGVjysMso+c8Ciqm4mE9/c3I48yRiB8dqsvDiv9ju5V6yMIx8jqao1yLcHPOK02motto1n7ybpD+ZxUy6SdiRRsNrkAUWd1ICp07mmlZJG2g4B6ewoDebA+wrzkgVzdYnwSyRJhdpUjBJ70sjTTxKGYALwQBzUe3ZGRTK2FB64phlaKQ7clc8ZqLatUMMduG2O0ikKo7n5pIZHnWRApA6kfNNS6jkCGYBnI5OOQB0pXuoggEKkMRk/WsncV0nmK7ZAAH4TxRJJSluJcqce3anyvbmKXzlfznI2MDxUfQ7RtT1cWUknlW0a7p5PZfb6mt6jjqy8LPwppEGpznUtSBFrGf3aY4kb/gVbrpy2Vys2m6DNfXDHat1OuIwx6ECpUjxDENswSFFCBE6AdqkSeILlbFLOGVpX3jEefTGR0NZyz1w6Y4+6h2/hmBftGq+I7pZbiFhiBASoJ9zTdb1KJ4YLczJFEo2CNExu+SaLMYHiMc13I5kcNLzkZHxVbdNaIrPDbyyO+TG8o7e4FZl23WXvpYrOZxDNwSeF7H3qvkuD5m7zSxIyQfei6jEftW4qT5h9Wf4qiyx49AI4PBFdfHhy2lm/VhtwQD1H964STTRFVbBDcfIFRUgJQnHqPf3FSFUQyxCQnaecjrTRMkk7WTzQrB1Hq44NSLa2zdI0oZYHG5SOgYe/50OwchoklnCQnewJH3W9qs7dgkdsW9UUkhUE/d+aNFivWRWnlVE8zCFQuAR7/lSRysLmaCbETwjzFwM7h/8A8NM1VktGhlkUTRszI0YPt3otvbQi5tZXZmSZGAbPPTj/AIqJYBdxyi8gJn8iSRWRpB0KsOKrr67kS1t7WRg6oQx45BHzVo/ltZSRTuHwCELH1Ljkf8VT3bxXBiiiRhIBhh7n4qordSNzcziNkdY89CK2Whfs71fVtOF9EkUVqqbt80qpke+CelRH8TpbabDZ3ejWsklswUSlMOR8+9RbrWNX11BDbBtqrtHPQe1a3o0kTaFY+HrwXOo3Vtd4GUhik3DPyRVHe6rLq18saKWUEgdzihQ6Pqt5ObVFkd84xV4seneGLSUTBJ7xl2gjkKfj5p/oia7cDTtMFjGQXlAziq3SY2WNkcENsJHHftQLd5L7UPtE/wB3eOPjNXV0jC+Y2wOxU2Nj3xxRPY8tmWE08b7WWMCQE/HNTZZI5o7CJ2AUoVyvf2zVfppYb1kZlOzCrj73uDTcRCZI4WLCCTep6bh1xis2bag5zBDdxggNBICo7kU+ZU+3+RuCI670P17U+7u7a5vPtaqsMbf5g9x2pL+SK91SG3tlWNoI9oI/HxnNQ6Ror2TTWe5j52NhxURTHDq7T2sm6FmDoR2B7VYatYRXdnP9l3K4gExTPVhw4/vWd099sYTkHPvWsUybyG6EsSxpsDZypx1ptxHKGJl/AOT7VR6ezsu95GAToQOtWlndXIubiV2RmcAKrjOKxljysu0oyJgOLhpGYADtmjJO7XQiVF3Muc9hjrVY7lGJn9Em49ulTrF43XeJsMhwazWtnXk+5dp3O3Q8cVHu7iMxjYRz1HzUic7oc/xqQVB5NVd/6hEqrsUYGKaLLoO7QT6DfR4ztxIo75FZSY+ZD+Vbe1jT7SYmxiWJkx8kVhypjd4yclSR+hrpgxV+zNceHQSoLeUG3Z7qcVXRt6ASamaK/m6QIT1WRo/yYZqBDgL8gYFbRb+Fbu1j1drW7t45454XjUv+BiOGH0qzs/BUs6759Y0+KP3MuePpWWsX8vWbN14/eDIq71HWrewlktnWUy9G24AxTIxi1bwl4fiDvc+IzNsxkQwk/pTotK8GxEbjqM/5Bayk3iXcAqWirgYyTT9W1W+ggtnQIvnJu6dKnI1lzceH7NsadosRYfckmcsc++OlY7xK0jamsshJaRAWPuarZNR1CY7nlIx7CrDU2eWzsZ35JUqTTVRElGYchevFHuNsmlqw++UDH8uKGDmMg8Cn2ak2LcZAV1JNaIhROYLyCXurqf51qL5A147qB97PJrJMSV3HrWpueYonYetkRuD8VjNrEy7QPplyuMnZu/Q1n4ssFrRx4aKWM5BZCMflWbt8hACcY4pimQsZG71HA9q6WYZyg6U3ILY/nSHB7YrYbvZuWoZUk8UcgBQfmmn/AE0TYA7cU4qd3HSnFCM8Uxt2OtEPKnsRQXGBmlzjuaR29BWgCTk1dWSf9FDnqQaox1FaCzIEUQI42ipk1jBbVC11CpHBkH9ap79915cSe8jH+dXliN13Hyc+ZWdmyXc/6j/Wph2ZLbSdqafIxHIRz/aq1OAMDtU+1c/4TKB/6R/rUBQcA/Fa9npO0WxGpXjW+/YRGzjjOSB0/OhQ2F7OSsdtI5U9QvSi+H5XgupZ4nKSKBtYdjmrm61e4kVhcXp2kZwDgZ/KptFfD4cm3BryaK2U9ydx/QVMTTdGtHUxm4upM8knYv6VXz6tEI1QbpSO+ahTancyMfKHlg+1LutajaWWv3FgGysT2bfftp+Ux8Z5B+lUfiK80i6vlfSrcwKyZdd2QG9h8VQMksp3SOzfU0eCFUIxyak4ZvB8n3TVvcHytFl4HFvHGD/uOaqbgkxEEbecVa642zS5Ix3liH6LVqxR3GFi2itPM6rFb2/Ty4VH54rLzcsqjuQK094hN7IF/CoB+OKl6J2dBG7k7ZSoXnGaN5rOC8ibmXvio1pLEGdZSckZBHUGuZ5GYlpQykdu1ZbGkQltu4j2U9BSQbQcAgkE5FFR967lTKK23zNvc9jUfMcNzubncMZqCzS3WdQQyQ9s561GWRQjJJ2J2kDpUeeV40UMuAp6Zp0s4nKp5aQhRjK8lvrUsVFv3k2FiOQOKufDX/S6YjEp588gllLH8HYVSSpE95DbGXasjYYk9BRb1Z4JFcE+SWwpB7LV1wku60GpXSRXBWJdqudx5/8A04pqOFhWeBw7M2Fx1HyapheNey5lYszLhSeoHtU6PFpCnlNidhsYdcZ9q52N7iwjm8/bZptI5zITtwe5zSTSRRRpJbyCZ1JUMTwpqmkcvH9lgl2g5LseorvOty8UKLuBABCZ6itRKhavEVUK2fNzkkHIqIypI6jlDtyfk1Y6mYwGxyTxj2qqgJN2vJKiu0u3HQ8WcZJwMdanacLeQztcqx4AjIHANA8raAHXKgcn60+JpI3Yqf3JISQCpVkFlhW2jJmTMm0GMdutPku3VSkq7YxJuK/w5GDio8jNdqsg4FrkEZ5IzxT5YmuYWLD1SBsEnuO1StbqZZWsN8swacIYU9Bb8YzUk+VAhiuZTuLqY3xwtVJDRWVth+HiPP0NPv1kFm4lYs5AdMdlNZsWUZ4I5LgiWXaeQP8AVkZFQLjbY6nZyL60GCW/qKelw812rFgvoygx3FRdYSRrQNxjeQPg9aTlK1zW2n6r5i43vszkD7x9qmaDpVjpUhmur6KOMJuKocuc9h815jDqd3AMBiSDwc4rp9UvrlSm7Zz1HWtXHJNxufE3jGztIpLLR4FHORKQPMz8msIzz3sxnuHLZPftTLW1kkfIBY981bW9qv2GTI/ellCDHX3qyaZ2HaQIYS4zkNwo70cO0cDqC29ipyD0p0RNrKiPzGHw2BRrZRLfTB4gUkDKq9/giruGz3aTyEdSAy4IrvJdV89CDs4f5zSWkcrRtC7gFUKsCOeORTbJ5hLLHGQ6su4Ke4HUVGtiCCNVYLmUEhgexUjp+RpbOHzZIJ4pPLlfIQnoCPejWcatG0auEKvzn+A/2BphhCQzMkkZktXDhFP3+ecVF7JM89rAdShO6WJj50eeOeD+RqlWaKa4aWKLy1PO3PSj3GpvBqAdoyYJFKtHjqp7UFUgSZ/sxZo+oJ61YzksreUxIgC5J6GrGCeRBl1BcjBJqNpcsKQyedFlgMqakwq902FUEEbgB1qZLjDJjLdXLTSyEsxwTUyODyVBTMinl/YVGiVpLlYFUDB2r9auLGaGOSSKQHGCGA71zyb17RLeQs/LKgUEqff4rioaHqG3Z3ZHIFCvWNtsl8tlQ8qRyMUK3uXmLxhGYnknpSJ3D7WVEv4QGZkRgckc4rM6xGsWtXaJnaJSRn55rSeUAwfG3B/OqHxO2fEFw+chwrZ9+K1j2l4gvhosyXMagHZIknP6UOWPyri4iZcbZmGfbmk8OuqXF2pbaDBn9DRdUwdUuyDkMwYfmK6XtzQARFdwSfwSqf51Y+OLZBr7MPuyRqymqu7O1enTvWpvV0nU1jF9qKxSIimN1IO3jlSPal6axZzRNNh1C/FrNdQ2ikEmSU4AFXet2+iSKlr/AIoDHbqFSULnd+VUOt2kMF2Ybe5ScBQfMjPBzUFLRjyT+tUqVHEZJGitw03OFIHJqy122ls9OtYZQFeMjevdSR0NQrDUrvSHZ7Iqrsu3cVyV+RUee7vL4nz2JBbcT80qC4yOmMiiWbMbSWIcDzD/ADFNAwg5zRdNX0znsHWnpFXj049q0Zcmysip6wjP5VnpBgv8Mf61f2rD/CLF+5DL/OsZdNY9jwktIXbliMZrODjcvsxrQYPmLtOBms9OCt1KuejmmK5Tg9QNuc1xFCQnPPSiVtkoORikBYnHsaVI2Y47U9l2tnsKIHzszmhDk4poY+X17UmaDnAXoeaAT1Iokh9OKEelAh4xWgiwI4v9gNZ8c/pV5GSYoj22AGpk1imWDf8AVRso5zWfk/F+f9avtPIF0nfk/wBKoJTyfqamHZksrXA0iYDr5X9TUHPowPap1v8A/wBJuB/+TB//ABVAQfrW9bpei285hSXH3mHFCSNpDlyWNGEGTge9ERWiYNjIppDUtx1Aoqw+1SEXeMqMZpVBU/lim1NSNQgJP5Cl4Wkbgcdq5QyY3LuBGabAbly3U55FWmv8aeVIw32kZ/JarZQAwI9xVl4j3NZox6m5Of8A7awRTKC1zCB3cVqL2QR6jMMeonnHesxCdt5Ac4xIOfzq+1ASG8mcH8ZzipSAzsPwjDdzTZZFb/JyNgz9achATa/vUW+cIFSNuSwGRUVtNCs47rw1/hzNtubxWuI/fev3R+gNZ0O7wmLbkj7x71pIm+z/AGa7sg8zw7RsHBXaP6VS6y0Sa5dGNfLSRhMq+wbnH86kq2XSG0eGBaRn44B9qKImSVMjcGb3oyLvgdmVQwb0n4qBNJLK4RGDBeSM1WeZ2haypmnVIz+8DbVAqZ5es6TCF1SymNswyrkZX8j0qs1AOMyKSu1s/NWui+MNVs4vIdxNBjHlSDcn6GtWcLBIZra5KGFwhwePake4ltZg6jcQvXrUhZfDGsEkwyaTdEeloOYyfle35UO+0rVNPzNbyQanbKozJA2Sufcdazra7RIX3qWmdt7/AHsVIjuWS4VYiUdRtIHbNQGv058yNomwMgjFG0u6g+3cgSfNNEp100rArtAVTyR+I0GDaGc9DinTygq6DP3iT7UOxG64YN3Rh/KtRi3lJlnbYgH8ILfrUm72wfaliZWaR19QGR71Hlgd9PMuQJQoAUDsKHct5X2fOQWXLj2qZNCKzRNcSxsr7iCOOtWE90i3LvJCrLLg5j4Ctiqq1Uh92eOmKOzERjIyjgkD+9QKXVEKGItIu5Rk8Lmm2jSuCsu8kLzu6YpEuERwk69WySPan3sjG3luDiNUTAA/Fk07EovZIRDMmCjP6x3BHFVOrzg2sUiYCkY+pB/4qQ06vZ+bcRhGhKK3HUHpVGzPcybEHpMhYD60kKMIRIA2MZ6UaK2RVkJBOOM46GpFkkaTwLIfSpyR8CpbELaNDjLzvvz+ddNsdmWyxQGRxlioBx2Ip4lW1SCcsSSHKqPftTrmWK2iZVXLtkA+/agvvlitsoAlsh3EdWJNZ2uhFjZY4pjlyXBkPtmpV3DItzhdyuihlZeuD3pl+UGmSRRgiXzUbIP4SOlLDcTx6j5pkDhIQmG7qO1F1pECySXLh2ZiVGT3Jo1ni3n851+6CjZ+RwatbV4ViKuUVJpVG8jO3PSoWoQSGSWAKI5DyvcOB1H1pssR7V5ZVKRgNPCMhe7L3HzSOzW06XSQ5hcZCnofcURrYyrb3NqTHPFwxHv2o8YRleO7SSIM37sEcBu4rNrUV8ll/i0TRWZ/6q3ywhPDMp6ge5FA0+JYztc4YcHI6VYapYT7Be2JYT2qhmKHDEe4+lVFvcSTPvkJLE+o+9WVMl5EFTMyp6QDnNOjeREJgON33vah25aS0KAnBajLtQCKXoDxis28pEqNre2to5p8M7L6VB7022he6maYv5annAP8qFdiM24VcttOQCabZNcE8ogTPOeo+lStyprXFuAIrgNJEnGwnrREfLvLBEoV+AvtXf4YJoGuUmhJGfSz4b9KhRy3TFoV9O3nisqcZ5d58y3JQ9T0qj8WhU1pdm3aYVIx9KtnS4cDLMowQB3qq8Yrt1iNclsQKM/lWsf+ky6A0JVfU2Vx96Bv6VJ1CVV1GbABBVTg/Somilv8SJxjEDn+VEvh/wBe27k+Wv8ASutc5EedfO3DoD0oF9pdzYzKl0hjeRA6Z7qehol1/lMBW4t10S+tbWPWobl3hgVY3icDjHQ5603ojCW6pGpyAc0VXUHIUVuDp3gcEgjUkOOM7TXSaF4NYDy7nUFB5BKDFPJdMMzqxwwpY1JJZEZkA5I6CtlP4e8KEfu9WvFPs0JOaharHY6P4cv7PT5jdfaGQvKybSgB6CmzTOZBX6dKNY8Q3I6+pKhwlj1PapVhkiYA91/rViIEwIkk/wBxq8sz/wDy9aZXje4z85qjmb97Nn+M1cWDkaJa7z6BK2B71jLpYkwZ3KCpPIrP33/10+Om44rQM+1gAc5I/Ks9eA/bZh/rqRrLo2MArk0QqwYg/lTAQhBHPxRhKjtzXRimeaUGKartIpH60O4ZfMIFcrFU2iiaCzxTNpPOaKsZJGTxSsnOBQBYce9DI4NSmAVcHBoTbcHFAEdRV5Ef+ni/2iqRuo+lXVuR9mgPxUqxJsUP2pGB6sBVLcLtdh7MRV7YkC5Qdtwqo1FAlzMvQrI39azj2tS7YZ02b/8Aw/3qDGcMOKm6eQbGUZ/7TDFV6EECunsvSXGV2kHrToycc8igquRmjQkHOelXaQXOFypxXSH0jB5703oM5oYLcnis1UiFVeE7zg9vmnbtiBG5AHpocbKOo+tOLKc4HGOKQRrjgZz0Iq110btMVwelx/Vaqp/VG9Wt8C+hyt/C8T/qMVCKQcTxn/WK0WpcXsm0nG6s3McYI6gitDdSkysW/EgI/SmZEWWReQKhXrYCt0KsMGp32aR4DMkTlFOGfHANR7iPfGQcE4qQ9tD6gBIkxG9hjB7EVW63cNLrCZOSkCITjHIpul3Sy2sCMMyQtgg+1QppvtOoTzgelmwvwBWJOXS2WLCOcgFWfGeCKaoBJIHI6kVM0uzEmhandSQZkMQNuWPACsNx/Solo6sQqgAMPVzxVc7doeoxoRuVuvaq+yhMpk5+6RVjehgSpHHuKh2LiOd45GIVjk/OK3jdAr2jIw2c57ijWtxc2cokildWHHBo0UqqSGUYbA+lJIqyqxQjtwe9LPglnVt523scVzx+OMc/U1DmaxQJcWdo0My/fO/Kn6CnvCUIMygDPWklSPODgAjI29KgBueQMx43DOKeuYgGI9XBxTVDbvTwPemRuXl3SIxQHHHtRdJZuJX8vy1AOGHPtXFi6A5U4PcdaiSSqrOYgVBGFB9u9SI51bC7AoC4BPcmiCQq/nwzZASQEYojTsCLZkGREY1I7EmoVwwA8sudmcRkVHSc2t3HEXDsjBjzWZNqNcReTMInkJZcAmlu52WGBZNrKc9+SM8ZqNeThZmLY3MMZHbNQpN80pbnA4Fb0XhKvrtpnkiT7rlSfqoolpHiMnHOcfnXWtowiEmANwz+VTLWDbcQ7jg/e2+5qyaYuQ7WzLDIz7U8lAGJ7/A+aFbvJcXShmGEGUA7Z7Ua6El4pYt+6h6/6nNSGhSz05YXUCeblj/CPaosRYh5t8qSrmOByXqTcgLLGseNiNmQDoRn/wA1BsW27gdyttL4P4/YVOiYraXblA8hVYwAeVPXNRYbf2siTzFZVkU+pW+BRZbaP7LAA+MxmZW/iJ42/wAqUSAWMMmwsrb0kJ7Gn2o8zSo42kHmW7FdpH3kPIoulfZXQWCe1uFwkqenj7rDkVc2YaZ4mLxvHMrektgxOB1BpWtbbypItq7innRMep9xVTEJoHlAVmCjcuOvwazbCLgwNb273FpIspx+/T2+alNcy6raXNpezxxHarwoEADtjqD2NQbCJruRbixuAbmOESPGBww7qRS3yJGiahb2oSFXCSxBu/x7UEUXFxHAZihVIMRzYPK9t30qpnt2tLroCr+pWHQj3FaaAQTec7riCeMqrE8/7W+fms5defaSHTrlGLxHMT/6TSdmXMTUDCMbWx3xXBys3qyzfhoUUsezBOOlTozCmGxuwM7ql7JOBBGZADtw4qbCsnl5d40IGQT2qus55DdK5ACE4w3tXSyEzz/eVumOtSxTbh8+sPvUN19zUu0uXZDhFBbr74pNDsWu/MuLjKWUCMXb+IgZAHzUW0uB5InEe0EcZNLwsux5LiQuyswQngFqofE0hk1cEtu/dKM1ZXDCeNAQMluDVRreTrEyk5CAKPjitYzkvQuhqTfTMBwts+f5U/UhnU5QBwoUfyp/htZTcXcqAELBjnpyRQ9RYtqdy2ADvxgfArdYiDdEqhzUvUdZl89EtmV4/LUcjPOKDIhkIUgc8c1obHwnbRBJdVv4rSJsEIPU5+g/5qzQz8WrXr8eUjHOBhatL/ULjSlhyod5EyysMbT7Yq+nuNH0+2MejWqwMuQ1zPh3PyOy1n57dNYVTHOpmLHaXP3zWeF3UAeIJM5MC5HzRLq6a60SWfaFV5AuAfapdv4P1ppdr2gjVvxuwCj5JqJrsMenwDT4JVlVXB8xejN3I+Kuk2jIvpGRjinWp2NJk4G5RQVc7BzRbPlXyOsg/pViIk2Gkl+XNXCusegWYPOWYj9apWYZJ9yau5oyujWCcAGNm/U1jLpYbbSEyqcZ56VU3hzfTkfx1dW4SPyyoBJ61QXDFriVvdzTFrLoQDceKGPS+B+dPjz29qE4PmVtijhIyCx6mmnZ0HSmqsjJ7rmnTBF28845olJ7ge/WnS8OQP1pkbDcM/nRJCuD70AH57ZNDYHBopNDYgA/PFABuufirjTQXtowegJFU7irXSWP2cj2NK1imruSYccZGD+dQ9dTbql3gYy+cfUVOzztJx3BoPiQA6izjPrjR8+/FYx7Wo2lEsNnuSD+YqKi9iakaTxOCezihXC7LiVP4XI/nXSsCRn0mnKeMDrQlb7o6Uu7aMmppYISScUSNHwNsbkd8CpGkpD5ZvJoxIN21EPQ/JrVaV4vubLYpsrGWE+kxPAMY9s9alVjpV3EMvGacgA78ir3xxFp7SW+p6ankxXGd8Of8tx1H0rPYPUc0gS4JKkdBVzaAz+HrlTjm2Dfmrf8VTMcjrVx4czLatb/AMQkj/UcUsMe2dl5X4NXjIZLS3lPG6EfqKpWGE56gYq4tJC+iW7FvuFkNMukna28FazPpt1eWmyOeG4UFoJRlXx8e9WesaHp+qwNe6EDBOBuks27e+33FYlJ3gvI7hc8Hkj2rYaXOAizRPjHq3g8/lWZWmRtEkXV0hbchc7GGO9EsLVnvIbUnaZHIY+wHWtR4rjt51g1+2j2yxSL9oA7nPDfnVKoMXia4IwAAzpnphv/AAav+p00ElxC8Nz5Y8uAWjxKuO23rWRgc+WjKcEjmreadRY3RDlNqHAHRs8Yqr04KsA3Ln2rEu1s0IwAKl2yCOhqrv0KP5iireSON1Jxg9hmoV1GF4PORW4iLDceYAGHAGMVJtZR6T/COR71XvG0TZQZFILpkb7uD71dC6uLxJpHYjaHH6YqIC20sT+LjntUA3OcZB4rvtPqzVFjkrIoMhKjnFJ9plLlmKljxtA6Cq/zSTuJ6U0SEn0mnibTtyvuJIBHT5pJbgMQeBtGMVD9Z7kfNKYGIHJqWGxXmAVV3E8HPxUcb2dm28nvR7a3LSBep60chSSFGCOpHerII8cGGDyk4bofc1Jhj/d+ZtBXsPeieW9yAduF+6F7CpCtDBMFA2iBckNzk1ahiRyQhMP62I9PYCjXT4vQIGEkpXkr+Gm+W5gaeYjz5x6V7qDUuyjg091VxukCcZ7ms2oZFCYZkjRi7Y3uByAa6Rxfar6WIgj4Of50stwLO1lhjJM8p9T+woGmFo4vsgQmWc7Qcfeyam1iVco/+ImaJF8tAFX2HHFSoYPL0+OUFTIznzOOdorjbm3gkWbduWTY2055HWp19H51vbwW8bBicNnqCazasiCGj+wIm/g5YgnnOaIbW4tpsxvG4NuHJBzx3H1omnWttGyLJiXli5/09P61KK2qy3FuiFF4dD1I4wRUta0rYlmttUGRiOZBJH3A9xVoYbC8lSRpjbxoNkz4ztz0b6e9QoJTB9ndgJEi65Hb2qA06w67Nao4ktbjhfo3Soo2oQ3eiaqslnIHZSVDrykin+oIpF1JpEf7TEvnbgWx0kX2I/vT0e5sllspVEqwfdVjyoPQ0eWG3mgE0kbLPHwzdhnpViGRQq1vJ5Fztjf1QA9Qw6rVNfancSD7FeW4aaI4SU8MB/entGzmS1jY5blMe4qElyLwAXL7LmEbcnq4/wCRWolTbLBAJGcdjVrGnmQHy1O7GcfFVMDFQCpFTluCsDbXOTwcUsSHK4SUb+E/FUrw/ZLf6hIPOaO2j9U0v8K+31PaqiWd/LbCggDnPWr/AEiSO00SK3cEm7bzZGHQdlB/rUvEJd1O169VdOkMEJhskjdIVB+OSfc/NZi32y6VF68enoKm+KrmNNP+ywSBlc7FA5GO5qus0EcKq/QCsznl06H06EteQIzgDdxmqXUJPN1a6kyDulPI6Ve2b4mMrD0xIzcfSs3BklmPck1vFnJb6GzRwXBGAskiIfy5qL5gknkkz96Qn+dTrBWh0UTkAiQu/PwMCquCM+UG5+laZ9DZEt5BEPSTKoP61Ya/q8SXU8eN8hbkjtiqecMCsiZDqcg0CKIu5kk5YnJz3pEjp7q4uchmO32omm3gtv3U2dhOcjqppWjI9IFDkg3Jg9auoq7fUreSPDXRKgcDJ/pVNdXDXlxuAxGgwvz81HS3w3TIqQiEHG07amg9QNnHapNn6bUMem9jn6CosnpTipTkRaYo7iIn9TWuoirUEj860WokeTZxMMBIFH96oYx90Ae1aHVQXvihGVRVUfGAK5ZNYgQrGsqFGJHJOaoSdzuR3Y1fNH5MLuVxtQ4NUEPLZHTNWLl0OmeP502Tbup6gbsjpQpeWJrbCTAQFz2xUaXljzTlLFAvamvjHAomg1PNGDjHNRUYntTx9aBzEHpQ5OlOJwcUjcigE3Sp2lvhJF7kcVCkGBUnTTi6TPfirZw1itCx2g0TXo8w2c38URQ/kaGu3nJ+Kk3QabRUJH+TL39mH/iufVaqls5AsrDnnn9KNfr/ANdIez4YfnUaP03S9gTipupR7Y7WUdGQqfqDW3NFCkMMcmulHByKdGSTRJNjBdo5A5rQkWDb7BcfgYg/GalwIu5SG6/h+ao4pJreUmM4B6jsakjU7gKQqKp/iA5FYvbSfrdwxENpjOGLn4qGAR0oEXmSSGaRizMe/epQOB2qyBjbeozjvU/w7P5M0wznY6yAfHQ1EIDA5IpNPcJfr7SAofz6UpHapEINQuYh90SHb9DyP61I0QiXT7y3PVCJF/vRfEUX7y2ugOJ4Rn/cvB/tUHRpBBqSgn0yDa1TXB7SLqJNpA7jpQdO1A2ziCZm8sHKn2qXNC4lkUDIU4JqFc2wbJxWdbN8tPb3UDxuHy0U8ZRwD79DUK6IFxZ3e3gwm3kJ7svQ/pis9A9zaOWjcgex5FaTR7q21Cwnt3jCSBg68/iHX9an/LU5Vuryny47FDnjdIf7VJ8MRQza3ZxXQJtUkDzgfwDqKqnDC7nJ5w5H0GavNBgP2KW4L4aTgDuVFMZwXm6QNQZotWurZQFCyttHsM8D9MVwCsm1h6u5qd4pgWLVIbkKQZoVJ/3AYNRUY4B2bfc1ZYzZoDygQVdOP6VGltI8gjBFWKRyS7mD5I9x1rmhzGBswwPJrWxVNp4J64z0FN/w1yxUDnGavktSwKsMH8J96DKgRlKnBXj61diiktNi5B6UFoSBkGr64tg743ZPxUSe22ltuMA4oKyN9v3hwOtT7STagZAGOASCO1RZox0NLYTNHPg9xt/KgmzKqFmRsO4yfjNNgQKV4KjOCT3NLDtcykrucsAlHWMOkj7sbOFB9+5oDTzGINFAgyRgHsvzURISbsKD5rk5c9qdbQTzt5USkK7Y3e9TCkdpb3Vsr75EYBGQZ3n2+lS2hVZUUHargHdJIT0HZRUa+M95dLImTI5AGOijsBTba2mnYiUMApy2PetLpdsLWF5Ht1dvLLL5hwEx/U1mrIrBYmOTYcTz8F+eFqfe2C2ZgjjkEt3KAXVekS9h9aTRrgpqdu3liaBX3y8cMf4fyq0W5S2F9qNxHH5kxbyVx+gFZ2SIF3ai102OUykojF5TjIDZ4Wj6TI87316H9NvEuwkcs7cAD8s1VTs5soo2l3Rs6s6k8Mc8mlu1ltb64wzNau7eWFOASBgVG9C3gaEWezYwmhfAU8j6/NShEkQimmcl5YkYqD0BqNapvht1XPmwxq2fnmoyXLSSqgjPIIJP/wCnai7S8QxyNazMBGu/ZIx+/wDFBWwimZrcDDqN0bfGOKCW36E6P6pLe53knrg8URrwWupQOVYqiYbH4lPSjNRLqd0uIprg5Yr5bj4FHubz7Q0EMSEEReXLk/5nOQfypl9Kt7IGK5wxXH51G1CCS2EcsTgtgEqDyPirEpJ3WJVIcrjhuOVYdqjXKW0k/wBqjkUu+CyjsaLqs6GYF/u3CAt8H3qDbQ/vSqkH5FakSpyj9ySOmccVMSxePQDqpY5+0CJUx1GOW+lRoFld47eDBaVxGBjvWi1ZIFsrqyhZmijiCp/uHOf60tJGavXVoiRgEjmrp5hBaoZc+VHGuT8kdKz2Gumjt0XLSEAU+/klurk2ay74YWwMfiI4zUvJDZJjf34dVCRR8Io9qsHhkIypyAMgVM0fwvrl0nnQWWyHGPMkIVR+ZoOo407UTYm5iuHRf3hj5VT7Z71ZOF9gXkjQ6PPI52vIQiAex61SR+mI8VZ+JJCYbK2HUr5jfnUXTYHnvre3ByGfLf7Rya1JpLdrXVX8nSo7UgAxxLGB8nk1WK+0AZ6VJ1qRpZ0B5LMZD/aopTAqYzaUV1ym6opXD5BxUpXQIR+LFRzu+8cYqxDiSrgd/enMu3qc0sRDEZxSqyKCGwfaqpsaqxxmukIVSveuBBbgYof48nNAKUk8d+1StXBjgMfcBEP6UGNDJcwx9mcc0usyb5QOpZyxojtJhMt9boRkNIoP0q1vJpGuJWKEKWJzUHRGVbppughiZvz6CpNszModuQfesZTluA3k5OnzbzyQAKp4OG+KstcmBhWMAD1dvaqxDzxVhl0OzA8ciu2lhnNByxOTT1Y4+laZEVPT9DTWQ7a4PgfOadksmTQQkODRcAmh4FEXjijLnUdaG/Sisc/ShyYxxQDbpT7Z9k8bdg1MbpSKefpWosXrBS/GODmp9o3n2V5EAATHuA+VOaroislspP4kx+YqXpT/AGe9TJG1vSc+x4NcsnRSXGQ4YcdxU65BfTyf/TkDfkaFqcXlTPF3RytGsSZrZoT0ZSv5jkVZ051AHxRovu0BRz/Wix+lsjpW4aPlCk8A5rliJA9HNEQq3U08MCNo6CoGbcYUdc094SOd2adgl+R1FE8slRg0VGOcE96HI2BuHVSCPyo8g28HH1oDEAcUF/dqt14fLAnfC4mUf6W4P88VmpSVcOucqc1feHJ1cG2lPp5jbP8AC3/mqnUYHgmkt5Bh42INJ8XL6t7iTckNyv3Zoxu+o60umWE+qiZbR4fOixlGcKzD4z1qHpTfadIkt8/vYW3J8qetR4pJLK7W4XOOjj4rPVSzafd6TqVr/wDUWU6D3KcfrUCym+xX6TKSoJwwrbaPreoWqBre4aa3dciOb1r+hp+p2ei+IYyiwR2N/tyHj/ynPsR2zVvK9Mr4igNrcvJHgpcL5ikdOetWlkCukWjYVVdQpcDkUx4JL7QZ7CZGXUNOJO3HLL3qDpM8smnQRochXKlf6VjqaXHsTxE2Hs0V94CtyfrQIfu4HPv9Kh6lP9o1EkHCxjYKvvA/2c311JdrutzD5Dcfd38Z/KrjODLtGDiIgozbccgiiXHqX937c0y/tm0+/ls5TuKNgN7jsfzFI8qLgr2qXcZJ6vLG9iPanbBsBbkdKSaYSOCFABHNGSFmUrkHjNJWkVwrDPQ9M0BkZtw9ulSAgJGDjA5qKWw2Ce9ajNQrgJu/Oh2scRnIZWLE8EdhUi4bJ24wPfFHsI/s8DXLx5O0gE1oJbQtv/cx8kkJn+tJJEFLRF/VnGR70lzeyCyMMfpZ2zx1AomkaZLdyRh5Sgxud26KP+aBXkuHAZB5YQbAq1Yabbz2knmNBmRhgK49+9FieztHVplPlJyc9WFc2qXbW1xfAbYJAVRPYdKzaQe5vEs7dBZrDI8cm4uV+83/AAKSeSO7f1XjERkb37Mx64HxVXYRv/h3nTttLsVUd6nafDDDch9ynaCQG6Edz/xWOW+B0V72YWNqUt7aIFjM4wx9yagGJ7m8WBXdYk9Idvb3qwS4t4Q5kLPJMwZYs9u2aiCeaSSeGIjczgsxHT4poSPsrPE8jgKqR5jB7jOKYs8NxEIiGypCpzwCeppLq7luZfLRsRgCJR0BC/8AmoscUlrOiPzyHOPbNRXLPJBe+lyFJKg+2DUidlkmmlyIxHIAAPnqaitJua4JUAqxPHsaHcytLKFxncVGfyoiRdQvHc3Vtv52KT7NUS5kknitizDKpsP5Gj3N20uoecy9E2N+VCkK/Z5JAMCOVWH0PWrENmk8y4Z0Gwja2B37UjS+XJIspG5XJOevSuUxwyxs4/zWK5+Kg3twHvXdxkA7SB3FWRLQ76QTyhFHEbHaR7GpNkBGc/i+ai2kQHJzirfUbL7Fp9jcO5MlyGYp/CAcD9a30m3aPOYtaEqDLxqzL7A9KtLqOWWCe4dlQDIIVsjOKo9Gljj1ePfna6lTU+TzriAW1umJLlyige3c1mxdhaPG8Vm90iFppP3FsMdWP3iPoK0mk2OneHoUkaBL7VWH4hmOE+2O5oFp5dsFaFSPIXy7df4R+Jz8k1Bu72KzRi0oyTuBByT9KxasnCdq+vXbRST6jO0m37kYPpB7DFZmxDzzlpBl5myxoN1LNqVz5rjZED6U7VLBNrp1xdEgHHlp8k1UV19P9q1J3X/LT0r9BVhoCYa5usZ2x+Uv1br/ACqniBWM+5FX+w2GjKpwHCeYfcs3QfpW+oiunYy3ruPuJ6V/KkkbA4HJocRKxqOcnk0SRc81rHiBjIwjz70kdtdXHpgtpZcfwqSKl6JALzVIbV3Cxs2XY9Ao5JrdDxPLZRNbaDHDa20a4VhGDI/ySe9LdDzlg8DbJkZHHYjGKRjz1+a1uq3512Bk1FYvtOCUnCBWB9jjqKx69OexwakuyzQiE4J96c23A9/amFs9sUyQ8YzVZFsiRcNJ/wCmhK/XpUa7YyXJz1Ax+dSoBtti38b/AMhUOP1uXJznOaNLXS4tun3Mh/GVjB/maJGwVVB6CnH9zo9rAfvOWlP59KCm5jgmsXmtxA1tw1woXsM1DTrkU+/bzLxueAcCkUVudOed5PJyKQZziuyaUGhHcU4NximH1fBpSoxjvRQqeq8U0ClP3qMloT0RgAMg/wDmgt1oGmkHBxSmkNagt9LYNakE/dNSYyww23I7Gq3S5cO0Z/GOKsoiyoBnPvXPKNyj64kbyrcRjAmjDY9mHBqt0uTy7gg59JDYq2lBm0tmA9UD7uP4Twaot4ivlbsTj8qmPwol/F5OoyoPuk7l+QeRSKRz2qXqsZ+zQ3A52/u2P9KgxEM2DW4zbyNbnOc9KIp2jPXmuRcDg9qYvD4FUG3ksBn8qIVZcDOAaFgFueMc0T747DiimFBnAbJzTJEULz96jyRgIGDc5pxTemeMioI1k4iv0ydqSelvj5q28T26SxQajGDlx5cw9nXv+Yqnnhbbkn5+laDRWXUrFrIsN8w28nAEg+6fz6Vm8Xaz4z2nT/ZNQR2+43pYfBqfqVqFnaIHcmNwI7g9KrbyGRJHikUq8ZIYHqDVvpxN9pIC5M9tnPuUq36k+Immag1ixt5s+UfusOqH/ir2zvoJCCH5PHmL3+tUM0KyLnGTUAwyRsSjlT8cVNbXbcPPMbiO+jG6eEYLDnzE7g/SqzUIDYzSXlov/TXAMkYHRW7iqG11LUbWZZUnYlSCK0Gja1DeJJaXKAJI+4rj7p7kVm7J/jOQcrk53HrV/wCHnkg0qVtoKzPzn4qu1XT5dMvJLeQblHKMOjKehqw0KRZNISPnAkZW+M1r0e1n4tiElhZ6iU2lT5T47jqp/tVNbsrDpu4zU/V5PN0G4VZWCpsIjPvnHFVds4hRXOB71mcwo7uCm3YQakxPIqYJK8Z+lR76O6tblI5otrMiuvypGQafKW2kE4qQDfG71Nk/FAd40Q7lB44zSz8LnNRp3BXbuA3dz2rYNZwpcycOC5+5GO/yfipV4xWHym9So3pI7n+9dZpFaWRSPJlmHrcjkL8UKNnM+U2navpL9F+fk1fSQSwt4GkNzcrlIhkJnBduwo80zKjNJnzfvCJfurQFjFtCsjZknOWXHXNMjwY3Zjskbh/mpsO0/TptSvQ95cCGAjc7t2A9hUy4Nv5y5jH2WDO1M8t8moFpK65fkjOFU9KSUM58wtlnOAvvWWukq4nhe2CofTGMIhHLE96Szia5uljdwgXG5vaksrcO3mEhWUEknsPeljHlwZXjcCzE9QKBLtljupJw2+QelRTIQyxykkmRuW+tDt9hcEgll5/OnSnMU854OOPrQo9iSxQMMRoefkd6G0hNxcSMzbVG2NSf0odqZGaJN+EUBc/NIhUFjjq5PP8AKoQZ0UQnnl4yzH6VH34hsW2kAjJP505nG15QeNwCjsRSXsx2RxeWqGNG27fbOc0kKanqmmOSd+T0oMbn7LLGzZ3Ljr7c0kcx2xuDwVOf+ah+aDE2TxvrWkFupiqRxb9xUh8/UVHhiaRyxPU5OabDHJJKWJ46Dip+wxLlsxsOMEYzW4zamaHZx3GogSlRBGN8mT+g/OpviQloIZiwIEjLTtEt5F0dZlVSJXZmJ9hwKj66Vjsoo9xYu45NYt5ak4UpVjcRsp53DpV88q6TbGe5GZp1xCoP3U/81F061jVHv5+EiB2f6mqLDBe6td+YkEkgPCDHatJOwpL3UbjcPMZEY5xTLeyeSQtIxb6mtJa+EfEsigrpU2z+JlwP51F1LTb/AEy4SC9iWCRxlRuGcU4LtGhiChYxgsThR80HxK6i5isYmykA9eO7nrUqE/Y4nvpCG8vhM92qkiZnd5pDlnOTmsKnaJZ/a79ImH7tP3kh9lHNSNcmNzeeXnaCd5A7e1SrBhp+kvKy+u49T5/gHQfmaq4m8xmmcepzk1pD1iAyCee1MlV/u9eM0WPmUhjSt6hkcHpiqAafOLfUkduFYFfpkVYJcSRtsJI55NUt0pOQM/WmxXl1ENmQ+OhIoLy5YRxmUS5QDOcd6o4SxBY9zmunurq7wszYUHoBiiRKcAdhSY6Nkyaa/Qk9egokuAQVp1somukB+6vrb8q0h+oL5FusYP3VCn6nk0DTrdp5Y4EBJkbaMU3UXLSKD1zuP1NW2gp5Uz3PRYIi35ngVFnNP1NomumVAdsYCL9BxQPUqPLj0quTTiUbn36/Wo2oTMlgyk438flXNu9KgElixPU5ogpm305FPTJGK7ONOApwWkHHFLu9qNR2BmlIY9BmmkHrg0aBJfKMmw7RRUcUjdPmlUgUhweRWWTCDTCOaL1pjECgYQfamkGiZzTTxWoh0LbGVh1U5q5WRWTjjcOPmqMNirWwbfB1/wAvp9KljUWunSDzPJb7kq+W/wCf/mqfUrdoXZHXayMVb6ipkLMsofPAPFTfEaJOIrtDkXKevHZ14Ncvbd6V1q/2qye3Y8sv/wCIdKr4wfbBo2nOY7kqOvUfUUS/RY7sugwkg3rXRzpsTFR70rEDkcUyM5pxGelCJURDoOMEDrTgo4J9qFbKwzjBz708tzg9RRoVAmCGPB6U3bx6SQK6NS52kfSnt6CFB3c1mgLOSMEc02yma2uwoOEl4yex7GnMQWyOooUihoicc9qvYufE1qtzDDq0R5f93cr/AAyDv+Y5qk028l03UVnT7nRx7itBod9DNaPb3AG2RfLuB7fwuPpVDqto1rdS27D1q3Hsfmk+F+xbajCkUwlh5gmG5D/ao9tp15fO62ls0zINxCjJA96boV8lxbf4XcEK2cxMex9qjvc3lje+bBI8ciekgEgke1TqrOU8eG9bdSV0ycj4XmoV5omr2GLh7G4h2nOShFXem63PO3mx3MokC4KFzx9KuLTXL5IxB9sd1HJVzu4+c1bYzJpVafcQeIdNWxlKx3cQIiZjj/2n4Pb2qr0tZtO1CfTrpDGWPIbsa010NJvLg3MkS6bdgeiaFcRuf9S/3FR9Vgi1pfJlYQalCuI5SfTIOwJ/oakaUGsTKli0aggyOF/IVWySnySc1L1W3uooo/tCsPLcowbqrVDfaIGHXikiN6lrFq+j21o5VLyOAG2kPG7j7h/tWWm8+B3imUh1OGBHIq6064P2a1kDceWpGT07GieM1+1W0OpRFGmQeXc7Oh/has75VnXHpHcHmk09EkvN8igrHz6uhPzQJZyYeeD8VPiECWe2EMTJwXPvWmXXtyCHVW3MT1Aoal7OFkYfvH6EjoKLEsCQBZPwtkD+I+5+KiXs5uizgERx/d+abWTg/wA4xuI4zwvLN7mguZFdVyzbjuYntXKGdVjVfWTuY0W7kDt+7XPQHHxTQktOI0jgRcNtx06Z6muhdZLgcYRTtGf5moKTkJIxGTIcA9xRLlpBbpbAbQSMkdalij27iaaaV+Ilyce4HQUKR3k3vkqpGcf2pLydpY0hQBQoA4GMgUS0aInEufQNxA747VFgToY4vSfUBuNLIwNsifixlvrRG3XDzXRULCXyFHx2oAmgyZGzktkD2oU9JAkZLZwvIA7muUgYDcEjf+VMtpAYZzIuRj006YZhWQ/fK7fyppHOwaw3Z5xlRQWmRkR2PPlEH602SVBDKD90KNoqGXV0CjgmrIWnwXKiJ0b+HApIk3MWI9OelIkGwgupx74qz0q3S7vooCPRnc/+0da3qJtP0XTcCO+uExDn90h/GR/aq/Vp5rnVLyWVskufjFaO5ut8hVmAROIwo4Udh+VZORxNcXEhP35Cc1nfK6XmlT+ZpVsgc5C7Me3PNQzBJq2teSh228P35OyjuaXR7G7lgEcR2B8ku3Cxr/EatZpNLtLH7HBOqQg/vCT6pm9z8VL2o0tpaX3kxs5g0+E4RR9+Yjqatl19rBBDpUCWcRXGVQFz/wC41mf8S0/kvcKWUYUnt9BUG71qM5SINI/Zj0FS8ov9U1+7jtXluL6WUufRH5h4rNaelxeXfmSuWlkPVj0FCiSa6lM1w2eOAKlX8osLPYpH2mYcY/Cv/NQR9buxczraxHEMPAx+I9zTtIsxc3IDqREg3ynHRR2/OoMCZAOMn+prTyPFpGli3IBn4kuD7t+FPyreMSq/XLk3U0cIUKD6mA/CB0FBVVC4z0piB5C0zjLu2SaKqhsEcYqhIyA5c8selc+4EsOhpvO7gU95FVRxuPtQAlUbuRQnjXcBjNE8zzJSx4PtXMMMWznNAzy1C/dpJFMWMnrRCxOBwMUGdi7dc4rUDHNSrSNltDJ08w7Rn+EdahHJZVUeonAqy1R4orIRRn7qhB8nuaUViAzXLMeRnitBHGbXQELcNdybv/avAqn0+1kmljhj5aQhfpVzrDyeaiF18qHEafQVjKrghNheQoJ7VWarJmVYweEHNWDuq7mbhVGapHYySFupJpjzTI5ORT0GOaYvAogPGK6MQ7YXIAOPc0mRE5xginI5UHAzninxiJlC+X6qNCGfdBs2D44oLvIF27sL8Vykq52mkmyxyOB7VLNgOa407yyO4ptRkmDS7Qa7NcOaBjjBoZ60RxQzxWgmKl6dN5c20/dbiofenq3II60FyQ27Z0JNWkSh7Ge225K4ki+GHUfpVVbt5saSDr0P1qbBMY7lJM/dYE1zsbimuwY51lTIH3s1Y7Be6cQgy8YMi+5XuKl+JLGGF28pw0UiiaE/B6j8jVVo9y0EgweVbcB7juK3izQFII4NGX7uadqMAgu/RzFJ60PwaGCOmaqCo+cUQYzn5oMS80TB3YrFaSEOBTZCXHpOCO9ISMYx0prkhsqMZoOQ9iBnNOZPSWBxQj97JHWnIfY9e1UMhka1uVnUZHRl9xWgvIItXsEeDc1zEuVP8ae31FUTjIwRzT9PvZrGcIkpRScqR+E1LPYrplaOXzF4dT0q7/d6raC4jIFygxIvdh71M1nTkvLFtWs4+VwLmIdUb+If6TWatZpLK6WeIkYPI96dw6EeJ433xlkYHjFGi1WeH/OhD54JzgmrOaGK+t/t9mOP+6n8J9/pUCRVJwVVh7+xrOlOGvtk7YWI9ieK59eaTBktEyOAycEUDyUVTxz9Kase5tqIWzxgCtTE8mx0nUdN1u0+yameHAXePvRkdD8is94i0S60q4KSgPAwzHIvKuPg1CGlarE4ntrS4yOfShrQ6Hr3mQHS9Xt2eNuDHIMEH3UnoadJbEHw/do9jJasqmSMkqT/AAmpXmvJZXVuGLK8Zzn3HIpNU8Ny2/8A800SQ3MC8uo+/H8MP71Fs7k3KsFjIlIKlfkisZTncJVSrHy8g9qsZplS2ghRSqqAXP8Aaq3GzKtkMpwR80+WSWYCPcFTHTua1JwJU0j3syxoNp7nsKPdLFbQfZRhmA9bf2qOhEMRCMMbvUe/FNnmEsgVfUfmknIJEEjG5nP3cBR/ehrIEMnyMBqGwYyhc9DyaNIsCxA9D8960prQ+Solz16UaMkgluXIwKiCZ5pgr/dHOP6UdV3uWzgf0oppxGxc5y3pU/1pXPlptTv1PeukYymS5dfQnpWmXDbhGq9TgmppNpEz4QInXGPrQoER0mUgen7tMR2DsB37+1dvWG383nLA4popLpjGQMYVlyBQ7u6AUDcQAMCg3VzvZVPOABQwpkbJHHemktdHHJcOF6ZNavTPDcFvAl5q8jRIeY4h/mSf8D5qL4ehhtYzf3ERccrCPY/xflVlcXvnBrmeQkIvqLHk0t0km1X4puoZLuK0tIlht4k4Qc8nuT3ND8OnaLyTOGAVQR2qraUzTyTnPqPA9qm6bIYbaZ3X0O4+p+BU21pMvrkwacS6jzZchD9aj6PpLzr505Mduh9chH8h81LTTiyjUdXYwR/9mDHqI/tVlJa3OrWyq9xDplggwN+SzD4Uc/nWZwKbW9XDq1np4whwuQegHQVURWjO3rbcT15zWvtNG8OWh8uSW9nf+IKqA/rT59N8Pso8p72BvcAP/Sm11WXXTFK54+lSIbEL6liJUdTU3U4LG3CLa6m1xKWwYzFtIH1p1sGCPJO7CFBywNXhnkGPybe3e6nG3Zyi9NxqjZpLu6a4lJyxyPii6jdyaldAZ/drwBU7RbBbiRmlOy3iG6Rv7D5NXtU7w5bxWwGp3a5RDtgj/jf3+gquv5zeXzckxoTk/wATHvUzXL3zpVgVBGdoVUXpEnt9ajW8cSqEYFV6mtIciMF2g5HxTWzsOTg5rnXahkjkOAelcgBjyxy3eoGbGLbi3HxRSox93HFLujUEygn+ECkeQM6g4ANAFovUuBya6RPXs6AdaJuVSxHQHAobsN248mgjMrYJPAoGQGPNSZn9GBUQnLAAZJPArUE7SYQzSXLdIx6R7selR7x/NuFiU+lBj86l3ebK1WEHmMZJ93P/ABUSwiZ349UjnAHyaVKu9HhNvp8+oMeP8mI+7Hr+gqEY98u5nyFGQM1Ou28lEsFb0Q53Ad2PU1WPkSfFcrd1ucRH1aTEYUHluSKgQLk5p15L5twT26ClTiMkV1wx4c8qbnk0+M80ynJxz2rViQXK5weKaVO8EUhOeR0puT71G0mBkRSfvE0J25JFMDUwsc0D6RhSjrntT3UADjNZZCAFcwA6U5sbc0hx2oGEUwgZohpCBitAJHNIOKc3Wm0FjpUqh/JY8P8A1qecBevI4NUUbFHDDqDmrqKTz13nHq64rGUalWkB/wAQ057Ucy2/7yInuO6/3qgu42t51dSMfFWdiZrO5W5jbAU5+tSfEVosqLNAoEUwLx/B7rWZVsRYohf6cYUG6WIF4vkd1qqGM89aJpd1Na3A2OyMrZFH1WACVbuFf3M3OB+Fu4rqwCrYNEVju5qOh9WTRsrjNTSjBs9KcG24J5+KGCF57YpNxIycmop8k+AMqMVcaPotrLGtxqU7whuVjjXLn/iqeww+pQrIMoDuxVzqUj/4Zc3MbEuBn6Z4psWJ8P6LdwldM1GaK6zxFcKAG+hrJ31tNbXMlrdRNHLGcEEcioEUtzHJ5qyPuBz96thdTf494eivHAN9aDaT3kT5+RTYrdB1WS0n2sQ3pKMrdJFPUGna9pMccSahZAvZy9PeM/wt8/1qqlUsRtGHXvVxoertCrwXCCRHGJYj0kHv9algp9J1G40u9WaE5To69iParmWGK4gN3ZjMROXQdUP/ABUbW9K8lRd2o821kPpcdj/CfY1Xafe3Gm3IljJ2nhlPQjvTs6Sre7t7W7LXdmLqLsN5GP0rSWurW7Ju0u2tbfb1wMsf1qpmtra/t/tWn88ZkhPVfp7iqSW3khfzImKkfrU3SSNsde1ZVNv9rchuQRJj8qGupXE7bbuC3vUI9SzKMj6HrWTj1C8TGVV8e4p0up3Tt6EVCfYVOWtRqBPc2Nwlzp7GEE8xmUHH0PcfBqXc/wCE6jcJPNH9hvVPNxAPSx92X+4rBStcyjMkrn4zQ0e5iO5JHGOnNWSpdRu9Z8MyXkbX2niOaZf85I2yJP8AUv8AcVkb23mgYpLFLGw/iGMVI07xDdWjAuXBBzuQ4Na2z8VabqUCwavZwXwPVyNso/PvVl0nbBYk24LcZzRoHjjBbILEYOe1ba48K6PqieboGpKspGfstxww+nvWR1jRb/TpWju7Z4z744NaAPMBcRpyOpPzSHc77T0HAqKheNuO1HSTgHuc5qIPDJGjscAk8U+RiqkqfvjAFRVQ4xnnGaUSlWUMeB3o1KlTyF0S1XAVRlz7mo8p8td2ec4FR5ZyTlOhbcaa7ySAewOaGxHuNm7nJ6UxpXmCDHpUYp0UKswZuc1IWOPG1eT7AUS0KOAAbm6mixj1iMDljgVYWOl316wSC3f6npVtBoa2eduLq5YYB3ARxe/J6mjITyReUIt2yGNQBkcH3ql1K+kvpFtbVC6qedo+9V3JocLvu1TV40Uf9mD1YH16VNs7iOBhB4e00FlHMxALH8zwPyrFrcir0/w1ciD7TfsLSEDPq+8/wBUifV9MsF2xQQtInEbYyV+g6Zo2p6T4q1KXMpjBbt5ylj/OqK/8O6hpjZvbSVc9CRwava9DnxFFPIXuEdn7Owzj8qJDqVqzbjKrk95GP9KqGgi6bRSJZxvzjj4ppi5Vd3eqWgVcSJleyCq641aebdHaBlVvvMepoKWUQOMGp9naqiedIFjhXqx7/Smou6i6dZtkyOWwOWc9BQNV1F7lVtIPTAh4Hdj807VdTkvP+mtR5duOgHVvrS6Pp73UyxQgburseij3NXRt2l6fLdTrFBwQMu5+6i9yat9Tu4LSCK1tFPlx/wCWD1lbu5pb69ttOtTaWaho24d/xTH59l+KrbZGllNxcffPT2AoFtYSWaWTLMTkk+9SThMt3PHNJCNrEBhg8imecCSzDPtQDmBAYEZ3HJpI5RF6tmaKhBDMTnNDURFmBJzjpQMeYu/oGARTcHOCMAd6FKCCNp47U1S+0knrQELru60jybjlRgUONAfvNj5pZAE6NQCLZJGalaZDnddNjCHCf6mqIqNNOscYyWOKsL6dLe2WGHGEG1fk92q7RCvXa4uVjDFgp5J7nuattKjFsr3rY/dDEYPd/wDxVdptrI7AKN0jnAq01OWHEVlFzHBkEj8THqaluiTdQyzmUyMSWPPNRL+crCfc8CpRU5IH86pryUyzcdBwKxMeW8gV+8M0diFjIFAHWidsV3l05WbKpzRVXIxQ0Aoy4FLVk0UKQvI4obYzxRt2RigyKVNZlaNOR9KGTR8blAIoZUCqCp24p0qs3J6UgIFdJJ+6wOuayyZx0NMJGeKazH5poLHsaAnamGnAHFNPWtBh60008rzSUDQeam6fNsl2noah0qE5BBwRUs2L7eSNgYn3FWGkOLqKTTrg7Uc5hY/gf/g9Kp7WVZED/iHBFS0KkKwJBBrlY3Ki6naSQOXKEFWKsPYjtUjSZY7iBrWY4jl43H8Ddmq2vVTUdNN2mTJCAt0o7js/9jWZYG0nIOdp/pXSXhKdcQSQTvDIMMhwf+aaDVpcIL6yV0O64hX/AO9P+RVUvI+a0iRAklzKI403NjP0+an3kkOn6atrEscs1wQXkPbHtVVa3TW9xu6I42t8ipmrxELbzqCUK7Q3bNZqolvKY7+KQ4A3YNaWzjjm822lzh0Zfz7Vk5Rj1DtyK0cMrYtpyxy20nHas1YopECAg9Qeatre9GkWUZjkPnk7woPc+9QNQ2vfXIj+6ZCRUdIWaQs7E/Wteko6ySSu00mAzHJwOKbKhZg6ZDDuKkqFAwRkEYpUUEHPAoJ2gawYGa1uI1kSTiSM9HHx7H5p2taEvkm+0xmntG+8PxRH2Yf3qnkQFuuPYjtVnoerz2c5UsFZvSd/3JB7MKaFJBNcWFwJYHZGHIIq+tpbDWIdjFba8z3Ppc/2NWOo6Paa1CbnSh5d0B67Unk/K+4/nWQubSa2lKurROp6U7P/ABaz2TWzGOdCjD3psUdukwZ0LJjkUyz1kyRpb6gDLGOFY9VqdJY7kM1nKLmE/wD3D8qzdxZdoTIN3CnGeKYIgM55zUhMFipJGO1I0LY3owI75qzJmxDaAFeBnNAazI9S5BHep8G4544zRWwqgmkqIFrqV7ZMMkyKOmeorXaJ42WVBb6lFFdQYwYrgZ/RuorMXKKw4BqDJAM5FNfGo30ui+Gdb3Pp9y2mXB5EU5yh+jVmde8N6ppTjz7cvGeVlTlSPqKq7U3yOBbiR/ZQM1tNH1LWNPswbuNooj/2ZsMrf+3tUu41xWF9e4jJz0pUgklcBVZ89gK3k7eHJys7aaUmJydjYUmk1DXk0xNlvYwWeV4ZYssfzNTyTxZyw8L6tdYaKwfZj7zDAq5tvBsxYG9vrO1T2MgJ/lVZf+ML24wD5rgD8TED9BVVNq+o3LYDhB22jFWWni3MWj+FrKMGWS5vG5y33Vz+dL/j/h7TYcWum2KyZ+9IDI35V5+y3c3Es7t/7qctngeumqmpGm1Txo9wmxC7KOgVQi/oKorjWb2ZSIo0jBOemTQ4rZMjAo3kKD904FNRfLXQEepXMTh50WYdww61aWOqRTNhN0TnoqtgVXvDngrkfFR3syTlCQaupWfLJpR6JN6SOJCMtk96l2Wp6hGCv2rzFJwUm5XH0NY9BfRjKTPxx1pJBeyqRLM5B+az4cteVaLxBcaHNuMcZt7sDhYTujY/2qvt3LxgDABHag6bp7YMm0bR1ZuAKdNf29kHS1AllP4z0FXlne0mQw2iiS6bPGUUdTVRf3s9/IFyUhH3VHShET3MpklYsx5q50zR3lg+03A8i1U4MhH3vhfeqqPouly3kpjiAUKMvIfuoPc1cX1xZ6dp32e2Bxn7/wCKY/2FC1HVo7WH7JaRCOPtGOrfLH3qsjjdz5kzeY57e1B0SS3ErTzHLEfkKlhgI1wRQctGTjqRikVgwxQEzkk4xTRHlcYOKahxxnNEaXaNoH50ASCrYU5Arj1yByRRIWXcSy9fmmlowD3NABFznPGOxrm54x9acSBk5/Km7iBmgFOGAzjigyHdjJwaM8jc55+KbZQtPKZGXESfe+figl2MX2eAzSemSQYX4X3/ADqDk3FzkZ2DgfSpGozvIfKU+o/eHsPapGl2gdtr+lF9Ujewq2SIm2GLK1NzIMPJlIR/Vqr5VwcgEZNTL2cTyFguI19MY/hFAdkKl2PpUVz3ut9RD1G4McBQH1vx+VVA5olzIZZi7e/FNWumMZ3s4AYrgMmuAp44rQdGKJ0piniiKMipRwGcZppBzmns4AAAFDLVApYBhSsn4hyKQAk9qd6geDitAdJSZrgayya3JrlFPwDXEY6UCAUjdacBmkYYNaDMUMg0UnmmHoaBlJS12KA1rMYZMjv1q1TDYI5FUoOKn6fOP8pj/tNZsWNBo90tnMJh6kIKyRno6nqKD4h0+OPbJb5e2kG+Fvjup+RVczOH2g8jvV3ol7DIj6fqDFIJcYfGfKfs3/NZaZ7Tbp7eUL90qcqT2NS9Ttg8R1G1A8snEqD8B/4pNc06W1unjcYdTyQeD7EfBpml3bRsY3UMjDDofxCtSsoEuCo96tdA1W3jR9P1OMy2sh6g+pD7iganZG2kSSNvMtpRujfH8j8iq+WDnI61RpbnTdEz5kF/LMnUL5RB/OgX10lrCVZVIwNmP5VQpJcxgqrsB9acsbSHdIxLfNRdixFiS+eWOTRWJx9aYiEDrSkncB1FNAw3CKlDtLhI0ZieOBRNPtZr25W3i4B5dz0Ue5rUWl3ZaKoj0+BZLgDP2iRQ2T8A9KbGdg0rU1UyfYpsdzsqNcRspZJoWQ/6hir7UPGOoJKW/wAQlD4+4vT9OlPtvFthqMf2bWrSO4Df90KEkX8xwaSigtLueykSQM5VDlWU4Kn3FawalpviO2SLVY0ScDC3sa9f94/vVL4g0qO0jW9sZhc2DnAcDBQ+zDsaqELwSiW2ZlPsOhp2J2ueHL3Tz5hUTQt9yWM5Vh9apre4urOQPC7KVPvWl0PxHLZuY5CpRz64JBmN/wDg1ZXFh4f1tS1q/wDh90f+3I3oY/6W/wCam/VGet9Us7sYvUMEp6yoOD9RUwQuIy0DJNGe6/8AFV2s+H77TZStxA6js2OD9DVfFLc2x3RSMPcVLj8N/VuGByQMHuKXnHI+KjwazE6bLu2DE/jHBqUTZTx5trkhsZ2v71nmKiTMsZ9ZIUnk1dQ2Gi2qJJNO985AJSHhR9TVPc2dwVw6EgjIxyKgItxb58pyoNblmmWpvtdigi220MVjjosIyx+p61nrrVrmZj5YOT+Jjk0KO2LnfIcseSTUuO3TbwMmml7QY7q9iO4uXXuD3rSaP4jDw/ZLiGK6iIwYJxkD/aeoqndF+6BUV4BnKZDipwbsai50HT9QR5NKm8mbr9mlPJ/2nvWfktJbWYxXMTRODghhinWGp+U4W835X7rAf1qbqGvyajbC3kthMV+5K33x8Z7ilui8o0QTPAz7UVVLnnmgRbkTDcE8/SpKyHaPUOlLTR8coUjMSgDoKeJDISSMHpio3nAngc+2KIiTy42xt/QVlTpQVCrznOTQ967WA5FEkiFu265uI4gR0ByaC2qabbKwiga4k7FzgD8qGj4IJZj6I8D3bgfrTmuNOsS3mt9pkx9xfu5qpu9RvLvgsUTsqjAoNvaPK4CqST0wMmtSU2kahqd3e+jOyFeiL0pun2Ml1KEhhaRz0AGSa0Fl4aEFutxq8q2iHlYzzK/0Xt+dLc6xbWMLQadH5AxglTmR/q3arpNiWunWelESXqpcXIHEAb0qf9Z/tUDVNYuLl9iMDjjIGFQeyiq2aae6b1ttQ9h/eiAKsYXIX8qqEgjBORlpT796utT0HWtNs4ru4tHEMihww5x8H2qgFy8Esc6dUcEVrNP1S/tppJobkus4yyP6lYH3B61FZppTJIAT9TT1K5xWqubDRtbBe1A06/6bP+1Ifj+GsxqFheaddGC8heJge44NGeiPkgAdKY2cYNKkgwQadIYwOTRQ8nBpmOOMinBwx4pHPzRXDAXnrTWYEc03dgbu9MRWklWNBlmOABQLbwy3U4t4lyx6nsB7mpd7NDawrDAPSn3f9Td2qRKYtMtDbKf3zczOO/8ApHx71TRJJdXPmv8Adz09hVglaXC7TeYVLuxwoxyTVteboIjZofVnMrD8R9vyqRbxDTtPF3KhFzKMW6/wr3f/AIqrmaQEEtknnNYyy21IaUcAKcAnpVfqk2FFvGcY5Yjual3tx5UW9iGkIwvxVK5JYknJNMYlpvzTkFIvWiqBXVgoxilxjqKUD4pzckUrTk2gU7dxxTCB2p2KkoaxpE5NKw556U5QuOBVHEEnINKoPQjI964kA05RIRkZxQR6XFJXbqyycKevI5oRNOWRl6UD/wAqQruBPtTQ5Oc05XxxjrVgEwxTTRHGeaGaoYRg0lPI4plB1KDg5pM12aC0sX85Rz61/nUoDI5ONrVSwStE4ZDVvbyLMu7PB5I9qxksrSaaIda05dOk2/4jAf8ApXP/AHV7xn59qzGsWclncZAYYPII+6e4qQjukgkico6nIYcYrRsF8RWTOMHUUXMqY/zlH4h/qFZ3pdM9o19DJG1peAtbSfeGMlD/ABCgalYyWM/llhJG3qikH3XX3FR7u0msZd4B2544/lVlp19DcWpsrwHyCcqw+9E3uPj4rcqKtVDHin42nmi31pNYXAWTDI3KOOjj3FCLbzkjpWg0nmkJxkmn4oFwcAjPFQXWnExWXlpw8vJPx7VH1a8aA+QmDIy4Y/wj/mpW9VCkDG1AfyxVKmZpmkkOSxzU0piwbhuPWueAbcdPmpm0LgCmO3G000LDwtePB59vKDLAVG+NjkMveia9HplpNAunTyyb13Orrgp7Cq3T7iO1mnkkOMpgD3NBh3PM0z8s570EhkEvUChxNPatmFyy/wALHIqRwo4H1pbG1m1C+js7UAzSHCAnGfiguNE8V3Fqi28xWaD8VvcDfGfp3H5VaNbeFNZOcvpEz9D9+LP16gVktS02+sZTDe2skLg4O5cZqJF5kR/dyMPg9KizXto9W8Carbxm4tkS/thz5tuwYfyrM3FlPbyYdHRh2YYq20/XtQ05w8UkkRHeNyM/lWgt/GFrdxiLVbG0vlP42XZIPzFXe0s10xMV5e2zZSVs/J7VJj1iQnM9rDL9VrVSWfhLUXwHvNO3fi2iRB9cUK48Bxyjfpmu6ddg9B5mxv0bFPFNs9HqGms37y3eP/a1SYZtMZhi6lQfSpFz4D8RxguumyTIPxxEMD+lVsnhzVYm2vp9wh+UNTxInGCyb1JqMfPZlxTBbwA//Vwn86qJtMvIiQ0Min5U0I2swH3X/Q1PFbVxNZW7tg3UHPfNOjt7WAf/AFsA+nNUggkb+L8qUWspPpVz+Rq6SVbyS2PO65BPwKE19YRn0pJJ+dQ1065YjEErH2CmrCz8M6vccQ6dcN/7OKnioH+LhQRDbIvyRk1Glvb6f70jAew4rRweDb4Z+1TWtqB18yQZH5UZtH0OzjBm1Rrp/wCGCPj9TV1BkBDLIfUzGrTTNA1C8b/p7ORwO4Xj9avE1XSLHP2XTIi46NctuP6Cod34mvblPKWaV0HREGxP0FP/AAS08PWFlH5mqagPM/8AQt/W/wCZ6Cun1uysI/L0+1jtsDhx65W/Pt+VZ2a5u5zh5difwrTY48EKilmP5mnKaFvL+8uiW3MoY8ljljQY49nP3j3q+svDepTQrcXYSxtuu+XjI+B1NWGm3Og6bC8cUEV9cOCjSTnAUHjKr/c1V0zSlQo9IJrh6hnilvYHs7ySCQ5H3lPYr2pqEY4AqclRLpeGA7VORpJtAjeNtstu2Qw64qLMuc1I8Pud8to+CrjP9qAllq6kCO4yr9nHQ/WtJa6oj2y2uqRi8tdvpyfWv+01R2WhR26Ne6sfKgVjtT8UmPb4+aj6hroadRaQRxwJ6QuO1RbpaXugCaNrrRZjcxjloWGJV/Lv+VZ9shyjIQ46girSw1FiRPbyNG6HjBwRVjf+JjAiyTWFjNeY9MrRer6kdM1WdM0p7dKR8inB/NzI+N7sSQOnNMkbj0jPbFXSm5LEKuSxOMCrWNRp0DE4+0uMMT/2h/zTrO2/w6IXd0n/AFBGY1PSMe5+aq726kvpNqkhM8/NQMkMl5MoGdg6VoNJtIo7Vru4UCGM+lT1lf2+goGk2ANs087eXBH95sfePsKbd3ZnK4ykS8Ig6AUuWuCTZLq4a4meWcsS3t2+KjSyrt3ZO0DjPeluSAuN3A6mqq8uTKQF4QdPms62sCuZ2ll3HoOBQ1BNJ1NPUYrpIzeTlTjNOTg05Tx0riAKocCDS8UMPzjFOJoriwFODD3oZ6U0daB7sO1KjA8UM06Mc0CvjPNPLyKgANc6ZANI5wOtALNNGc0mTTwOeayyVRSkVxIxxXDmg4DFKK4CkbirBznAyKbjPWndfrSVQwjimGikcUI9aBpFdSmkoFFGgmaOQFc47j3oI6V1BeK6sA6fdI5o1i8kEyT28pjdDlWB71S2dx5cnq5U9RVmjboh5f3c1ysWVqruCLX7E3MEY+2AZuYF/F/rUe/uKxt7aTWM4ZcmM9D71Z6Zc3FpeR3EEjJIhBBU8itVNFa+JbWWezhSO+Ubri1HAl/1x/PuKmN1WrGS0y+hlh+x3imW2Y9PxRn3X/igapYS2Uq+sSwvzHKvRh/z8UDUbGWzcyRhjHuxn2Psal6NqChHguYxNA334z/+cvsa6soALDnPFDuACtWmraX9nQXdjKZ7N/xfiQ+zDsarcbhVFrpsv2uBEOASPLc+3sarniaGVoZQVdDg5oMM0lrPvUkr3HuK11vc6Jr9qIr6X7HeKoC3AGQ3ww9/msqzIPPWkkXIz1q+l8K3CsHjv7J4j0k84cigarFo2nacbRbhrrUHfO9D6FHt80FK0au2WHNSfKCgEEA0GIkgnvRty7/XycUCtgDrUV5JY5FlidldT6Sp5FHlK4Bznjmu0+Lz7tRjKp63+goNda+JtSihS11JItRt9o3JcKGI+h6ihRweEdclMdvNLpNyegb1x5+vUVTanPttJJu54X61nlDRkSAkEc5oNHruhX2k4aZFlgY+iaM5RvzqqWBZO1ajQ9QcWvlz/vYLlMSRsePqPn5rOy/uriWFeQrEZogAiniP7qVx9DRor69iPLK/1FJ5rIdrLkmn5UJQSYvEWo25HlNNERz+7kIqcnjrXUXjULo47OQ39RUHSdKutZlkhsQhkjXJBOOKfP4T1+3fEmlznHdRkUlFpH481IqDLNC3vvtkP9qkxePnxtkstJkGMeu0GT+lZWfTr2BWaa0lQL97cuAKEEXB4X8qWUaqbxojMStjpKD2W0/80E+NHH3I7SIf6LVf71m41iLYKiuMa7wEXJbgAVEXsnjbUt37u5ZR/ohVf7VEufFWrXGfMubp8/xSkD+VAg0fU5k9GnTOPfYasIPCursB5loIQe8rBf60XarN/dzEjbEo9+v8zQGW4kPqnYjPQcVp4fBd/KMreWWeymYVVatpuoaTMIry3MeehHQj3BpoVq2yjJI596ch2kAYGfeiB+R3BqLe+oELnNJFaSDw3GlqLvU9St4FI3CKNt0hH0HSi2es6Zp9z9l0i3TzXGBPMNzA/HYVQ3sxfSYjG21nIVxnniq1AY5BIgwynIqjV6/cXeoWUssksrzKQWyfw1k/KKknPqHetXa3ETbZH3yK64IHsetUN9B5F5NA4wVbj5Hasxr0T7XcXkcaTYPlLtVu5FEiBC9a6ERgAHqaIcA8dK0yBKcKTQYJPKvI39ztNSHxkgjIqHMCGPxyKETtflneSNJZWZNuVBNQgi4GBV9bR6ddQKdRllh2KGVkXdn3BFVupTWEt9/8vheK3CgDccknuagBbXiWcUoSIGVj94jgCo48yaQySElj3qQ0QPqpER3lWOFdzE4xW9BoDYAUEt0FWtvbR6cguLgo1zjOwniMdifmu8qLTU3u6vOfvHtH8D3NVNxPJdy7QG255J7/AFrNoJeXc99LtVmKk8n3q20TSt8ZuJCEtY+HkPv7D5rtG0dXRp5X8uCMZd/7Ae9Sb28MxjhiUR26DCoP6n5rFuiTZ2p3q3CpDBB5NrGfRHnI+p+TVfMduAF/OjXLhY9q9O9VWoXZwI0PPfFZnLfUB1G6yfJjPA6n3qCvJ5pDktz1rlGOldpHM/aAeKepBpgz3p61QTIx0pMd6cFBFOKiimbhjpXEdPmnqgJpWUDtQDIAFdtAFLJ93ikBzwfagb14p6oRjjrTQADzRfMIUAHkUCZAGO9McbhxTTndu71wbPqH6UAa4E0lJWWRFPNFTHNR160ZTQE4pON1cBmuPFWBD1pvGfUac3SmEVRx6Uw9KdXGgFXU9hxTKDq6urqDqk2dy0T8/dPWo1KDigvoXBIdeVHeplhPJBKLi2laKaNtysDgris7a3DQ559PcVbW0okXeo47+4rlli3i3lvLp3iu2J2xW+rkYdD6Y7v5/wBL/wBaw2v6JLYytLAkihWxJGw9UZ9j/wA09XCFZbdyCOwrXaPq9vqzJZ6wwhutmyK8YdR/DIO4+e1XHLXZYxOkao9s7D0+oYdHGVcfNTp9Mt7yFrvSuHUZltWPIHuvuKmeLPCVxZ3REUXlueQqnKuP4kPcVm4Li5s5gku5GQ8MOCtbZMK5J4wR2NAdGVsr1960Yax1XAuyLa4P3bhB6W/3D+9V+paddWDgXCBo2+5IpyrD4NXs2hW95cICresY4z2pIUaSXzX5aiADtjFEXC+nNTSljA6fNLxv5pq+k5JpJcqQeuRUDbgjnHSrXRYDHpzyg4eVsY/0iqYBpXWJRlmOBV+4EEQhJ4iXnB9qWg66KdYhH2a+tVeNuYHbDH6VDl8NXkUmLto4ol6ksOn0qktrl01EShyMvk5NXs8rvaTGNiZlG5T1+tAa4kt7eIMDsSMbVz1OKo4XMkjytxuOajO00z7ppC3tmpMS8YzigkKA3PcU1wo+vtRUWNIdw+8KjysWOemfagiNNNBN5sDsjD+E4rZ2+rajFFF5V9cxsyAnbKQAcVi51JYAdScVpmUEAcrtQZ/IUFfq/iLWL4S2ct9LJAXw+5s7sVCj25APSosa75Gb3YmpkadAaqHHAXtmg+ZLDIksLlXU7ge4qQ64XPFR5Fz6v5+1TWlaHSvEuqXcTx3F7PlBkbWIBqD4hnvEEbC5lO/IOXPWougFBfOj/daMj86la7HusPMBPokH8xUqybVtnqN3BIokkZkPUGtdBeNPYPp12xmhcboy3JQ44INYko0gRFyxJwMVqCRawrvIzFHg/pTaKGJvWy8dcU2UNhiK62Jb1EZySalsq46/lVFYiNxknA5xT26GpEuFBwM0FRvUkjGKS7E/QZGeNoS2ChyPpUjxDbgpFdBw5Hpcj+VVFnMbe8Vs+knaa0HkmeOS1C4Ei4U9g3apVlUYIo6EEY70IWl2sTuYJMIcMdpwK5GyOODVSiMDjGKiyMYpVfYGwc4PejvJlKC5DcE1JaB3E811Lub0rn7op8UYXqOKaMbsKv6VaxaY0cazXzeWp5WL8Tf8CroRre2mu2wh2xj7zNwAKNcy29jEFgYsx+8/Qt9PYUPUtQxiCNVVVHEa9B9feocFtLdOJZCcGgZ+9vJMFsJnjPatHo+jxJaG8vMx2yHG78Up9l/5o9rp1vYWkdxfjAOGjtx96T6+woGrX73szMyiOID0RrwqD2FYypJs7UL83UixwwpHCi4RF4AHz7moDyMeOFHemiQBWA/nVbfXhPoj4FZk230LqF7tXyo23D3qrLHn570p5PPWkI5rrjjpm0gp69KRRS1pktKvNKo46VwX1UURQfeiAf6qaoJFOPT3oFxjoc0jdc0wNg9KSRs0Dn6U1fTxjJrm5AxSL15oHqD1NJJXE4NMfmgUHOM0hBznFIAaMpBjxQRDTaMU9OcUxlxWWTV60SPINMXrTw2O9AYHikambgegpQwrQU9KTtSk5rugoGmuxiuJrs5oGkGmkfFPzSEZ6UAyMGkpzDJpMGgSupTSUCjrRra5aF8joeo96j5pQaC7SVHQSQABu656VJSZnYMTj3zWfhkdDlTg1a2t3FKoVxsf+tc7i1vbZaD4rlhtf8L1WBb7T8narHDxfKN2NP1Xw7a31qbqwmF5a9fNQfvYj7SL/cVkkH7wcECp+j6pe6ZfLPYyNE4PJB4I9j8VmXRramv7C90yQFgfLP3XHIapeka5Jbo0Lqk0D8PBKMqfkexrb2eoaP4hkaG7EOm3r9nH/Tyn6fgP8qzXiDwfPbTsIVaOQeryjyGHup6EVuZbSwE6Taah69JlEc+M/ZZWwf8A2nvVPcxTQTmGeNo5AcEMMEULzbmzkCTK4wfoRV9b69b3lsLbVIPtaDhZCcSp9G7/AJ1rsUx4GDQZpCFxjJ7Vey6J9qBk0WcXi4z5LemVfyPX8qpbmKWGQxzxtG69VYYIqCzj1+2a2hhfTreGaJdvnqvqb60qQSX8UsdqRJIy8DOCfpVI0W7oaaomiYGJ2Rh0wcVO1JcRvDIUdSGU4IPUVpLYKVTA4dOfzFZ4qz5LkljySe9WWm6hEIUikO1k4yT1q+hCCDeV9iakoNoz+lTNVsoVhGo2tzFJC59SZwyN7YqEJd6bWHToaBWLNnPFMJGKXPtQzk5INAJcteRgd3H9a0F9JH5M7KSTtOMdqpNOwdShJHRs81Zag3l2lxjA39R9aCntSNo5qbGwBHHWoNsMYqUzAEYNVn2kyDchbbUOQ+mpAcshweKBKBuwD9atadpLEapH/qyP5VfwT2EcbjUIHmt9oJCtg5rN27iO9jYHo4q2uSJIphjHoPFc6uI1xrmjW5/+Xad5bAffY7m/LNU9zez3hIxsTPSoqRZNTbdQF7VZEp8UbKi4B4qQwygO3mnQSovDtjsKfvjbjH3eprWhHVOC3FCdkKkEYqROEBARjzUaVefTWIAwWjXU4iR0UjnLnAAFWc+pxW8YiMwfAA9A5JFVNzFnBViD3oXkgHJ5reoiyvPEeqXlsbMysIDwV9xUZDtXFBG1eB2qVaWN1cKXRdsZ6yPwoqaUAsM5IOTUm0064uR523yoR/3HOF/81LRdP0/JYC8lHc8Rj/mol7qktyQoYvjhVxhV+gqCalzZ6chFqm6XvcSD/wDNFV1xeTXcmI95JPLE8mltrCeeQNPke3zWn0/RLa1hW41OX7NGfuqOZHPwOw+TQUelaPLNcBFjMsnf2H1ParmU2GlsvkMtzeLwXx+7T6Dufmh32rny2tbJRa2v8K/ef5Y96qyysQTyPas5ZLoS6nlnlaWV2dieSaC8+AS/CjvTbqeOHIY9RwKqbi4aU8nC+1Zk20LeXhmOI/Sv9ahMc85rs5pK6yaZt2TNOFJtNOQHPStMQoFKKeBjqKUAGjR0eMckUvG40iqKViAeKB6kAGkINMB96IGGKAZBxnJphox4596YFJOAKBY+lI3JwKXBApaAbcU3OafJQaAgIpcihZ5pwIqUOMhK7aEWyK7PFJioy4DNPCk01RzRFoExtFJnJpzZxQwCDWgVaIuOhoS9KeDigTbzmlK/NL9K6gG4xzTN3IFH27qGyAGgQjjNJT+1MxRDSOabRKQgUDMV2KUjFdRXA4pQxH1pMV1BOs75lHlzcp71ZJKu3zIW3Adcdaz+aJBK8TZRiKzcdrKvhKhfzm4PYVeaH4ku7CNrO5Vb2y6+RLzt/wBp6qfpWUhuYpyFb0N7+9S0JQ7lwfnrXOzTe9vRX0nQ/E9mrWEytOBzazMFnX/a3Rx/OsRrfg+9s538hXbb1Qrhx+VRN7o3mKWDdQy9q1GneNb1YBbavDHqMQXCu/EqD4fr+tJlpPFh4bi6sZiJQ6svTnDCr63183kZh1GKLUEIwDKMSL9GHP61r107RvFNqDZzQtcHrbzkRzD6N0asrq/ge+tJmWJXSQHiKVdrY+OxrpKzpHGlafeEnT7zyJP/AEbk4z8BuhqBqGm3tgx+02sqDPDYyp/McVEmTULCQx3MbrtPIcVP0/xDdWw2JMwTvG43IfyNUQMqenWgywA/WtHJd6LfoGutO8iT/wBS1bb/APhNIdFs7mIvp2qQs/Typ/3bf8U0M0I2HBY7fapULKeD0qbc6LqsC7nsZCo/Eg3D+VQSCmVYFT3BFNKKAF9XahTYXLDpXbuw5FLLgxfXioJ4TSYlintrx5Ljb6lkXaFJ/rRFhjvc27XUUJccO54z81n/ACMNzXeUegNBaXlm2n3X2dpopjjO6M5FN2g8kVHt1ZFyTk+5p5lY1UEwBz2psmMcUzdk85xTmx7imwbTtP8AtKNdG5hiWJ8FWPJ+gqW9xbJIfMkRlzyA3aqKSNt52kgGm+SccnNZsWVdakdCNlmxkn+1bshWHGPbNRkVintUWCLBBIFSi21cVdaLyckYzkmnFgAcZqOZQMCi28M9zJtt4ZZW9lUmomyNIPp803nqDU9dFvmbF0IrQDnMz4P6dacLTSbZv31zLdkdo12r+ppo2rAGd8ICzewFTYdHuSnmXbJZx+8hwT9B1osmti2Ty7OCC1HQmNcsf/caqri9nuJiQHZj3J3GmhaI2mWe944vtMnRXmOF+u2od5q00/pcmUj7q9FH5Cm2ml3Nw2ZiyD3Y/wBq02j+GQtv9om2W0QGTLcHaPyHU1dQZe2sby8kDPlEPdugrS6D4aJdbmVo4LdDlp5uF/Id6mPqWj2G5baE6hOOBJKMRL8he/51T32o3V+7NcSuwH3VHCj8ugrOWSyLS91CysWkTTEM75/+rlHP/tHaqSaS5ncySsSTySTk0MeaXG1hgdjTbi8jgU78Fj0UVm7rckhduc5PQdahz3qRDbEMuB17CotzeyTZAO1T2FRTgitY4s2llkaRizEsT1NMNdS1uRm1wHPFKBzSL1p4qkKFJNPVSDSD3ohxjAHNFIV44rlSkBweTTs8cUC4xTGHNODe9NY5NNjgM05Qc0xTRFzjmgeVGOtNzgGmliGwaaWzxQcT9K4NTSK48VKOYFjwcUxlKnrTw3HNMIyetIExSGniuIqhNopCMVykkjmnOuO9ZZMHFOUnNNbikBwaAvUUgFIp4pwrQ7mnUldk0Ds0tMzSg0Ds4pp5pc+9dkVKGZpoPWlcjPFcq8VQlPKDZmkxXFiBjtQNNIQMdKeAKRhRAu9dTm6U2iupaSuoFzR4LmSPALZX2qPXU0Lm2ulkXAYKf4aLj1EkE/WqIEg5FSIL2WPjO5fY1m4tTJeJ6FVslWPTnGK02ieNtY04RpctHqNmvBguhuGPg9R+VYqG9jkGCdh+elSvMzHtI9PuDmseOm9yvSP8Z8J62Ss0T6Y7n7si+ZED9eoFVupeA7S8ZprL94uM+baMJE/TqKxAJGCrHP0qdpup32nXAltLmSCQHOUcjNN2M2QHUfCmpWrt5I81VP4Tg/pVTMb61crNE647OteiWf7QbkN5WradaapEe7ptkH0YVYxax4M1Rws0V3YFx/3EEqD8+tXzieLzSw8QX1kwa3uJYSP4Tx+lW0fi15o9t/Y2N8D1MkQVh+YrX3vgTR9SkdtOvLO4OPSLeYL/APhNUmofs2uLcnDzRn/XHlf1Fa8topnuPD10+fsE9sx/9KXI/Q1yado85xFqrwH2ni4/UUK88JapbEiPZKB0KNiq+TTNUg5MEw9+M0NrU+H5m/yL7T7gdsTAH+dNbwxrKtlbUSg/wSKf6GqYyXcTYkiyPZlp5v7gdEwf9JIoLKXQddi+9pN1j4TP9KA2i6yvJ0u6H/sNR49av4x6Z5x9JDRT4i1Arhrq6P8A/uagcNK1f/8AttyP/Yaeuia0wyNNuP8A7TQG169bGZ7k495TTTrN0/LSXB+shpyJT6Jqq532jLjrkgUW30C7lXdLNawD3kmA/pVU2oSOckMT8saQXNxJ91Bz0wKci9OiWkJH2jW7QEdRCC5pkkOixH/NvboDrtUIP51TiHUJeiuT8LipEWjalLy+VB/ibFOTaxGpaTbofI0iAN/FO5c/pQJvE12FKW8vkJj7sCBP6c0618L3E7YDl/hFJNaHTvAM20SSW7KgGd07rGP5miMRJeXE7lgpLHuckmiwadqV2+NjAe7cCvRG0/wppce6+1a2MnQRWUZkYfUnio1z4p0OziA0jRvOkB4mu33f/hHFS5yLqs7p3haWU4VJLhgfUqKcD8+lXSaNZadCkl3dWsDDnyY2Dyfy4FV174l1i+jaKW5KRN/24gEX9BVOSdx3ZJPvWPO3pqY/WlfxBZ2YaPTdPQSE/wCfcetx9B0FUeoXl5f3HmXd1JMexZuBUYoWwR6mzyKFPOkA2yEf7amr7a1EhZNhxtzn86bcXCQsSWATrtqtuNRkZAkeFUVCd2Y5Yk1uYpanXGpM4KxJ5Y9waguxY5Y5+tNrq1Izt1KKSnCrB1LikAoigdKoaBT1FO2L712OeKBMfnSjORXYNOyNvzQMZc9aaVYfSioMk1zOoODQBViue9cDnnNEKqelcqBRnrQOjXjmnkhffNcoGOK4qp6mgFJ6myaUCub72K4GgUjNMkAAp/Tk/lTSc9alAetKvSnbQKUAUgQGlyK7imHrVHL0ri1Nrqyy5jXV1cKBR0pw6U0UorSFzXZ+a6uop1dTa5etA7NIaXB7U5Qe9AwDJp2PbinEUx844oOPXk9KRhkZpoPHQ0RTlKBgGKVqRhzSc0HUldS0Q1utJT6a3WgbXGurqKSurqU9KDlJHSixTyx/dYrQRS0Xawhv8jEq4/1LU1JoZMeXKpJ7NwaoxXd+CRU0baAqMZIGfenBgxwW6VSRXUyYxISPnmpCX5YjfGp+RxWLi1Kt4p2jJwxGDwe9Wdl4l1yx4tdTuEX2L5H6Gs39qgf072XPuKcWTHokDfnWNK3Vj4+1QMFvbWwvV7iWAA/qMVYHxhoMzhrvQjCf/wAhMQP0NedQlg27OaJv3E7yacrqPSRrvgm4lVHF/AG4ZiiuBmiJa/s4nYlNY8th+Ge04P6V5WSpkP3se9KSB93OfmpunjHqk3h7wRIoki1bSmU8kMrKagf/AAh4aMskcWpaXJ3EhlIA/lXnqBipDZz9aJBIyfekP0zVmWULjHocXhLwujEtqGlFTxkzsef0pr+HvCsaENq+jIV77mY/0rz2SQk4DH9aGpJJ6088k8I9A/wrwemSNdsmJPGy3Y/1oMz+DbbG29upSDg+XbgD+dYlOVOcU9TEVxn+VJlkeMjY3Wv+E4UCx6df3Zx1MoQfyFR7jxhbRxoth4csbcjo8mZG/nWVXGeOF9qV9xYBUOPmn9quovrjxZrLJtjuFt1P4YVCf0FU1xd3t0xe4uJpGPUuxNADIrbpJVTHuaDcXsO7mQMvfFXxBGjxhhjmkwAegIqJLqCAFY4yR2JNQ5LqZz12j4q+ELVvLtjAJkCj60CS+iQYA8w/PSqlmYnlifqaTJrXiz5JU99M7HB2A9lqKxLHJOfrSV1XSbdXV1dQdSiurgKo7FOFcAadt5qhK4NzT9tKY/igRTuOKKAMUIoc8U6Pd35oHYIOa4Kc5NOFK3IxQIDik2DOSKeFHGaV8UAmUdqQdPpTxx15FNZeetAoOc0o6YpmCOlNLHmgUk7qdxQQaIhOaBX+7TRT26U3tQNPakfiiACmyUA8mupM4pD1oEFLSClrLLq4DNdSqcUCgGupQwruDWoOHSurs0uKBM1y9a7bSgUD1IFIzDNNNNz2FA8v2FNy7HpxXAc08UHKMDJ/SnYG2m0uRipQ2msDmlznpTgPekDD93G3n3pKI2MUNhyKo6uxT1XinEDFDQBBJpMGiHg4ppogeK7FP2122imiupSMV1AldXGuoOx80uT35pK6gX+dcD9aSlqaWWniWRT6XI/OjLezgffz9RUcV1TxXacmpS4AZUbHxSnUQeTEtV+K7FTxPKrIakh6x4/OkF7Hz+7P61XYrs8U8YeVWS38YOQpzXNfxkfcNVo61xNTxh5LL/EVAwEB/OhtqDZ4iQVArqvjDyqadQn7ED6ChvdTvndKf1qNXVdHkcXJ6nNJmkrqaS11dXV1VHV1dSgE0CV1LtNKFoptOFOC4pcU0poHNOAp2OaUCrBy8UQUOnrnFTfIcAP4aUEk4NcKUnn61RxA9+vWhgEHg09utICM0C4I7U3cPeiMwK9KjnigeTkda7DdQcih7vinA4496A0ZGCKYxGeDTchWPtTaAm6hvnriup2RigGOooy4oRpyHjHvQObGOtNpWUgZNIBQdimv7U9etMlIzQDNcK6loGClrq6ssurq6uoF6UoNdXVpHU4GurqEcelMzziurqBzdM0iDPNdXUU7
