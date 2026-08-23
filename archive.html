@@ -171,6 +171,7 @@ a{color:inherit;text-decoration:none}
 .btn.primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#111}
 .btn.ghost{background:rgba(4,6,10,.45);border:1px solid rgba(74,163,255,.25);color:#dbe6ff}
 .btn.outline{background:transparent;border:1px solid rgba(124,255,178,.25);color:#dfffea}
+.btn:disabled{opacity:.55;cursor:not-allowed}
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -196,40 +197,6 @@ a{color:inherit;text-decoration:none}
   color:var(--muted);
   line-height:1.5;
 }
-.flow{padding:22px}
-.flow h3{
-  margin:0 0 14px;
-  font-family:'Orbitron',sans-serif;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  font-size:13px;
-  color:#cfe0ff;
-}
-.flow-list{display:grid;gap:12px}
-.step{
-  padding:16px 16px 16px 18px;
-  border-radius:14px;
-  background:rgba(4,6,10,.35);
-  border:1px solid rgba(74,163,255,.12);
-  display:flex;
-  gap:14px;
-  align-items:flex-start;
-}
-.num{
-  min-width:30px;
-  width:30px;
-  height:30px;
-  border-radius:999px;
-  background:rgba(74,163,255,.16);
-  border:1px solid rgba(74,163,255,.22);
-  display:grid;
-  place-items:center;
-  font-family:'Orbitron',sans-serif;
-  color:#dbe6ff;
-  font-size:12px;
-}
-.step b{display:block;margin-bottom:4px}
-.step span{color:var(--muted);font-size:13px;line-height:1.5}
 .section{margin-top:18px;padding:22px}
 .section h2{
   margin:0 0 14px;
@@ -251,16 +218,22 @@ a{color:inherit;text-decoration:none}
   background:rgba(4,6,10,.35);
   border:1px solid rgba(74,163,255,.12);
   cursor:pointer;
+  font:inherit;
+  color:inherit;
+  text-align:left;
+  display:block;
+  width:100%;
 }
 .lang.active{border-color:var(--gold2)}
-.lang .a{font-size:28px;margin-bottom:8px}
+.lang .a{font-size:28px;margin-bottom:8px;display:block}
 .lang .b{
   font-family:'Orbitron',sans-serif;
   font-size:12px;
   letter-spacing:3px;
   text-transform:uppercase;
+  display:block;
 }
-.lang .c{font-size:12px;color:var(--muted);margin-top:6px}
+.lang .c{font-size:12px;color:var(--muted);margin-top:6px;display:block}
 .payment-box{
   padding:18px;
   border-radius:14px;
@@ -426,7 +399,27 @@ input:focus,select:focus{border-color:var(--gold2)}
   background:linear-gradient(180deg,rgba(17,24,42,.98),rgba(8,11,18,.98));
   padding:26px;
   box-shadow:0 20px 80px rgba(0,0,0,.5);
+  position:relative;
 }
+.modal-close{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:rgba(4,6,10,.5);
+  border:1px solid rgba(74,163,255,.25);
+  color:#dbe6ff;
+  font-size:20px;
+  line-height:1;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.2s ease;
+}
+.modal-close:hover{border-color:var(--gold2);color:var(--gold2)}
 .modal h2{
   margin:0 0 10px;
   font-family:'Orbitron',sans-serif;
@@ -510,8 +503,11 @@ input:focus,select:focus{border-color:var(--gold2)}
   align-items:center;
   gap:14px;
   cursor:pointer;
+  font:inherit;
+  color:inherit;
+  width:100%;
 }
-.flag-card .flag{font-size:56px;line-height:1}
+.flag-card .flag{font-size:56px;line-height:1;display:block}
 .flag-card .label{
   font-family:'Orbitron',sans-serif;
   font-size:13px;
@@ -543,15 +539,6 @@ input:focus,select:focus{border-color:var(--gold2)}
   gap:14px;
 }
 @media (max-width:800px){.admin-grid{grid-template-columns:1fr}}
-.small-note{color:var(--muted);font-size:13px;line-height:1.6}
-.hidden-link{
-  position:absolute;
-  right:18px;
-  top:18px;
-  font-size:12px;
-  color:transparent;
-  user-select:none;
-}
 .fatal-error{
   position:fixed;
   inset:0;
@@ -566,6 +553,65 @@ input:focus,select:focus{border-color:var(--gold2)}
   font-size:13px;
   line-height:1.6;
   text-align:center;
+}
+/* ===== NEW: payment method switcher (Card / PayPal) ===== */
+.pay-methods{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:16px;
+  margin-bottom:16px;
+}
+.pay-method-btn{
+  padding:14px 12px;
+  border-radius:12px;
+  background:rgba(4,6,10,.35);
+  border:1px solid rgba(74,163,255,.18);
+  color:#dbe6ff;
+  cursor:pointer;
+  font-family:'Orbitron',sans-serif;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.2s ease;
+}
+.pay-method-btn.active{border-color:var(--gold2);color:var(--gold2);background:rgba(212,175,55,.08)}
+.pay-pane{display:none}
+.pay-pane.active{display:block}
+#card-element{
+  background:rgba(4,6,10,.5);
+  border:1px solid rgba(74,163,255,.22);
+  border-radius:12px;
+  padding:16px 14px;
+}
+#card-element.StripeElement--focus{border-color:var(--gold2)}
+.card-errors{
+  color:#ff9c9c;
+  font-size:13px;
+  margin-top:10px;
+  min-height:18px;
+}
+.pay-note{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:14px;
+}
+.pay-note svg{width:16px;height:16px;fill:var(--muted)}
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
 }
 </style>
 </head>
@@ -583,25 +629,26 @@ input:focus,select:focus{border-color:var(--gold2)}
 <div class="lang-select" id="langSelect">
   <h2>Select Language / Wybierz Język / Elige idioma / Choisir la langue</h2>
   <div class="flag-grid">
-    <div class="flag-card" data-lang="en"><div class="flag">🇬🇧</div><div class="label">English</div></div>
-    <div class="flag-card" data-lang="pl"><div class="flag">🇵🇱</div><div class="label">Polski</div></div>
-    <div class="flag-card" data-lang="es"><div class="flag">🇪🇸</div><div class="label">Español</div></div>
-    <div class="flag-card" data-lang="fr"><div class="flag">🇫🇷</div><div class="label">Français</div></div>
-    <div class="flag-card" data-lang="ru"><div class="flag">🇷🇺</div><div class="label">Русский</div></div>
-    <div class="flag-card" data-lang="nl"><div class="flag">🇳🇱</div><div class="label">Nederlands</div></div>
+    <button type="button" class="flag-card" data-lang="en"><span class="flag" aria-hidden="true">🇬🇧</span><span class="label">English</span></button>
+    <button type="button" class="flag-card" data-lang="pl"><span class="flag" aria-hidden="true">🇵🇱</span><span class="label">Polski</span></button>
+    <button type="button" class="flag-card" data-lang="es"><span class="flag" aria-hidden="true">🇪🇸</span><span class="label">Español</span></button>
+    <button type="button" class="flag-card" data-lang="fr"><span class="flag" aria-hidden="true">🇫🇷</span><span class="label">Français</span></button>
+    <button type="button" class="flag-card" data-lang="ru"><span class="flag" aria-hidden="true">🇷🇺</span><span class="label">Русский</span></button>
+    <button type="button" class="flag-card" data-lang="nl"><span class="flag" aria-hidden="true">🇳🇱</span><span class="label">Nederlands</span></button>
   </div>
 </div>
 
-<div class="overlay" id="welcomeOverlay">
+<div class="overlay" id="welcomeOverlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitleH2">
   <div class="modal">
+    <button type="button" class="modal-close" id="closeWelcome" aria-label="Close dialog">×</button>
     <div class="badge-box" data-i18n="welcomeBadge">Access Granted</div>
-    <h2 data-i18n="welcomeTitle">WELCOME STUDENT</h2>
+    <h2 id="welcomeTitleH2" data-i18n="welcomeTitle">WELCOME STUDENT</h2>
     <div class="status" data-i18n="welcomeIdLabel">Your Student ID</div>
     <div class="id" id="generatedId">—</div>
     <div class="status" data-i18n="welcomeChoose">Choose your nickname and enter the archive.</div>
     <input id="nicknameInput" type="text" data-i18n-placeholder="nicknamePlaceholder" placeholder="Choose your nickname">
     <div class="row">
-      <button class="btn primary" id="finishAccess" data-i18n="enterArchive">Enter Archive</button>
+      <button type="button" class="btn primary" id="finishAccess" data-i18n="enterArchive">Enter Archive</button>
     </div>
   </div>
 </div>
@@ -623,9 +670,9 @@ input:focus,select:focus{border-color:var(--gold2)}
         <div class="subtitle" data-i18n="subtitle">Choose language and continue</div>
         <p class="lead" data-i18n="lead">After approval by Professor Sugriva and Monkeys University of Gibraltar within the British academic community, we open recruitment among human candidates.</p>
         <div class="row">
-          <button class="btn primary" id="openLang" data-i18n="btnLang">Select Language</button>
-          <button class="btn ghost" id="openPayment" data-i18n="btnPayment">Student Access</button>
-          <button class="btn outline" id="openContinue" data-i18n="btnContinue">Continue</button>
+          <button type="button" class="btn primary" id="openLang" data-i18n="btnLang">Select Language</button>
+          <button type="button" class="btn ghost" id="openPayment" data-i18n="btnPayment">Student Access</button>
+          <button type="button" class="btn outline" id="openContinue" data-i18n="btnContinue">Continue</button>
         </div>
         <div class="stats" id="statsGrid"></div>
       </section>
@@ -634,26 +681,45 @@ input:focus,select:focus{border-color:var(--gold2)}
     <section class="card section" id="languageSection">
       <h2 data-i18n="secLanguage">Select Language</h2>
       <div class="langs" id="langGrid">
-        <div class="lang active" data-lang="en"><div class="a">🇬🇧</div><div class="b">English</div><div class="c">Interface language</div></div>
-        <div class="lang" data-lang="pl"><div class="a">🇵🇱</div><div class="b">Polski</div><div class="c">Język interfejsu</div></div>
-        <div class="lang" data-lang="es"><div class="a">🇪🇸</div><div class="b">Español</div><div class="c">Idioma de interfaz</div></div>
-        <div class="lang" data-lang="fr"><div class="a">🇫🇷</div><div class="b">Français</div><div class="c">Langue de l’interface</div></div>
-        <div class="lang" data-lang="ru"><div class="a">🇷🇺</div><div class="b">Русский</div><div class="c">Язык интерфейса</div></div>
-        <div class="lang" data-lang="nl"><div class="a">🇳🇱</div><div class="b">Nederlands</div><div class="c">Interfacetaal</div></div>
+        <button type="button" class="lang active" data-lang="en"><span class="a" aria-hidden="true">🇬🇧</span><span class="b">English</span><span class="c">Interface language</span></button>
+        <button type="button" class="lang" data-lang="pl"><span class="a" aria-hidden="true">🇵🇱</span><span class="b">Polski</span><span class="c">Język interfejsu</span></button>
+        <button type="button" class="lang" data-lang="es"><span class="a" aria-hidden="true">🇪🇸</span><span class="b">Español</span><span class="c">Idioma de interfaz</span></button>
+        <button type="button" class="lang" data-lang="fr"><span class="a" aria-hidden="true">🇫🇷</span><span class="b">Français</span><span class="c">Langue de l'interface</span></button>
+        <button type="button" class="lang" data-lang="ru"><span class="a" aria-hidden="true">🇷🇺</span><span class="b">Русский</span><span class="c">Язык интерфейса</span></button>
+        <button type="button" class="lang" data-lang="nl"><span class="a" aria-hidden="true">🇳🇱</span><span class="b">Nederlands</span><span class="c">Interfacetaal</span></button>
       </div>
     </section>
 
     <section class="card section" id="paymentSection">
       <h2 data-i18n="secPayment">Student Access</h2>
       <div class="payment-box">
-        <div class="big" data-i18n="paymentBig">One-time access payment</div>
-        <div class="small" data-i18n="paymentSmall">PayPal checkout is connected to backend order creation and capture.</div>
-        <div id="paypal-button-container" style="margin-top:16px;"></div>
+        <div class="big" data-i18n="paymentBig">One-time access payment — £5</div>
+        <div class="small" data-i18n="paymentSmall">Pay once with Visa/Mastercard (Stripe) or PayPal. Access is granted for life.</div>
+
+        <div class="pay-methods" id="payMethods">
+          <button type="button" class="pay-method-btn active" data-method="card" id="payTabCard">💳 <span data-i18n="payCard">Card (Visa/Mastercard)</span></button>
+          <button type="button" class="pay-method-btn" data-method="paypal" id="payTabPaypal">🅿️ <span data-i18n="payPaypal">PayPal</span></button>
+        </div>
+
+        <div class="pay-pane active" id="cardPane">
+          <div id="card-element"></div>
+          <div class="card-errors" id="cardErrors"></div>
+          <div class="row">
+            <button type="button" class="btn primary" id="stripePayBtn" data-i18n="payNowCard">Pay £5 with Card</button>
+          </div>
+          <div class="pay-note">
+            <span data-i18n="payNoteStripe">Card details are handled directly by Stripe. G-ROCK never sees or stores your card number.</span>
+          </div>
+        </div>
+
+        <div class="pay-pane" id="paypalPane">
+          <div id="paypal-button-container" style="margin-top:6px;"></div>
+        </div>
       </div>
     </section>
 
     <section class="card section" id="valueSection">
-      <h2 data-i18n="secValue">What’s Inside the Archive?</h2>
+      <h2 data-i18n="secValue">What's Inside the Archive?</h2>
       <div class="stats" id="valueGrid"></div>
     </section>
 
@@ -666,27 +732,27 @@ input:focus,select:focus{border-color:var(--gold2)}
       <h2 data-i18n="secSearch">Archive Search & Filters</h2>
       <div class="searchbar">
         <input id="searchInput" type="text" data-i18n-placeholder="searchPlaceholder" placeholder="Search archive...">
-        <button class="btn ghost" id="searchBtn" data-i18n="searchBtn">Search</button>
+        <button type="button" class="btn ghost" id="searchBtn" data-i18n="searchBtn">Search</button>
       </div>
       <div class="filter-bar" id="filterBar">
-        <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
-        <button class="filter-btn" data-filter="books" data-i18n="filterBooks">Books</button>
-        <button class="filter-btn" data-filter="audio" data-i18n="filterAudio">Audiobooks</button>
-        <button class="filter-btn" data-filter="video" data-i18n="filterVideo">Videos</button>
-        <button class="filter-btn" data-filter="docs" data-i18n="filterDocs">Documents</button>
-        <button class="filter-btn" data-filter="images" data-i18n="filterImages">Images</button>
+        <button type="button" class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
+        <button type="button" class="filter-btn" data-filter="books" data-i18n="filterBooks">Books</button>
+        <button type="button" class="filter-btn" data-filter="audio" data-i18n="filterAudio">Audiobooks</button>
+        <button type="button" class="filter-btn" data-filter="video" data-i18n="filterVideo">Videos</button>
+        <button type="button" class="filter-btn" data-filter="docs" data-i18n="filterDocs">Documents</button>
+        <button type="button" class="filter-btn" data-filter="images" data-i18n="filterImages">Images</button>
       </div>
     </section>
 
     <section class="card library" id="librarySection">
       <h2 data-i18n="secLibrary">Archive Sections</h2>
       <div class="grid">
-        <a class="card-link" href="#"><article class="item" data-type="audio"><h4 data-i18n="tileAudioTitle">Audiobooks</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>MP3 / M4A</div></div><div class="tag" data-i18n="tileAudioTag">Audiobooks</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="books"><h4 data-i18n="tileBooksTitle">Ebooks</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>PDF / EPUB</div></div><div class="tag" data-i18n="tileBooksTag">Books</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="video"><h4 data-i18n="tileVideoTitle">Video / Photos</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>MP4 / JPG / PNG</div></div><div class="tag" data-i18n="tileVideoTag">Videos</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="docs"><h4 data-i18n="tileDocsTitle">Scientific Achievements / Documents</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>PDF / DOCX</div></div><div class="tag" data-i18n="tileDocsTag">Documents</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="docs"><h4 data-i18n="tileRegistryTitle">Student Registry</h4><div class="meta"><div data-i18n="tileRegistryMeta1">Student ID and Nick only</div><div data-i18n="tileRegistryMeta2">Read-only view</div></div><div class="tag" data-i18n="tileRegistryTag">Registry</div></article></a>
-        <a class="card-link" href="#"><article class="item" data-type="docs"><h4 data-i18n="tileInfoTitle">Info / Cooperation</h4><div class="meta"><div data-i18n="tileInfoMeta1">Contact and partnerships</div><div data-i18n="tileInfoMeta2">Public / Partners</div></div><div class="tag" data-i18n="tileInfoTag">Info</div></article></a>
+        <a class="card-link" href="archive-audiobooks.html"><article class="item" data-type="audio"><h4 data-i18n="tileAudioTitle">Audiobooks</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>MP3 / M4A</div></div><div class="tag" data-i18n="tileAudioTag">Audiobooks</div></article></a>
+        <a class="card-link" href="archive-ebooks.html"><article class="item" data-type="books"><h4 data-i18n="tileBooksTitle">Ebooks</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>PDF / EPUB</div></div><div class="tag" data-i18n="tileBooksTag">Books</div></article></a>
+        <a class="card-link" href="archive-video.html"><article class="item" data-type="video"><h4 data-i18n="tileVideoTitle">Video / Photos</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>MP4 / JPG / PNG</div></div><div class="tag" data-i18n="tileVideoTag">Videos</div></article></a>
+        <a class="card-link" href="archive-documents.html"><article class="item" data-type="docs"><h4 data-i18n="tileDocsTitle">Scientific Achievements / Documents</h4><div class="meta"><div data-i18n="tileMetaApi">Requested from API</div><div>PDF / DOCX</div></div><div class="tag" data-i18n="tileDocsTag">Documents</div></article></a>
+        <a class="card-link" href="archive-registry.html"><article class="item" data-type="docs"><h4 data-i18n="tileRegistryTitle">Student Registry</h4><div class="meta"><div data-i18n="tileRegistryMeta1">Student ID and Nick only</div><div data-i18n="tileRegistryMeta2">Read-only view</div></div><div class="tag" data-i18n="tileRegistryTag">Registry</div></article></a>
+        <a class="card-link" href="cooperation.html"><article class="item" data-type="docs"><h4 data-i18n="tileInfoTitle">Info / Cooperation</h4><div class="meta"><div data-i18n="tileInfoMeta1">Contact and partnerships</div><div data-i18n="tileInfoMeta2">Public / Partners</div></div><div class="tag" data-i18n="tileInfoTag">Info</div></article></a>
       </div>
     </section>
 
@@ -707,7 +773,7 @@ input:focus,select:focus{border-color:var(--gold2)}
       <div class="payment-box">
         <div class="small" data-i18n="adminProtected">Protected by real authentication. Actions are sent to backend API only.</div>
       </div>
-      <div class="admin-panel" id="adminPanel">
+      <div class="admin-panel" id="adminPanel" hidden>
         <h3 style="margin-top:0;font-family:'Orbitron',sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--gold2)" data-i18n="adminAddManual">Add Student Manually</h3>
         <div class="admin-grid">
           <input id="adminNick" type="text" data-i18n-placeholder="adminNickPlaceholder" placeholder="Nickname">
@@ -721,22 +787,20 @@ input:focus,select:focus{border-color:var(--gold2)}
           <input id="adminExpiry" type="date" placeholder="Expiry date">
         </div>
         <div class="row" style="margin-top:14px;">
-          <button class="btn primary" id="adminAdd" data-i18n="adminGenerate">Generate Student ID</button>
-          <button class="btn ghost" id="adminExport" data-i18n="adminExport">Export Student List</button>
+          <button type="button" class="btn primary" id="adminAdd" data-i18n="adminGenerate">Generate Student ID</button>
+          <button type="button" class="btn ghost" id="adminExport" data-i18n="adminExport">Export Student List</button>
         </div>
       </div>
     </section>
 
     <footer class="footer">
-      <div><a href="#" data-i18n="footerContact">Contact</a> · <a href="#" data-i18n="footerPrivacy">Privacy Policy</a> · <a href="#" data-i18n="footerTerms">Terms of Service</a></div>
+      <div><a href="contact.html" data-i18n="footerContact">Contact</a> · <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a> · <a href="terms.html" data-i18n="footerTerms">Terms of Service</a></div>
       <div data-i18n="footerCopy">Copyright © G-ROCK Corporation</div>
     </footer>
   </div>
 </div>
 
 <script>
-// --- Global failsafe: if ANYTHING below throws, show a visible error
-// instead of a silent black screen, and force the main app open. ---
 window.addEventListener('error', function(e){
   try{
     var el = document.getElementById('fatalError');
@@ -753,7 +817,23 @@ window.addEventListener('error', function(e){
   }catch(_e){}
 });
 
-// ============ TRANSLATIONS ============
+/* Small defensive helper: attach a listener only if the element
+   actually exists. A single missing #id used to make the whole
+   inline script throw and stop executing everything below it
+   (rain animation, i18n, payments...). Using this instead of
+   document.getElementById(id).addEventListener(...) directly means
+   one missing/renamed element degrades gracefully instead of
+   breaking the entire page. */
+function on(id, evt, handler){
+  const el = document.getElementById(id);
+  if(!el){
+    console.warn('G-ROCK: expected element #'+id+' was not found, skipping its '+evt+' handler.');
+    return null;
+  }
+  el.addEventListener(evt, handler);
+  return el;
+}
+
 const translations = {
   en: {
     statusLabel:"LANGUAGE", hub:"Return to Hub",
@@ -762,14 +842,13 @@ const translations = {
     lead:"After approval by Professor Sugriva and Monkeys University of Gibraltar within the British academic community, we open recruitment among human candidates.",
     btnLang:"Select Language", btnPayment:"Student Access", btnContinue:"Continue",
     statRegistered:"Registered Students", statFiles:"Total Archive Files", statUpdates:"Archive Updates", statLangs:"Supported Languages",
-    flowTitle:"Flow",
-    flow1Title:"Intro", flow1Desc:"Animated English welcome screen.",
-    flow2Title:"Language", flow2Desc:"Choose one of four languages.",
-    flow3Title:"Access", flow3Desc:"Real archive access is issued by backend.",
-    flow4Title:"Continue", flow4Desc:"Open the archive tiles.",
     secLanguage:"Select Language",
-    secPayment:"Student Access", paymentBig:"One-time access payment", paymentSmall:"PayPal checkout is connected to backend order creation and capture.",
-    secValue:"What’s Inside the Archive?",
+    secPayment:"Student Access", paymentBig:"One-time access payment — £5", paymentSmall:"Pay once with Visa/Mastercard (Stripe) or PayPal. Access is granted for life.",
+    payCard:"Card (Visa/Mastercard)", payPaypal:"PayPal", payNowCard:"Pay £5 with Card",
+    payNoteStripe:"Card details are handled directly by Stripe. G-ROCK never sees or stores your card number.",
+    payProcessing:"Processing payment...", payFailed:"Payment failed. Please check your card details and try again.",
+    payCompleted:"Payment completed. Your Student ID is being issued.",
+    secValue:"What's Inside the Archive?",
     secUpdates:"Latest Updates",
     secSearch:"Archive Search & Filters", searchPlaceholder:"Search archive...", searchBtn:"Search",
     filterAll:"All", filterBooks:"Books", filterAudio:"Audiobooks", filterVideo:"Videos", filterDocs:"Documents", filterImages:"Images",
@@ -798,13 +877,12 @@ const translations = {
     lead:"Po zatwierdzeniu przez Profesora Sugriva oraz Uniwersytet Małp Gibraltaru w ramach brytyjskiej społeczności akademickiej, otwieramy rekrutację wśród kandydatów ludzkich.",
     btnLang:"Wybierz Język", btnPayment:"Dostęp Studencki", btnContinue:"Kontynuuj",
     statRegistered:"Zarejestrowani Studenci", statFiles:"Wszystkie Pliki Archiwum", statUpdates:"Aktualizacje Archiwum", statLangs:"Obsługiwane Języki",
-    flowTitle:"Przebieg",
-    flow1Title:"Wstęp", flow1Desc:"Animowany ekran powitalny w języku angielskim.",
-    flow2Title:"Język", flow2Desc:"Wybierz jeden z czterech języków.",
-    flow3Title:"Dostęp", flow3Desc:"Prawdziwy dostęp do archiwum jest przyznawany przez backend.",
-    flow4Title:"Kontynuuj", flow4Desc:"Otwórz kafelki archiwum.",
     secLanguage:"Wybierz Język",
-    secPayment:"Dostęp Studencki", paymentBig:"Jednorazowa opłata za dostęp", paymentSmall:"Płatność PayPal jest połączona z tworzeniem i realizacją zamówień w backendzie.",
+    secPayment:"Dostęp Studencki", paymentBig:"Jednorazowa opłata za dostęp — £5", paymentSmall:"Zapłać raz kartą Visa/Mastercard (Stripe) lub PayPal. Dostęp na całe życie.",
+    payCard:"Karta (Visa/Mastercard)", payPaypal:"PayPal", payNowCard:"Zapłać £5 kartą",
+    payNoteStripe:"Dane karty są obsługiwane bezpośrednio przez Stripe. G-ROCK nigdy nie widzi ani nie przechowuje numeru karty.",
+    payProcessing:"Przetwarzanie płatności...", payFailed:"Płatność nieudana. Sprawdź dane karty i spróbuj ponownie.",
+    payCompleted:"Płatność zakończona. Twój Student ID jest wystawiany.",
     secValue:"Co Jest W Archiwum?",
     secUpdates:"Najnowsze Aktualizacje",
     secSearch:"Wyszukiwanie i Filtry Archiwum", searchPlaceholder:"Szukaj w archiwum...", searchBtn:"Szukaj",
@@ -834,13 +912,12 @@ const translations = {
     lead:"Tras la aprobación del Profesor Sugriva y la Universidad de los Monos de Gibraltar dentro de la comunidad académica británica, abrimos la convocatoria entre candidatos humanos.",
     btnLang:"Elegir Idioma", btnPayment:"Acceso de Estudiante", btnContinue:"Continuar",
     statRegistered:"Estudiantes Registrados", statFiles:"Archivos Totales", statUpdates:"Actualizaciones del Archivo", statLangs:"Idiomas Disponibles",
-    flowTitle:"Proceso",
-    flow1Title:"Introducción", flow1Desc:"Pantalla de bienvenida animada en inglés.",
-    flow2Title:"Idioma", flow2Desc:"Elige uno de los cuatro idiomas.",
-    flow3Title:"Acceso", flow3Desc:"El acceso real al archivo lo emite el backend.",
-    flow4Title:"Continuar", flow4Desc:"Abre los mosaicos del archivo.",
     secLanguage:"Elegir Idioma",
-    secPayment:"Acceso de Estudiante", paymentBig:"Pago único de acceso", paymentSmall:"El pago con PayPal está conectado a la creación y captura de pedidos en el backend.",
+    secPayment:"Acceso de Estudiante", paymentBig:"Pago único de acceso — £5", paymentSmall:"Paga una vez con Visa/Mastercard (Stripe) o PayPal. Acceso de por vida.",
+    payCard:"Tarjeta (Visa/Mastercard)", payPaypal:"PayPal", payNowCard:"Pagar £5 con Tarjeta",
+    payNoteStripe:"Los datos de la tarjeta los gestiona directamente Stripe. G-ROCK nunca ve ni almacena tu número de tarjeta.",
+    payProcessing:"Procesando pago...", payFailed:"Pago fallido. Comprueba los datos de tu tarjeta e inténtalo de nuevo.",
+    payCompleted:"Pago completado. Tu Student ID se está emitiendo.",
     secValue:"¿Qué Hay En El Archivo?",
     secUpdates:"Últimas Actualizaciones",
     secSearch:"Búsqueda y Filtros del Archivo", searchPlaceholder:"Buscar en el archivo...", searchBtn:"Buscar",
@@ -870,13 +947,12 @@ const translations = {
     lead:"Après approbation du Professeur Sugriva et de l'Université des Singes de Gibraltar au sein de la communauté académique britannique, nous ouvrons le recrutement aux candidats humains.",
     btnLang:"Choisir la Langue", btnPayment:"Accès Étudiant", btnContinue:"Continuer",
     statRegistered:"Étudiants Inscrits", statFiles:"Fichiers Totaux", statUpdates:"Mises à Jour de l'Archive", statLangs:"Langues Disponibles",
-    flowTitle:"Déroulement",
-    flow1Title:"Introduction", flow1Desc:"Écran d'accueil animé en anglais.",
-    flow2Title:"Langue", flow2Desc:"Choisissez l'une des quatre langues.",
-    flow3Title:"Accès", flow3Desc:"L'accès réel à l'archive est délivré par le backend.",
-    flow4Title:"Continuer", flow4Desc:"Ouvrez les tuiles de l'archive.",
     secLanguage:"Choisir la Langue",
-    secPayment:"Accès Étudiant", paymentBig:"Paiement d'accès unique", paymentSmall:"Le paiement PayPal est connecté à la création et à la capture des commandes côté backend.",
+    secPayment:"Accès Étudiant", paymentBig:"Paiement d'accès unique — £5", paymentSmall:"Payez une fois par Visa/Mastercard (Stripe) ou PayPal. Accès à vie.",
+    payCard:"Carte (Visa/Mastercard)", payPaypal:"PayPal", payNowCard:"Payer £5 par Carte",
+    payNoteStripe:"Les données de carte sont traitées directement par Stripe. G-ROCK ne voit ni ne stocke jamais votre numéro de carte.",
+    payProcessing:"Traitement du paiement...", payFailed:"Paiement échoué. Vérifiez les informations de votre carte et réessayez.",
+    payCompleted:"Paiement effectué. Votre Student ID est en cours d'émission.",
     secValue:"Que Contient L'Archive ?",
     secUpdates:"Dernières Mises à Jour",
     secSearch:"Recherche et Filtres de l'Archive", searchPlaceholder:"Rechercher dans l'archive...", searchBtn:"Rechercher",
@@ -906,13 +982,12 @@ const translations = {
     lead:"После одобрения профессором Сугривой и Университетом Обезьян Гибралтара в рамках британского академического сообщества мы открываем набор среди кандидатов-людей.",
     btnLang:"Выбрать Язык", btnPayment:"Доступ для Студентов", btnContinue:"Продолжить",
     statRegistered:"Зарегистрированные Студенты", statFiles:"Всего Файлов в Архиве", statUpdates:"Обновления Архива", statLangs:"Поддерживаемые Языки",
-    flowTitle:"Процесс",
-    flow1Title:"Вступление", flow1Desc:"Анимированный приветственный экран на английском.",
-    flow2Title:"Язык", flow2Desc:"Выберите один из языков.",
-    flow3Title:"Доступ", flow3Desc:"Реальный доступ к архиву выдаётся сервером.",
-    flow4Title:"Продолжить", flow4Desc:"Откройте плитки архива.",
     secLanguage:"Выбрать Язык",
-    secPayment:"Доступ для Студентов", paymentBig:"Единоразовая оплата доступа", paymentSmall:"Оплата через PayPal связана с созданием и подтверждением заказа на сервере.",
+    secPayment:"Доступ для Студентов", paymentBig:"Единоразовая оплата доступа — £5", paymentSmall:"Оплатите один раз Visa/Mastercard (Stripe) или PayPal. Доступ на всю жизнь.",
+    payCard:"Карта (Visa/Mastercard)", payPaypal:"PayPal", payNowCard:"Оплатить £5 картой",
+    payNoteStripe:"Данные карты обрабатываются напрямую Stripe. G-ROCK никогда не видит и не хранит номер вашей карты.",
+    payProcessing:"Обработка платежа...", payFailed:"Платёж не удался. Проверьте данные карты и попробуйте снова.",
+    payCompleted:"Платёж завершён. Ваш Student ID выдаётся.",
     secValue:"Что Внутри Архива?",
     secUpdates:"Последние Обновления",
     secSearch:"Поиск и Фильтры Архива", searchPlaceholder:"Поиск в архиве...", searchBtn:"Поиск",
@@ -942,13 +1017,12 @@ const translations = {
     lead:"Na goedkeuring door professor Sugriva en de Universiteit van de Apen van Gibraltar binnen de Britse academische gemeenschap, openen we de werving onder menselijke kandidaten.",
     btnLang:"Taal Kiezen", btnPayment:"Studententoegang", btnContinue:"Doorgaan",
     statRegistered:"Geregistreerde Studenten", statFiles:"Totaal Aantal Bestanden", statUpdates:"Archiefupdates", statLangs:"Ondersteunde Talen",
-    flowTitle:"Verloop",
-    flow1Title:"Intro", flow1Desc:"Geanimeerd Engelstalig welkomstscherm.",
-    flow2Title:"Taal", flow2Desc:"Kies een van de talen.",
-    flow3Title:"Toegang", flow3Desc:"Echte archieftoegang wordt door de server verleend.",
-    flow4Title:"Doorgaan", flow4Desc:"Open de archieftegels.",
     secLanguage:"Taal Kiezen",
-    secPayment:"Studententoegang", paymentBig:"Eenmalige toegangsbetaling", paymentSmall:"PayPal-afrekenen is gekoppeld aan het aanmaken en verwerken van bestellingen op de server.",
+    secPayment:"Studententoegang", paymentBig:"Eenmalige toegangsbetaling — £5", paymentSmall:"Betaal eenmalig met Visa/Mastercard (Stripe) of PayPal. Levenslange toegang.",
+    payCard:"Kaart (Visa/Mastercard)", payPaypal:"PayPal", payNowCard:"Betaal £5 met Kaart",
+    payNoteStripe:"Kaartgegevens worden rechtstreeks door Stripe verwerkt. G-ROCK ziet of bewaart nooit je kaartnummer.",
+    payProcessing:"Betaling wordt verwerkt...", payFailed:"Betaling mislukt. Controleer je kaartgegevens en probeer het opnieuw.",
+    payCompleted:"Betaling voltooid. Je Student ID wordt uitgegeven.",
     secValue:"Wat Zit Er In Het Archief?",
     secUpdates:"Laatste Updates",
     secSearch:"Archief Zoeken & Filters", searchPlaceholder:"Zoek in het archief...", searchBtn:"Zoeken",
@@ -1004,10 +1078,6 @@ resize();
   requestAnimationFrame(drawRain);
 })();
 
-// localStorage can throw in sandboxed webviews / in-app browsers / private
-// Safari. That used to crash the whole script and silently kill every
-// listener below it (including the one that opens the welcome screen),
-// leaving a black screen after the intro faded. Guard every access.
 function safeGet(key){
   try{ return localStorage.getItem(key); }catch(_e){ return null; }
 }
@@ -1015,15 +1085,36 @@ function safeSet(key,val){
   try{ localStorage.setItem(key,val); }catch(_e){ /* ignore */ }
 }
 
+/* Never insert data that came from an API response into innerHTML
+   without escaping it first — a nickname or update title could
+   otherwise contain HTML/JS and run in every visitor's browser. */
+function escapeHTML(value){
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+  }[ch]));
+}
+
 const state={lang:safeGet('grock_lang')||'en'};
-const api={students:'/api/students',updates:'/api/updates',stats:'/api/stats',admin:'/api/admin/students'};
+const api={
+  students:'/api/students',
+  updates:'/api/updates',
+  stats:'/api/stats',
+  admin:'/api/admin/students',
+  stripeIntent:'/api/stripe/create-payment-intent',
+  paypalOrder:'/api/paypal/order',
+  paypalCapture:'/api/paypal/order/capture',
+  /* The frontend never grants access itself. It only reports the
+     payment reference (PaymentIntent id / PayPal order id) here.
+     The backend must independently verify that reference against
+     Stripe/PayPal before issuing a Student ID — never trust a
+     "payment succeeded" message coming only from the browser. */
+  paymentsConfirm:'/api/payments/confirm'
+};
 const generatedIdEl=document.getElementById('generatedId');
 const welcomeOverlay=document.getElementById('welcomeOverlay');
 const introScreen=document.getElementById('introScreen');
 const mainShell=document.getElementById('mainShell');
 
-// cache of last-loaded backend data so switching language re-renders
-// the same data with new translations instead of re-fetching
 let lastStats={registered:0,totalFiles:0,archiveUpdates:0,languages:6};
 let lastStudents=[];
 let lastUpdates=[];
@@ -1043,7 +1134,6 @@ function applyI18n(lang){
   document.getElementById('status').textContent = t('statusLabel')+' // '+state.lang.toUpperCase();
   document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('active',x.dataset.lang===state.lang));
   safeSet('grock_lang', state.lang);
-  // re-render dynamic (backend-driven) content in the new language
   setStats(lastStats);
   renderStudents(lastStudents);
   renderUpdates(lastUpdates);
@@ -1058,13 +1148,13 @@ document.querySelectorAll('.flag-card').forEach(el=>el.addEventListener('click',
 document.querySelectorAll('#langGrid .lang').forEach(el=>el.addEventListener('click',()=>{
   applyI18n(el.dataset.lang);
 }));
-document.getElementById('returnHub').addEventListener('click',(e)=>{
+on('returnHub','click',(e)=>{
   e.preventDefault();
   window.location.href='index.html';
 });
-document.getElementById('openLang').onclick=()=>document.getElementById('langSelect').classList.add('active');
-document.getElementById('openPayment').onclick=()=>document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'});
-document.getElementById('openContinue').onclick=()=>document.getElementById('librarySection').scrollIntoView({behavior:'smooth'});
+on('openLang','click',()=>document.getElementById('langSelect').classList.add('active'));
+on('openPayment','click',()=>document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'}));
+on('openContinue','click',()=>document.getElementById('librarySection').scrollIntoView({behavior:'smooth'}));
 
 function setStats(s){
   lastStats=s;
@@ -1074,37 +1164,46 @@ function setStats(s){
     [t('statFiles'),s.totalFiles],
     [t('statUpdates'),s.archiveUpdates],
     [t('statLangs'),s.languages]
-  ].map(([label,value])=>`<div class="stat"><div class="n">${value}</div><div class="l">${label}</div></div>`).join('');
+  ].map(([label,value])=>'<div class="stat"><div class="n">'+escapeHTML(value)+'</div><div class="l">'+label+'</div></div>').join('');
 }
 function renderStudents(rows){
   lastStudents=rows;
   const body=document.getElementById('studentListBody');
   if(!rows.length){
-    body.innerHTML=`<tr><td colspan="2">${t('noRecords')}</td></tr>`;
+    body.innerHTML='<tr><td colspan="2">'+t('noRecords')+'</td></tr>';
     return;
   }
-  body.innerHTML=rows.map(r=>`<tr><td>${r.student_id}</td><td>${r.nickname}</td></tr>`).join('');
+  body.innerHTML=rows.map(r=>'<tr><td>'+escapeHTML(r.student_id)+'</td><td>'+escapeHTML(r.nickname)+'</td></tr>').join('');
 }
 function renderUpdates(rows){
   lastUpdates=rows;
   const list=document.getElementById('latestList');
   if(!rows.length){
-    list.innerHTML=`<div class="latest-item"><b>${t('noUpdates')}</b><span>${t('waitingBackend')}</span></div>`;
+    list.innerHTML='<div class="latest-item"><b>'+t('noUpdates')+'</b><span>'+t('waitingBackend')+'</span></div>';
     return;
   }
-  list.innerHTML=rows.slice(0,10).map(r=>`<div class="latest-item"><b>${r.name}</b><span>${r.date}</span></div>`).join('');
+  list.innerHTML=rows.slice(0,10).map(r=>'<div class="latest-item"><b>'+escapeHTML(r.name)+'</b><span>'+escapeHTML(r.date)+'</span></div>').join('');
 }
 function renderArchiveCounts(counts){
   lastCounts=counts;
   const labels=[['books',t('filterBooks')],['audiobooks',t('filterAudio')],['videos',t('filterVideo')],['documents',t('filterDocs')],['images',t('filterImages')]];
-  document.getElementById('valueGrid').innerHTML=labels.map(([key,label])=>`<div class="stat"><div class="n">${counts[key]||0}</div><div class="l">${label}</div></div>`).join('');
+  document.getElementById('valueGrid').innerHTML=labels.map(([key,label])=>'<div class="stat"><div class="n">'+escapeHTML(counts[key]||0)+'</div><div class="l">'+label+'</div></div>').join('');
+}
+async function fetchJSON(url, options={}){
+  const res = await fetch(url, options);
+  if(!res.ok){ throw new Error('HTTP '+res.status+' from '+url); }
+  const contentType = res.headers.get('content-type') || '';
+  if(!contentType.includes('application/json')){
+    throw new Error('Expected JSON response from '+url);
+  }
+  return res.json();
 }
 async function loadAll(){
   try{
     const [students,updates,stats]=await Promise.all([
-      fetch(api.students).then(r=>r.json()),
-      fetch(api.updates).then(r=>r.json()),
-      fetch(api.stats).then(r=>r.json())
+      fetchJSON(api.students),
+      fetchJSON(api.updates),
+      fetchJSON(api.stats)
     ]);
     renderStudents(students);
     renderUpdates(updates);
@@ -1122,12 +1221,13 @@ async function apiPost(url,data){
   const res=await fetch(url,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
+    credentials:'include',
     body:JSON.stringify(data)
   });
   if(!res.ok) throw new Error('Request failed');
   return res.json();
 }
-document.getElementById('adminAdd').onclick=async()=>{
+on('adminAdd','click',async()=>{
   try{
     const payload={
       nickname:document.getElementById('adminNick').value.trim(),
@@ -1137,111 +1237,262 @@ document.getElementById('adminAdd').onclick=async()=>{
     };
     const result=await apiPost(api.admin,payload);
     await loadAll();
-    alert(`Added: ${result.student_id}`);
+    alert('Added: '+result.student_id);
   }catch(e){
     console.error(e);
     alert('Backend unavailable — cannot add student right now.');
   }
-};
-document.getElementById('adminExport').onclick=()=>{
-  const rows=[...document.querySelectorAll('#studentListBody tr')].map(tr=>[...tr.children].map(td=>td.textContent.trim()).join(','));
-  const csv='Student ID,Nick\n'+rows.join('\n');
-  const blob=new Blob([csv],{type:'text/csv'});
+});
+function csvCell(value){
+  return '"'+String(value==null?'':value).replace(/"/g,'""')+'"';
+}
+on('adminExport','click',()=>{
+  const rows=lastStudents.map(r=>[r.student_id, r.nickname]);
+  const csv=[['Student ID','Nick'], ...rows].map(row=>row.map(csvCell).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
+  a.href=url;
   a.download='grock-student-list.csv';
   a.click();
-  URL.revokeObjectURL(a.href);
-};
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
 
-function filterItems(filter){
+/* Filter buttons and the search box used to work independently —
+   picking "Books" and then typing a query would drop the filter.
+   Both now feed one shared view function. */
+let activeFilter='all';
+let activeQuery='';
+function updateLibraryView(){
   document.querySelectorAll('.item').forEach(item=>{
-    const type=item.dataset.type;
-    item.parentElement.style.display=(filter==='all'||type===filter)?'':'none';
+    const typeMatch = activeFilter==='all' || item.dataset.type===activeFilter;
+    const textMatch = !activeQuery || item.innerText.toLowerCase().includes(activeQuery);
+    item.parentElement.style.display = (typeMatch && textMatch) ? '' : 'none';
   });
 }
-document.getElementById('filterBar').addEventListener('click',e=>{
+on('filterBar','click',e=>{
   const btn=e.target.closest('.filter-btn');
   if(!btn) return;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  filterItems(btn.dataset.filter);
+  activeFilter=btn.dataset.filter;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active', b===btn));
+  updateLibraryView();
 });
-document.getElementById('searchBtn').onclick=()=>{
-  const q=document.getElementById('searchInput').value.toLowerCase().trim();
-  document.querySelectorAll('.item').forEach(item=>{
-    item.parentElement.style.display=!q||item.innerText.toLowerCase().includes(q)?'':'none';
-  });
-};
-document.getElementById('searchInput').addEventListener('input',()=>document.getElementById('searchBtn').click());
+on('searchBtn','click',()=>{
+  const input = document.getElementById('searchInput');
+  activeQuery = input ? input.value.toLowerCase().trim() : '';
+  updateLibraryView();
+});
+on('searchInput','input',e=>{
+  activeQuery=e.target.value.toLowerCase().trim();
+  updateLibraryView();
+});
 
+let lastFocusedEl = null;
 function openWelcome(){
-  const id='GROCK-2026-'+String(Math.floor(Math.random()*90000)+10000);
-  generatedIdEl.textContent=id;
+  /* This is only a placeholder shown before payment — it is NOT a
+     real, permanent Student ID. It's replaced with the backend's
+     actual ID once a payment is confirmed via /api/payments/confirm
+     (see payWithCard and the PayPal onApprove handler below). */
+  generatedIdEl.textContent = 'PENDING';
+  lastFocusedEl = document.activeElement;
   welcomeOverlay.classList.add('active');
+  const closeBtn = document.getElementById('closeWelcome');
+  if(closeBtn) closeBtn.focus();
 }
-document.getElementById('finishAccess').onclick=()=>{
+function closeWelcomeOverlay(){
   welcomeOverlay.classList.remove('active');
+  if(lastFocusedEl && typeof lastFocusedEl.focus === 'function'){
+    lastFocusedEl.focus();
+  }
+}
+on('closeWelcome','click', closeWelcomeOverlay);
+on('finishAccess','click', ()=>{
+  closeWelcomeOverlay();
   mainShell.style.display='flex';
   loadAll();
-};
-setTimeout(openWelcome,900);
+});
 
-// Extra failsafe: if openWelcome somehow never fires, force the main
-// shell visible once the intro would have finished anyway, so the user
-// never lands on a blank black screen.
+/* Startup flow: wait for the cinematic intro to actually finish
+   (animationend) instead of guessing a fixed delay — this stays
+   correct even if the intro's CSS animation timing changes later.
+   The 8s timer below is only a last-resort failsafe in case the
+   animationend event never fires for some reason (e.g. the intro
+   element gets removed by other code before it completes). */
+introScreen.addEventListener('animationend',()=>{
+  introScreen.style.display='none';
+  if(!welcomeOverlay.classList.contains('active') && mainShell.style.display==='none'){
+    openWelcome();
+  }
+});
 setTimeout(()=>{
   if(!welcomeOverlay.classList.contains('active') && mainShell.style.display==='none'){
+    introScreen.style.display='none';
     mainShell.style.display='flex';
     loadAll();
   }
 },8000);
 
 applyI18n(state.lang);
-introScreen.addEventListener('animationend',()=>{
-  introScreen.style.display='none';
-});
+
+/* =========================================================
+   PAYMENT METHOD SWITCHER — Card (Stripe) vs PayPal
+   ========================================================= */
+const payTabCard = document.getElementById('payTabCard');
+const payTabPaypal = document.getElementById('payTabPaypal');
+const cardPane = document.getElementById('cardPane');
+const paypalPane = document.getElementById('paypalPane');
+
+function showPayMethod(method){
+  if(payTabCard) payTabCard.classList.toggle('active', method==='card');
+  if(payTabPaypal) payTabPaypal.classList.toggle('active', method==='paypal');
+  if(cardPane) cardPane.classList.toggle('active', method==='card');
+  if(paypalPane) paypalPane.classList.toggle('active', method==='paypal');
+}
+on('payTabCard','click', ()=>showPayMethod('card'));
+on('payTabPaypal','click', ()=>showPayMethod('paypal'));
+
+/* =========================================================
+   STRIPE — Card payments (Visa / Mastercard)
+   Replace STRIPE_PUBLISHABLE_KEY below with your real
+   publishable (pk_live_... or pk_test_...) key from the
+   Stripe Dashboard. This key is safe to expose in the
+   frontend — it can only create payments, never move money
+   out or read secret data.
+   Your backend must expose:
+     POST /api/stripe/create-payment-intent
+       body: { amount, currency, nickname }
+       returns: { clientSecret }
+   ========================================================= */
+const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_KEY';
+let stripe = null;
+let stripeElements = null;
+let cardElement = null;
+
+function initStripe(){
+  if(!window.Stripe){
+    console.warn('Stripe.js not loaded yet.');
+    return;
+  }
+  if(stripe) return; // already initialized
+  stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+  stripeElements = stripe.elements();
+  cardElement = stripeElements.create('card', {
+    style: {
+      base: {
+        color: '#e8eef9',
+        fontFamily: "'Inter', sans-serif",
+        fontSize: '16px',
+        '::placeholder': { color: '#6f84a8' }
+      },
+      invalid: { color: '#ff9c9c' }
+    }
+  });
+  cardElement.mount('#card-element');
+  cardElement.on('change', (event)=>{
+    document.getElementById('cardErrors').textContent = event.error ? event.error.message : '';
+  });
+}
+
+async function payWithCard(){
+  const btn = document.getElementById('stripePayBtn');
+  const errEl = document.getElementById('cardErrors');
+  if(!btn || !errEl) return; // required UI missing, nothing safe to do
+  if(!stripe || !cardElement){
+    errEl.textContent = 'Stripe is not configured yet. Add your publishable key in the script.';
+    return;
+  }
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = t('payProcessing');
+  errEl.textContent = '';
+  try{
+    const nickname = (document.getElementById('nicknameInput') && document.getElementById('nicknameInput').value.trim()) || 'G-ROCK Student';
+    const intentRes = await fetch(api.stripeIntent, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ amount: 500, currency: 'gbp', nickname })
+    });
+    if(!intentRes.ok) throw new Error('Could not create payment intent');
+    const { clientSecret } = await intentRes.json();
+
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: { card: cardElement, billing_details: { name: nickname } }
+    });
+
+    if(result.error){
+      errEl.textContent = result.error.message || t('payFailed');
+      btn.disabled = false;
+      btn.textContent = originalText;
+      return;
+    }
+
+    if(result.paymentIntent && result.paymentIntent.status === 'succeeded'){
+      errEl.style.color = '#7cffb2';
+      errEl.textContent = t('payCompleted');
+      /* Send only the payment reference. The backend re-verifies
+         it with Stripe's API (amount, currency, status) before
+         issuing anything — the client can't be trusted to decide
+         who paid. */
+      const confirmed = await apiPost(api.paymentsConfirm, {
+        provider: 'STRIPE',
+        payment_reference: result.paymentIntent.id,
+        nickname: nickname
+      });
+      if(confirmed && confirmed.student_id){
+        generatedIdEl.textContent = confirmed.student_id;
+      }
+      await loadAll();
+    }
+  }catch(e){
+    console.error(e);
+    errEl.textContent = t('payFailed');
+  }finally{
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+}
+on('stripePayBtn','click', payWithCard);
+
+/* =========================================================
+   PAYPAL — unchanged flow, still available as a second
+   payment tab next to Card.
+   ========================================================= */
 window.PayPalCheckoutReady = async function() {
   if(!window.paypal) return;
   paypal.Buttons({
-    style: {
-      layout: 'vertical',
-      color: 'gold',
-      shape: 'rect',
-      label: 'pay'
-    },
+    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
     createOrder: async function () {
-      const res = await fetch('/api/paypal/order', {
+      /* amount/currency here are only a hint for the backend UI —
+         the server must ignore them and always charge its own
+         configured price (£5.00). Never trust a price coming from
+         the browser. */
+      const res = await fetch(api.paypalOrder, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          amount: '5.00',
-          currency: 'EUR',
-          description: 'G-ROCK Archive Student Access'
-        })
+        body: JSON.stringify({ amount: '5.00', currency: 'GBP', description: 'G-ROCK Archive Student Access' })
       });
       const data = await res.json();
       return data.orderID;
     },
     onApprove: async function (data) {
-      const res = await fetch('/api/paypal/order/capture', {
+      const res = await fetch(api.paypalCapture, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ orderID: data.orderID })
       });
       const captureData = await res.json();
       if (captureData.status === 'COMPLETED') {
-        alert('Payment completed. Student ID can now be issued.');
-        await fetch('/api/admin/students', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            nickname: document.getElementById('nicknameInput').value.trim() || 'PayPal User',
-            access_type: 'FULL ARCHIVE',
-            source: 'PAYPAL',
-            expiry_date: null
-          })
+        /* Same rule as Stripe: only the order id is sent, the
+           backend re-verifies the capture with PayPal itself. */
+        const confirmed = await apiPost(api.paymentsConfirm, {
+          provider: 'PAYPAL',
+          payment_reference: data.orderID,
+          nickname: (document.getElementById('nicknameInput') && document.getElementById('nicknameInput').value.trim()) || 'PayPal User'
         });
+        if(confirmed && confirmed.student_id){
+          generatedIdEl.textContent = confirmed.student_id;
+        }
+        alert(t('payCompleted'));
         loadAll();
       } else {
         alert('Payment not completed.');
@@ -1253,8 +1504,41 @@ window.PayPalCheckoutReady = async function() {
     }
   }).render('#paypal-button-container');
 };
+
+/* =========================================================
+   Accessibility: Escape closes any open overlay
+   ========================================================= */
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    document.getElementById('langSelect').classList.remove('active');
+    if(welcomeOverlay.classList.contains('active')) closeWelcomeOverlay();
+  }
+});
+
+/* =========================================================
+   Admin panel visibility — hidden until the backend confirms
+   an authenticated admin session. Never rely on display:none
+   alone: the backend must independently check the caller's
+   role on every /api/admin/* request regardless of what the
+   frontend shows or hides.
+   ========================================================= */
+async function loadAdminPanel(){
+  const panel = document.getElementById('adminPanel');
+  try{
+    const res = await fetch('/api/auth/me', { credentials:'include' });
+    if(!res.ok){ panel.hidden = true; return; }
+    const user = await res.json();
+    panel.hidden = user.role !== 'admin';
+  }catch(_e){
+    panel.hidden = true;
+  }
+}
+loadAdminPanel();
 </script>
-<script src="https://www.paypal.com/sdk/js?client-id=TWÓJ_CLIENT_ID&currency=EUR&intent=capture&components=buttons" onload="PayPalCheckoutReady()"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>initStripe();</script>
+<script src="https://www.paypal.com/sdk/js?client-id=TWOJ_PAYPAL_CLIENT_ID&currency=GBP&intent=capture&components=buttons" onload="PayPalCheckoutReady()"></script>
 </body>
 </html>
+
 
