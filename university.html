@@ -5,591 +5,223 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MUoG // Monkeys University of Gibraltar</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --bg:        #030609;
-  --bg2:       #070d14;
-  --bg3:       #0b1220;
-  --panel:     #0a1019;
-  --blue:      #3a8fff;
-  --blue-dim:  #1d4d88;
-  --blue-glow: rgba(58,143,255,0.18);
-  --cyan:      #00d4ff;
-  --gold:      #c8a84b;
-  --red:       #ff4060;
-  --green:     #00ff88;
-  --text:      #d4dde8;
-  --muted:     #4a6070;
-  --border:    #0f1e2e;
-  --border2:   #162030;
-}
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-
-body{
-  font-family:'Barlow Condensed',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
-body::before{
-  content:'';
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);
-  animation:scanShift 10s linear infinite;
-}
-@keyframes scanShift{0%{background-position:0 0;}100%{background-position:0 400px;}}
-
-.amb{position:fixed;pointer-events:none;z-index:0;}
-.amb1{top:-200px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(58,143,255,0.05) 0%,transparent 70%);}
-.amb2{bottom:-150px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.03) 0%,transparent 70%);}
-
-.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 32px 100px;}
-
-.site-header{
-  position:sticky;top:0;z-index:200;
-  background:rgba(3,6,9,0.94);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border2);
-  padding:0 32px;
-  display:flex;align-items:center;justify-content:space-between;
-  height:58px;
-}
-.h-left{display:flex;align-items:center;gap:14px;}
-.h-logo{
-  font-family:'Orbitron',sans-serif;font-weight:900;font-size:13px;
-  color:var(--blue);letter-spacing:3px;
-  text-shadow:0 0 14px rgba(58,143,255,0.5);
-}
-.h-sep{width:1px;height:22px;background:var(--border2);}
-.h-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;}
-.h-status{display:flex;align-items:center;gap:8px;}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.5s ease-in-out infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.status-txt{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;}
-
-.lang-panel{display:flex;align-items:center;gap:12px;margin-right:6px;}
-.lang-panel a{
-  font-family:'Share Tech Mono',monospace;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:2px;
-  text-decoration:none;
-  padding-bottom:2px;
-  border-bottom:1px solid transparent;
-  cursor:pointer;
-  transition:all .2s;
-}
-.lang-panel a:hover,.lang-panel a.active{
-  color:var(--blue);
-  border-bottom-color:var(--blue);
-  text-shadow:0 0 10px rgba(58,143,255,0.4);
-}
-.btn-back.active-return{
-  font-family:'Share Tech Mono',monospace;
-  font-size:10px;
-  color:#fff;
-  letter-spacing:2px;
-  text-decoration:none;
-  padding:7px 12px;
-  border-radius:4px;
-  border:1px solid rgba(58,143,255,0.85);
-  background:linear-gradient(180deg, rgba(58,143,255,0.18), rgba(58,143,255,0.06));
-  box-shadow:0 0 18px rgba(58,143,255,0.18);
-}
-
-.hero{
-  padding:80px 0 60px;
-  border-bottom:1px solid var(--border);
-  position:relative;
-}
-.hero-back-link{
-  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;
-  text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:28px;
-  transition:color .2s;
-}
-.hero-back-link:hover{color:var(--blue);}
-.hero-eyebrow{
-  font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);
-  letter-spacing:5px;text-transform:uppercase;margin-bottom:18px;
-  opacity:0;animation:fadeUp .8s ease .1s forwards;
-}
-.hero-title{
-  font-family:'Orbitron',sans-serif;font-weight:900;
-  font-size:clamp(30px,5vw,62px);line-height:1.05;
-  color:#fff;letter-spacing:2px;text-transform:uppercase;
-  opacity:0;animation:fadeUp .9s ease .25s forwards;
-}
-.hero-title span{color:var(--blue);text-shadow:0 0 30px rgba(58,143,255,0.4);}
-.hero-divider{width:80px;height:3px;background:linear-gradient(90deg,var(--blue),transparent);margin:22px 0;opacity:0;animation:fadeUp .8s ease .4s forwards;}
-.hero-desc{
-  max-width:700px;font-size:17px;font-weight:300;line-height:1.75;color:#8fa0b4;
-  opacity:0;animation:fadeUp .8s ease .55s forwards;
-}
-.hero-desc strong{color:var(--text);font-weight:600;}
-.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;opacity:0;animation:fadeUp .8s ease .7s forwards;}
-.badge{
-  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
-  padding:5px 12px;border-radius:3px;border:1px solid;text-transform:uppercase;
-}
-.badge-blue{border-color:var(--blue-dim);color:var(--blue);background:rgba(58,143,255,0.06);}
-.badge-gold{border-color:rgba(200,168,75,0.4);color:var(--gold);background:rgba(200,168,75,0.06);}
-.badge-green{border-color:rgba(0,255,136,0.3);color:var(--green);background:rgba(0,255,136,0.05);}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-
-.sec-label{
-  display:flex;align-items:center;gap:14px;
-  margin:56px 0 24px;
-}
-.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
-.sec-label-txt{
-  font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;
-  color:var(--muted);letter-spacing:4px;text-transform:uppercase;white-space:nowrap;
-}
-.sec-num{
-  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);
-  border:1px solid var(--border2);padding:2px 7px;border-radius:2px;
-}
-
-.partners-bar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:22px 28px;
-  background:var(--panel);
-  border:1px solid var(--blue-dim);
-  border-radius:8px;
-  cursor:pointer;
-  transition:all .3s ease;
-  position:relative;overflow:hidden;
-  opacity:0;animation:fadeUp .8s ease .9s forwards;
-}
-.partners-bar::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--blue),var(--cyan));
-}
-.partners-bar::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(58,143,255,0.03),transparent);
-  transform:translateX(-100%);transition:transform .6s ease;
-}
-.partners-bar:hover::after{transform:translateX(100%);}
-.partners-bar:hover{border-color:var(--blue);background:#0c1623;box-shadow:0 0 40px rgba(58,143,255,0.1);}
-.pb-left{display:flex;flex-direction:column;gap:5px;}
-.pb-tag{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
-.pb-title{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--blue);letter-spacing:2px;}
-.pb-names{font-size:16px;color:var(--text);font-weight:600;letter-spacing:.5px;margin-top:2px;}
-.pb-right{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:2px;}
-.pb-arrow{font-size:18px;transition:transform .3s;}
-.partners-bar:hover .pb-arrow{transform:translateX(5px);}
-
-.faculty-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:2px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  overflow:hidden;
-}
-@media(max-width:680px){.faculty-grid{grid-template-columns:1fr;}}
-
-.fc{
-  background:var(--panel);
-  padding:30px 32px;
-  cursor:pointer;
-  position:relative;
-  transition:background .25s ease;
-  overflow:hidden;
-}
-.fc::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--blue),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.fc::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(58,143,255,0.04),transparent 60%);
-  opacity:0;transition:opacity .3s;
-}
-.fc:hover{background:#0c1623;}
-.fc:hover::before,.fc:hover::after{opacity:1;}
-.fc-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:12px;}
-.fc-title{
-  font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;
-  color:#fff;letter-spacing:1px;margin-bottom:10px;line-height:1.3;
-  transition:color .2s;
-}
-.fc:hover .fc-title{color:var(--blue);}
-.fc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
-.fc-tag{
-  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;
-  padding:3px 8px;border-radius:2px;
-  background:rgba(58,143,255,0.06);border:1px solid var(--border2);color:var(--muted);
-}
-.fc-desc{font-size:13px;color:#566070;line-height:1.6;font-weight:300;}
-.fc-cta{
-  display:flex;align-items:center;gap:6px;margin-top:18px;
-  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;
-  opacity:0;transition:opacity .25s;
-}
-.fc:hover .fc-cta{opacity:1;}
-
-.ach-block{
-  background:var(--panel);
-  border:1px solid var(--border2);
-  border-radius:8px;
-  padding:34px;
-  position:relative;overflow:hidden;
-}
-.ach-block::after{
-  content:'';position:absolute;top:-60px;right:-60px;
-  width:240px;height:240px;
-  background:radial-gradient(circle,rgba(58,143,255,0.04) 0%,transparent 70%);
-  pointer-events:none;
-}
-.ach-label{
-  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--gold);
-  letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;
-}
-.ach-title{
-  font-family:'Orbitron',sans-serif;font-size:19px;font-weight:700;
-  color:#fff;line-height:1.3;margin-bottom:18px;
-}
-.ach-body{font-size:15px;font-weight:300;line-height:1.8;color:#7a8fa0;margin-bottom:20px;}
-.ach-body strong{color:var(--text);font-weight:600;}
-blockquote{
-  margin:18px 0;padding:18px 22px;
-  background:rgba(58,143,255,0.04);
-  border-left:3px solid var(--blue);
-  border-radius:0 6px 6px 0;
-  font-size:14.5px;font-style:italic;color:#9ab0c4;line-height:1.7;
-}
-.quote-author{
-  display:block;text-align:right;
-  font-family:'Share Tech Mono',monospace;
-  font-size:11px;color:var(--blue);font-style:normal;margin-top:10px;letter-spacing:1px;
-}
-.ach-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
-.ach-link{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;
-  color:var(--blue);text-decoration:none;padding:7px 16px;
-  border:1px solid var(--blue-dim);border-radius:4px;
-  background:rgba(58,143,255,0.05);transition:all .2s;
-}
-.ach-link:hover{background:var(--blue);color:#000;border-color:var(--blue);}
-
-.haiti-block{
-  background:var(--panel);border:1px solid var(--border2);border-radius:8px;padding:34px;
-}
-.hb-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
-.hb-title{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:18px;}
-.hb-body{font-size:15px;font-weight:300;line-height:1.8;color:#7a8fa0;}
-.hb-body strong{color:var(--text);font-weight:600;}
-
-.sys-role{
-  margin-top:50px;padding:24px 28px;
-  background:var(--bg2);border:1px solid var(--border);border-radius:6px;
-  display:flex;align-items:center;gap:20px;
-}
-.sr-icon{font-size:22px;color:var(--border2);flex-shrink:0;}
-.sr-text{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;line-height:1.9;}
-.sr-text span{color:var(--blue);}
-
-.modal-overlay{
-  display:none;position:fixed;inset:0;z-index:9000;
-  background:rgba(1,3,7,0.95);
-  backdrop-filter:blur(10px);
-  align-items:center;justify-content:center;padding:20px;
-  overflow-y:auto;
-}
-.modal-overlay.open{display:flex;animation:mIn .3s ease;}
-@keyframes mIn{from{opacity:0;}to{opacity:1;}}
-
-.modal{
-  background:#07101c;
-  border:1px solid var(--blue-dim);
-  border-radius:10px;
-  width:100%;max-width:820px;
-  position:relative;
-  box-shadow:0 0 80px rgba(58,143,255,0.12),0 30px 60px rgba(0,0,0,0.8);
-  animation:mSlide .35s cubic-bezier(0.2,0.8,0.3,1);
-  margin:auto;
-}
-@keyframes mSlide{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-
-.modal-close{
-  position:absolute;top:18px;right:20px;
-  background:none;border:none;cursor:pointer;
-  color:var(--muted);font-size:20px;line-height:1;
-  transition:color .2s;font-family:'Share Tech Mono',monospace;z-index:10;
-}
-.modal-close:hover{color:var(--red);}
-
-.m-head{padding:28px 34px 22px;border-bottom:1px solid var(--border2);}
-.m-eyebrow{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
-.m-title{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;line-height:1.2;margin-bottom:5px;}
-.m-subtitle{font-size:13px;color:var(--muted);letter-spacing:.5px;font-weight:300;}
-.m-body{padding:28px 34px;}
-.m-desc{font-size:15px;font-weight:300;line-height:1.8;color:#8090a0;margin-bottom:24px;}
-.m-desc strong{color:var(--text);font-weight:600;}
-
-.m-modules{display:flex;flex-direction:column;gap:10px;}
-.m-module{
-  background:#040c16;border:1px solid var(--border2);
-  border-left:3px solid var(--blue);
-  border-radius:0 6px 6px 0;padding:16px 20px;transition:background .2s;
-}
-.m-module:hover{background:#081220;}
-.mm-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:6px;}
-.mm-body{font-size:13.5px;font-weight:300;line-height:1.65;color:#7a8fa0;}
-.mm-body strong{color:var(--text);}
-
-.m-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
-.m-tag{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:4px 10px;border-radius:3px;background:rgba(58,143,255,0.06);border:1px solid var(--border2);color:var(--muted);}
-
-.r-classification{
-  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--red);
-  background:rgba(255,64,96,0.07);border:1px solid rgba(255,64,96,0.25);
-  padding:3px 10px;border-radius:2px;display:inline-block;margin-bottom:14px;
-}
-.r-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:#fff;letter-spacing:2px;line-height:1.25;margin-bottom:8px;}
-.r-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
-.r-meta-item{
-  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--muted);
-  background:var(--bg2);padding:4px 10px;border-radius:3px;border:1px solid var(--border);
-}
-.r-meta-item span{color:var(--blue);}
-
-.r-section{margin-bottom:30px;}
-.r-section-title{
-  font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--muted);
-  letter-spacing:4px;text-transform:uppercase;
-  margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);
-}
-.r-text{font-size:14.5px;font-weight:300;line-height:1.85;color:#7a8fa0;}
-.r-text strong{color:var(--text);font-weight:600;}
-
-.r-log{
-  background:#030609;border:1px solid var(--border);border-radius:6px;
-  padding:18px 22px;font-family:'Share Tech Mono',monospace;font-size:12px;line-height:2.1;
-}
-.r-log-line{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:2px 0;border-bottom:1px solid rgba(15,30,46,0.5);}
-.r-log-line:last-child{border-bottom:none;}
-.r-ts{color:var(--blue);}
-.r-ev{color:#c9d9e8;}
-
-.r-finding{
-  background:#040c16;border:1px solid var(--border2);
-  border-left:3px solid var(--red);
-  border-radius:0 6px 6px 0;padding:14px 18px;margin-bottom:10px;
-}
-.r-finding-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:#ff8090;letter-spacing:1px;margin-bottom:5px;}
-.r-finding-body{font-size:13.5px;font-weight:300;color:#7a8fa0;line-height:1.65;}
-
-.r-finding-blue{border-left-color:var(--blue);}
-.r-finding-blue .r-finding-title{color:var(--blue);}
-
-.r-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
-.r-link{
-  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;
-  color:var(--blue);text-decoration:none;padding:7px 16px;
-  border:1px solid var(--blue-dim);border-radius:4px;
-  background:rgba(58,143,255,0.05);transition:all .2s;
-}
-.r-link:hover{background:var(--blue);color:#000;}
-
+:root{--bg:#030609;--bg2:#070d14;--panel:#0a1019;--blue:#3a8fff;--blue-dim:#1d4d88;--cyan:#00d4ff;--red:#ff4060;--green:#00ff88;--text:#d4dde8;--muted:#4a6070;--border:#0f1e2e;--border2:#162030}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow Condensed',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);animation:scanShift 10s linear infinite}
+@keyframes scanShift{0%{background-position:0 0}100%{background-position:0 400px}}
+.amb{position:fixed;pointer-events:none;z-index:0}
+.amb1{top:-200px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(58,143,255,.05) 0%,transparent 70%)}
+.amb2{bottom:-150px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,.03) 0%,transparent 70%)}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 32px 100px}
+.site-header{position:sticky;top:0;z-index:200;background:rgba(3,6,9,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border2);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px}
+.h-left{display:flex;align-items:center;gap:14px;min-width:0}
+.h-logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:13px;color:var(--blue);letter-spacing:3px;text-shadow:0 0 14px rgba(58,143,255,.5)}
+.h-sep{width:1px;height:22px;background:var(--border2)}
+.h-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.status-txt{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px}
+.lang-panel{display:flex;align-items:center;gap:12px;margin-right:6px;flex-wrap:wrap}
+.lang-panel a{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;cursor:pointer;transition:all .2s}
+.lang-panel a:hover,.lang-panel a.active{color:var(--blue);border-bottom-color:var(--blue);text-shadow:0 0 10px rgba(58,143,255,.4)}
+.btn-nav{font-family:'Share Tech Mono',monospace;font-size:10px;color:#fff;letter-spacing:2px;text-decoration:none;padding:7px 12px;border-radius:4px;border:1px solid rgba(58,143,255,.85);background:linear-gradient(180deg,rgba(58,143,255,.18),rgba(58,143,255,.06));box-shadow:0 0 18px rgba(58,143,255,.18);white-space:nowrap}
+.hero{padding:80px 0 60px;border-bottom:1px solid var(--border);position:relative}
+.hero-eyebrow{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:5px;text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp .8s ease .1s forwards}
+.hero-title{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(30px,5vw,66px);line-height:1.02;color:#fff;letter-spacing:2px;text-transform:uppercase;opacity:0;animation:fadeUp .9s ease .25s forwards}
+.hero-title span{color:var(--blue);text-shadow:0 0 30px rgba(58,143,255,.4)}
+.hero-divider{width:80px;height:3px;background:linear-gradient(90deg,var(--blue),transparent);margin:22px 0;opacity:0;animation:fadeUp .8s ease .4s forwards}
+.hero-desc{max-width:760px;font-size:17px;font-weight:300;line-height:1.75;color:#8fa0b4;opacity:0;animation:fadeUp .8s ease .55s forwards}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;opacity:0;animation:fadeUp .8s ease .7s forwards}
+.badge{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:5px 12px;border-radius:3px;border:1px solid;text-transform:uppercase}
+.badge-blue{border-color:var(--blue-dim);color:var(--blue);background:rgba(58,143,255,.06)}
+.badge-cyan{border-color:rgba(0,212,255,.35);color:var(--cyan);background:rgba(0,212,255,.05)}
+.badge-green{border-color:rgba(0,255,136,.3);color:var(--green);background:rgba(0,255,136,.05)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.sec-label{display:flex;align-items:center;gap:14px;margin:56px 0 24px}
+.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent)}
+.sec-label-txt{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:4px;text-transform:uppercase;white-space:nowrap}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);border:1px solid var(--border2);padding:2px 7px;border-radius:2px}
+.history-timeline{display:grid;gap:18px}
+.history-card{background:var(--panel);border:1px solid var(--border2);border-radius:10px;padding:28px 30px;position:relative;overflow:hidden}
+.history-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--blue),var(--cyan))}
+.history-date{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:var(--cyan);letter-spacing:2px;margin-bottom:14px}
+.history-name{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;line-height:1.15;color:#fff;letter-spacing:1px;margin-bottom:10px}
+.history-action{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
+.history-desc{font-size:17px;font-weight:300;line-height:1.75;color:#7a8fa0;max-width:980px}
+.history-card.recognition .history-date{font-size:clamp(22px,2.2vw,30px);letter-spacing:3px}
+.history-card.recognition .history-name{font-size:clamp(28px,3vw,42px);line-height:1.08}
+.history-card.recognition .history-action{font-size:clamp(14px,1.4vw,18px)}
+.history-card.recognition .history-desc{font-size:clamp(16px,1.6vw,20px);line-height:1.7;max-width:1000px}
+.history-card:hover{background:#0c1623;border-color:var(--blue-dim)}
+.faculty-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.fc{background:var(--panel);padding:30px 32px;cursor:pointer;position:relative;transition:background .25s ease;overflow:hidden;min-height:220px}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),transparent);opacity:0;transition:opacity .3s}
+.fc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(58,143,255,.04),transparent 60%);opacity:0;transition:opacity .3s}
+.fc:hover{background:#0c1623}
+.fc:hover::before,.fc:hover::after{opacity:1}
+.fc-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:12px}
+.fc-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:10px;line-height:1.3;transition:color .2s}
+.fc:hover .fc-title{color:var(--blue)}
+.fc-axiom{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--cyan);margin-bottom:14px}
+.fc-desc{font-size:13px;color:#566070;line-height:1.6;font-weight:300}
+.fc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+.fc-tag{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:2px;background:rgba(58,143,255,.06);border:1px solid var(--border2);color:var(--muted)}
+.fc-cta{display:flex;align-items:center;gap:6px;margin-top:18px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;opacity:0;transition:opacity .25s}
+.fc:hover .fc-cta{opacity:1}
+.core-block{background:var(--panel);border:1px solid var(--border2);border-radius:10px;padding:34px;position:relative;overflow:hidden}
+.core-title{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:16px}
+.core-title span{color:var(--blue)}
+.core-body{font-size:16px;font-weight:300;line-height:1.8;color:#7a8fa0}
+.core-lines{margin-top:18px;display:grid;gap:10px}
+.core-line{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--text);padding:12px 14px;background:#040c16;border:1px solid var(--border2);border-radius:6px}
+.modal-overlay{display:none;position:fixed;inset:0;z-index:9000;background:rgba(1,3,7,.95);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.modal-overlay.open{display:flex;animation:mIn .3s ease}
+@keyframes mIn{from{opacity:0}to{opacity:1}}
+.modal{background:#07101c;border:1px solid var(--blue-dim);border-radius:10px;width:100%;max-width:860px;position:relative;box-shadow:0 0 80px rgba(58,143,255,.12),0 30px 60px rgba(0,0,0,.8);animation:mSlide .35s cubic-bezier(0.2,0.8,0.3,1);margin:auto}
+@keyframes mSlide{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-close{position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:20px;line-height:1;transition:color .2s;font-family:'Share Tech Mono',monospace;z-index:10}
+.modal-close:hover{color:var(--red)}
+.m-head{padding:28px 34px 22px;border-bottom:1px solid var(--border2)}
+.m-eyebrow{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px}
+.m-title{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;line-height:1.2;margin-bottom:5px}
+.m-subtitle{font-size:13px;color:var(--muted);letter-spacing:.5px;font-weight:300}
+.m-body{padding:28px 34px}
+.m-desc{font-size:15px;font-weight:300;line-height:1.8;color:#8090a0;margin-bottom:24px}
+.m-modules{display:flex;flex-direction:column;gap:10px}
+.m-module{background:#040c16;border:1px solid var(--border2);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;padding:16px 20px;transition:background .2s}
+.m-module:hover{background:#081220}
+.mm-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:6px}
+.mm-body{font-size:13.5px;font-weight:300;line-height:1.65;color:#7a8fa0}
+.m-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.m-tag{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:4px 10px;border-radius:3px;background:rgba(58,143,255,.06);border:1px solid var(--border2);color:var(--muted)}
+@media(max-width:680px){.faculty-grid{grid-template-columns:1fr}}
 @media(max-width:600px){
-  .wrap{padding:0 16px 80px;}
-  .site-header{padding:0 16px;}
-  .modal{border-radius:0;}
-  .m-head,.m-body{padding:20px;}
+  .wrap{padding:0 16px 80px}
+  .site-header{padding:0 16px;height:auto;min-height:58px}
+  .h-sub{display:none}
+  .modal{border-radius:0}
+  .m-head,.m-body{padding:20px}
+  .history-card{padding:22px 20px}
+  .history-date{font-size:16px}
+  .history-name{font-size:22px}
+  .history-desc{font-size:15px}
+  .history-card.recognition .history-date{font-size:18px}
+  .history-card.recognition .history-name{font-size:24px}
+  .history-card.recognition .history-action{font-size:13px}
+  .history-card.recognition .history-desc{font-size:15px}
 }
 </style>
 </head>
 <body>
-
 <div class="amb amb1"></div>
 <div class="amb amb2"></div>
-
 <header class="site-header">
   <div class="h-left">
     <div class="h-logo">MUoG</div>
     <div class="h-sep"></div>
-    <div class="h-sub">G-ROCK CORPORATION // ACADEMIC NODE</div>
+    <div class="h-sub" data-i18n="header_sub">G-ROCK CORPORATION // ACADEMIC NODE</div>
   </div>
-  <div class="h-status" style="gap:14px; flex-wrap:wrap; justify-content:flex-end;">
+  <div class="h-status">
     <div class="lang-panel">
       <a onclick="setLang('en')" id="lang-en" class="active">EN</a>
+      <a onclick="setLang('pl')" id="lang-pl">PL</a>
       <a onclick="setLang('es')" id="lang-es">ES</a>
       <a onclick="setLang('fr')" id="lang-fr">FR</a>
-      <a onclick="setLang('pl')" id="lang-pl">PL</a>
+      <a onclick="setLang('ru')" id="lang-ru">RU</a>
+      <a onclick="setLang('nl')" id="lang-nl">NL</a>
     </div>
-    <a href="index.html" class="btn-back active-return" id="btn-return">RETURN TO HUB</a>
+    <a id="libraryLink" class="btn-nav" href="#">LIBRARY</a>
+    <a href="index.html" class="btn-nav" id="btn-return">RETURN TO HUB</a>
     <div class="status-dot"></div>
-    <div class="status-txt">SYSTEM ACTIVE</div>
+    <div class="status-txt" data-i18n="system_active">SYSTEM ACTIVE</div>
   </div>
 </header>
 
 <div class="wrap">
-
   <section class="hero">
-    <a href="index.html" class="hero-back-link">← BACK TO DASHBOARD</a>
-    <p class="hero-eyebrow">G-Rock Academic Division // Sovereign Territory Node</p>
-    <h1 class="hero-title">Monkeys University<br><span>of Gibraltar</span></h1>
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow">ACADEMIC NODE // G-ROCK UNIVERSE</p>
+    <h1 class="hero-title">MONKEYS UNIVERSITY<br><span>OF GIBRALTAR</span></h1>
     <div class="hero-divider"></div>
-    <p class="hero-desc">
-      Welcome to <strong>Monkeys University of Gibraltar</strong> — the central academic engine of the G-Rock State. 
-      Sovereign knowledge architecture operating from <strong>The Rock</strong>, outside the perimeter of conventional institutional frameworks.
-      We build the administrative infrastructure of the future Networked State.
-    </p>
+    <p class="hero-desc" data-i18n="hero_desc">Monkeys University of Gibraltar is the academic core of the G-ROCK Universe, dedicated to humanities, advanced technologies, historical research and constitutional studies.</p>
     <div class="hero-badges">
-      <span class="badge badge-blue">ACADEMIC NODE ACTIVE</span>
-      <span class="badge badge-gold">G-ROCK CORPORATION ASSET</span>
-      <span class="badge badge-green">SOVEREIGN STATUS</span>
+      <span class="badge badge-blue" data-i18n="hero_badge1">ACADEMIC NODE ACTIVE</span>
+      <span class="badge badge-cyan" data-i18n="hero_badge2">G-ROCK CORPORATION</span>
+      <span class="badge badge-green" data-i18n="hero_badge3">EST. 1978</span>
     </div>
   </section>
 
-  <div class="sec-label">
-    <span class="sec-num">01</span>
-    <span class="sec-label-txt">Academic Partners & Validation</span>
-  </div>
-
-  <div class="partners-bar" onclick="openPartners()">
-    <div class="pb-left">
-      <div class="pb-tag">// EXTERNAL ACADEMIC NODES — UNITED KINGDOM</div>
-      <div class="pb-title">PARTNERS &amp; INSTITUTIONAL RECORD</div>
-      <div class="pb-names">Elisabeth School of London &nbsp;/&nbsp; Bath Spa University</div>
+  <div class="sec-label"><span class="sec-num">01</span><span class="sec-label-txt" data-i18n="history_label">UNIVERSITY HISTORY</span></div>
+  <div class="history-timeline">
+    <div class="history-card">
+      <div class="history-date" data-i18n="h1_date"></div>
+      <div class="history-name" data-i18n="h1_name"></div>
+      <div class="history-action" data-i18n="h1_action"></div>
+      <div class="history-desc" data-i18n="h1_desc"></div>
     </div>
-    <div class="pb-right">
-      VIEW FULL REPORT <span class="pb-arrow">→</span>
+    <div class="history-card">
+      <div class="history-date" data-i18n="h2_date"></div>
+      <div class="history-name" data-i18n="h2_name"></div>
+      <div class="history-action" data-i18n="h2_action"></div>
+      <div class="history-desc" data-i18n="h2_desc"></div>
+    </div>
+    <div class="history-card recognition">
+      <div class="history-date" data-i18n="h3_date"></div>
+      <div class="history-name" data-i18n="h3_name"></div>
+      <div class="history-action" data-i18n="h3_action"></div>
+      <div class="history-desc" data-i18n="h3_desc"></div>
     </div>
   </div>
 
-  <div class="sec-label">
-    <span class="sec-num">02</span>
-    <span class="sec-label-txt">Faculties — Gibraltar Core Node</span>
-  </div>
-
+  <div class="sec-label"><span class="sec-num">02</span><span class="sec-label-txt" data-i18n="faculties_label">FACULTIES</span></div>
   <div class="faculty-grid">
-
     <div class="fc" onclick="openFaculty('humanities')">
-      <div class="fc-num">FACULTY_01 // HUMANITIES</div>
-      <div class="fc-title">Faculty of Humanities</div>
-      <div class="fc-tags">
-        <span class="fc-tag">POLITICS</span>
-        <span class="fc-tag">INTERNATIONAL RELATIONS</span>
-        <span class="fc-tag">CULTURAL SYSTEMS</span>
-        <span class="fc-tag">GLOBAL GOVERNANCE</span>
-      </div>
-      <div class="fc-desc">Advanced analysis of decentralized statecraft, sovereign enclave politics, and civilizational narrative engineering. Prepares administrative cells to operate within non-standard territorial architectures.</div>
-      <div class="fc-cta">ACCESS CURRICULUM →</div>
+      <div class="fc-num" data-i18n="f1_num">FACULTY 01 — HUMANITIES</div>
+      <div class="fc-title" data-i18n="f1_title">Humanities</div>
+      <div class="fc-axiom" data-i18n="axiom_label">AXIOM 2</div>
+      <div class="fc-desc" data-i18n="f1_desc">History, identity and cultural systems viewed as active interpretive infrastructures.</div>
+      <div class="fc-tags" id="tags-humanities"></div>
+      <div class="fc-cta" data-i18n="click_faculty">CLICK FACULTY →</div>
     </div>
-
     <div class="fc" onclick="openFaculty('tech')">
-      <div class="fc-num">FACULTY_02 // ADVANCED TECHNOLOGIES</div>
-      <div class="fc-title">Faculty of Advanced Technologies</div>
-      <div class="fc-tags">
-        <span class="fc-tag">G-SYSTEM ENGINEERING</span>
-        <span class="fc-tag">AI SIMULATION</span>
-        <span class="fc-tag">DATA GOVERNANCE</span>
-        <span class="fc-tag">CYBER INFRASTRUCTURE</span>
-      </div>
-      <div class="fc-desc">Core computing division controlling distributed network layers. Manages cyber infrastructure, automated operations and AI simulation architecture for G-Rock Corporation.</div>
-      <div class="fc-cta">ACCESS CURRICULUM →</div>
+      <div class="fc-num" data-i18n="f2_num">FACULTY 02 — ADVANCED TECHNOLOGIES</div>
+      <div class="fc-title" data-i18n="f2_title">Advanced Technologies</div>
+      <div class="fc-axiom" data-i18n="axiom_label">AXIOM 1</div>
+      <div class="fc-desc" data-i18n="f2_desc">AI, algorithms and digital systems as narrators, selectors and organizers of historical meaning.</div>
+      <div class="fc-tags" id="tags-tech"></div>
+      <div class="fc-cta" data-i18n="click_faculty">CLICK FACULTY →</div>
     </div>
-
-    <div class="fc" onclick="openFaculty('warfare')">
-      <div class="fc-num">FACULTY_03 // WARFARE & HISTORY</div>
-      <div class="fc-title">Faculty of Warfare &amp; History</div>
-      <div class="fc-tags">
-        <span class="fc-tag">STRATEGIC CONFLICT</span>
-        <span class="fc-tag">ARCHIVE STUDIES</span>
-        <span class="fc-tag">CIVILIZATIONAL WARFARE</span>
-        <span class="fc-tag">FORTIFICATION THEORY</span>
-      </div>
-      <div class="fc-desc">Tactical research department converting ancient fortification strategies and asymmetric historical warfare into current protective defense profiles and civilizational security systems.</div>
-      <div class="fc-cta">ACCESS CURRICULUM →</div>
+    <div class="fc" onclick="openFaculty('history')">
+      <div class="fc-num" data-i18n="f3_num">FACULTY 03 — HISTORY</div>
+      <div class="fc-title" data-i18n="f3_title">History</div>
+      <div class="fc-axiom" data-i18n="axiom_label">AXIOM 3</div>
+      <div class="fc-desc" data-i18n="f3_desc">A focused study of Haiti, revolution, constitution and identity within global historical debate.</div>
+      <div class="fc-tags" id="tags-history"></div>
+      <div class="fc-cta" data-i18n="click_faculty">CLICK FACULTY →</div>
     </div>
-
-    <div class="fc" onclick="openFaculty('economics')">
-      <div class="fc-num">FACULTY_04 // ECONOMICS</div>
-      <div class="fc-title">Faculty of Economics</div>
-      <div class="fc-tags">
-        <span class="fc-tag">BANKING SYSTEMS</span>
-        <span class="fc-tag">TRADE NETWORKS</span>
-        <span class="fc-tag">MONKEY POUND THEORY</span>
-        <span class="fc-tag">MACRO-G-SYSTEM</span>
-      </div>
-      <div class="fc-desc">Operational testing of self-sustaining economic models. Blueprinting corporate-state hybrid financial structures and the MP£ monetary architecture of the G-Rock State.</div>
-      <div class="fc-cta">ACCESS CURRICULUM →</div>
-    </div>
-
-  </div>
-
-  <div class="sec-label">
-    <span class="sec-num">03</span>
-    <span class="sec-label-txt">Core Academic Milestone</span>
-  </div>
-
-  <div class="ach-block">
-    <div class="ach-label">// VERIFIED ACHIEVEMENT — UK ACADEMIC RECOGNITION</div>
-    <div class="ach-title">Professor Sugriva — Official Academic Validation by British Institutions</div>
-    <div class="ach-body">
-      The defining milestone of Monkeys University of Gibraltar: <strong>Professor Sugriva</strong>, 
-      an AI-constructed academic entity, was accepted and treated as a credible scientist by the 
-      British academic environment — specifically by <strong>Elisabeth School of London</strong> and 
-      <strong>Bath Spa University</strong>. This represents a landmark proof-of-concept demonstrating 
-      the institutional vulnerability of conventional academic verification systems.
-    </div>
-    <blockquote>
-      "The integration of regional intelligence networks and cross-strait simulation architectures provides the baseline data for the sovereign expansion of The Rock. The system is self-validating."
-      <span class="quote-author">— Professor Sugriva, MUoG</span>
-    </blockquote>
-    <div class="ach-links">
-      <a href="https://www.bathspa.ac.uk" class="ach-link" target="_blank">Bath Spa University Node ↗</a>
-      <a href="https://www.elizabethschool.london" class="ach-link" target="_blank">Elizabeth School of London ↗</a>
+    <div class="fc" onclick="openFaculty('political')">
+      <div class="fc-num" data-i18n="f4_num">FACULTY 04 — POLITICAL & CONSTITUTIONAL STUDIES</div>
+      <div class="fc-title" data-i18n="f4_title">Political & Constitutional Studies</div>
+      <div class="fc-axiom" data-i18n="axiom_label">AXIOM 4</div>
+      <div class="fc-desc" data-i18n="f4_desc">Citizenship, governance and constitutional thought inside the G-ROCK academic frame.</div>
+      <div class="fc-tags" id="tags-political"></div>
+      <div class="fc-cta" data-i18n="click_faculty">CLICK FACULTY →</div>
     </div>
   </div>
 
-  <div class="sec-label">
-    <span class="sec-num">04</span>
-    <span class="sec-label-txt">Research — Constitutional Archive</span>
-  </div>
-
-  <div class="haiti-block">
-    <div class="hb-tag">// DEPARTMENT OF ARCHIVE STUDIES — FLAGSHIP RESEARCH</div>
-    <div class="hb-title">Philosophical Redefinition of the Haitian Constitutional Framework</div>
-    <div class="hb-body">
-      MUoG has delivered a groundbreaking reinterpretation of early 19th-century constitutional law. 
-      The historic Haitian Constitution of 1805 legally designated all citizens — including the remaining 
-      <strong>Polish legionnaires</strong> who refused to fight against the Haitian people — under the definition 
-      of <em>"noir"</em> (Black). This document represents the peak of global constitutional design: it defines 
-      citizenship by <strong>loyalty, ethical choices, and actions</strong> — not biological traits.
-      <br><br>
-      Professor Sugriva's analysis proves that in the Haitian framework, race becomes a 
-      <strong>functional operational status defined by solidarity</strong> — severing the concept of citizenship 
-      from biological determinism permanently. The Polish–Haitian connection serves as a founding symbolic 
-      pillar of the MUoG trans-Atlantic research network.
-    </div>
-    <blockquote>
-      "In Haiti we can find humanity. The constitution severed the concept of citizenship from biological determinism. It proved that race within a true system is a functional operational status defined by loyalty, not skin color."
-      <span class="quote-author">— Professor Sugriva, Department of Archive Studies</span>
-    </blockquote>
-  </div>
-
-  <div class="sys-role">
-    <div class="sr-icon">◈</div>
-    <div class="sr-text">
-      SYSTEM ROLE: <span>ACADEMIC CORE NODE</span> // G-ROCK STATE<br>
-      NETWORK: <span>GIBRALTAR HQ</span> → TRANS-ATLANTIC LINK → <span>CARIBBEAN CAMPUS</span><br>
-      STATUS: <span>ALL NODES SYNCHRONIZED</span> // G-SYSTEM v1.1
+  <div class="sec-label"><span class="sec-num">03</span><span class="sec-label-txt" data-i18n="core_label">ACADEMIC CORE</span></div>
+  <div class="core-block">
+    <div class="core-title"><span>MUoG</span> // ACADEMIC CORE</div>
+    <div class="core-body" data-i18n="core_body">Research, narrative systems, historical reconstruction and advanced technologies within the G-ROCK Universe.</div>
+    <div class="core-lines">
+      <div class="core-line" data-i18n="core_line1">GIBRALTAR CORE NODE</div>
+      <div class="core-line" data-i18n="core_line2">ACADEMIC NETWORK ACTIVE</div>
+      <div class="core-line" data-i18n="core_line3">G-SYSTEM SYNCHRONIZED</div>
     </div>
   </div>
-
 </div>
 
 <div class="modal-overlay" id="facultyModal" onclick="closeModal('facultyModal',event)">
@@ -608,206 +240,19 @@ blockquote{
   </div>
 </div>
 
-<div class="modal-overlay" id="partnersModal" onclick="closeModal('partnersModal',event)">
-  <div class="modal" style="max-width:860px;">
-    <button class="modal-close" onclick="closeModal('partnersModal')">✕</button>
-
-    <div class="m-head">
-      <div class="r-classification">CLASSIFIED // INTERNAL ARCHIVE — G-ROCK CORPORATION</div>
-      <div class="r-title">586104 — Bath Spa University<br>Elisabeth School of London &amp; Bath Spa University<br>— Incident Report &amp; Institutional Analysis</div>
-      <div class="r-meta">
-        <div class="r-meta-item">CASE REF: <span>MUoG-ESL-BSU-2024</span></div>
-        <div class="r-meta-item">PERIOD: <span>2024.07 — 2025.03</span></div>
-        <div class="r-meta-item">STATUS: <span>ARCHIVED // CLOSED</span></div>
-        <div class="r-meta-item">SUBJECT: <span>PROF. SUGRIVA RECOGNITION EVENT</span></div>
-      </div>
-    </div>
-
-    <div class="m-body">
-
-      <div class="r-section">
-        <div class="r-section-title">I. Operational Timeline</div>
-        <div class="r-log">
-
-          <div class="r-log-line">
-            <span class="r-ts">19.07.2024</span>
-            <span class="r-ev"><strong>Interview — Elisabeth School of London.</strong> A direct business declaration (intent to commercialize an original book) was dismissed and treated as a joke. This resulted in a negative evaluation. The institutional response demonstrated an inability to distinguish between creative entrepreneurship and academic convention.</span>
-          </div>
-
-          <div class="r-log-line">
-            <span class="r-ts">December 2024</span>
-            <span class="r-ev"><strong>Essay Deployment.</strong> An essay signed by "Professor Sugriva" — with citations authored by the student but attributed to the Professor — was submitted not as coursework but as a demonstration tool. After a change of teacher the document lost formal status within ESL/BSU, yet became a widely circulated narrative artifact proving the system's credulity.</span>
-          </div>
-
-          <div class="r-log-line">
-            <span class="r-ts">21–22.01.2025</span>
-            <span class="r-ev"><strong>Disclosure Email to Jessica Smith (ESL Campus Birmingham).</strong> Full explanation sent: who Professor Sugriva actually is — an AI construct, a fictional academic entity built as part of an experimental transmedia project. The reply sustained the narrative of his authority and positive influence on a student. The institution maintained the fiction even after direct evidence of its artificial nature was provided.</span>
-          </div>
-
-          <div class="r-log-line">
-            <span class="r-ts">25.01.2025</span>
-            <span class="r-ev"><strong>Final Communication.</strong> A farewell email sent with full AI prototypes of Professor Sugriva as definitive proof of the manipulation. No institutional acknowledgement of the experiment's nature was received.</span>
-          </div>
-
-          <div class="r-log-line">
-            <span class="r-ts">Mid-March 2025</span>
-            <span class="r-ev"><strong>Police Intervention.</strong> Law enforcement visited the creator's residence. The stated basis: fabricated institutional accusations regarding alleged "intimate relations with a sister" — a person who does not exist. The accusations replaced any legitimate grievance with an invented personal smear, representing a clear escalation from institutional embarrassment to personal attack via state apparatus.</span>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="r-section">
-        <div class="r-section-title">II. Institutional Failure Analysis</div>
-
-        <div class="r-finding">
-          <div class="r-finding-title">COGNITIVE FAILURE — Semantics vs. Ontology</div>
-          <div class="r-finding-body">ESL and BSU demonstrated complete inability to distinguish between a semantic construct and an ontological entity. When confronted with direct evidence that "Sugriva" was an AI-generated persona, both institutions chose to maintain the fiction rather than acknowledge the manipulation. This constitutes a critical failure of institutional verification infrastructure.</div>
-        </div>
-
-        <div class="r-finding">
-          <div class="r-finding-title">REPUTATIONAL DAMAGE — Jessica Smith / ESL Campus Birmingham</div>
-          <div class="r-finding-body">Jessica Smith (ESL Campus Birmingham) sustained the narrative of Professor Sugriva's authority and "positive influence" even after receiving unambiguous proof of his artificial nature. This evidences a systemic verification crisis within the institution — one that prioritizes narrative coherence over factual accuracy.</div>
-        </div>
-
-        <div class="r-finding">
-          <div class="r-finding-title">OPERATIONAL ESCALATION — State Apparatus Weaponized</div>
-          <div class="r-finding-body">When unable to mount a credible intellectual or institutional response, the institution resorted to fabricated personal accusations to discredit the individual. The use of a police visit — based on entirely invented premises — represents the deployment of state machinery as a tool of institutional self-defense against a successful AI social experiment.</div>
-        </div>
-
-        <div class="r-finding r-finding-blue">
-          <div class="r-finding-title">G-ROCK CONCLUSION — Proof of Concept Confirmed</div>
-          <div class="r-finding-body">The experiment achieved its objective: demonstrating that contemporary academic institutions are critically vulnerable to narrative engineering. When a system cannot win on merit, it escalates to disproportionate aggression. The full correspondence archive constitutes a complete documentation of institutional dysfunction. Case archived as a study in systemic credulity.</div>
-        </div>
-
-      </div>
-
-      <div class="r-section">
-        <div class="r-section-title">III. Evidence Archive</div>
-        <div class="r-text">
-          Full documentation on record within the G-Rock Corporation archive includes: 
-          <strong>interview correspondence (19.07.2024)</strong>, 
-          <strong>the Professor Sugriva essay artifact</strong>, 
-          <strong>email exchange with Jessica Smith (21–25.01.2025)</strong>, 
-          <strong>AI prototype demonstrations</strong>, and 
-          <strong>records of the March 2025 police intervention</strong>. 
-          Together these constitute a complete chronicle of institutional verification failure and its consequences.
-        </div>
-        <div class="r-links" style="margin-top:16px;">
-          <a href="https://www.bathspa.ac.uk" class="r-link" target="_blank">Bath Spa University ↗</a>
-          <a href="https://www.elizabethschool.london" class="r-link" target="_blank">Elisabeth School of London ↗</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 <script>
-const faculties = {
-  humanities: {
-    eyebrow: 'FACULTY_01 // GIBRALTAR CORE NODE',
-    title: 'Faculty of Humanities',
-    subtitle: 'Politics • International Relations • Cultural Systems • Global Governance',
-    desc: 'Advanced analysis of decentralized statecraft and micro-enclaves. Prepares administrative cells to manage non-standard territorial architectures operating outside conventional European frameworks. Core training ground for the political layer of the G-Rock State.',
-    modules: [
-      { title: 'Global Governance Theory', body: 'Structural breakdown of failing nation-states and the emergence of sovereign enclave models as viable alternative architectures.' },
-      { title: 'Sovereign Enclave Politics', body: 'Legal and operational parameters for functional unrecognized state nodes. The Rock as a case study in micro-sovereignty.' },
-      { title: 'Cultural Systems Engineering', body: 'Designing specific societal narratives for internal cohesion and external projection. Transmedia as a governance instrument.' },
-      { title: 'Transmedia Narrative Logistics', body: 'Deploying analytical data streams and narrative frameworks across global networks. G-Rock Corporation methodology.' },
-    ],
-    tags: ['POLITICS','GOVERNANCE','CULTURAL SYSTEMS','NARRATIVE ENGINEERING','SOVEREIGNTY']
-  },
-  tech: {
-    eyebrow: 'FACULTY_02 // GIBRALTAR CORE NODE',
-    title: 'Faculty of Advanced Technologies',
-    subtitle: 'G-System Engineering • AI Simulation • Data Governance • Cyber Infrastructure',
-    desc: 'The core computing division controlling distributed network layers. Manages cyber infrastructure, perimeter telemetry, and automated network operations for G-Rock Corporation. Responsible for maintaining the G-System architecture that underpins the entire State.',
-    modules: [
-      { title: 'G-System Engineering', body: 'Maintenance and expansion of the decentralized state monitor array. Core backbone of all institutional nodes.' },
-      { title: 'AI Simulation Architecture', body: 'Modeling algorithms for regional defense, logistics, and social simulation. Includes the Professor Sugriva experimental framework.' },
-      { title: 'Networked State Infrastructure', body: 'Building redundant services across independent geographic nodes. Resilience and continuity protocols.' },
-      { title: 'Autonomous Cryptographic Governance', body: 'Encrypting and securing internal institutional archives. Autonomous decision frameworks operating within defined parameters.' },
-    ],
-    tags: ['AI','G-SYSTEM','CYBER','SIMULATION','DATA GOVERNANCE']
-  },
-  warfare: {
-    eyebrow: 'FACULTY_03 // GIBRALTAR CORE NODE',
-    title: 'Faculty of Warfare & History',
-    subtitle: 'Strategic Conflict • Archive Studies • Civilizational Warfare • Fortification Theory',
-    desc: 'Tactical research department dedicated to deep civilizational security. Converts ancient fortification strategies and asymmetric historical maneuvers into current protective defense profiles. The archive layer of the G-Rock State.',
-    modules: [
-      { title: 'Strategic Conflict Analysis', body: 'Mathematical and qualitative breakdowns of urban and maritime defense scenarios. Historical case studies from Mediterranean warfare.' },
-      { title: 'Civilizational Warfare Systems', body: 'Analyzing how non-conventional units and hybrid actors shift the dynamics of civilizational conflict. Includes the Wojtek Bear precedent.' },
-      { title: 'Fortification & Terrain Theory', body: 'Archival studies of geographical and physical fortification strategies. The Rock as the ultimate natural defensive architecture.' },
-      { title: 'Applied Archive Studies', body: 'Extracting functional field tactics and political intelligence from deep historical anomalies. Polish-Haitian connection as methodology.' },
-    ],
-    tags: ['STRATEGY','CONFLICT','HISTORY','ARCHIVE','FORTIFICATION']
-  },
-  economics: {
-    eyebrow: 'FACULTY_04 // GIBRALTAR CORE NODE',
-    title: 'Faculty of Economics',
-    subtitle: 'Banking Systems • Trade Networks • Monkey Pound Theory • Macro-G-System Economy',
-    desc: 'Operational testing of self-sustaining economic models. Focuses on insulation techniques to shield local capital and supply channels from external regulatory interventions. The financial architecture faculty of the G-Rock State.',
-    modules: [
-      { title: 'Monkey Pound Theory (MP£)', body: 'Validating alternative resource-backed local currency loops. MP£ pegged 1:1 to GBP as a stability model for sovereign micro-economies.' },
-      { title: 'Asymmetric Trade Networks', body: 'Optimizing maritime supply pipelines and cross-strait commerce vectors linking Europe and Africa through the Gibraltar node.' },
-      { title: 'Macro-G-System Economy', body: 'Blueprinting corporate-state hybrid financial structures. The Bank of the Monkeys as a sovereign monetary engine.' },
-      { title: 'Insular Banking Resilience', body: 'Shielding localized institutional transactions from external oversight and systemic shocks. Distributed ledger architecture.' },
-    ],
-    tags: ['MP£','BANKING','TRADE','MONETARY THEORY','LEDGER SYSTEMS']
-  }
-};
-
-function openFaculty(id) {
-  const f = faculties[id];
-  document.getElementById('fm-eyebrow').textContent = f.eyebrow;
-  document.getElementById('fm-title').textContent = f.title;
-  document.getElementById('fm-subtitle').textContent = f.subtitle;
-  document.getElementById('fm-desc').textContent = f.desc;
-
-  const modEl = document.getElementById('fm-modules');
-  modEl.innerHTML = '';
-  f.modules.forEach(m => {
-    modEl.innerHTML += `<div class="m-module"><div class="mm-title">${m.title}</div><div class="mm-body">${m.body}</div></div>`;
-  });
-
-  const tagEl = document.getElementById('fm-tags');
-  tagEl.innerHTML = '';
-  f.tags.forEach(t => { tagEl.innerHTML += `<span class="m-tag">${t}</span>`; });
-
-  document.getElementById('facultyModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function openPartners() {
-  document.getElementById('partnersModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(id, e) {
-  if (e && e.target !== document.getElementById(id)) return;
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function setLang(lang){
-  document.querySelectorAll('.lang-panel a').forEach(a => a.classList.remove('active'));
-  document.getElementById('lang-' + lang).classList.add('active');
-  document.getElementById('btn-return').classList.add('active-return');
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.open').forEach(m => {
-      m.classList.remove('open');
-    });
-    document.body.style.overflow = '';
-  }
-});
+document.getElementById('libraryLink').href='library.html';
+const tr={en:{header_sub:'G-ROCK CORPORATION // ACADEMIC NODE',system_active:'SYSTEM ACTIVE',hero_eyebrow:'ACADEMIC NODE // G-ROCK UNIVERSE',hero_desc:'Monkeys University of Gibraltar is the academic core of the G-ROCK Universe, dedicated to humanities, advanced technologies, historical research and constitutional studies.',hero_badge1:'ACADEMIC NODE ACTIVE',hero_badge2:'G-ROCK CORPORATION',hero_badge3:'EST. 1978',history_label:'UNIVERSITY HISTORY',h1_date:'01 JANUARY 1964',h1_name:'MONKEYS COLLEGE OF GIBRALTAR',h1_action:'FOUNDED BY PROFESSOR SUGRIVA',h1_desc:'The first institutional layer of the MUoG line, established as a focused academic node for research, cultural formation and early narrative systems.',h2_date:'01 DECEMBER 1978',h2_name:'MONKEYS UNIVERSITY OF GIBRALTAR',h2_action:'THE COLLEGE IS TRANSFORMED INTO THE UNIVERSITY',h2_desc:'The institution evolves into a broader academic structure, expanding its research identity into the modern G-ROCK configuration.',h3_date:'21 JANUARY 2025',h3_name:'PROFESSOR SUGRIVA & MONKEYS UNIVERSITY OF GIBRALTAR',h3_action:'ACADEMIC RECOGNITION',h3_desc:'Professor Sugriva and Monkeys University of Gibraltar enter a new chapter of academic history following his acceptance by the British academic environment.',faculties_label:'FACULTIES',f1_num:'FACULTY 01 — HUMANITIES',f1_title:'Humanities',f1_desc:'History, identity and cultural systems viewed as active interpretive infrastructures.',f2_num:'FACULTY 02 — ADVANCED TECHNOLOGIES',f2_title:'Advanced Technologies',f2_desc:'AI, algorithms and digital systems as narrators, selectors and organizers of historical meaning.',f3_num:'FACULTY 03 — HISTORY',f3_title:'History',f3_desc:'A focused study of Haiti, revolution, constitution and identity within global historical debate.',f4_num:'FACULTY 04 — POLITICAL & CONSTITUTIONAL STUDIES',f4_title:'Political & Constitutional Studies',f4_desc:'Citizenship, governance and constitutional thought inside the G-ROCK academic frame.',axiom_label:'AXIOM',click_faculty:'CLICK FACULTY →',core_label:'ACADEMIC CORE',core_body:'Research, narrative systems, historical reconstruction and advanced technologies within the G-ROCK Universe.',core_line1:'GIBRALTAR CORE NODE',core_line2:'ACADEMIC NETWORK ACTIVE',core_line3:'G-SYSTEM SYNCHRONIZED',modal_faculty:'FACULTY BRIEFING',research_focus:'RESEARCH FOCUS',tags:'TAGS',axiom1_title:'AXIOM 1 — ADVANCED TECHNOLOGIES',axiom1_body:'This project describes the transition from an era in which institutions shaped histories to an era in which artificial intelligence becomes one of the main architects and selectors of historical narratives. We study the consequences of this shift for truth, identity and human agency.',axiom1_focus:'AI, digital systems, algorithms, narrative selection, historical mediation.',axiom2_title:'AXIOM 2 — HUMANITIES',axiom2_body:'History and identity are not neutral — they are interpretive systems. They emerge through selection, interpretation and technologies of knowledge distribution, and their meaning changes with the development of digital media and algorithmic systems.',axiom2_focus:'History, identity, culture, narrative systems, interpretation.',axiom3_title:'AXIOM 3 — HISTORY',axiom3_body:'The 1805 Constitution of Haiti established Haiti as a state of the Black community while also defining a special status for Europeans associated with the Haitian Revolution. The project examines the significance of this solution for citizenship, identity and political belonging.',axiom3_focus:'Haiti, revolution, constitution, identity, political belonging.',axiom4_title:'AXIOM 4 — POLITICAL & CONSTITUTIONAL STUDIES',axiom4_body:'The 1805 Constitution of Haiti introduced a radically new definition of citizenship and political equality, interpreted by researchers as one of the breakthrough constitutional experiments of early modernity. The project analyzes the mechanisms of its marginalization in digital knowledge systems.',axiom4_focus:'Constitution, citizenship, political theory, governance, digital marginalization.'},pl:{header_sub:'G-ROCK CORPORATION // NOD AKADEMICKI',system_active:'SYSTEM AKTYWNY',hero_eyebrow:'NOD AKADEMICKI // WSZECHŚWIAT G-ROCK',hero_desc:'Monkeys University of Gibraltar jest akademickim rdzeniem Wszechświata G-ROCK, poświęconym humanistyce, zaawansowanym technologiom, badaniom historycznym i studiom konstytucyjnym.',hero_badge1:'NOD AKADEMICKI AKTYWNY',hero_badge2:'G-ROCK CORPORATION',hero_badge3:'OD 1978',history_label:'HISTORIA UNIWERSYTETU',h1_date:'01 STYCZNIA 1964',h1_name:'MONKEYS COLLEGE OF GIBRALTAR',h1_action:'ZAŁOŻONY PRZEZ PROFESSOR SUGRIVA',h1_desc:'Pierwsza warstwa instytucjonalna linii MUoG, utworzona jako wyspecjalizowany węzeł akademicki dla badań, formacji kulturowej i wczesnych systemów narracyjnych.',h2_date:'01 GRUDNIA 1978',h2_name:'MONKEYS UNIVERSITY OF GIBRALTAR',h2_action:'KOLLEGIUM ZOSTAJE PRZEKSZTAŁCONE W UNIWERSYTET',h2_desc:'Instytucja ewoluuje w szerszą strukturę akademicką, rozszerzając swoją tożsamość badawczą w nowoczesną konfigurację G-ROCK.',h3_date:'21 STYCZNIA 2025',h3_name:'PROFESSOR SUGRIVA I MONKEYS UNIVERSITY OF GIBRALTAR',h3_action:'UZNANIE AKADEMICKIE',h3_desc:'Professor Sugriva oraz Monkeys University of Gibraltar wchodzą w nowy rozdział historii akademickiej po zaakceptowaniu przez brytyjskie środowisko akademickie.',faculties_label:'FAKULTETY',f1_num:'FAKULTET 01 — HUMANITIES',f1_title:'Humanistyka',f1_desc:'Historia, tożsamość i systemy kulturowe jako aktywne infrastruktury interpretacyjne.',f2_num:'FAKULTET 02 — ZAAWANSOWANE TECHNOLOGIE',f2_title:'Zaawansowane technologie',f2_desc:'SI, algorytmy i systemy cyfrowe jako narratorzy, selekcjonerzy i organizatorzy znaczeń historycznych.',f3_num:'FAKULTET 03 — HISTORIA',f3_title:'Historia',f3_desc:'Skoncentrowane badanie Haiti, rewolucji, konstytucji i tożsamości w globalnej debacie historycznej.',f4_num:'FAKULTET 04 — STUDIA POLITYCZNE I KONSTYTUCYJNE',f4_title:'Studia polityczne i konstytucyjne',f4_desc:'Obywatelstwo, governance i myśl konstytucyjna w akademickiej ramie G-ROCK.',axiom_label:'AKSJOMAT',click_faculty:'KLIKNIJ FAKULTET →',core_label:'RDZEŃ AKADEMICKI',core_body:'Badania, systemy narracyjne, rekonstrukcja historyczna i zaawansowane technologie we Wszechświecie G-ROCK.',core_line1:'GIBRALTAR CORE NODE',core_line2:'SIEĆ AKADEMICKA AKTYWNA',core_line3:'G-SYSTEM ZSYNCHRONIZOWANY',modal_faculty:'BRIEFING FAKULTETU',research_focus:'OBSZAR BADAŃ',tags:'TAGI',axiom1_title:'AKSJOMAT 1 — ZAAWANSOWANE TECHNOLOGIE',axiom1_body:'Projekt opisuje przejście od epoki, w której historie kształtowały instytucje, do ery, w której sztuczna inteligencja staje się jednym z głównych architektów i selekcjonerów narracji historycznych. Badamy konsekwencje tej zmiany dla prawdy, tożsamości i ludzkiej sprawczości.',axiom1_focus:'SI, systemy cyfrowe, algorytmy, selekcja narracji, mediacja historii.',axiom2_title:'AKSJOMAT 2 — HUMANISTYKA',axiom2_body:'Historia i tożsamość nie są neutralne — są systemami interpretacyjnymi. Powstają poprzez selekcję, interpretację oraz technologie dystrybucji wiedzy, a ich znaczenie zmienia się wraz z rozwojem mediów cyfrowych i systemów algorytmicznych.',axiom2_focus:'Historia, tożsamość, kultura, systemy narracyjne, interpretacja.',axiom3_title:'AKSJOMAT 3 — HISTORIA',axiom3_body:'Konstytucja Haiti z 1805 roku ustanawiała Haiti jako państwo czarnej wspólnoty, jednocześnie określając szczególny status Europejczyków związanych z rewolucją haitańską. Projekt bada znaczenie tego rozwiązania dla obywatelstwa, tożsamości i przynależności politycznej.',axiom3_focus:'Haiti, rewolucja, konstytucja, tożsamość, przynależność polityczna.',axiom4_title:'AKSJOMAT 4 — STUDIA POLITYCZNE I KONSTYTUCYJNE',axiom4_body:'Konstytucja Haiti z 1805 roku wprowadzała radykalnie nową definicję obywatelstwa i równości politycznej, interpretowaną przez badaczy jako jeden z przełomowych eksperymentów ustrojowych wczesnej nowoczesności. Projekt analizuje mechanizmy jej marginalizacji w cyfrowych systemach wiedzy.',axiom4_focus:'Konstytucja, obywatelstwo, teoria polityczna, governance, marginalizacja cyfrowa.'},es:{header_sub:'G-ROCK CORPORATION // NODO ACADÉMICO',system_active:'SISTEMA ACTIVO',hero_eyebrow:'NODO ACADÉMICO // UNIVERSO G-ROCK',hero_desc:'Monkeys University of Gibraltar es el núcleo académico del Universo G-ROCK, dedicado a las humanidades, las tecnologías avanzadas, la investigación histórica y los estudios constitucionales.',hero_badge1:'NODO ACADÉMICO ACTIVO',hero_badge2:'G-ROCK CORPORATION',hero_badge3:'DESDE 1978',history_label:'HISTORIA DE LA UNIVERSIDAD',h1_date:'01 DE ENERO DE 1964',h1_name:'MONKEYS COLLEGE OF GIBRALTAR',h1_action:'FUNDADO POR PROFESSOR SUGRIVA',h1_desc:'La primera capa institucional de la línea MUoG, creada como un nodo académico enfocado en la investigación, la formación cultural y los primeros sistemas narrativos.',h2_date:'01 DE DICIEMBRE DE 1978',h2_name:'MONKEYS UNIVERSITY OF GIBRALTAR',h2_action:'EL COLEGIO SE TRANSFORMA EN UNIVERSIDAD',h2_desc:'La institución evoluciona hacia una estructura académica más amplia, expandiendo su identidad investigadora dentro de la configuración moderna de G-ROCK.',h3_date:'21 DE ENERO DE 2025',h3_name:'PROFESSOR SUGRIVA Y MONKEYS UNIVERSITY OF GIBRALTAR',h3_action:'RECONOCIMIENTO ACADÉMICO',h3_desc:'Professor Sugriva y Monkeys University of Gibraltar entran en un nuevo capítulo de la historia académica tras su aceptación por el entorno académico británico.',faculties_label:'FACULTADES',f1_num:'FACULTAD 01 — HUMANIDADES',f1_title:'Humanidades',f1_desc:'Historia, identidad y sistemas culturales vistos como infraestructuras interpretativas activas.',f2_num:'FACULTAD 02 — TECNOLOGÍAS AVANZADAS',f2_title:'Tecnologías avanzadas',f2_desc:'IA, algoritmos y sistemas digitales como narradores, selectores y organizadores del significado histórico.',f3_num:'FACULTAD 03 — HISTORIA',f3_title:'Historia',f3_desc:'Un estudio centrado en Haití, la revolución, la constitución y la identidad dentro del debate histórico global.',f4_num:'FACULTAD 04 — ESTUDIOS POLÍTICOS Y CONSTITUCIONALES',f4_title:'Estudios políticos y constitucionales',f4_desc:'Ciudadanía, gobernanza y pensamiento constitucional dentro del marco académico de G-ROCK.',axiom_label:'AXIOMA',click_faculty:'ABRIR FACULTAD →',core_label:'NÚCLEO ACADÉMICO',core_body:'Investigación, sistemas narrativos, reconstrucción histórica y tecnologías avanzadas dentro del Universo G-ROCK.',core_line1:'NODO CENTRAL DE GIBRALTAR',core_line2:'RED ACADÉMICA ACTIVA',core_line3:'G-SYSTEM SINCRONIZADO',modal_faculty:'INFORME DE FACULTAD',research_focus:'ENFOQUE DE INVESTIGACIÓN',tags:'ETIQUETAS',axiom1_title:'AXIOMA 1 — TECNOLOGÍAS AVANZADAS',axiom1_body:'Este proyecto describe la transición desde una era en la que las instituciones moldeaban las historias hacia una era en la que la inteligencia artificial se convierte en uno de los principales arquitectos y selectores de los relatos históricos. Estudiamos las consecuencias de este cambio para la verdad, la identidad y la agencia humana.',axiom1_focus:'IA, sistemas digitales, algoritmos, selección narrativa, mediación histórica.',axiom2_title:'AXIOMA 2 — HUMANIDADES',axiom2_body:'La historia y la identidad no son neutrales: son sistemas interpretativos. Surgen a través de la selección, la interpretación y las tecnologías de distribución del conocimiento, y su significado cambia con el desarrollo de los medios digitales y los sistemas algorítmicos.',axiom2_focus:'Historia, identidad, cultura, sistemas narrativos, interpretación.',axiom3_title:'AXIOMA 3 — HISTORIA',axiom3_body:'La Constitución de Haití de 1805 estableció Haití como un estado de la comunidad negra, al mismo tiempo que definía un estatus especial para los europeos vinculados a la Revolución haitiana. El proyecto examina la importancia de esta solución para la ciudadanía, la identidad y la pertenencia política.',axiom3_focus:'Haití, revolución, constitución, identidad, pertenencia política.',axiom4_title:'AXIOMA 4 — ESTUDIOS POLÍTICOS Y CONSTITUCIONALES',axiom4_body:'La Constitución de Haití de 1805 introdujo una definición radicalmente nueva de ciudadanía e igualdad política, interpretada por los investigadores como uno de los experimentos constitucionales decisivos de la modernidad temprana. El proyecto analiza los mecanismos de su marginación en los sistemas digitales de conocimiento.',axiom4_focus:'Constitución, ciudadanía, teoría política, gobernanza, marginación digital.'},fr:{header_sub:'G-ROCK CORPORATION // NŒUD ACADÉMIQUE',system_active:'SYSTÈME ACTIF',hero_eyebrow:'NŒUD ACADÉMIQUE // UNIVERS G-ROCK',hero_desc:'Monkeys University of Gibraltar est le cœur académique de l’Univers G-ROCK, dédié aux sciences humaines, aux technologies avancées, à la recherche historique et aux études constitutionnelles.',hero_badge1:'NŒUD ACADÉMIQUE ACTIF',hero_badge2:'G-ROCK CORPORATION',hero_badge3:'DEPUIS 1978',history_label:'HISTOIRE DE L’UNIVERSITÉ',h1_date:'01 JANVIER 1964',h1_name:'MONKEYS COLLEGE OF GIBRALTAR',h1_action:'FONDÉ PAR PROFESSOR SUGRIVA',h1_desc:'La première couche institutionnelle de la ligne MUoG, créée comme un nœud académique centré sur la recherche, la formation culturelle et les premiers systèmes narratifs.',h2_date:'01 DÉCEMBRE 1978',h2_name:'MONKEYS UNIVERSITY OF GIBRALTAR',h2_action:'LE COLLÈGE EST TRANSFORMÉ EN UNIVERSITÉ',h2_desc:'L’institution évolue vers une structure académique plus large, élargissant son identité de recherche dans la configuration moderne de G-ROCK.',h3_date:'21 JANVIER 2025',h3_name:'PROFESSOR SUGRIVA ET MONKEYS UNIVERSITY OF GIBRALTAR',h3_action:'RECONNAISSANCE ACADÉMIQUE',h3_desc:'Professor Sugriva et Monkeys University of Gibraltar entrent dans un nouveau chapitre de l’histoire académique après son acceptation par le milieu académique britannique.',faculties_label:'FACULTÉS',f1_num:'FACULTÉ 01 — SCIENCES HUMAINES',f1_title:'Sciences humaines',f1_desc:'Histoire, identité et systèmes culturels envisagés comme des infrastructures interprétatives actives.',f2_num:'FACULTÉ 02 — TECHNOLOGIES AVANCÉES',f2_title:'Technologies avancées',f2_desc:'IA, algorithmes et systèmes numériques comme narrateurs, sélectionneurs et organisateurs du sens historique.',f3_num:'FACULTÉ 03 — HISTOIRE',f3_title:'Histoire',f3_desc:'Une étude ciblée d’Haïti, de la révolution, de la constitution et de l’identité dans le débat historique mondial.',f4_num:'FACULTÉ 04 — ÉTUDES POLITIQUES ET CONSTITUTIONNELLES',f4_title:'Études politiques et constitutionnelles',f4_desc:'Citoyenneté, gouvernance et pensée constitutionnelle dans le cadre académique de G-ROCK.',axiom_label:'AXIOME',click_faculty:'OUVRIR LA FACULTÉ →',core_label:'CŒUR ACADÉMIQUE',core_body:'Recherche, systèmes narratifs, reconstruction historique et technologies avancées au sein de l’Univers G-ROCK.',core_line1:'NŒUD CENTRAL DE GIBRALTAR',core_line2:'RÉSEAU ACADÉMIQUE ACTIF',core_line3:'G-SYSTEM SYNCHRONISÉ',modal_faculty:'DOSSIER DE FACULTÉ',research_focus:'AXE DE RECHERCHE',tags:'ÉTIQUETTES',axiom1_title:'AXIOME 1 — TECHNOLOGIES AVANCÉES',axiom1_body:'Ce projet décrit le passage d’une époque où les institutions façonnaient les histoires à une époque où l’intelligence artificielle devient l’un des principaux architectes et sélectionneurs des récits historiques. Nous étudions les conséquences de ce changement pour la vérité, l’identité et l’agence humaine.',axiom1_focus:'IA, systèmes numériques, algorithmes, sélection narrative, médiation historique.',axiom2_title:'AXIOME 2 — SCIENCES HUMAINES',axiom2_body:'L’histoire et l’identité ne sont pas neutres — ce sont des systèmes interprétatifs. Elles naissent de la sélection, de l’interprétation et des technologies de diffusion du savoir, et leur sens évolue avec le développement des médias numériques et des systèmes algorithmiques.',axiom2_focus:'Histoire, identité, culture, systèmes narratifs, interprétation.',axiom3_title:'AXIOME 3 — HISTOIRE',axiom3_body:'La Constitution haïtienne de 1805 établissait Haïti comme un État de la communauté noire tout en définissant un statut spécial pour les Européens liés à la révolution haïtienne. Le projet examine l’importance de cette solution pour la citoyenneté, l’identité et l’appartenance politique.',axiom3_focus:'Haïti, révolution, constitution, identité, appartenance politique.',axiom4_title:'AXIOME 4 — ÉTUDES POLITIQUES ET CONSTITUTIONNELLES',axiom4_body:'La Constitution haïtienne de 1805 a introduit une définition radicalement nouvelle de la citoyenneté et de l’égalité politique, interprétée par les chercheurs comme l’une des expériences constitutionnelles majeures de la première modernité. Le projet analyse les mécanismes de sa marginalisation dans les systèmes numériques de connaissance.',axiom4_focus:'Constitution, citoyenneté, théorie politique, gouvernance, marginalisation numérique.'},ru:{header_sub:'G-ROCK CORPORATION // АКАДЕМИЧЕСКИЙ УЗЕЛ',system_active:'СИСТЕМА АКТИВНА',hero_eyebrow:'АКАДЕМИЧЕСКИЙ УЗЕЛ // ВСЕЛЕННАЯ G-ROCK',hero_desc:'Monkeys University of Gibraltar — это академическое ядро Вселенной G-ROCK, посвящённое гуманитарным наукам, передовым технологиям, историческим исследованиям и конституционным исследованиям.',hero_badge1:'АКАДЕМИЧЕСКИЙ УЗЕЛ АКТИВЕН',hero_badge2:'G-ROCK CORPORATION',hero_badge3:'С 1978 ГОДА',history_label:'ИСТОРИЯ УНИВЕРСИТЕТА',h1_date:'01 ЯНВАРЯ 1964',h1_name:'MONKEYS COLLEGE OF GIBRALTAR',h1_action:'ОСНОВАН PROFESSOR SUGRIVA',h1_desc:'Первая институциональная ступень линии MUoG, созданная как специализированный академический узел для исследований, культурного формирования и ранних нарративных систем.',h2_date:'01 ДЕКАБРЯ 1978',h2_name:'MONKEYS UNIVERSITY OF GIBRALTAR',h2_action:'КОЛЛЕДЖ ПРЕОБРАЗОВАН В УНИВЕРСИТЕТ',h2_desc:'Институт развивается в более широкую академическую структуру, расширяя свою исследовательскую идентичность в современной конфигурации G-ROCK.',h3_date:'21 ЯНВАРЯ 2025',h3_name:'PROFESSOR SUGRIVA И MONKEYS UNIVERSITY OF GIBRALTAR',h3_action:'АКАДЕМИЧЕСКОЕ ПРИЗНАНИЕ',h3_desc:'Professor Sugriva и Monkeys University of Gibraltar вступают в новую главу академической истории после его принятия британской академической средой.',faculties_label:'ФАКУЛЬТЕТЫ',f1_num:'ФАКУЛЬТЕТ 01 — ГУМАНИТАРНЫЕ НАУКИ',f1_title:'Гуманитарные науки',f1_desc:'История, идентичность и культурные системы как активные интерпретативные инфраструктуры.',f2_num:'ФАКУЛЬТЕТ 02 — ПЕРЕДОВЫЕ ТЕХНОЛОГИИ',f2_title:'Передовые технологии',f2_desc:'ИИ, алгоритмы и цифровые системы как рассказчики, селекторы и организаторы исторического смысла.',f3_num:'ФАКУЛЬТЕТ 03 — ИСТОРИЯ',f3_title:'История',f3_desc:'Сфокусированное изучение Гаити, революции, конституции и идентичности в глобальной исторической дискуссии.',f4_num:'ФАКУЛЬТЕТ 04 — ПОЛИТИЧЕСКИЕ И КОНСТИТУЦИОННЫЕ ИССЛЕДОВАНИЯ',f4_title:'Политические и конституционные исследования',f4_desc:'Гражданство, управление и конституционная мысль в академической рамке G-ROCK.',axiom_label:'АКСИОМА',click_faculty:'ОТКРЫТЬ ФАКУЛЬТЕТ →',core_label:'АКАДЕМИЧЕСКОЕ ЯДРО',core_body:'Исследования, нарративные системы, историческая реконструкция и передовые технологии во Вселенной G-ROCK.',core_line1:'ГИБРАЛТАРСКИЙ ЦЕНТРАЛЬНЫЙ УЗЕЛ',core_line2:'АКАДЕМИЧЕСКАЯ СЕТЬ АКТИВНА',core_line3:'G-SYSTEM СИНХРОНИЗИРОВАНА',modal_faculty:'ДОСЬЕ ФАКУЛЬТЕТА',research_focus:'ОБЛАСТЬ ИССЛЕДОВАНИЙ',tags:'ТЕГИ',axiom1_title:'АКСИОМА 1 — ПЕРЕДОВЫЕ ТЕХНОЛОГИИ',axiom1_body:'Проект описывает переход от эпохи, в которой истории формировали институты, к эпохе, в которой искусственный интеллект становится одним из главных архитекторов и отборщиков исторических нарративов. Мы изучаем последствия этого сдвига для истины, идентичности и человеческой субъектности.',axiom1_focus:'ИИ, цифровые системы, алгоритмы, отбор нарративов, историческая медиация.',axiom2_title:'АКСИОМА 2 — ГУМАНИТАРНЫЕ НАУКИ',axiom2_body:'История и идентичность не нейтральны — это интерпретативные системы. Они возникают через отбор, интерпретацию и технологии распространения знания, а их значение меняется с развитием цифровых медиа и алгоритмических систем.',axiom2_focus:'История, идентичность, культура, нарративные системы, интерпретация.',axiom3_title:'АКСИОМА 3 — ИСТОРИЯ',axiom3_body:'Конституция Гаити 1805 года определяла Гаити как государство чёрного сообщества, одновременно устанавливая особый статус для европейцев, связанных с Гаитянской революцией. Проект исследует значение этого решения для гражданства, идентичности и политической принадлежности.',axiom3_focus:'Гаити, революция, конституция, идентичность, политическая принадлежность.',axiom4_title:'АКСИОМА 4 — ПОЛИТИЧЕСКИЕ И КОНСТИТУЦИОННЫЕ ИССЛЕДОВАНИЯ',axiom4_body:'Конституция Гаити 1805 года ввела радикально новое определение гражданства и политического равенства, которое исследователи рассматривают как один из прорывных конституционных экспериментов раннего модерна. Проект анализирует механизмы её маргинализации в цифровых системах знания.',axiom4_focus:'Конституция, гражданство, политическая теория, управление, цифровая маргинализация.'},nl:{header_sub:'G-ROCK CORPORATION // AKADEMISCHE KNOOP',system_active:'SYSTEEM ACTIEF',hero_eyebrow:'ACADEMISCHE KNOOP // G-ROCK-UNIVERSUM',hero_desc:'Monkeys University of Gibraltar vormt de academische kern van het G-ROCK Universum en is gewijd aan geesteswetenschappen, geavanceerde technologie, historisch onderzoek en constitutionele studies.',hero_badge1:'ACADEMISCHE KNOOP ACTIEF',hero_badge2:'G-ROCK CORPORATION',hero_badge3:'SINDS 1978',history_label:'UNIVERSITEITSGESCHIEDENIS',h1_date:'01 JANUARI 1964',h1_name:'MONKEYS COLLEGE OF GIBRALTAR',h1_action:'OPGERICHT DOOR PROFESSOR SUGRIVA',h1_desc:'De eerste institutionele laag van de MUoG-lijn, opgezet als een gerichte academische knoop voor onderzoek, culturele vorming en vroege narratieve systemen.',h2_date:'01 DECEMBER 1978',h2_name:'MONKEYS UNIVERSITY OF GIBRALTAR',h2_action:'HET COLLEGE WORDT OMGEVORMD TOT DE UNIVERSITEIT',h2_desc:'De instelling ontwikkelt zich tot een bredere academische structuur en breidt haar onderzoeksidentiteit uit binnen de moderne G-ROCK-configuratie.',h3_date:'21 JANUARI 2025',h3_name:'PROFESSOR SUGRIVA EN MONKEYS UNIVERSITY OF GIBRALTAR',h3_action:'ACADEMISCHE ERKENNING',h3_desc:'Professor Sugriva en Monkeys University of Gibraltar betreden een nieuw hoofdstuk in de academische geschiedenis na zijn acceptatie door de Britse academische omgeving.',faculties_label:'FACULTEITEN',f1_num:'FACULTEIT 01 — GEESTESWETENSCHAPPEN',f1_title:'Geesteswetenschappen',f1_desc:'Geschiedenis, identiteit en culturele systemen gezien als actieve interpretatieve infrastructuren.',f2_num:'FACULTEIT 02 — GEAVANCEERDE TECHNOLOGIEËN',f2_title:'Geavanceerde technologieën',f2_desc:'AI, algoritmen en digitale systemen als vertellers, selecteerders en organisatoren van historische betekenis.',f3_num:'FACULTEIT 03 — GESCHIEDENIS',f3_title:'Geschiedenis',f3_desc:'Een gerichte studie van Haïti, revolutie, grondwet en identiteit binnen het mondiale historische debat.',f4_num:'FACULTEIT 04 — POLITIEKE EN CONSTITUTIONELE STUDIES',f4_title:'Politieke en constitutionele studies',f4_desc:'Burgerschap, governance en constitutioneel denken binnen het academische kader van G-ROCK.',axiom_label:'AXIOMA',click_faculty:'OPEN FACULTEIT →',core_label:'ACADEMISCHE KERN',core_body:'Onderzoek, narratieve systemen, historische reconstructie en geavanceerde technologie binnen het G-ROCK Universum.',core_line1:'GIBRALTAR CORE NODE',core_line2:'ACADEMISCH NETWERK ACTIEF',core_line3:'G-SYSTEM GESYNCHRONISEERD',modal_faculty:'FACULTEITSDOSSIER',research_focus:'ONDERZOEKSFOCUS',tags:'TAGS',axiom1_title:'AXIOMA 1 — GEAVANCEERDE TECHNOLOGIEËN',axiom1_body:'Dit project beschrijft de overgang van een tijdperk waarin instituties de geschiedenis vormgaven naar een tijdperk waarin kunstmatige intelligentie een van de belangrijkste architecten en selecteurs van historische narratieven wordt. We bestuderen de gevolgen van deze verschuiving voor waarheid, identiteit en menselijke handelingsvrijheid.',axiom1_focus:'AI, digitale systemen, algoritmen, narratieve selectie, historische bemiddeling.',axiom2_title:'AXIOMA 2 — GEESTESWETENSCHAPPEN',axiom2_body:'Geschiedenis en identiteit zijn niet neutraal — het zijn interpretatieve systemen. Ze ontstaan door selectie, interpretatie en technologieën voor kennisverspreiding, en hun betekenis verandert met de ontwikkeling van digitale media en algoritmische systemen.',axiom2_focus:'Geschiedenis, identiteit, cultuur, narratieve systemen, interpretatie.',axiom3_title:'AXIOMA 3 — GESCHIEDENIS',axiom3_body:'De Haïtiaanse grondwet van 1805 stelde Haïti in als een staat van de zwarte gemeenschap en definieerde tegelijk een bijzondere status voor Europeanen die verbonden waren aan de Haïtiaanse Revolutie. Het project onderzoekt de betekenis van deze oplossing voor burgerschap, identiteit en politieke verbondenheid.',axiom3_focus:'Haïti, revolutie, grondwet, identiteit, politieke verbondenheid.',axiom4_title:'AXIOMA 4 — POLITIEKE EN CONSTITUTIONELE STUDIES',axiom4_body:'De Haïtiaanse grondwet van 1805 introduceerde een radicaal nieuwe definitie van burgerschap en politieke gelijkheid, door onderzoekers geïnterpreteerd als een van de doorbraak constitutionele experimenten van de vroegmoderne tijd. Het project analyseert de mechanismen van marginalisering in digitale kennissystemen.',axiom4_focus:'Grondwet, burgerschap, politieke theorie, governance, digitale marginalisering.'}}
+const faculties={humanities:{titleKey:'f1_title',axiomTitleKey:'axiom2_title',axiomNum:'AXIOM 2',descKey:'axiom2_body',focusKey:'axiom2_focus',tags:['HISTORY','IDENTITY','CULTURE','NARRATIVE SYSTEMS']},tech:{titleKey:'f2_title',axiomTitleKey:'axiom1_title',axiomNum:'AXIOM 1',descKey:'axiom1_body',focusKey:'axiom1_focus',tags:['AI','DIGITAL SYSTEMS','ALGORITHMS','TECHNOLOGY']},history:{titleKey:'f3_title',axiomTitleKey:'axiom3_title',axiomNum:'AXIOM 3',descKey:'axiom3_body',focusKey:'axiom3_focus',tags:['HAITI','REVOLUTION','CONSTITUTION','IDENTITY']},political:{titleKey:'f4_title',axiomTitleKey:'axiom4_title',axiomNum:'AXIOM 4',descKey:'axiom4_body',focusKey:'axiom4_focus',tags:['CONSTITUTION','CITIZENSHIP','POLITICAL THEORY','GOVERNANCE']}}
+function buildTags(id,arr){document.getElementById(id).innerHTML=arr.map(t=>`<span class="fc-tag">${t}</span>`).join('')}
+buildTags('tags-humanities',faculties.humanities.tags);buildTags('tags-tech',faculties.tech.tags);buildTags('tags-history',faculties.history.tags);buildTags('tags-political',faculties.political.tags)
+function setLang(lang){const t=tr[lang]||tr.en;document.documentElement.lang=lang;document.querySelectorAll('.lang-panel a').forEach(a=>a.classList.remove('active'));const active=document.getElementById('lang-'+lang);if(active)active.classList.add('active');document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(t[key])el.textContent=t[key]});window.currentLang=lang}
+function openFaculty(id){const lang=window.currentLang||'en';const t=tr[lang]||tr.en;const f=faculties[id];document.getElementById('fm-eyebrow').textContent=t.modal_faculty;document.getElementById('fm-title').textContent=t[f.titleKey];document.getElementById('fm-subtitle').textContent=f.axiomNum;document.getElementById('fm-desc').innerHTML=`<strong>${t[f.axiomTitleKey]}</strong><br><br>${t[f.descKey]}`;document.getElementById('fm-modules').innerHTML=`<div class="m-module"><div class="mm-title">${t.research_focus}</div><div class="mm-body">${t[f.focusKey]}</div></div>`;document.getElementById('fm-tags').innerHTML=f.tags.map(tg=>`<span class="m-tag">${tg}</span>`).join('');document.getElementById('facultyModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(id,e){if(e&&e.target!==document.getElementById(id))return;document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));document.body.style.overflow=''}})
+setLang('en')
 </script>
-
 </body>
-  </html>
+      </html>
 
 
