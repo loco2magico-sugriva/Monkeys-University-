@@ -11,10 +11,9 @@
 
 <style>
 :root{
-  --blue: #4aa3ff;
-  --blue-dim: #1b263b;
-  --gold: #d4af37;
-  --gold-bright: #ffe08a;
+  --brass1: #d4af37;
+  --brass-bright: #ffe08a;
+  --brass-dim: #3a3118;
   --bg: #04060a;
   --panel: #0a0e1a;
 }
@@ -26,7 +25,6 @@ body{
   font-family:'Inter', sans-serif;
   background:var(--bg);
   color:#E6E6E6;
-  overflow:hidden;
 }
 
 /* ================= MATRIX RAIN CANVAS (SIGNATURE ELEMENT) ================= */
@@ -34,7 +32,7 @@ body{
   position:fixed;
   inset:0;
   z-index:1;
-  opacity:0.55;
+  opacity:0.45;
   pointer-events:none;
 }
 
@@ -70,9 +68,9 @@ body{
   position:absolute;
   top:50%; left:50%;
   width:140%; height:1px;
-  background:linear-gradient(90deg, transparent, rgba(74,163,255,0.5), transparent);
+  background:linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent);
   transform:translate(-50%,-50%);
-  box-shadow:0 0 40px 6px rgba(74,163,255,0.35);
+  box-shadow:0 0 40px 6px rgba(212,175,55,0.35);
   animation:flarePulse 4s ease-in-out infinite alternate;
   pointer-events:none;
   z-index:1;
@@ -84,7 +82,7 @@ body{
   font-family:'Orbitron', sans-serif;
   font-size:15px;
   font-weight:700;
-  color:#8da4ff;
+  color:var(--brass-bright);
   text-transform:uppercase;
   letter-spacing:16px;
   opacity:0;
@@ -96,7 +94,7 @@ body{
 
 .intro-center-group{display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:3;position:relative;}
 
-/* glitch title with RGB-split layers */
+/* glitch title with golden-split layers */
 .glitch-wrap{position:relative;}
 .intro h1{
   font-family:'Orbitron', sans-serif;
@@ -104,10 +102,10 @@ body{
   font-weight:900;
   letter-spacing:14px;
   margin:0;
-  color:#4aa3ff;
+  color:var(--brass1);
   text-transform:uppercase;
   filter:blur(20px);
-  text-shadow:0 0 18px rgba(74,163,255,.75), 0 0 55px rgba(74,163,255,.35);
+  text-shadow:0 0 18px rgba(212,175,55,.75), 0 0 55px rgba(212,175,55,.35);
   opacity:0;
   position:relative;
   animation:cinematicReveal 2.1s cubic-bezier(.1,.8,.2,1) 1.4s forwards, glitchFlicker 6s linear 3.6s infinite;
@@ -120,12 +118,12 @@ body{
   opacity:0;
 }
 .intro h1::before{
-  color:#ff3b6a;
+  color:#ffc83b;
   animation:glitchSplitA 6s linear 3.6s infinite;
   clip-path:inset(0 0 55% 0);
 }
 .intro h1::after{
-  color:#39f2c8;
+  color:#ffd97d;
   animation:glitchSplitB 6s linear 3.6s infinite;
   clip-path:inset(55% 0 0 0);
 }
@@ -153,57 +151,81 @@ body{
   font-family:'Orbitron', sans-serif;
   font-size:13px;
   font-weight:700;
-  color:#4aa3ff;
+  color:var(--brass1);
   text-transform:uppercase;
   letter-spacing:8px;
   opacity:0;
   animation:subtagReveal 1.5s cubic-bezier(.1,.8,.2,1) 3.6s forwards;
   z-index:3;
-  text-shadow:0 0 8px rgba(74,163,255,.5);
+  text-shadow:0 0 8px rgba(212,175,55,.5);
 }
 @keyframes subtagReveal{0%{opacity:0;transform:translateY(30px);letter-spacing:14px;}100%{opacity:1;transform:translateY(0);letter-spacing:8px;}}
 
 @keyframes introFadeOut{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(1.03);visibility:hidden;pointer-events:none;}}
 
-/* boot readout, cheap "system online" cinematic touch */
+/* Skip Intro Button */
+.skip-btn{
+  position:absolute;
+  top:30px;
+  right:30px;
+  background:rgba(212,175,55,0.1);
+  border:1px solid var(--brass1);
+  color:var(--brass-bright);
+  font-family:'Orbitron', sans-serif;
+  font-size:11px;
+  letter-spacing:3px;
+  padding:8px 18px;
+  border-radius:6px;
+  cursor:pointer;
+  z-index:10000;
+  transition:all 0.3s ease;
+  text-transform:uppercase;
+}
+.skip-btn:hover{
+  background:var(--brass1);
+  color:#040302;
+  box-shadow:0 0 12px rgba(212,175,55,0.6);
+}
+
+/* boot readout */
 .bootline{
   position:absolute;
   bottom:40px;
   font-family:'Share Tech Mono', monospace;
   font-size:11px;
-  color:#3a5a8a;
+  color:#8c7533;
   letter-spacing:2px;
   opacity:0;
   animation:bootReveal .6s ease 4.3s forwards;
   z-index:3;
 }
 @keyframes bootReveal{to{opacity:1;}}
-.bootline span{color:#5f86c9;}
+.bootline span{color:var(--brass-bright);}
 
-/* HUD corner brackets — sci-fi targeting frame */
+/* HUD corner brackets */
 .hud-corner{
   position:fixed;
   width:46px; height:46px;
-  border-color:var(--blue);
+  border-color:var(--brass1);
   opacity:0;
   z-index:3;
-  filter:drop-shadow(0 0 6px rgba(74,163,255,.6));
+  filter:drop-shadow(0 0 6px rgba(212,175,55,.6));
   animation:hudReveal 1s ease .2s forwards;
 }
-.hud-corner.tl{top:34px; left:34px; border-top:2px solid var(--blue); border-left:2px solid var(--blue);}
-.hud-corner.tr{top:34px; right:34px; border-top:2px solid var(--blue); border-right:2px solid var(--blue);}
-.hud-corner.bl{bottom:34px; left:34px; border-bottom:2px solid var(--blue); border-left:2px solid var(--blue);}
-.hud-corner.br{bottom:34px; right:34px; border-bottom:2px solid var(--blue); border-right:2px solid var(--blue);}
+.hud-corner.tl{top:34px; left:34px; border-top:2px solid var(--brass1); border-left:2px solid var(--brass1);}
+.hud-corner.tr{top:34px; right:34px; border-top:2px solid var(--brass1); border-right:2px solid var(--brass1);}
+.hud-corner.bl{bottom:34px; left:34px; border-bottom:2px solid var(--brass1); border-left:2px solid var(--brass1);}
+.hud-corner.br{bottom:34px; right:34px; border-bottom:2px solid var(--brass1); border-right:2px solid var(--brass1);}
 @keyframes hudReveal{0%{opacity:0;transform:scale(1.4);}100%{opacity:.8;transform:scale(1);}}
 
-/* Rotating HUD ring behind the title */
+/* Rotating HUD ring */
 .hud-ring{
   position:absolute;
   top:50%; left:50%;
   width:520px; height:520px;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  background:conic-gradient(from 0deg, transparent 0%, rgba(74,163,255,.5) 8%, transparent 16%, transparent 50%, rgba(212,175,55,.4) 58%, transparent 66%);
+  background:conic-gradient(from 0deg, transparent 0%, rgba(212,175,55,.5) 8%, transparent 16%, transparent 50%, rgba(212,175,55,.4) 58%, transparent 66%);
   -webkit-mask:radial-gradient(circle, transparent 62%, #000 63%, #000 64%, transparent 65%);
   mask:radial-gradient(circle, transparent 62%, #000 63%, #000 64%, transparent 65%);
   opacity:0;
@@ -214,11 +236,11 @@ body{
 @keyframes ringReveal{to{opacity:1;}}
 @keyframes ringSpin{to{transform:translate(-50%,-50%) rotate(360deg);}}
 
-/* One-shot chromatic flash at title impact */
+/* Flash */
 .flash{
   position:fixed;
   inset:0;
-  background:#dfefff;
+  background:#fff5d1;
   opacity:0;
   z-index:20;
   pointer-events:none;
@@ -237,7 +259,7 @@ body{
   align-items:center;
   justify-content:center;
   gap:40px;
-  background:radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
+  background:radial-gradient(circle at center, #141108 0%, #040302 100%);
 }
 .lang-select.active{display:flex;animation:show .8s ease forwards;}
 
@@ -245,9 +267,11 @@ body{
   font-family:'Orbitron', sans-serif;
   letter-spacing:6px;
   font-size:15px;
-  color:#7a8db8;
+  color:#b89c56;
   text-transform:uppercase;
   margin:0;
+  text-align:center;
+  padding:0 20px;
 }
 
 .flag-grid{
@@ -259,8 +283,8 @@ body{
 @media (max-width:720px){.flag-grid{grid-template-columns:repeat(2,1fr);}}
 
 .flag-card{
-  background:linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
-  border:1px solid var(--blue-dim);
+  background:linear-gradient(135deg, #1f1b10 0%, #0d0a05 100%);
+  border:1px solid var(--brass-dim);
   border-radius:14px;
   padding:34px 20px;
   display:flex;
@@ -273,19 +297,19 @@ body{
 }
 .flag-card:hover{
   transform:translateY(-8px);
-  border-color:var(--blue);
-  box-shadow:0 15px 35px rgba(74,163,255,.25);
+  border-color:var(--brass-bright);
+  box-shadow:0 15px 35px rgba(212,175,55,.25);
 }
 .flag-card .flag{font-size:56px;line-height:1;filter:drop-shadow(0 0 10px rgba(0,0,0,.5));}
 .flag-card .label{
   font-family:'Orbitron', sans-serif;
   font-size:13px;
   letter-spacing:3px;
-  color:#dbe6ff;
+  color:#fffae6;
   text-transform:uppercase;
 }
 
-/* ================= STORY OVERLAY ================= */
+/* ================= INTELLECTUAL PROPERTY OVERLAY (5 SECONDS) ================= */
 .story{
   position:fixed;
   inset:0;
@@ -294,7 +318,7 @@ body{
   align-items:center;
   justify-content:center;
   padding:60px;
-  background:#02040a;
+  background:#050402;
 }
 .story.active{display:flex;}
 .story-inner{
@@ -305,7 +329,7 @@ body{
   font-family:'Orbitron', sans-serif;
   font-size:12px;
   letter-spacing:10px;
-  color:var(--blue);
+  color:var(--brass1);
   text-transform:uppercase;
   opacity:0;
   filter:blur(6px);
@@ -315,7 +339,7 @@ body{
   font-family:'Share Tech Mono', monospace;
   font-size:clamp(16px,2.4vw,22px);
   line-height:1.8;
-  color:#dfe7f5;
+  color:#fcf8e8;
   margin-top:26px;
   opacity:0;
   filter:blur(6px);
@@ -326,24 +350,23 @@ body{
   margin-top:36px;
   height:2px;
   width:100%;
-  background:#1b263b;
+  background:var(--brass-dim);
   overflow:hidden;
   border-radius:2px;
 }
 .story-bar-fill{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg, var(--blue), #8da4ff);
-  animation:storyProgress 15s linear forwards;
+  background:linear-gradient(90deg, var(--brass1), var(--brass-bright));
+  animation:storyProgress 5s linear forwards;
 }
 @keyframes storyProgress{to{width:100%;}}
 
 /* ================= MAIN CONFIGURATION ================= */
 main{
   display:none;
-  height:100vh;
-  overflow:auto;
-  background:radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
+  min-height:100vh;
+  background:radial-gradient(circle at center, #141108 0%, #040302 100%);
   position:relative;
   z-index:10;
 }
@@ -355,8 +378,8 @@ header{
   justify-content:space-between;
   align-items:center;
   padding:19px 50px;
-  background:#090c14;
-  border-bottom:1px solid #1a2436;
+  background:#0f0d07;
+  border-bottom:1px solid #2e2612;
   box-shadow:0 6px 25px rgba(0,0,0,.6);
 }
 header b{
@@ -365,11 +388,11 @@ header b{
   letter-spacing:3px;
   text-transform:uppercase;
   font-size:15px;
-  text-shadow:0 0 10px rgba(74,163,255,.3);
+  text-shadow:0 0 10px rgba(212,175,55,.3);
 }
 .lang a{
   margin-left:20px;
-  color:#64748b;
+  color:#8c7d53;
   font-size:12px;
   font-weight:700;
   cursor:pointer;
@@ -379,20 +402,20 @@ header b{
   padding-bottom:2px;
 }
 .lang a.on, .lang a:hover{
-  color:var(--blue);
-  border-bottom:1px solid var(--blue);
-  text-shadow:0 0 8px rgba(74,163,255,.5);
+  color:var(--brass1);
+  border-bottom:1px solid var(--brass1);
+  text-shadow:0 0 8px rgba(212,175,55,.5);
 }
 .lang a.hub{
-  color:var(--gold);
+  color:var(--brass-bright);
   margin-right:20px;
   padding-right:20px;
-  border-right:1px solid #2a2312;
+  border-right:1px solid #3d3319;
 }
 .lang a.hub:hover{
-  color:var(--gold-bright);
-  border-bottom:1px solid var(--gold-bright);
-  text-shadow:0 0 8px rgba(212,175,55,.6);
+  color:#fff;
+  border-bottom:1px solid #fff;
+  text-shadow:0 0 8px rgba(255,224,138,.6);
 }
 
 .grid{
@@ -401,18 +424,19 @@ header b{
   gap:24px;
   max-width:1400px;
   margin:46px auto;
-  padding:0 40px;
+  padding:0 40px 60px 40px;
 }
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:480px){.grid{grid-template-columns:1fr;}}
 
 .card{
-  background:linear-gradient(135deg, #0f1626 0%, #0a0e1a 100%);
+  background:linear-gradient(135deg, #1f1b10 0%, #0d0a05 100%);
   padding:30px 25px;
   border-radius:12px;
-  border:1px solid #1b263b;
+  border:1px solid var(--brass-dim);
   cursor:pointer;
   text-align:center;
+  text-decoration:none;
   transition:all .4s cubic-bezier(.25,.8,.25,1);
   min-height:145px;
   display:flex;
@@ -431,7 +455,7 @@ header b{
   position:absolute;
   top:0; left:-100%;
   width:100%; height:100%;
-  background:linear-gradient(90deg, transparent, rgba(74,163,255,.05), transparent);
+  background:linear-gradient(90deg, transparent, rgba(212,175,55,.08), transparent);
   transition:.5s;
 }
 .card:hover::before{left:100%;}
@@ -444,14 +468,16 @@ header b{
 .card:nth-child(7){animation-delay:.7s;}
 .card:nth-child(8){animation-delay:.8s;}
 @keyframes cardIn{to{opacity:1;transform:translateY(0);}}
+
+/* Standard card hover with bright golden border lighting */
 .card:hover{
   transform:translateY(-8px);
-  border-color:var(--blue);
-  background:linear-gradient(135deg, #141f38 0%, #0c1224 100%);
-  box-shadow:0 15px 35px rgba(74,163,255,.25);
+  border-color:var(--brass-bright);
+  background:linear-gradient(135deg, #2b2516 0%, #141008 100%);
+  box-shadow:0 15px 35px rgba(212,175,55,.3);
 }
 h3{
-  color:var(--blue);
+  color:var(--brass1);
   margin:0;
   font-size:17px;
   letter-spacing:.5px;
@@ -459,9 +485,9 @@ h3{
   font-weight:600;
   transition:color .3s;
 }
-.card:hover h3{color:#fff;text-shadow:0 0 10px rgba(74,163,255,.4);}
+.card:hover h3{color:var(--brass-bright);text-shadow:0 0 10px rgba(255,224,138,.5);}
 
-/* GOLD ARCHIVE CARD — the only gold tile */
+/* GOLD ARCHIVE CARD — 100% untouched as requested */
 .card.gold{
   border:1px solid #6b551c;
   background:linear-gradient(135deg, #1a1608 0%, #0e0c05 100%);
@@ -477,19 +503,19 @@ h3{
 }
 @keyframes goldSheen{0%{background-position:150% 0;}100%{background-position:-50% 0;}}
 .card.gold h3{
-  color:var(--gold);
+  color:var(--brass1);
   text-shadow:0 0 10px rgba(212,175,55,.5);
   font-weight:700;
   letter-spacing:1px;
 }
 .card.gold:hover{
-  border-color:var(--gold-bright);
+  border-color:var(--brass-bright);
   background:linear-gradient(135deg, #241d0c 0%, #14100a 100%);
   box-shadow:0 15px 35px rgba(212,175,55,.35);
 }
-.card.gold:hover h3{color:var(--gold-bright);text-shadow:0 0 14px rgba(255,224,138,.7);}
+.card.gold:hover h3{color:var(--brass-bright);text-shadow:0 0 14px rgba(255,224,138,.7);}
 
-/* BIG STORY TILE — fills the space below the 8 cards */
+/* BIG STORY TILE — fills space below 8 cards with timeline CTA button */
 .story-card{
   grid-column:1 / -1;
   min-height:auto;
@@ -498,19 +524,26 @@ h3{
   align-items:flex-start;
   justify-content:center;
   animation-delay:.9s;
+  cursor:default;
+}
+.story-card:hover{
+  transform:none;
+  border-color:var(--brass-dim);
+  background:linear-gradient(135deg, #1f1b10 0%, #0d0a05 100%);
+  box-shadow:0 4px 15px rgba(0,0,0,.4);
 }
 .story-card .story-eyebrow-small{
   font-family:'Orbitron', sans-serif;
   font-size:11px;
   letter-spacing:8px;
-  color:var(--blue);
+  color:var(--brass1);
   text-transform:uppercase;
   margin-bottom:12px;
   transition:color .3s;
 }
 .story-card p{
   font-family:'Share Tech Mono', monospace;
-  color:var(--blue);
+  color:var(--brass1);
   font-size:20px;
   line-height:2;
   margin:0;
@@ -519,8 +552,35 @@ h3{
 }
 .story-card:hover .story-eyebrow-small,
 .story-card:hover p{
-  color:#ffffff;
-  text-shadow:0 0 10px rgba(74,163,255,.3);
+  color:var(--brass1);
+  text-shadow:none;
+}
+
+/* Timeline Button inside the bottom rectangle */
+.timeline-btn-wrap{
+  margin-top:24px;
+}
+.timeline-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(212,175,55,0.1);
+  border:1px solid var(--brass1);
+  padding:12px 24px;
+  border-radius:8px;
+  font-family:'Orbitron', sans-serif;
+  font-size:12px;
+  letter-spacing:3px;
+  color:var(--brass-bright);
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:all 0.3s ease;
+}
+.timeline-btn:hover{
+  background:var(--brass1);
+  color:#040302;
+  box-shadow:0 0 15px rgba(212,175,55,0.5);
+  transform:translateX(5px);
 }
 </style>
 </head>
@@ -532,6 +592,7 @@ h3{
 
 <!-- CINEMATIC INTRO -->
 <div class="intro" id="intro">
+  <button class="skip-btn" onclick="skipIntro()">SKIP INTRO</button>
   <div class="flash"></div>
   <div class="hud-corner tl"></div>
   <div class="hud-corner tr"></div>
@@ -578,10 +639,10 @@ h3{
   </div>
 </div>
 
-<!-- STORY OVERLAY -->
+<!-- INTELLECTUAL PROPERTY OVERLAY (5 SECONDS) -->
 <div class="story" id="story">
   <div class="story-inner">
-    <div class="story-eyebrow">G-Rock Archive // Origin File</div>
+    <div class="story-eyebrow" id="ipEyebrow">G-Rock Archive // Intellectual Property Notice</div>
     <div class="story-text" id="storyText"></div>
     <div class="story-bar"><div class="story-bar-fill" id="storyBar"></div></div>
   </div>
@@ -603,17 +664,21 @@ h3{
 </header>
 
 <div class="grid">
-  <div class="card" onclick="location.href='university.html'"><h3>Monkeys University of Gibraltar</h3></div>
-  <div class="card" onclick="location.href='bank.html'"><h3>Bank of the Monkeys from Gibraltar</h3></div>
-  <div class="card" onclick="location.href='parliament.html'"><h3>Parliament of the Monkeys from Gibraltar</h3></div>
-  <div class="card" onclick="location.href='library.html'"><h3>The Gibraltar Monkey Library</h3></div>
-  <div class="card" onclick="location.href='ceuta.html'"><h3>Campus de Ceuta</h3></div>
-  <div class="card" onclick="location.href='caraibian.html'"><h3>Caribbean Campus</h3></div>
-  <div class="card gold" onclick="location.href='archive.html'"><h3>G-Rock Archive</h3></div>
-  <div class="card" onclick="location.href='map.html'"><h3>World Map</h3></div>
+  <a class="card" href="university.html"><h3>Monkeys University of Gibraltar</h3></a>
+  <a class="card" href="bank.html"><h3>Bank of the Monkeys from Gibraltar</h3></a>
+  <a class="card" href="parliament.html"><h3>Parliament of the Monkeys from Gibraltar</h3></a>
+  <a class="card" href="library.html"><h3>The Gibraltar Monkey Library</h3></a>
+  <a class="card" href="ceuta.html"><h3>Campus de Ceuta</h3></a>
+  <a class="card" href="caraibian.html"><h3>Caribbean Campuses</h3></a>
+  <a class="card gold" href="archive.html"><h3>G-Rock Archive</h3></a>
+  <a class="card" href="map.html"><h3>World Map</h3></a>
+  
   <div class="card story-card">
-    <div class="story-eyebrow-small">G-Rock Archive // Origin File</div>
+    <div class="story-eyebrow-small" id="cardEyebrow">G-Rock Archive // Origin File</div>
     <p id="storyCardText"></p>
+    <div class="timeline-btn-wrap">
+      <a href="timeline.html" class="timeline-btn" id="timelineBtn">TAP TO CONTINUE READ →</a>
+    </div>
   </div>
 </div>
 </main>
@@ -642,7 +707,7 @@ function drawRain(){
   for(let i=0;i<cols;i++){
     const useRare = Math.random() < 0.002;
     const char = useRare ? rareGlyph : glyphs[Math.floor(Math.random()*glyphs.length)];
-    ctx.fillStyle = useRare ? 'rgba(212,175,55,0.9)' : (Math.random() < 0.06 ? 'rgba(255,255,255,0.9)' : 'rgba(74,163,255,0.55)');
+    ctx.fillStyle = useRare ? 'rgba(255,224,138,0.9)' : (Math.random() < 0.06 ? 'rgba(255,255,255,0.9)' : 'rgba(212,175,55,0.45)');
     ctx.fillText(char, i*22, drops[i]*20);
     if(drops[i]*20 > h && Math.random() > 0.975) drops[i] = 0;
     drops[i]++;
@@ -658,13 +723,18 @@ const storyText = document.getElementById('storyText');
 const storyBar = document.getElementById('storyBar');
 const mainEl = document.getElementById('main');
 
-// Intro runs ~6.7s total (matches CSS animation delay + duration), then show language picker
-setTimeout(()=>{
+let introTimeout = setTimeout(()=>{
   intro.style.display = 'none';
   langSelect.classList.add('active');
 }, 6700);
 
-// Cycling boot log for extra HUD flavor
+function skipIntro(){
+  clearTimeout(introTimeout);
+  intro.style.display = 'none';
+  langSelect.classList.add('active');
+}
+
+// Cycling boot log
 const bootline = document.getElementById('bootline');
 const BOOT_LINES = [
   { t: 0,    msg: "G-SYSTEM // INITIALIZING..." },
@@ -677,29 +747,48 @@ BOOT_LINES.forEach(line=>{
   setTimeout(()=>{ bootline.textContent = line.msg; }, line.t);
 });
 
+// Translations for IP notice and main story
+const IP_NOTICE = {
+  en: "INTELLECTUAL PROPERTY NOTICE: All rights reserved. The G-Rock universe, lore, characters, and associated media are protected under international copyright law. Unauthorized duplication or distribution is prohibited.",
+  pl: "INFORMACJA O WŁASNOŚCI INTELEKTUALNEJ: Wszelkie prawa zastrzeżone. Uniwersum G-Rock, jego lore, postacie i powiązane media są chronione międzynarodowym prawem autorskim. Nieautoryzowane powielanie lub dystrybucja jest zabroniona.",
+  es: "AVISO DE PROPIEDAD INTELECTUAL: Todos los derechos reservados. El universo G-Rock, la tradición, los personajes y los medios asociados están protegidos por la ley internacional de derechos de autor. Se prohíbe la duplicación o distribución no autorizada.",
+  fr: "AVIS DE PROPRIÉTÉ INTELLECTUELLE : Tous droits réservés. L'univers G-Rock, les traditions, les personnages et les médias associés sont protégés par le droit d'auteur international. Toute duplication ou distribution non autorisée est interdite.",
+  ru: "УВЕДОМЛЕНИЕ ОБ ИНТЕЛЛЕКТУАЛЬНОЙ СОБСТВЕННОСТИ: Все права защищены. Вселенная G-Rock, история, персонажи и связанные с ними материалы защищены международным авторским правом. Несанкционированное копирование или распространение запрещено.",
+  nl: "KENNISGEVING INTELLECTUEEL EIGENDOM: Alle rechten voorbehouden. Het G-Rock-universum, de lore, personages en bijbehorende media worden beschermd onder het internationale auteursrecht. Ongeautoriseerde duplicaatvorming of distributie is verboden."
+};
+
 const STORY = {
-en: "A world uniting Professor Sugriva, the first chimpanzee accepted by British academia as a professor in January 2025, Corporal Wojtek, a real soldier-bear and WWII veteran who fought against Nazi Germany in Italy and later lived at Edinburgh Zoo, and the Barbary macaques of Gibraltar, Europe's only wild monkey population.",
-pl: "Świat łączący profesora Sugrivę, pierwszego szympansa zaakceptowanego przez brytyjskie środowisko akademickie jako profesora w styczniu 2025 roku, kaprala Wojtka, prawdziwego niedźwiedzia-żołnierza i weterana II wojny światowej, który walczył przeciw nazistowskim Niemcom we Włoszech, a później mieszkał w zoo w Edynburgu, oraz makaki berberyjskie z Gibraltaru, jedyną dziką populację małp w Europie.",
-es: "Un mundo que une al profesor Sugriva, el primer chimpancé aceptado por el mundo académico británico como profesor en enero de 2025, al cabo Wojtek, un auténtico oso-soldado y veterano de la Segunda Guerra Mundial que luchó contra la Alemania nazi en Italia y luego vivió en el zoológico de Edimburgo, y a los macacos de Berbería de Gibraltar, la única población salvaje de monos de Europa.",
-fr: "Un monde reliant le professeur Sugriva, le premier chimpanzé accepté par le monde universitaire britannique en tant que professeur en janvier 2025, le caporal Wojtek, un authentique ours-soldat et vétéran de la Seconde Guerre mondiale qui a combattu l'Allemagne nazie en Italie avant de vivre au zoo d'Édimbourg, et les macaques de Barbarie de Gibraltar, la seule population sauvage de singes d'Europe.",
-ru: "Мир, объединяющий профессора Сугриву, первого шимпанзе, принятого британским академическим сообществом в качестве профессора в январе 2025 года, капрала Войтека, настоящего медведя-солдата и ветерана Второй мировой войны, который сражался против нацистской Германии в Италии, а позже жил в Эдинбургском зоопарке, и берберийских макак Гибралтара — единственную дикую популяцию обезьян в Европе.",
-nl: "Een wereld die professor Sugriva verenigt, de eerste chimpansee die in januari 2025 door de Britse academische wereld als hoogleraar werd aanvaard, korporaal Wojtek, een echte soldatenbeer en veteraan van de Tweede Wereldoorlog die in Italië tegen nazi-Duitsland vocht en later in de dierentuin van Edinburgh woonde, en de Berberapen van Gibraltar, Europa's enige wilde apenpopulatie."
+  en: "A world uniting Professor Sugriva, the first chimpanzee accepted by British academia as a professor in January 2025, Corporal Wojtek, a real soldier-bear and WWII veteran who fought against Nazi Germany in Italy and later lived at Edinburgh Zoo, and the Barbary macaques of Gibraltar, Europe's only wild monkey population.",
+  pl: "Świat łączący profesora Sugrivę, pierwszego szympansa zaakceptowanego przez brytyjskie środowisko akademickie jako profesora w styczniu 2025 roku, kaprala Wojtka, prawdziwego niedźwiedzia-żołnierza i weterana II wojny światowej, który walczył przeciw nazistowskim Niemcom we Włoszech, a później mieszkał w zoo w Edynburgu, oraz makaki berberyjskie z Gibraltaru, jedyną dziką populację małp w Europie.",
+  es: "Un mundo que une al profesor Sugriva, el primer chimpancé aceptado por el mundo académico británico como profesor en enero de 2025, al cabo Wojtek, un auténtico oso-soldado y veterano de la Segunda Guerra Mundial que luchó contra la Alemania nazi en Italia y luego vivió en el zoológico de Edimburgo, y a los macacos de Berbería de Gibraltar, la única población salvaje de monos de Europa.",
+  fr: "Un monde reliant le professeur Sugriva, le premier chimpanzé accepté par le monde universitaire britannique en tant que professeur en janvier 2025, le caporal Wojtek, un authentique ours-soldat et vétéran de la Seconde Guerre mondiale qui a combattu l'Allemagne nazie en Italie avant de vivre au zoo d'Édimbourg, et les macaques de Barbarie de Gibraltar, la seule population sauvage de singes d'Europe.",
+  ru: "Мир, объединяющий профессора Сугриву, первого шимпанзе, принятого британским академическим сообществом в качестве профессора в январе 2025 года, капрала Войтека, настоящего медведя-солдата и ветерана Второй мировой войны, который сражался против нацистской Германии в Италии, а позже жил в Эдинбургском зоопарке, и берберийских макак Гибралтара — единственную дикую популяцию обезьян в Европе.",
+  nl: "Een wereld die professor Sugriva verenigt, de eerste chimpansee die in januari 2025 door de Britse academische wereld als hoogleraar werd aanvaard, korporaal Wojtek, een echte soldatenbeer en veteraan van de Tweede Wereldoorlog die in Italië tegen nazi-Duitsland vocht en later in de dierentuin van Edinburgh woonde, en de Berberapen van Gibraltar, Europa's enige wilde apenpopulatie."
+};
+
+const TIMELINE_BTN_TEXT = {
+  en: "TAP TO CONTINUE READ →",
+  pl: "KLIKNIJ, ABY CZYTAĆ DALEJ →",
+  es: "TOCA PARA CONTINUAR LEYENDO →",
+  fr: "APPUYEZ POUR CONTINUER LA LECTURE →",
+  ru: "НАЖМИТЕ, ЧТОБЫ ЧИТАТЬ ДАЛЬШЕ →",
+  nl: "TIK OM VERDER TE LEZEN →"
 };
 
 function chooseLang(lang){
   langSelect.classList.remove('active');
-  storyText.textContent = STORY[lang];
+  storyText.textContent = IP_NOTICE[lang];
   story.classList.add('active');
   storyBar.style.animation = 'none';
   void storyBar.offsetWidth; // restart animation
-  storyBar.style.animation = 'storyProgress 15s linear forwards';
+  storyBar.style.animation = 'storyProgress 5s linear forwards';
 
   setTimeout(()=>{
     story.classList.remove('active');
     mainEl.classList.add('active');
     setLang(lang);
     highlightLang(lang);
-  }, 15000);
+  }, 5000);
 }
 
 function highlightLang(lang){
@@ -709,26 +798,29 @@ function highlightLang(lang){
 }
 
 function returnToHub(){
-  window.location.reload();
+  mainEl.classList.remove('active');
+  langSelect.classList.add('active');
 }
 
 function setLang(lang){
   const data = {
-    en:["Monkeys University of Gibraltar","Bank of the Monkeys from Gibraltar","Parliament of the Monkeys from Gibraltar","The Gibraltar Monkey Library","Campus de Ceuta","Caribbean Campus","G-Rock Archive","World Map"],
-    pl:["Uniwersytet Małp Gibraltaru","Bank Małp z Gibraltaru","Parlament Małp z Gibraltaru","Biblioteka Małp z Gibraltaru","Kampus w Ceucie","Kampus Karaibski","Archiwum G-Rock","Mapa Świata"],
+    en:["Monkeys University of Gibraltar","Bank of the Monkeys from Gibraltar","Parliament of the Monkeys from Gibraltar","The Gibraltar Monkey Library","Campus de Ceuta","Caribbean Campuses","G-Rock Archive","World Map"],
+    pl:["Uniwersytet Małp Gibraltaru","Bank Małp z Gibraltaru","Parlament Małp z Gibraltaru","Biblioteka Małp z Gibraltaru","Kampus w Ceucie","Kampusy Karaibskie","Archiwum G-Rock","Mapa Świata"],
     es:["Universidad de los Monos de Gibraltar","Banco de los Monos de Gibraltar","Parlamento de los Monos de Gibraltar","La Biblioteca de Monos de Gibraltar","Campus de Ceuta","Campus del Caribe","Archivo G-Rock","Mapa del Mundo"],
     fr:["Université des Singes de Gibraltar","Banque des Singes de Gibraltar","Parlement des Singes de Gibraltar","La Bibliothèque des Singes de Gibraltar","Campus de Ceuta","Campus des Caraïbes","Archives G-Rock","Carte du Monde"],
-    ru:["Университет Обезьян Гибралтара","Банк Обезьян Гибралтара","Парламент Обезьян Гибралтара","Библиотека Обезьян Гибралтара","Кампус Сеуты","Карибский Кампус","Архив G-Rock","Карта Мира"],
-    nl:["Universiteit van de Apen van Gibraltar","Bank van de Apen van Gibraltar","Parlement van de Apen van Gibraltar","De Apenbibliotheek van Gibraltar","Campus Ceuta","Caribische Campus","G-Rock Archief","Wereldkaart"]
+    ru:["Университет Обезьян Гибралтара","Банк Обезьян Гибралтара","Парламент Обезьян Гибралтара","Библиотека Обезьян Гибралтара","Кампус Сеуты","Карибские Кампусы","Архив G-Rock","Карта Мира"],
+    nl:["Universiteit van de Apen van Gibraltar","Bank van de Apen van Gibraltar","Parlement van de Apen van Gibraltar","De Apenbibliotheek van Gibraltar","Campus Ceuta","Caribische Campuses","G-Rock Archief","Wereldkaart"]
   };
   document.querySelectorAll(".grid h3").forEach((el,i)=>{ el.innerText = data[lang][i]; });
   document.getElementById('storyCardText').textContent = STORY[lang];
+  document.getElementById('timelineBtn').textContent = TIMELINE_BTN_TEXT[lang];
   highlightLang(lang);
 }
 </script>
 
 </body>
-      </html>
+</html>
+
   
 
 
