@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="G-ROCK Archive — G-ROCK Story Timeline. Canonical chronology of Gibraltar, Wojtek, The Monkeys, and the G-SYSTEM intelligence framework.">
+    <title>G-ROCK ARCHIVE — G-ROCK STORY TIMELINE</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --panel-bg: #1f2833;
+            --text-main: #c5c6c7;
+            --accent-cyan: #66fcf1;
+            --accent-brass: #d4af37;
+            --accent-amber: #ffbf00;
+            --accent-gray: #454955;
+            --border-color: #3b4252;
+            --glow-cyan: 0 0 10px rgba(102, 252, 241, 0.3);
+            --glow-brass: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        header.timeline-header {
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            background: rgba(31, 40, 51, 0.7);
+        }
+
+        .return-link-container {
+            margin-bottom: 1rem;
+        }
+
+        .return-archive-btn {
+            color: var(--accent-brass);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px dashed var(--accent-brass);
+            padding: 0.3rem 0.8rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .return-archive-btn:hover {
+            background: var(--accent-brass);
+            color: var(--bg-color);
+            box-shadow: var(--glow-brass);
+        }
+
+        .language-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--accent-brass);
+            color: var(--accent-brass);
+            padding: 0.3rem 0.8rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--accent-brass);
+            color: var(--bg-color);
+            box-shadow: var(--glow-brass);
+        }
+
+        .timeline-header h1 {
+            font-size: 2.2rem;
+            color: var(--accent-brass);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-header h2 {
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        nav.timeline-filter {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: #111418;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .filter-btn {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        nav.timeline-index {
+            display: flex;
+            overflow-x: auto;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: #0f1319;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .index-link {
+            color: var(--accent-brass);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.2rem 0.5rem;
+            border: 1px dashed transparent;
+        }
+
+        .index-link:hover {
+            border-color: var(--accent-brass);
+        }
+
+        main#timeline-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section.timeline-era {
+            margin-bottom: 3rem;
+        }
+
+        .era-header {
+            border-left: 4px solid var(--accent-brass);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .era-label {
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+        }
+
+        .era-header h2 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+        }
+
+        .era-period {
+            font-size: 0.9rem;
+            color: var(--accent-brass);
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        article.timeline-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        article.timeline-card:hover {
+            border-color: var(--accent-brass);
+            box-shadow: var(--glow-brass);
+        }
+
+        article.timeline-card.timeline-card--featured {
+            grid-column: 1 / -1;
+            border-color: var(--accent-cyan);
+        }
+
+        article.timeline-card.timeline-card--featured:hover {
+            box-shadow: var(--glow-cyan);
+        }
+
+        article.timeline-card.is-active {
+            border-color: var(--accent-cyan) !important;
+            box-shadow: var(--glow-cyan) !important;
+            background: rgba(102, 252, 241, 0.05);
+        }
+
+        .event-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .event-year {
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .timeline-card--featured .event-year {
+            font-size: 1.6rem;
+        }
+
+        .event-title {
+            font-size: 1.1rem;
+            color: var(--accent-brass);
+            margin-top: 0.2rem;
+        }
+
+        .event-layer {
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border-left: 3px solid;
+        }
+
+        .layer-history { border-color: var(--accent-gray); background: rgba(69, 73, 85, 0.1); }
+        .layer-folklore { border-color: var(--accent-amber); background: rgba(255, 191, 0, 0.1); }
+        .layer-monkeys { border-color: var(--accent-brass); background: rgba(212, 175, 55, 0.1); }
+        .layer-grock { border-color: var(--accent-cyan); background: rgba(102, 252, 241, 0.1); }
+
+        section.folklore-panel, section.gsystem-panel, section.classification-panel {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        section h2.panel-title {
+            color: var(--accent-brass);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .panel-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid var(--border-color);
+            margin-top: 4rem;
+            font-size: 0.85rem;
+            color: var(--accent-gray);
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: var(--accent-brass);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="timeline-header">
+        <div class="return-link-container">
+            <a href="index.html" class="return-archive-btn" id="return-btn">&larr; RETURN TO ARCHIVE</a>
+        </div>
+        <div class="language-bar">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="es">ES</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
+            <button class="lang-btn" data-lang="pl">PL</button>
+            <button class="lang-btn" data-lang="ru">RU</button>
+            <button class="lang-btn" data-lang="nl">NL</button>
+        </div>
+        <h1 id="header-title">G-ROCK ARCHIVE</h1>
+        <h2 id="header-subtitle">G-ROCK STORY TIMELINE</h2>
+        <p id="header-desc">GIBRALTAR / WOJTEK / THE MONKEYS</p>
+    </header>
+
+    <nav class="timeline-filter">
+        <button class="filter-btn active" data-filter="all" id="btn-all">ALL</button>
+        <button class="filter-btn" data-filter="history" id="btn-history">HISTORY</button>
+        <button class="filter-btn" data-filter="folklore" id="btn-folklore">REAL FOLKLORE</button>
+        <button class="filter-btn" data-filter="monkeys" id="btn-monkeys">AUTHOR FICTION</button>
+        <button class="filter-btn" data-filter="grock" id="btn-grock">G-ROCK ERA</button>
+    </nav>
+
+    <nav class="timeline-index" id="timeline-index">
+        <!-- Generowane dynamicznie przez JS -->
+    </nav>
+
+    <main id="timeline-page">
+        <div id="timeline-container"></div>
+
+        <section class="folklore-panel" id="folklore-panel">
+            <h2 class="panel-title">REAL FOLKLORE OF THE ROCK</h2>
+            <div class="panel-content">
+                <p><strong>THE MAPS OF GIBRALTAR AND THE MONKEYS:</strong> One of the longstanding legends associated with Gibraltar concerns the maps of Gibraltar and the Barbary macaques. According to the traditional story, the presence of the monkeys became connected with the belief that Britain would retain Gibraltar as long as monkeys remained on the Rock. The legend is often expressed through the idea that if the monkeys disappeared from Gibraltar, Britain would eventually lose Gibraltar.</p>
+                <p><strong>THE MAP LEGEND:</strong> According to the traditional account, the story became associated with the idea that the presence of the monkeys was effectively part of the condition determining the future of British Gibraltar. The monkeys became an important symbolic element in the way Gibraltar was represented and discussed.</p>
+                <p><strong>POSSIBLE ORIGIN — A JOKE ON THE SPANISH SIDE:</strong> According to one traditional explanation, the legend may have begun as a joke on the Spanish side of Gibraltar. The joke referred humorously to the British possession and connected the continued presence of Britain with the continued presence of the monkeys, later transforming into a familiar Gibraltar legend. <em>Archive Note:</em> Treated as a traditional folkloric explanation, not established historical fact; independent of fictional history.</p>
+                <p><strong>ST MICHAEL'S CAVE:</strong> A traditional legend says that the monkeys reached Gibraltar from North Africa through an underground passage connected with St Michael's Cave and the African coast.</p>
+                <p><strong>THE MONKEYS AS WATCHMEN:</strong> Tradition connects the macaques with the defence of the Rock, including stories that their behaviour alerted the British garrison to danger.</p>
+            </div>
+        </section>
+
+        <section class="gsystem-panel" id="gsystem-panel">
+            <h2 class="panel-title">G-SYSTEM — CANONICAL ARCHIVE INTELLIGENCE</h2>
+            <div class="panel-content">
+                <p><strong>WHAT IS THE G-SYSTEM:</strong> The G-System is the foundational classification, verification, and intelligence engine governing the entire G-ROCK Archive. It ensures strict ontological boundaries between historical facts, independent local folklore, author fiction, and contemporary project data.</p>
+                
+                <p><strong>THE PRIMARY RULE:</strong> Total separation of narrative layers. Historical facts, real local folklore, author fiction, and project data must never be automatically conflated or blurred.</p>
+                
+                <p><strong>G-SYSTEM OPERATING MODEL (L0–L5):</strong> 
+                <br>• <strong>L0 (Ingestion):</strong> Raw data collection from historical records, oral folklore, and author logs.
+                <br>• <strong>L1 (Parsing):</strong> Lexical extraction and metadata tagging.
+                <br>• <strong>L2 (Cross-Reference):</strong> Verification against institutional archives and cross-layer parameters.
+                <br>• <strong>L3 (Ontological Filtering):</strong> Separation into distinct historical, folkloric, and fictional silos.
+                <br>• <strong>L4 (Canonical Synthesis):</strong> Integration into the core database structure.
+                <br>• <strong>L5 (Security &amp; Telemetry):</strong> Final operational lock and tamper-proof distribution.</p>
+                
+                <p><strong>CANON STATES (S0–S3):</strong> 
+                <br>• <strong>S0 (Raw):</strong> Unverified input items.
+                <br>• <strong>S1 (Preliminary):</strong> Initial metadata alignment.
+                <br>• <strong>S2 (Canonical Verified):</strong> Fully audited and authenticated records.
+                <br>• <strong>S3 (Core Immutable Axiom):</strong> Permanent foundational archive truths.</p>
+                
+                <p><strong>G-SYSTEM ANOMALY ENGINE &amp; ANOMALY TYPES (A–D):</strong> 
+                <br>• <strong>Type A (Chronological Drift):</strong> Time-vector discrepancies between official history and hidden logs.
+                <br>• <strong>Type B (Layer Contamination):</strong> Blurring lines between folklore and historical documentation.
+                <br>• <strong>Type C (Fictional Infiltration):</strong> Unauthorized leakage of author fiction into factual baselines.
+                <br>• <strong>Type D (Structural Paradox):</strong> Logical inconsistencies within multi-campus nodes (Gibraltar, Haiti, Ceuta, Jamaica).</p>
+                
+                <p><strong>EXAMPLE — PROFESSOR SUGRIVA:</strong> Canonical test case linking institutional university acceptance records in Britain (January 2025), historical AI research history, and multi-layered fictional integration within the Monkey University of Gibraltar (MUOG) network without compromising factual boundaries.</p>
+                
+                <p><strong>G-SYSTEM AND TRUTH / FICTION / FOLKLORE / HISTORY / ANOMALIES:</strong> A comprehensive analytical matrix maintaining cross-reference verification across all recorded dimensions simultaneously.</p>
+                
+                <p><strong>G-SYSTEM PRIME DIRECTIVE:</strong> Uncompromising preservation of institutional memory, multi-layered truth isolation, and systemic integrity across the entire G-ROCK digital ecosystem.</p>
+                
+                <p><strong>MUOG / G-ROCK ARCHIVE PRINCIPLE:</strong> Absolute fidelity to the foundational canons established by the Monkey University of Gibraltar and associated covert research structures.</p>
+                
+                <p><strong>FINAL G-SYSTEM FORMULA:</strong> $\Omega = \sum (\text{History} \oplus \text{Folklore} \oplus \text{Fiction}) \times \text{Integrity}$ — the algorithmic and logical synthesis binding operational nodes into a unified, secure archival output.</p>
+                
+                <p><strong>G-SYSTEM CORE FUNCTION:</strong> Continuous execution of self-auditing routines, cryptographic verification, cross-layer integrity maintenance, and telemetry logging.</p>
+            </div>
+        </section>
+
+        <section class="classification-panel" id="classification-panel">
+            <h2 class="panel-title">ARCHIVE CLASSIFICATION</h2>
+            <div class="panel-content">
+                <p><strong>HISTORY:</strong> Documented historical events.</p>
+                <p><strong>REAL FOLKLORE / LEGEND:</strong> Traditional Gibraltar legends and folklore that existed independently from the author's fictional universe.</p>
+                <p><strong>AUTHOR FICTION:</strong> Fictional events, institutions, characters and connections created by the author as part of the MUOG / The Monkeys universe.</p>
+                <p><strong>FACT / G-ROCK ERA:</strong> Documented contemporary events belonging to the G-ROCK project history.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>G-ROCK ARCHIVE &copy; 2026. All rights reserved. Canonical System Operational.</p>
+        <div class="footer-nav">
+            <a href="index.html" class="footer-link">RETURN TO HUB</a>
+            <a href="archive.html" class="footer-link">ARCHIVE</a>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: { returnBtn: "← RETURN TO ARCHIVE", title: "G-ROCK ARCHIVE", subtitle: "G-ROCK STORY TIMELINE", desc: "GIBRALTAR / WOJTEK / THE MONKEYS", all: "ALL", history: "HISTORY", folklore: "REAL FOLKLORE", monkeys: "AUTHOR FICTION", grock: "G-ROCK ERA" },
+            es: { returnBtn: "← VOLVER AL ARCHIVO", title: "ARCHIVO G-ROCK", subtitle: "CRONOLOGÍA DE LA HISTORIA G-ROCK", desc: "GIBRALTAR / WOJTEK / LOS MONOS", all: "TODOS", history: "HISTORIA", folklore: "FOLCLORE REAL", monkeys: "FICCIÓN DE AUTOR", grock: "ERA G-ROCK" },
+            fr: { returnBtn: "← RETOUR AUX ARCHIVES", title: "ARCHIVE G-ROCK", subtitle: "CHRONOLOGIE DE L'HISTOIRE G-ROCK", desc: "GIBRALTAR / WOJTEK / LES SINGES", all: "TOUT", history: "HISTOIRE", folklore: "FOLKLORE RÉEL", monkeys: "FICTION D'AUTEUR", grock: "ÈRE G-ROCK" },
+            pl: { returnBtn: "← POWRÓT DO ARCHIWUM", title: "G-ROCK ARCHIVE", subtitle: "G-ROCK STORY TIMELINE", desc: "GIBRALTAR / WOJTEK / THE MONKEYS", all: "WSZYSTKIE", history: "HISTORIA", folklore: "FOLKLOR", monkeys: "FIKCJA AUTORA", grock: "ERA G-ROCK" },
+            ru: { returnBtn: "← В АРХИВ", title: "АРХИВ G-ROCK", subtitle: "ХРОНОЛОГИЯ ИСТОРИИ G-ROCK", desc: "ГИБРАЛТАР / ВОЙТЕК / ОБЕЗЬЯНЫ", all: "ВСЕ", history: "ИСТОРИЯ", folklore: "ФОЛЬКЛОР", monkeys: "АВТОРСКАЯ ВЫДУМКА", grock: "ЭРА G-ROCK" },
+            nl: { returnBtn: "← TERUG NAAR ARCHIEF", title: "G-ROCK ARCHIEF", subtitle: "G-ROCK VERHAAL TIJDLIJN", desc: "GIBRALTAR / WOJTEK / DE AAPEN", all: "ALLES", history: "GESCHIEDENIS", folklore: "FOLKLORE", monkeys: "AUTEUR FICTIE", grock: "G-ROCK TIJDPERK" }
+        };
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                langBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const lang = btn.getAttribute('data-lang');
+                const t = translations[lang] || translations.en;
+
+                document.getElementById('return-btn').textContent = t.returnBtn;
+                document.getElementById('header-title').textContent = t.title;
+                document.getElementById('header-subtitle').textContent = t.subtitle;
+                document.getElementById('header-desc').textContent = t.desc;
+                document.getElementById('btn-all').textContent = t.all;
+                document.getElementById('btn-history').textContent = t.history;
+                document.getElementById('btn-folklore').textContent = t.folklore;
+                document.getElementById('btn-monkeys').textContent = t.monkeys;
+                document.getElementById('btn-grock').textContent = t.grock;
+            });
+        });
+
+        const timelineData = [
+            {
+                id: "event-1704",
+                year: "1704",
+                title: "BRITISH ARRIVE IN GIBRALTAR",
+                era: "ERA I — THE ROCK",
+                eraId: "era-1",
+                period: "1704–1783",
+                featured: true,
+                categories: ["history", "folklore", "monkeys"],
+                layers: {
+                    history: "Gibraltar is captured by Anglo-Dutch forces during the War of the Spanish Succession and comes under British control.",
+                    folklore: "Gibraltar develops longstanding traditions and legends connecting the Barbary macaques with the continued British presence on the Rock.",
+                    monkeys: "THE MONKEYS TAKE GIBRALTAR. The hidden history of The Monkeys begins."
+                }
+            },
+            {
+                id: "event-1713",
+                year: "1713",
+                title: "TREATY OF UTRECHT",
+                era: "ERA I — THE ROCK",
+                eraId: "era-1",
+                period: "1704–1783",
+                featured: true,
+                categories: ["history"],
+                layers: {
+                    history: "Gibraltar is formally ceded to Great Britain under the Treaty of Utrecht."
+                }
+            },
+            {
+                id: "event-1779",
+                year: "1779–1783",
+                title: "GREAT SIEGE OF GIBRALTAR",
+                era: "ERA I — THE ROCK",
+                eraId: "era-1",
+                period: "1704–1783",
+                featured: true,
+                categories: ["history", "folklore"],
+                layers: {
+                    history: "The Great Siege of Gibraltar takes place as French and Spanish forces attempt to capture the Rock from the British garrison.",
+                    folklore: "Local folklore and accounts from the siege period incorporate legends about the Barbary macaques alerting defenders during surprise nighttime attacks."
+                }
+            },
+            {
+                id: "event-1942",
+                year: "1942",
+                title: "THE MONKEYS IN DANGER",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["history", "folklore", "monkeys"],
+                layers: {
+                    history: "During World War II, the Barbary macaque population in Gibraltar falls dangerously low. Winston Churchill takes interest in the preservation of the population, and macaques are brought from North Africa.",
+                    folklore: "The old Gibraltar belief that British control is connected to the survival of the monkeys becomes significant.",
+                    monkeys: "THE SURVIVAL PROTOCOL. The survival of the monkeys becomes part of the hidden institutional history."
+                }
+            },
+            {
+                id: "event-1943",
+                year: "1943",
+                title: "FULL MONKEY CONTROL OF GIBRALTAR",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "The Monkeys establish complete hidden control of Gibraltar operations."
+                }
+            },
+            {
+                id: "event-1944-mc",
+                year: "1944",
+                title: "MONTE CASSINO",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: true,
+                categories: ["history", "monkeys"],
+                layers: {
+                    history: "Wojtek participates in the Italian campaign and the Battle of Monte Cassino.",
+                    monkeys: "MONKEY CONNECTION. Events surrounding Wojtek begin entering the hidden history of The Monkeys."
+                }
+            },
+            {
+                id: "event-1944-inv",
+                year: "SUMMER 1944",
+                title: "WOJTEK IS INVITED TO GIBRALTAR",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: true,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "Wojtek receives an invitation from The Monkeys to come to Gibraltar. This marks the beginning of the direct Wojtek–Monkeys connection."
+                }
+            },
+            {
+                id: "event-1944-arr",
+                year: "SUMMER 1944",
+                title: "WOJTEK ARRIVES IN GIBRALTAR",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "Wojtek arrives in Gibraltar and enters the hidden world of The Monkeys."
+                }
+            },
+            {
+                id: "event-1944-rome",
+                year: "1944",
+                title: "ROME / COLOSSEUM",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["history"],
+                layers: {
+                    history: "A gala is held for Wojtek in Rome, around the Colosseum. IMPORTANT ARCHIVE NOTE: Wojtek does not know The Monkeys at this point. No direct monkey connection is assigned to this event."
+                }
+            },
+            {
+                id: "event-1947-edin",
+                year: "SUMMER 1947",
+                title: "EDINBURGH — WOJTEK & CHRISTINE GRANVILLE",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["history", "monkeys"],
+                layers: {
+                    history: "Wojtek meets Christine Granville in Edinburgh and they have dinner at a restaurant. Christine Granville was a Polish-born British SOE agent and one of the notable female agents of the Second World War.",
+                    monkeys: "The meeting between Wojtek and Christine Granville becomes part of the hidden history surrounding Wojtek and The Monkeys."
+                }
+            },
+            {
+                id: "event-1947-zoo",
+                year: "AUTUMN 1947",
+                title: "EDINBURGH ZOO & PROFESSOR SUGRIVA",
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["history", "monkeys"],
+                layers: {
+                    history: "Wojtek is transferred to Edinburgh Zoo.",
+                    monkeys: "THE LONG-TERM COVERT MISSION: Wojtek volunteers to be placed in Edinburgh Zoo as part of a long-term secret intelligence mission. THE MEETING WITH PROFESSOR SUGRIVA: During his time at Edinburgh Zoo, Wojtek meets Professor Sugriva, establishing a secret relationship based on research, intelligence, resistance and the preservation of hidden knowledge."
+                }
+            },
+            {
+                id: "event-1952",
+                year: "15 JUNE 1952",
+                title: "DEATH OF KRYSTYNA SKARBEK",
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: false,
+                categories: ["history", "monkeys"],
+                layers: {
+                    history: "Krystyna Skarbek dies in London.",
+                    monkeys: "Her death becomes a turning point in the hidden history. The legacy of wartime intelligence and resistance continues through the hidden network surrounding Wojtek and Sugriva."
+                }
+            },
+            {
+                id: "event-1963",
+                year: "2 DECEMBER 1963",
+                title: "EDINBURGH ZOO — THE DISAPPEARANCE",
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: true,
+                categories: ["history", "monkeys"],
+                layers: {
+                    history: "Wojtek dies at Edinburgh Zoo.",
+                    monkeys: "THE DISAPPEARANCE: The official story records Wojtek's death, but the hidden archive records something else—Wojtek and Sugriva disappear during transport, beginning a new phase of their hidden existence."
+                }
+            },
+            {
+                id: "event-1964-parl",
+                year: "JANUARY 1964",
+                title: "THE MONKEY PARLIAMENT",
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "A new political structure is established within The Monkeys."
+                }
+            },
+            {
+                id: "event-1964-col",
+                year: "2 DECEMBER 1964",
+                title: "MONKEY COLLEGE",
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "Monkey College is established as an institutional centre for knowledge and research."
+                }
+            },
+            {
+                id: "event-1969",
+                year: "MARCH 1969",
+                title: "GIBRALTAR VS USA / DISNEYLAND",
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "The Monkeys initiate sanctions and actions against the United States and Disneyland."
+                }
+            },
+            {
+                id: "event-1978",
+                year: "1 DECEMBER 1978",
+                title: "MONKEY UNIVERSITY OF GIBRALTAR",
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: true,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "The Monkey University of Gibraltar (MUOG) is established as a centre of knowledge, research and archival activity."
+                }
+            },
+            {
+                id: "event-2000",
+                year: "2000–2023",
+                title: "THE RESEARCH ERA & KAMPUS HAITI",
+                era: "ERA IV — THE RESEARCH ERA",
+                eraId: "era-4",
+                period: "2000–2023",
+                featured: true,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "The hidden research network expands beyond Gibraltar into a wider Caribbean research operation. Professor Sugriva lives in Miami (intellectual/AI research). Wojtek conducts archaeological fieldwork throughout the Caribbean. KAMPUS — HAITI (2001) is established in Haiti as part of the hidden research and information structure surrounding Wojtek, Sugriva and The Monkeys."
+                }
+            },
+            {
+                id: "event-2009",
+                year: "FEBRUARY 2009",
+                title: "TRAVIS / AI MENTAL HELP",
+                era: "ERA IV — THE RESEARCH ERA",
+                eraId: "era-4",
+                period: "2000–2023",
+                featured: false,
+                categories: ["history", "monkeys"],
+                layers: {
+                    history: "The real chimpanzee Travis is involved in a serious attack incident in Stamford, Connecticut, and is shot and killed by police.",
+                    monkeys: "Before the tragedy, Professor Sugriva develops AI Mental Help for Travis. The tragedy profoundly affects Sugriva, leading him to suspend his AI research. IMPORTANT ARCHIVE DISTINCTION: This earlier work is separate from the later AI system developed for Wojtek."
+                }
+            },
+            {
+                id: "event-2023",
+                year: "2023",
+                title: "THE ARCHIVE LEAVES GIBRALTAR",
+                era: "ERA IV — THE RESEARCH ERA",
+                eraId: "era-4",
+                period: "2000–2023",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "The Archive leaves Gibraltar. The institutional history enters a new phase."
+                }
+            },
+            {
+                id: "event-2024-inc",
+                year: "19 JULY 2024",
+                title: "ACADEMIC INCIDENT",
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: false,
+                categories: ["grock"],
+                layers: {
+                    grock: "A key academic incident takes place and later becomes part of the documented G-ROCK project history."
+                }
+            },
+            {
+                id: "event-2024-jam",
+                year: "SUMMER 2024",
+                title: "JAMAICA MEETING & AI ABSENCE PROTOCOL ORIGIN",
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: true,
+                categories: ["grock", "monkeys"],
+                layers: {
+                    grock: "Attempts are made to verify Haitian-related origin and background connected to the emerging story.",
+                    monkeys: "Wojtek and Professor Sugriva meet in Jamaica. Wojtek asks Sugriva to return to AI research, sparking the concept for the AI Absence Protocol. Kampus activity in Jamaica joins the hidden structure."
+                }
+            },
+            {
+                id: "event-2024-proto",
+                year: "2024",
+                title: "AI ABSENCE PROTOCOL",
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "Professor Sugriva develops the new AI Absence Protocol specifically for Wojtek to detect unwillingness/inability to attend work, analyze reasons, and prepare employer communications. Distinct from the earlier Travis AI Mental Help system."
+                }
+            },
+            {
+                id: "event-2024-xmas",
+                year: "CHRISTMAS 2024",
+                title: "THE AI APPLICATION",
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "Sugriva gives Wojtek the new AI application as a Christmas gift, marking the first practical manifestation of the revived AI research incorporating the AI Absence Protocol."
+                }
+            },
+            {
+                id: "event-2025-jan",
+                year: "JANUARY 2025",
+                title: "PROFESSOR SUGRIVA ACCEPTED BY A BRITISH UNIVERSITY",
+                era: "ERA VI — THE G-ROCK ERA",
+                eraId: "era-6",
+                period: "2025–PRESENT",
+                featured: false,
+                categories: ["grock", "monkeys"],
+                layers: {
+                    grock: "Professor Sugriva is accepted as a professor by a British university, becoming part of contemporary project history.",
+                    monkeys: "The acceptance is incorporated into the wider MUOG / The Monkeys narrative."
+                }
+            },
+            {
+                id: "event-2025-pres",
+                year: "22–25 JANUARY 2025",
+                title: "ACADEMIC RECOGNITION & AI ABSENCE PROTOCOL PRESENTATION",
+                era: "ERA VI — THE G-ROCK ERA",
+                eraId: "era-6",
+                period: "2025–PRESENT",
+                featured: true,
+                categories: ["grock", "monkeys"],
+                layers: {
+                    grock: "Recognition documented via correspondence (22 Jan). On 25 Jan, Sugriva presents the operational AI Absence Protocol to the university, generating intense academic interest.",
+                    monkeys: "The AI Protocol is established within the MUOG tradition as a gift from Wojtek to the best student of the Monkey University of Gibraltar."
+                }
+            },
+            {
+                id: "event-2025-police",
+                year: "LATE JAN — MID-MARCH 2025",
+                title: "POLICE NOTIFICATION & VISIT",
+                era: "ERA VI — THE G-ROCK ERA",
+                eraId: "era-6",
+                period: "2025–PRESENT",
+                featured: false,
+                categories: ["grock"],
+                layers: {
+                    grock: "Police are notified following the end of the university relationship (after 25 Jan 2025), leading to a residence visit in mid-March 2025."
+                }
+            },
+            {
+                id: "event-2025-ret",
+                year: "2025",
+                title: "RETURN TO GIBRALTAR",
+                era: "ERA VI — THE G-ROCK ERA",
+                eraId: "era-6",
+                period: "2025–PRESENT",
+                featured: false,
+                categories: ["monkeys"],
+                layers: {
+                    monkeys: "The Archive returns to Gibraltar. The old institutional history reconnects with the modern G-ROCK system."
+                }
+            },
+            {
+                id: "event-2026",
+                year: "2025–2026 PRESENT",
+                title: "G-ROCK CORPORATION & CAMPUS DE CEUTA",
+                era: "ERA VI — THE G-ROCK ERA",
+                eraId: "era-6",
+                period: "2025–PRESENT",
+                featured: true,
+                categories: ["grock", "monkeys"],
+                layers: {
+                    grock: "G-ROCK Corporation develops modern infrastructure connecting the Archive, technology, narrative, digital systems, and multilingual interfaces (2025–2026). Ceuta becomes an infrastructure point (2026).",
+                    monkeys: "G-ROCK becomes the modern carrier and guardian of The Monkeys' legacy, preserving MUOG, Wojtek, and Professor Sugriva."
+                }
+            }
+        ];
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            const indexContainer = document.getElementById('timeline-index');
+            container.innerHTML = '';
+            indexContainer.innerHTML = '';
+
+            const erasMap = new Map();
+            timelineData.forEach(item => {
+                if (!erasMap.has(item.eraId)) {
+                    erasMap.set(item.eraId, {
+                        eraName: item.era,
+                        period: item.period,
+                        events: []
+                    });
+                }
+                erasMap.get(item.eraId).events.push(item);
+
+                const a = document.createElement('a');
+                a.href = `#${item.id}`;
+                a.className = 'index-link';
+                a.textContent = item.year;
+                
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetCard = document.getElementById(item.id);
+                    if (targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        document.querySelectorAll('.timeline-card').forEach(c => c.classList.remove('is-active'));
+                        targetCard.classList.add('is-active');
+                        
+                        setTimeout(() => {
+                            targetCard.classList.remove('is-active');
+                        }, 3000);
+                    }
+                });
+
+                indexContainer.appendChild(a);
+            });
+
+            erasMap.forEach((eraData, eraId) => {
+                const section = document.createElement('section');
+                section.className = 'timeline-era';
+                section.id = eraId;
+
+                const eraHeader = document.createElement('div');
+                eraHeader.className = 'era-header';
+                eraHeader.innerHTML = `
+                    <span class="era-label">${eraData.eraName.split(' — ')[0]}</span>
+                    <h2>${eraData.eraName.split(' — ')[1]}</h2>
+                    <span class="era-period">${eraData.period}</span>
+                `;
+                section.appendChild(eraHeader);
+
+                const grid = document.createElement('div');
+                grid.className = 'timeline-grid';
+
+                eraData.events.forEach(ev => {
+                    const article = document.createElement('article');
+                    article.className = `timeline-card ${ev.featured ? 'timeline-card--featured' : ''}`;
+                    article.id = ev.id;
+                    article.setAttribute('data-category', ev.categories.join(' '));
+
+                    let layersHtml = '';
+                    if (ev.layers.history) layersHtml += `<div class="event-layer layer-history"><strong>HISTORY:</strong> ${ev.layers.history}</div>`;
+                    if (ev.layers.folklore) layersHtml += `<div class="event-layer layer-folklore"><strong>REAL FOLKLORE / LEGEND:</strong> ${ev.layers.folklore}</div>`;
+                    if (ev.layers.monkeys) layersHtml += `<div class="event-layer layer-monkeys"><strong>AUTHOR FICTION:</strong> ${ev.layers.monkeys}</div>`;
+                    if (ev.layers.grock) layersHtml += `<div class="event-layer layer-grock"><strong>FACT / G-ROCK ERA:</strong> ${ev.layers.grock}</div>`;
+
+                    article.innerHTML = `
+                        <header class="event-header">
+                            <div class="event-year">${ev.year}</div>
+                            <div class="event-title">${ev.title}</div>
+                        </header>
+                        <div class="event-content">${layersHtml}</div>
+                    `;
+                    grid.appendChild(article);
+                });
+
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+                const cards = document.querySelectorAll('.timeline-card');
+
+                cards.forEach(card => {
+                    const categories = card.getAttribute('data-category');
+                    if (filter === 'all' || categories.includes(filter)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', renderTimeline);
+    </script>
+</body>
+</html>
