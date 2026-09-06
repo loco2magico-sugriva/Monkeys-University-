@@ -1242,145 +1242,314 @@
                 }
             }
         ];        // Render functions
+        let currentLang = 'en';
         let currentFilter = 'all';
 
-        function renderTimeline(lang = 'en') {
+        function getTranslation(object, lang) {
+            if (!object) return '';
+            return object[lang] || object.en || '';
+        }
+
+        function renderTimeline() {
             const container = document.getElementById('timeline-container');
+
+            if (!container || !Array.isArray(timelineData)) {
+                return;
+            }
+
             container.innerHTML = '';
-            
+
             const groupedByEra = {};
+
             timelineData.forEach(event => {
+                if (!event || !event.eraId) {
+                    return;
+                }
+
                 if (!groupedByEra[event.eraId]) {
                     groupedByEra[event.eraId] = {
-                        era: event.era,
-                        period: event.period,
+                        era: event.era || '',
+                        period: event.period || '',
                         events: []
                     };
                 }
+
                 groupedByEra[event.eraId].events.push(event);
             });
-            
-            Object.values(groupedByEra).forEach(eraData => {
-                const eraDiv = document.createElement('div');
+
+            Object.entries(groupedByEra).forEach(([eraId, eraData]) => {
+                const eraDiv = document.createElement('section');
                 eraDiv.className = 'timeline-era';
-                eraDiv.setAttribute('data-era-id', eraData.events[0].eraId);
-                eraDiv.innerHTML = `
-                    <div class="era-header">
-                        <div class="era-label">ERA</div>
-                        <h2>${eraData.era}</h2>
-                        <div class="era-period">${eraData.period}</div>
-                    </div>
-                    <div class="timeline-grid">
-                        ${eraData.events.map(event => `
-                            <article class="timeline-card ${event.featured ? 'timeline-card--featured' : ''}" data-categories="${event.categories.join(' ')}">
-                                <div class="event-header">
-                                    <div class="event-year">${event.year}</div>
-                                    <div class="event-title">${event.title[lang] || event.title.en}</div>
-                                </div>
-                                <div class="event-content">
-                                    ${event.layers.history ? `<div class="event-layer layer-history"><span class="layer-label label-history">${translations[lang].history || 'HISTORY'}</span><br>${event.layers.history[lang] || event.layers.history.en}</div>` : ''}
-                                    ${event.layers.folklore ? `<div class="event-layer layer-folklore"><span class="layer-label label-folklore">${translations[lang].folklore || 'REAL FOLKLORE'}</span><br>${event.layers.folklore[lang] || event.layers.folklore.en}</div>` : ''}
-                                    ${event.layers.monkeys ? `<div class="event-layer layer-monkeys"><span class="layer-label label-monkeys">${translations[lang].monkeys || 'AUTHOR FICTION'}</span><br>${event.layers.monkeys[lang] || event.layers.monkeys.en}</div>` : ''}
-                                    ${event.layers.grock ? `<div class="event-layer layer-grock"><span class="layer-label label-grock">${translations[lang].grock || 'G-ROCK ERA'}</span><br>${event.layers.grock[lang] || event.layers.grock.en}</div>` : ''}
-                                    ${event.layers.anomaly ? `<div class="event-layer layer-anomaly"><span class="layer-label label-anomaly">${translations[lang].anomaly || 'ANOMALY'}</span><br>${event.layers.anomaly[lang] || event.layers.anomaly.en}</div>` : ''}
-                                </div>
-                            </article>
-                        `).join('')}
-                    </div>
-                `;
+                eraDiv.id = eraId;
+                eraDiv.dataset.eraId = eraId;
+
+                const header = document.createElement('div');
+                header.className = 'era-header';
+
+                const eraLabel = document.createElement('div');
+                eraLabel.className = 'era-label';
+                eraLabel.textContent = 'ERA';
+
+                const eraTitle = document.createElement('h2');
+                eraTitle.textContent = eraData.era;
+
+                const eraPeriod = document.createElement('div');
+                eraPeriod.className = 'era-period';
+                eraPeriod.textContent = eraData.period;
+
+                header.appendChild(eraLabel);
+                header.appendChild(eraTitle);
+                header.appendChild(eraPeriod);
+
+                const grid = document.createElement('div');
+                grid.className = 'timeline-grid';
+
+                eraData.events.forEach(event => {
+                    const card = document.createElement('article');
+                    card.className = 'timeline-card';
+
+                    if (event.featured) {
+                        card.classList.add('timeline-card--featured');
+                    }
+
+                    card.dataset.categories = Array.isArray(event.categories)
+                        ? event.categories.join(' ')
+                        : '';
+
+                    const eventHeader = document.createElement('div');
+                    eventHeader.className = 'event-header';
+
+                    const eventYear = document.createElement('div');
+                    eventYear.className = 'event-year';
+                    eventYear.textContent = event.year || '';
+
+                    const eventTitle = document.createElement('div');
+                    eventTitle.className = 'event-title';
+                    eventTitle.textContent = getTranslation(event.title, currentLang);
+
+                    eventHeader.appendChild(eventYear);
+                    eventHeader.appendChild(eventTitle);
+
+                    const eventContent = document.createElement('div');
+                    eventContent.className = 'event-content';
+
+                    const layerConfig = [
+                        {
+                            key: 'history',
+                            layerClass: 'layer-history',
+                            labelClass: 'label-history',
+                            translationKey: 'history',
+                            fallback: 'HISTORY'
+                        },
+                        {
+                            key: 'folklore',
+                            layerClass: 'layer-folklore',
+                            labelClass: 'label-folklore',
+                            translationKey: 'folklore',
+                            fallback: 'REAL FOLKLORE'
+                        },
+                        {
+                            key: 'monkeys',
+                            layerClass: 'layer-monkeys',
+                            labelClass: 'label-monkeys',
+                            translationKey: 'monkeys',
+                            fallback: 'AUTHOR FICTION'
+                        },
+                        {
+                            key: 'grock',
+                            layerClass: 'layer-grock',
+                            labelClass: 'label-grock',
+                            translationKey: 'grock',
+                            fallback: 'G-ROCK ERA'
+                        },
+                        {
+                            key: 'anomaly',
+                            layerClass: 'layer-anomaly',
+                            labelClass: 'label-anomaly',
+                            translationKey: 'anomaly',
+                            fallback: 'ANOMALY'
+                        }
+                    ];
+
+                    layerConfig.forEach(config => {
+                        if (!event.layers || !event.layers[config.key]) {
+                            return;
+                        }
+
+                        const layer = document.createElement('div');
+                        layer.className = `event-layer ${config.layerClass}`;
+
+                        const label = document.createElement('span');
+                        label.className = `layer-label ${config.labelClass}`;
+                        label.textContent =
+                            translations[currentLang]?.[config.translationKey] ||
+                            translations.en?.[config.translationKey] ||
+                            config.fallback;
+
+                        const separator = document.createElement('br');
+                        const layerText = document.createElement('span');
+                        layerText.textContent = getTranslation(
+                            event.layers[config.key],
+                            currentLang
+                        );
+
+                        layer.appendChild(label);
+                        layer.appendChild(separator);
+                        layer.appendChild(layerText);
+
+                        eventContent.appendChild(layer);
+                    });
+
+                    card.appendChild(eventHeader);
+                    card.appendChild(eventContent);
+                    grid.appendChild(card);
+                });
+
+                eraDiv.appendChild(header);
+                eraDiv.appendChild(grid);
                 container.appendChild(eraDiv);
             });
-            
+
             applyFilter(currentFilter);
         }
 
         function renderIndex() {
             const index = document.getElementById('timeline-index');
+
+            if (!index || !Array.isArray(timelineData)) {
+                return;
+            }
+
             const seenEras = new Set();
-            const uniqueEras = [];
-            
+            index.innerHTML = '';
+
             timelineData.forEach(event => {
-                if (!seenEras.has(event.eraId)) {
-                    seenEras.add(event.eraId);
-                    uniqueEras.push({ id: event.eraId, era: event.era, period: event.period });
+                if (!event || !event.eraId || seenEras.has(event.eraId)) {
+                    return;
                 }
+
+                seenEras.add(event.eraId);
+
+                const link = document.createElement('a');
+                link.className = 'index-link';
+                link.href = `#${event.eraId}`;
+                link.textContent = `${event.era} ${event.period}`;
+
+                index.appendChild(link);
             });
-            
-            index.innerHTML = uniqueEras.map(era => 
-                `<a href="#" class="index-link" data-era-id="${era.id}" onclick="scrollToEra('${era.id}'); return false;">${era.era} ${era.period}</a>`
-            ).join('');
         }
 
         function scrollToEra(eraId) {
-            const eraElement = document.querySelector(`.timeline-era[data-era-id="${eraId}"]`);
+            const eraElement = document.getElementById(eraId);
+
             if (eraElement) {
-                eraElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                eraElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         }
 
         function setLang(lang) {
-            document.querySelectorAll('.lang-switch a').forEach(a => a.classList.remove('active'));
-            document.getElementById(`lang-${lang}`).classList.add('active');
-            
-            const t = translations[lang] || translations.en;
-            
-            document.getElementById('return-btn').textContent = t.returnBtn;
-            document.getElementById('btn-all').textContent = t.all;
-            document.getElementById('btn-history').textContent = t.history;
-            document.getElementById('btn-folklore').textContent = t.folklore;
-            document.getElementById('btn-monkeys').textContent = t.monkeys;
-            document.getElementById('btn-grock').textContent = t.grock;
-            document.getElementById('btn-anomaly').textContent = t.anomaly;
-            
-            document.getElementById('p1-title').textContent = t.p1Title;
-            document.getElementById('p1-content').innerHTML = t.p1Content;
-            
-            document.getElementById('p2-title').textContent = t.p2Title;
-            document.getElementById('p2-content').innerHTML = t.p2Content;
-            
-            document.getElementById('p3-title').textContent = t.p3Title;
-            document.getElementById('p3-content').innerHTML = t.p3Content;
-            
-            document.getElementById('footer-copy').textContent = t.copy;
-            document.getElementById('footer-notice-text').textContent = t.notice;
-            document.getElementById('footer-status-text').textContent = t.status;
-            document.getElementById('link-hub').textContent = t.hub;
-            document.getElementById('link-archive').textContent = t.archive;
-            
-            renderTimeline(lang);
+            currentLang = translations[lang] ? lang : 'en';
+
+            const t = translations[currentLang] || translations.en;
+
+            document.documentElement.lang = currentLang;
+
+            document.querySelectorAll('.lang-switch a').forEach(link => {
+                link.classList.toggle(
+                    'active',
+                    link.id === `lang-${currentLang}`
+                );
+            });
+
+            const mainTitle = document.querySelector('.brass-title');
+            if (mainTitle && t.mainTitle) {
+                mainTitle.textContent = t.mainTitle;
+            }
+
+            const textContentUpdates = {
+                'return-btn': t.returnBtn,
+                'btn-all': t.all,
+                'btn-history': t.history,
+                'btn-folklore': t.folklore,
+                'btn-monkeys': t.monkeys,
+                'btn-grock': t.grock,
+                'btn-anomaly': t.anomaly,
+                'p1-title': t.p1Title,
+                'p2-title': t.p2Title,
+                'p3-title': t.p3Title,
+                'footer-copy': t.copy,
+                'footer-status-text': t.status,
+                'link-hub': t.hub,
+                'link-archive': t.archive
+            };
+
+            Object.entries(textContentUpdates).forEach(([id, value]) => {
+                const element = document.getElementById(id);
+
+                if (element && value !== undefined) {
+                    element.textContent = value;
+                }
+            });
+
+            const p1Content = document.getElementById('p1-content');
+            const p2Content = document.getElementById('p2-content');
+            const p3Content = document.getElementById('p3-content');
+            const footerNotice = document.getElementById('footer-notice-text');
+
+            if (p1Content) p1Content.innerHTML = t.p1Content || '';
+            if (p2Content) p2Content.innerHTML = t.p2Content || '';
+            if (p3Content) p3Content.innerHTML = t.p3Content || '';
+            if (footerNotice) footerNotice.textContent = t.notice || '';
+
+            renderTimeline();
             renderIndex();
         }
 
-        // Filter functionality - supports multiple categories per event
         function applyFilter(filter) {
-            currentFilter = filter;
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('active');
-                if (b.dataset.filter === filter) {
-                    b.classList.add('active');
-                }
+            currentFilter = filter || 'all';
+
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.classList.toggle(
+                    'active',
+                    button.dataset.filter === currentFilter
+                );
             });
-            
+
             document.querySelectorAll('.timeline-card').forEach(card => {
-                const categories = card.getAttribute('data-categories').split(' ');
-                if (filter === 'all' || categories.includes(filter)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+                const categories = (card.dataset.categories || '')
+                    .split(' ')
+                    .filter(Boolean);
+
+                const visible =
+                    currentFilter === 'all' ||
+                    categories.includes(currentFilter);
+
+                card.style.display = visible ? 'flex' : 'none';
             });
         }
 
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                applyFilter(btn.dataset.filter);
+        function initializeTimeline() {
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    applyFilter(button.dataset.filter);
+                });
             });
-        });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
             setLang('en');
-        });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener(
+                'DOMContentLoaded',
+                initializeTimeline,
+                { once: true }
+            );
+        } else {
+            initializeTimeline();
+        }
     </script>
 </body>
 </html>
