@@ -1,1 +1,1399 @@
-a
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="G-ROCK Archive — G-ROCK Story Timeline. Canonical chronology and intelligence framework.">
+    <title>G-ROCK Story Timeline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --panel: rgba(15,23,42,.55);
+            --panel-solid: #0b1120;
+            --line: rgba(163,112,44,.28);
+            --brass1: #a3702c;
+            --brass2: #684a06;
+            --brass3: #3d2b03;
+            --brass-bright: #c9922a;
+            --cyan: #00f0ff;
+            --text: #dbe3ee;
+            --muted: #6b7c93;
+            --light: #aebdd1;
+            --glow-gold: 0 0 15px rgba(201, 146, 42, 0.4);
+            --glow-cyan: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: linear-gradient(rgba(0,240,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,.025) 1px, transparent 1px);
+            background-size: 34px 34px;
+            scroll-behavior: smooth;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            padding: 16px 4%;
+            background: rgba(3,7,18,.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-left { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+        .return-hub {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            background: rgba(11,17,32,.7);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            transition: .3s;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        .return-hub:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 14px rgba(0,240,255,.25); }
+        .nav-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .lang-switch {
+            display: flex;
+            gap: 5px;
+            background: rgba(11,17,32,.7);
+            padding: 5px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            flex-wrap: wrap;
+        }
+        .lang-switch a {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 7px 11px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: .2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .lang-switch a:hover, .lang-switch a.active {
+            color: #1c1300;
+            background: linear-gradient(135deg, var(--brass-bright), var(--brass1));
+            box-shadow: 0 0 14px rgba(163,112,44,.5);
+        }
+        .main-header {
+            position: relative;
+            padding: 60px 4% 30px;
+            text-align: center;
+            overflow: hidden;
+            background: rgba(3,7,18,0.5);
+            border-bottom: 1px solid var(--line);
+        }
+        .brass-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-size: clamp(28px, 4vw, 48px);
+            text-transform: uppercase;
+            line-height: 1.2;
+            background: linear-gradient(180deg, var(--brass-bright) 0%, var(--brass1) 45%, var(--brass2) 75%, var(--brass3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 0 #1a0f00) drop-shadow(0 4px 12px rgba(0,0,0,.8));
+            margin-bottom: 10px;
+        }
+        .filter-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px 4%;
+            background: rgba(3,7,18,0.7);
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 73px;
+            z-index: 900;
+            backdrop-filter: blur(10px);
+        }
+        .filter-btn {
+            background: var(--panel-solid);
+            border: 1px solid var(--line);
+            color: var(--light);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            background: rgba(0,240,255,0.08);
+            box-shadow: 0 0 12px rgba(0,240,255,0.25);
+        }
+        .timeline-index {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 15px 4%;
+            background: rgba(11,17,32,0.8);
+            white-space: nowrap;
+            border-bottom: 1px solid var(--line);
+        }
+        .index-link {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--brass-bright);
+            text-decoration: none;
+            font-size: 11px;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .index-link:hover { border-color: var(--brass-bright); box-shadow: 0 0 10px rgba(163,112,44,0.4); }
+        .container { max-width: 1300px; margin: 0 auto; padding: 40px 4%; }
+        .timeline-era { margin-bottom: 50px; }
+        .era-header { border-left: 4px solid var(--brass-bright); padding-left: 16px; margin-bottom: 25px; }
+        .era-label { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--cyan); text-transform: uppercase; }
+        .era-header h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(20px, 3vw, 26px); color: #fff; margin: 4px 0; }
+        .era-period { font-family: 'Orbitron', sans-serif; font-size: 12px; color: var(--brass-bright); letter-spacing: 1px; }
+        .timeline-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+        @media(max-width: 900px) { .timeline-grid { grid-template-columns: 1fr; } }
+        article.timeline-card {
+            background: var(--panel);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.35s cubic-bezier(.25,.8,.25,1);
+            box-shadow: 0 4px 18px rgba(0,0,0,.4);
+        }
+        article.timeline-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--cyan);
+            background: rgba(0,240,255,0.03);
+            box-shadow: 0 14px 34px rgba(0,240,255,0.15);
+        }
+        article.timeline-card.timeline-card--featured {
+            grid-column: 1 / -1;
+            border-color: var(--brass1);
+            background: linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(11,17,32,0.85) 100%);
+            box-shadow: 0 6px 24px rgba(163,112,44,0.2);
+        }
+        article.timeline-card.timeline-card--featured:hover {
+            border-color: var(--brass-bright);
+            box-shadow: 0 16px 38px rgba(201,146,42,0.3);
+        }
+        article.timeline-card.is-active {
+            border-color: var(--cyan) !important;
+            box-shadow: 0 0 25px rgba(0,240,255,0.5) !important;
+            background: rgba(0,240,255,0.06);
+        }
+        .event-header { border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+        .event-year { font-family: 'Orbitron', sans-serif; font-size: 16px; color: var(--cyan); font-weight: 700; letter-spacing: 1px; }
+        .timeline-card--featured .event-year { font-size: 18px; color: var(--brass-bright); }
+        .event-title { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; margin-top: 6px; letter-spacing: 0.5px; }
+        .event-content { display: flex; flex-direction: column; gap: 12px; }
+        .event-layer { font-size: 13.5px; padding: 12px 16px; border-radius: 8px; border-left: 3px solid; line-height: 1.6; }
+        .layer-fiction { border-color: #9d4edd; background: rgba(157, 78, 221, 0.08); color: #e0aaff; }
+        .layer-fact { border-color: #6b7c93; background: rgba(107, 124, 147, 0.08); color: var(--light); }
+        .layer-folklore { border-color: #ff9500; background: rgba(255, 149, 0, 0.08); color: #ffd699; }
+        .layer-anomaly { border-color: #ff0000; background: rgba(255, 0, 0, 0.08); color: #ff9999; }
+        .info-panel {
+            margin-top: 50px;
+            background: var(--panel);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 36px;
+            box-shadow: 0 14px 40px rgba(0,0,0,.5);
+        }
+        .info-panel h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--brass-bright);
+            font-size: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 12px;
+        }
+        .info-content { display: flex; flex-direction: column; gap: 16px; font-size: 14px; color: var(--light); line-height: 1.75; }
+        .info-content strong { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 13px; }
+        .layer-label {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+        .label-fiction { background: #9d4edd; color: #ffffff; }
+        .label-fact { background: #ffffff; color: #000000; }
+        .label-folklore { background: #ffd700; color: #000000; }
+        .label-anomaly { background: #ff0000; color: #ffffff; }
+        footer {
+            text-align: center;
+            padding: 50px 4%;
+            border-top: 1px solid var(--line);
+            margin-top: 80px;
+            background: rgba(3,7,18,0.9);
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+        .footer-notice { max-width: 850px; margin: 20px auto; color: var(--light); font-size: 12.5px; }
+        .footer-status { margin: 15px 0; color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,240,255,0.4); }
+        .footer-nav { margin-top: 25px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .footer-link { font-family: 'Orbitron', sans-serif; color: var(--brass-bright); text-decoration: none; font-size: 11px; letter-spacing: 1px; transition: 0.2s; }
+        .footer-link:hover { color: var(--cyan); text-shadow: 0 0 10px rgba(0,240,255,0.6); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="return-hub" id="return-btn">← RETURN TO ARCHIVE</a>
+        </div>
+        <div class="nav-right">
+            <div class="lang-switch">
+                <a onclick="setLang('en')" id="lang-en" class="active">EN</a>
+                <a onclick="setLang('es')" id="lang-es">ES</a>
+                <a onclick="setLang('fr')" id="lang-fr">FR</a>
+                <a onclick="setLang('pl')" id="lang-pl">PL</a>
+                <a onclick="setLang('ru')" id="lang-ru">RU</a>
+                <a onclick="setLang('nl')" id="lang-nl">NL</a>
+            </div>
+        </div>
+    </nav>
+    <header class="main-header">
+        <div class="brass-title">G-ROCK STORY TIMELINE</div>
+    </header>
+    <nav class="filter-nav">
+        <button class="filter-btn active" data-filter="all" id="btn-all">ALL</button>
+        <button class="filter-btn" data-filter="fiction" id="btn-fiction">AUTHOR FICTION</button>
+        <button class="filter-btn" data-filter="folklore" id="btn-folklore">REAL FOLKLORE</button>
+        <button class="filter-btn" data-filter="fact" id="btn-fact">FACT</button>
+        <button class="filter-btn" data-filter="anomaly" id="btn-anomaly">ANOMALY</button>
+    </nav>
+    <nav class="timeline-index" id="timeline-index"></nav>
+    <main class="container">
+        <div id="timeline-container"></div>
+        <section class="info-panel" id="folklore-panel">
+            <h2 class="panel-title" id="p1-title">REAL FOLKLORE OF THE ROCK</h2>
+            <div class="info-content" id="p1-content"></div>
+        </section>
+        <section class="info-panel" id="gsystem-panel">
+            <h2 class="panel-title" id="p2-title">G-SYSTEM — CANONICAL ARCHIVE INTELLIGENCE</h2>
+            <div class="info-content" id="p2-content"></div>
+        </section>
+        <section class="info-panel" id="classification-panel">
+            <h2 class="panel-title" id="p3-title">ARCHIVE CLASSIFICATION</h2>
+            <div class="info-content" id="p3-content"></div>
+        </section>
+    </main>
+    <footer>
+        <p id="footer-copy">G-ROCK ARCHIVE © 2026. All rights reserved.</p>
+        <div class="footer-notice" id="footer-notice-text"></div>
+        <div class="footer-status" id="footer-status-text"></div>
+        <div class="footer-nav">
+            <a href="index.html" class="footer-link" id="link-hub">RETURN TO HUB</a>
+            <a href="archive.html" class="footer-link" id="link-archive">ARCHIVE</a>
+        </div>
+    </footer>
+    <script>        const translations = {
+            en: {
+                returnBtn: "← RETURN TO ARCHIVE",
+                all: "ALL",
+                fiction: "AUTHOR FICTION",
+                folklore: "REAL FOLKLORE",
+                fact: "FACT",
+                anomaly: "ANOMALY",
+                p1Title: "REAL FOLKLORE OF THE ROCK",
+                p1Content: `<p><strong>GIBRALTAR MAPS AND MONKEYS:</strong> One of the long-standing legends associated with Gibraltar concerns the Gibraltar maps and Barbary macaques. According to the traditional story, the presence of the monkeys became linked to the belief that Britain would retain Gibraltar as long as monkeys remained on the Rock. The legend is often expressed through the idea that if the monkeys were to disappear from Gibraltar, Britain would eventually lose Gibraltar.</p><p><strong>THE MAP LEGEND:</strong> According to the traditional account, the story became associated with the idea that the presence of the monkeys was effectively part of the condition determining the future of British Gibraltar.</p><p><strong>POSSIBLE ORIGIN — A JOKE ON THE SPANISH SIDE:</strong> According to one traditional explanation, the legend may have begun as a joke on the Spanish side of Gibraltar. The joke referred humorously to the British possession and linked the continued presence of Britain with the continued presence of the monkeys. <em>Archival note:</em> Treated as a traditional folkloric explanation, not an established historical fact.</p><p><strong>ST. MICHAEL'S CAVE:</strong> A traditional legend says that the monkeys reached Gibraltar from North Africa via an underground passage connected to St. Michael's Cave and the African coast.</p><p><strong>MONKEYS AS GUARDIANS:</strong> Tradition connects the macaques with the defense of the Rock, including stories that their behavior alerted the British garrison to danger.</p><p><strong>BRINGING MONKEYS FROM AFRICA / WINSTON CHURCHILL:</strong> Among Gibraltar residents circulates the tradition that Winston Churchill allegedly gave the order to bring monkeys from Africa. Some historians repeat this thesis. However, there is no confirmed document or Churchill order confirming this thesis. <em>Archival note:</em> Treated as local tradition/folklore, not an established historical fact.</p>`,
+                p2Title: "G-SYSTEM — CANONICAL ARCHIVE INTELLIGENCE",
+                p2Content: `<p><strong>WHAT IS G-SYSTEM:</strong> G-System is the fundamental classification, verification, and intelligence engine governing the entire G-ROCK Archive. It ensures strict ontological boundaries between historical facts, independent local folklore, author fiction, and contemporary project data.</p><p><strong>THE PRIMARY RULE:</strong> Total separation of narrative layers. Historical facts, real local folklore, author fiction, and project data must never be automatically merged or blurred.</p><p><strong>G-SYSTEM OPERATIONAL MODEL (L0–L5):</strong> • <strong>L0 (Ingestion):</strong> Raw data collection from historical records, oral folklore, and author logs. • <strong>L1 (Parsing):</strong> Lexical extraction and metadata tagging. • <strong>L2 (Cross-Reference):</strong> Verification against institutional archives and cross-layer parameters. • <strong>L3 (Ontological Filtering):</strong> Separation into distinct historical, folkloric, and fictional silos. • <strong>L4 (Canonical Synthesis):</strong> Integration into the core database structure. • <strong>L5 (Security & Telemetry):</strong> Final operational lockdown and tamper-resistant distribution.</p><p><strong>CANON STATES (S0–S3):</strong> • <strong>S0 (Raw):</strong> Unverified input items. • <strong>S1 (Preliminary):</strong> Initial metadata alignment. • <strong>S2 (Canonically Verified):</strong> Fully audited and authenticated records. • <strong>S3 (Core Immutable Axiom):</strong> Permanent foundational archive truths.</p><p><strong>G-SYSTEM ANOMALY ENGINE & ANOMALY TYPES (A–D):</strong> • <strong>Type A (Chronological Drift):</strong> Time vector discrepancies between official history and hidden logs. • <strong>Type B (Layer Contamination):</strong> Blurring of boundaries between folklore and historical documentation. • <strong>Type C (Fictional Infiltration):</strong> Unauthorized leakage of author fiction into factual baselines. • <strong>Type D (Structural Paradox):</strong> Logical inconsistencies within multi-campus nodes.</p><p><strong>EXAMPLE — PROFESSOR SUGRIVA:</strong> Canonical test case linking institutional university acceptance records in Britain (January 2025), historical AI research history, and multi-layer fictional integration within the Monkey University of Gibraltar (MUOG) network.</p><p><strong>G-SYSTEM FIRST DIRECTIVE:</strong> Uncompromising preservation of institutional memory, multi-layer truth isolation, and systemic integrity throughout the G-ROCK digital ecosystem.</p><p><strong>FINAL G-SYSTEM FORMULA:</strong> Ω = Σ (History ⊕ Folklore ⊕ Fiction) × Integrity — the algorithmic and logical synthesis binding operational nodes into a unified archive output.</p><p><strong>G-SYSTEM CORE FUNCTION:</strong> Continuous execution of self-audit routines, cryptographic verification, cross-layer integrity maintenance, and telemetry logging.</p><p><strong>G-SYSTEM CLASSIFICATION COHERENCE:</strong> • <strong>ANOMALY</strong> is an independent classification status. • ANOMALY can coexist with other categories, e.g. <strong>FACT + ANOMALY</strong>, <strong>HISTORY + ANOMALY</strong> or <strong>G-ROCK ERA + ANOMALY</strong>. • ANOMALY does not automatically turn an event into AUTHOR FICTION. • <strong>AUTHOR FICTION</strong> remains a separate category. • <strong>REAL FOLKLORE / LEGEND</strong> remains a separate category. • <strong>FACT</strong> and <strong>ANOMALY</strong> can simultaneously describe two different aspects of the same event. • Individual G-System layers cannot change the meaning of other layers. • Classification must be coherent throughout the timeline.</p>`,
+                p3Title: "ARCHIVE CLASSIFICATION",
+                p3Content: `<p><strong>FACT:</strong> Documented historical and contemporary events.</p><p><strong>REAL FOLKLORE / LEGEND:</strong> Traditional Gibraltar legends and folklore that existed independently of the author's fictional universe.</p><p><strong>AUTHOR FICTION:</strong> Fictional events, institutions, characters, and connections created by the author as part of the MUOG / The Monkeys universe.</p><p><strong>ANOMALY:</strong> Independent classification status that can coexist with other categories, e.g. FACT + ANOMALY. ANOMALY does not automatically turn an event into AUTHOR FICTION.</p>`,
+                copy: "G-ROCK ARCHIVE © 2026. All rights reserved.",
+                notice: "All content within the G-ROCK archive, including narrative structures, characters (Wojtek, Professor Sugriva, The Monkeys), institutions (MUOG, Campus, G-ROCK Corporation), classification systems and the G-SYSTEM, is protected intellectual property. Unauthorized copying, distribution, or commercial use is strictly prohibited.",
+                status: "Canonical System Operational. Archive Integrity Verified.",
+                hub: "RETURN TO HUB",
+                archive: "ARCHIVE"
+            },
+
+            pl: {
+                returnBtn: "← POWRÓT DO ARCHIWUM",
+                all: "WSZYSTKIE",
+                fiction: "FIKCJA AUTORA",
+                folklore: "PRAWDZIWY FOLKLOR",
+                fact: "FAKT",
+                anomaly: "ANOMALIA",
+                p1Title: "PRAWDZIWY FOLKLOR SKAŁY",
+                p1Content: `<p><strong>MAPY GIBRALTARU I MAŁPY:</strong> Jedna z wieloletnich legend związanych z Gibraltarem dotyczy map Gibraltaru i makaków berberyjskich. Według tradycyjnej opowieści obecność małp wiązała się z przekonaniem, że Brytania zachowa Gibraltar tak długo, jak długo małpy pozostaną na Skale. Legenda jest często wyrażana poprzez ideę, że gdyby małpy zniknęły z Gibraltaru, Brytania ostatecznie straciłaby Gibraltar.</p><p><strong>LEGENDA MAPY:</strong> Zgodnie z tradycyjnym przekazem historia ta została powiązana z poglądem, że obecność małp była de facto częścią warunku decydującego o przyszłości brytyjskiego Gibraltaru.</p><p><strong>MOŻLIWE ŹRÓDŁO — ŻART PO HISZPAŃSKIEJ STRONIE:</strong> Według jednego z tradycyjnych wyjaśnień legenda mogła zacząć się jako żart po hiszpańskiej stronie Gibraltaru. Żart ten odnosił się w humorystyczny sposób do posiadłości brytyjskiej i łączył dalszą obecność Brytanii z dalszą obecnością małp. <em>Notatka archiwalna:</em> Traktowane jako tradycyjne wyjaśnienie folklorystyczne, a nie ustalony fakt historyczny.</p><p><strong>JASKINIA ŚW. MICHAŁA:</strong> Tradycyjna legenda głosi, że małpy dotarły na Gibraltar z Afryki Północnej podziemnym przejściem połączonym z Jaskinią św. Michała a wybrzeżem afrykańskim.</p><p><strong>MAŁPY JAKO STRAŻNICY:</strong> Tradycja łączy makaki z obroną Skały, w tym opowieści o tym, że ich zachowanie ostrzegało brytyjski garnizon przed niebezpieczeństwem.</p><p><strong>SPROWADZENIE MAŁP Z AFRYKI / WINSTON CHURCHILL:</strong> Wśród mieszkańców Gibraltaru funkcjonuje przekaz, że Winston Churchill miał wydać rozkaz sprowadzenia małp z Afryki. Niektórzy historycy powtarzają tę tezę. Jednak nie istnieje potwierdzony dokument ani rozkaz Churchilla, który potwierdzałby tę tezę. <em>Notatka archiwalna:</em> Traktowane jako lokalny przekaz/folklor, a nie ustalony fakt historyczny.</p>`,
+                p2Title: "G-SYSTEM — KANONICZNA INTELIGENCJA ARCHIWUM",
+                p2Content: `<p><strong>CZYM JEST G-SYSTEM:</strong> G-System to fundamentalny silnik klasyfikacji, weryfikacji i inteligencji zarządzający całym Archiwum G-ROCK. Zapewnia ścisłe granice ontologiczne między faktami historycznymi, niezależnym lokalnym folklorem, fikcją autorską a współczesnymi danymi projektowymi.</p><p><strong>ZASADA GŁÓWNA:</strong> Całkowite oddzielenie warstw narracyjnych. Fakty historyczne, prawdziwy lokalny folklor, fikcja autorska i dane projektowe nigdy nie mogą być automatycznie łączone lub zacierane.</p><p><strong>MODEL OPERACYJNY G-SYSTEMU (L0–L5):</strong> • <strong>L0 (Pozyskiwanie):</strong> Zbieranie surowych danych z zapisów historycznych, folkloru ustnego i dzienników autora. • <strong>L1 (Parsowanie):</strong> Ekstrakcja leksykalna i tagowanie metadanych. • <strong>L2 (Odnośniki krzyżowe):</strong> Weryfikacja względem archiwów instytucjonalnych i parametrów wielowarstwowych. • <strong>L3 (Filtrowanie ontologiczne):</strong> Podział na osobne silosy historyczne, folklorystyczne i fikcyjne. • <strong>L4 (Synteza kanoniczna):</strong> Integracja z główną strukturą bazy danych. • <strong>L5 (Bezpieczeństwo i telemetria):</strong> Ostateczna blokada operacyjna i dystrybucja odporna na manipulacje.</p><p><strong>STANY KANONICZNE (S0–S3):</strong> • <strong>S0 (Surowy):</strong> Niezweryfikowane elementy wejściowe. • <strong>S1 (Wstępny):</strong> Początkowe dopasowanie metadanych. • <strong>S2 (Zweryfikowany kanonicznie):</strong> W pełni audytowane i uwierzytelnione rekordy. • <strong>S3 (Główny aksjomat niezmienny):</strong> Stałe, fundamentalne prawdy archiwalne.</p><p><strong>SILNIK ANOMALII G-SYSTEMU I TYPY ANOMALII (A–D):</strong> • <strong>Typ A (Dryf chronologiczny):</strong> Rozbieżności wektorów czasowych między oficjalną historią a ukrytymi logami. • <strong>Typ B (Kontaminacja warstw):</strong> Zacieranie granic między folklorem a dokumentacją historyczną. • <strong>Typ C (Infiltracja fikcyjna):</strong> Nieautoryzowany wyciek fikcji autorskiej do bazowych faktów. • <strong>Typ D (Paradoks strukturalny):</strong> Niespójności logiczne w węzłach wielokampusowych.</p><p><strong>PRZYKŁAD — PROFESOR SUGRIVA:</strong> Kanoniczny przypadek testowy łączący instytucjonalne zapisy przyjęcia na uniwersytet w Brytanii (styczeń 2025 r.), historyczną historię badań nad sztuczną inteligencją oraz wielowarstwową integrację fikcyjną w ramach sieci Uniwersytetu Małp na Gibraltarze (MUOG).</p><p><strong>DYREKTYWA GŁÓWNA G-SYSTEMU:</strong> Bezkompromisowe zachowanie pamięci instytucjonalnej, izolacja wielowarstwowej prawdy oraz integralność systemowa w całym cyfrowym ekosystemie G-ROCK.</p><p><strong>OSTATECZNA FORMUŁA G-SYSTEMU:</strong> Ω = Σ (Historia ⊕ Folklor ⊕ Fikcja) × Integralność — algorytmiczna i logiczna synteza łącząca węzły operacyjne w zunifikowany wynik archiwalny.</p><p><strong>GŁÓWNA FUNKCJA G-SYSTEMU:</strong> Ciągłe wykonywanie procedur autoaudytu, weryfikacji kryptograficznej, utrzymania integralności wielowarstwowej oraz rejestrowania telemetrii.</p><p><strong>SPÓJNOŚĆ KLASYFIKACJI G-SYSTEMU:</strong> • <strong>ANOMALIA</strong> jest niezależnym statusem klasyfikacyjnym. • ANOMALIA może współistnieć z innymi kategoriami, np. <strong>FAKT + ANOMALIA</strong>, <strong>HISTORIA + ANOMALIA</strong> lub <strong>ERA G-ROCK + ANOMALIA</strong>. • ANOMALIA nie zmienia automatycznie wydarzenia w FIKCJĘ AUTORA. • <strong>FIKCJA AUTORA</strong> pozostaje osobną kategorią. • <strong>PRAWDZIWY FOLKLOR / LEGENDA</strong> pozostaje osobną kategorią. • <strong>FAKT</strong> i <strong>ANOMALIA</strong> mogą jednocześnie opisywać dwa różne aspekty tego samego wydarzenia. • Poszczególne warstwy G-Systemu nie mogą zmieniać znaczenia innych warstw. • Klasyfikacja musi być spójna w całym timeline.</p>`,
+                p3Title: "KLASYFIKACJA ARCHIWUM",
+                p3Content: `<p><strong>FAKT:</strong> Udokumentowane wydarzenia historyczne i współczesne.</p><p><strong>PRAWDZIWY FOLKLOR / LEGENDA:</strong> Tradycyjne gibraltarskie legendy i folklor, które istniały niezależnie od uniwersum fikcyjnego autora.</p><p><strong>FIKCJA AUTORA:</strong> Fikcyjne wydarzenia, instytucje, postacie i powiązania stworzone przez autora w ramach uniwersum MUOG / Małp.</p><p><strong>ANOMALIA:</strong> Niezależny status klasyfikacyjny, który może współistnieć z innymi kategoriami, np. FAKT + ANOMALIA. ANOMALIA nie zmienia automatycznie wydarzenia w FIKCJĘ AUTORA.</p>`,
+                copy: "G-ROCK ARCHIVE © 2026. Wszelkie prawa zastrzeżone.",
+                notice: "Wszystkie treści w archiwum G-ROCK, w tym struktury narracyjne, postacie (Wojtek, Profesor Sugriva, Małpy), instytucje (MUOG, Kampus, G-ROCK Corporation), systemy klasyfikacji i G-SYSTEM są chronioną własnością intelektualną. Zabronione jest kopiowanie, rozpowszechnianie lub wykorzystywanie komercyjne bez zgody.",
+                status: "Canonical System Operational. Archive Integrity Verified.",
+                hub: "POWRÓT DO CENTRUM",
+                archive: "ARCHIWUM"
+            },
+
+            es: {
+                returnBtn: "← VOLVER AL ARCHIVO",
+                all: "TODOS",
+                fiction: "FICCIÓN DE AUTOR",
+                folklore: "FOLCLORE REAL",
+                fact: "HECHO",
+                anomaly: "ANOMALÍA",
+                p1Title: "FOLCLORE REAL DEL PEÑÓN",
+                p1Content: `<p><strong>LOS MAPAS DE GIBRALTAR Y LOS MONOS:</strong> Una de las leyendas más antiguas asociadas con Gibraltar se refiere a los mapas de Gibraltar y los macacos de Berbería. Según la historia tradicional, la presencia de los monos se vinculó con la creencia de que Gran Bretaña conservaría Gibraltar mientras hubiera monos en el Peñón. La leyenda se expresa a menudo a través de la idea de que si los monos desaparecieran de Gibraltar, Gran Bretaña eventualmente perdería Gibraltar.</p><p><strong>LA LEYENDA DEL MAPA:</strong> Según el relato tradicional, la historia se asoció con la idea de que la presencia de los monos formaba parte de la condición que determinaba el futuro del Gibraltar británico.</p><p><strong>POSIBLE ORIGEN — UNA BROMA EN EL LADO ESPAÑOL:</strong> Según una explicación tradicional, la leyenda pudo haber comenzado como una broma en el lado español de Gibraltar. La broma se refería humorísticamente a la posesión británica y conectaba la presencia continua de Gran Bretaña con la presencia continua de los monos. <em>Nota de archivo:</em> Se trata como una explicación folclórica tradicional, no como un hecho histórico establecido.</p><p><strong>CUEVA DE SAN MIGUEL:</strong> Una leyenda tradicional dice que los monos llegaron a Gibraltar desde el norte de África a través de un pasaje subterráneo conectado con la Cueva de San Miguel y la costa africana.</p><p><strong>LOS MONOS COMO VIGÍAS:</strong> La tradición conecta a los macacos con la defensa del Peñón, incluyendo historias de que su comportamiento alertaba a la guarnición británica sobre el peligro.</p><p><strong>TRAER MONOS DE ÁFRICA / WINSTON CHURCHILL:</strong> Entre los habitantes de Gibraltar circula la tradición de que Winston Churchill habría dado la orden de traer monos de África. Algunos historiadores repiten esta tesis. Sin embargo, no existe un documento confirmado ni una orden de Churchill que confirme esta tesis. <em>Nota de archivo:</em> Se trata como tradición/folklor local, no como un hecho histórico establecido.</p>`,
+                p2Title: "G-SYSTEM — INTELIGENCIA CANÓNICA DE ARCHIVO",
+                p2Content: `<p><strong>QUÉ ES EL G-SYSTEM:</strong> El G-System es el motor fundamental de clasificación, verificación e inteligencia que rige todo el Archivo G-ROCK. Garantiza límites ontológicos estrictos entre los hechos históricos, el folclore local independiente, la ficción de autor y los datos contemporáneos del proyecto.</p><p><strong>LA REGLA PRINCIPAL:</strong> Separación total de las capas narrativas. Los hechos históricos, el folclore local real, la ficción de autor y los datos del proyecto nunca deben fusionarse ni difuminarse automáticamente.</p><p><strong>MODELO OPERATIVO DEL G-SYSTEM (L0–L5):</strong> • <strong>L0 (Ingesta):</strong> Recopilación de datos sin procesar de registros históricos, folclore oral y registros de autor. • <strong>L1 (Análisis):</strong> Extracción léxica y etiquetado de metadatos. • <strong>L2 (Referencia cruzada):</strong> Verificación frente a archivos institucionales y parámetros de múltiples capas. • <strong>L3 (Filtrado ontológico):</strong> Separación en silos históricos, folclóricos y de ficción distintos. • <strong>L4 (Síntesis canónica):</strong> Integración en la estructura de la base de datos central. • <strong>L5 (Seguridad y telemetría):</strong> Bloqueo operativo final y distribución a prueba de manipulaciones.</p><p><strong>ESTADOS DE CANON (S0–S3):</strong> • <strong>S0 (Crudo):</strong> Elementos de entrada no verificados. • <strong>S1 (Preliminar):</strong> Alineación inicial de metadatos. • <strong>S2 (Verificado Canónico):</strong> Registros totalmente auditados y autenticados. • <strong>S3 (Axioma Inmutable Central):</strong> Verdades de archivo fundacionales permanentes.</p><p><strong>MOTOR DE ANOMALÍAS Y TIPOS DE ANOMALÍA (A–D):</strong> • <strong>Tipo A (Deriva cronológica):</strong> Discrepancias en los vectores temporales entre la historia oficial y los registros ocultos. • <strong>Tipo B (Contaminación de capas):</strong> Difuminación de las líneas entre el folclore y la documentación histórica. • <strong>Tipo C (Infiltración de ficción):</strong> Fuga no autorizada de ficción de autor en las líneas de base factuales. • <strong>Tipo D (Paradoja estructural):</strong> Inconsistencias lógicas dentro de los nodos multi-campus.</p><p><strong>EJEMPLO — PROFESOR SUGRIVA:</strong> Caso de prueba canónico que vincula los registros de aceptación universitaria institucional en Gran Bretaña (enero de 2025), el historial de investigación histórica de IA y la integración de ficción de múltiples capas dentro de la red de la Universidad de Monos de Gibraltar (MUOG).</p><p><strong>DIRECTIVA PRINCIPAL DEL G-SYSTEM:</strong> Preservación intransigente de la memoria institucional, aislamiento de la verdad de múltiples capas e integridad sistémica en todo el ecosistema digital G-ROCK.</p><p><strong>FÓRMULA FINAL DEL G-SYSTEM:</strong> Ω = Σ (Historia ⊕ Folclore ⊕ Ficción) × Integridad — la síntesis algorítmica y lógica que une los nodos operativos en un resultado de archivo unificado.</p><p><strong>FUNCIÓN PRINCIPAL DEL G-SYSTEM:</strong> Ejecución continua de rutinas de autoauditoría, verificación criptográfica, mantenimiento de integridad multicapa y registro de telemetría.</p><p><strong>COHERENCIA DE CLASIFICACIÓN DEL G-SYSTEM:</strong> • <strong>ANOMALÍA</strong> es un estado de clasificación independiente. • ANOMALÍA puede coexistir con otras categorías, ej. <strong>HECHO + ANOMALÍA</strong>, <strong>HISTORIA + ANOMALÍA</strong> o <strong>ERA G-ROCK + ANOMALÍA</strong>. • ANOMALÍA no convierte automáticamente un evento en FICCIÓN DE AUTOR. • <strong>FICCIÓN DE AUTOR</strong> permanece como categoría separada. • <strong>FOLCLORE REAL / LEYENDA</strong> permanece como categoría separada. • <strong>HECHO</strong> y <strong>ANOMALÍA</strong> pueden describir simultáneamente dos aspectos diferentes del mismo evento. • Las capas individuales del G-System no pueden cambiar el significado de otras capas. • La clasificación debe ser coherente en todo el timeline.</p>`,
+                p3Title: "CLASIFICACIÓN DE ARCHIVOS",
+                p3Content: `<p><strong>HECHO:</strong> Eventos históricos y contemporáneos documentados.</p><p><strong>FOLCLORE REAL / LEYENDA:</strong> Leyendas y folclore tradicional de Gibraltar que existieron independientemente del universo ficticio del autor.</p><p><strong>FICCIÓN DE AUTOR:</strong> Eventos ficticios, instituciones, personajes y conexiones creadas por el autor como parte del universo de MUOG / Los Monos.</p><p><strong>ANOMALÍA:</strong> Estado de clasificación independiente que puede coexistir con otras categorías, ej. HECHO + ANOMALÍA. ANOMALÍA no convierte automáticamente un evento en FICCIÓN DE AUTOR.</p>`,
+                copy: "ARCHIVO G-ROCK © 2026. Todos los derechos reservados.",
+                notice: "Todo el contenido del archivo G-ROCK, incluidas las estructuras narrativas, los personajes (Wojtek, Profesor Sugriva, Los Monos), las instituciones (MUOG, Campus, G-ROCK Corporation), los sistemas de clasificación y el G-SYSTEM, es propiedad intelectual protegida. Queda estrictamente prohibida su copia, distribución o uso comercial sin autorización.",
+                status: "Sistema Canónico Operativo. Integridad del Archivo Verificada.",
+                hub: "VOLVER AL INICIO",
+                archive: "ARCHIVO"
+            },
+
+            fr: {
+                returnBtn: "← RETOUR AUX ARCHIVES",
+                all: "TOUT",
+                fiction: "FICTION D'AUTEUR",
+                folklore: "FOLKLORE RÉEL",
+                fact: "FAIT",
+                anomaly: "ANOMALIE",
+                p1Title: "FOLKLORE RÉEL DU ROCHER",
+                p1Content: `<p><strong>LES CARTES DE GIBRALTAR ET LES SINGES :</strong> L'une des plus anciennes légendes associées à Gibraltar concerne les cartes de Gibraltar et les macaques de Barbarie. Selon l'histoire traditionnelle, la présence des singes a été liée à la croyance selon laquelle la Grande-Bretagne conserverait Gibraltar tant que des singes resteraient sur le Rocher. La légende est souvent exprimée par l'idée que si les singes disparaissaient de Gibraltar, la Grande-Bretagne finirait par perdre Gibraltar.</p><p><strong>LA LÉGENDE DE LA CARTE :</strong> Selon le récit traditionnel, l'histoire a été associée à l'idée que la présence des singes faisait effectivement partie de la condition déterminant l'avenir du Gibraltar britannique.</p><p><strong>ORIGINE POSSIBLE — UNE PLAISANTERIE DU CÔTÉ ESPAGNOL :</strong> Selon une explication traditionnelle, la légende a peut-être commencé comme une blague du côté espagnol de Gibraltar. La blague faisait référence de manière humoristique à la possession britannique et reliait la présence continue de la Grande-Bretagne à la présence continue des singes. <em>Note d'archives :</em> Traité comme une explication folklorique traditionnelle, et non comme un fait historique avéré.</p><p><strong>GROTTE DE SAINT-MICHEL :</strong> Une légende traditionnelle raconte que les singes ont atteint Gibraltar depuis l'Afrique du Nord par un passage souterrain relié à la grotte de Saint-Michel et à la côte africaine.</p><p><strong>LES SINGES EN TANT QUE GARDIENS :</strong> La tradition relie les macaques à la défense du Rocher, y compris des histoires selon lesquelles leur comportement a alerté la garnison britannique d'un danger.</p><p><strong>AMENER DES SINGES D'AFRIQUE / WINSTON CHURCHILL :</strong> Parmi les habitants de Gibraltar circule la tradition selon laquelle Winston Churchill aurait donné l'ordre d'amener des singes d'Afrique. Certains historiens répètent cette thèse. Cependant, il n'existe aucun document confirmé ni ordre de Churchill confirmant cette thèse. <em>Note d'archives :</em> Traité comme tradition/folklore local, et non comme un fait historique établi.</p>`,
+                p2Title: "G-SYSTEM — INTELLIGENCE CANONIQUE DES ARCHIVES",
+                p2Content: `<p><strong>QU'EST-CE QUE LE G-SYSTEM :</strong> Le G-System est le moteur fondamental de classification, de vérification et d'intelligence régissant l'ensemble des archives G-ROCK. Il garantit des frontières ontologiques strictes entre les faits historiques, le folklore local indépendant, la fiction d'auteur et les données de projets contemporains.</p><p><strong>LA RÈGLE PRINCIPALE :</strong> Séparation totale des couches narratives. Les faits historiques, le folklore local réel, la fiction d'auteur et les données de projet ne doivent jamais être automatiquement confondus ou mélangés.</p><p><strong>MODÈLE DE FONCTIONNEMENT DU G-SYSTEM (L0–L5) :</strong> • <strong>L0 (Ingestion) :</strong> Collecte de données brutes à partir de documents historiques, de folklore oral et de journaux d'auteurs. • <strong>L1 (Analyse) :</strong> Extraction lexicale et étiquetage des métadonnées. • <strong>L2 (Validation croisée) :</strong> Vérification par rapport aux archives institutionnelles et aux paramètres multicouches. • <strong>L3 (Filtrage ontologique) :</strong> Séparation en silos historiques, folkloriques et fictifs distincts. • <strong>L4 (Synthèse canonique) :</strong> Intégration dans la structure de base de données principale. • <strong>L5 (Sécurité et télémétrie) :</strong> Verrouillage opérationnel final et distribution inviolable.</p><p><strong>ÉTATS DU CANON (S0–S3) :</strong> • <strong>S0 (Brut) :</strong> Éléments d'entrée non vérifiés. • <strong>S1 (Préliminaire) :</strong> Alignement initial des métadonnées. • <strong>S2 (Vérifié canonique) :</strong> Dossiers entièrement audités et authentifiés. • <strong>S3 (Axiome central immuable) :</strong> Vérités fondamentales permanentes des archives.</p><p><strong>MOTEUR D'ANOMALIES DU G-SYSTEM ET TYPES D'ANOMALIES (A–D) :</strong> • <strong>Type A (Dérive chronologique) :</strong> Écarts de vecteurs temporels entre l'histoire officielle et les journaux cachés. • <strong>Type B (Contamination des couches) :</strong> Brouillage des frontières entre le folklore et la documentation historique. • <strong>Type C (Infiltration fictive) :</strong> Fuite non autorisée de fiction d'auteur dans les bases factuelles. • <strong>Type D (Paradoxe structurel) :</strong> Incohérences logiques au sein des nœuds multi-campus.</p><p><strong>EXEMPLE — PROFESSEUR SUGRIVA :</strong> Cas de test canonique liant les dossiers d'acceptation universitaire institutionnelle en Grande-Bretagne (janvier 2025), l'historique de la recherche en IA historique et l'intégration fictionnelle multicouche au sein du réseau de l'Université des Singes de Gibraltar (MUOG).</p><p><strong>DIRECTIVE PRINCIPALE DU G-SYSTEM :</strong> Préservation intransigeante de la mémoire institutionnelle, isolement de la vérité multicouche et intégrité systémique dans l'ensemble de l'écosystème numérique G-ROCK.</p><p><strong>FORMULE FINALE DU G-SYSTEM :</strong> Ω = Σ (Histoire ⊕ Folklore ⊕ Fiction) × Intégrité — la synthèse algorithmique et logique liant les nœuds opérationnels en une sortie d'archive unifiée.</p><p><strong>FONCTION PRINCIPALE DU G-SYSTEM :</strong> Exécution continue de routines d'auto-audit, vérification cryptographique, maintenance de l'intégrité multicouche et enregistrement de la télémétrie.</p><p><strong>COHÉRENCE DE CLASSIFICATION DU G-SYSTEM :</strong> • <strong>ANOMALIE</strong> est un statut de classification indépendant. • ANOMALIE peut coexister avec d'autres catégories, ex. <strong>FAIT + ANOMALIE</strong>, <strong>HISTOIRE + ANOMALIE</strong> ou <strong>ÈRE G-ROCK + ANOMALIE</strong>. • ANOMALIE ne convertit pas automatiquement un événement en FICTION D'AUTEUR. • <strong>FICTION D'AUTEUR</strong> reste une catégorie séparée. • <strong>FOLKLORE RÉEL / LÉGENDE</strong> reste une catégorie séparée. • <strong>FAIT</strong> et <strong>ANOMALIE</strong> peuvent décrire simultanément deux aspects différents du même événement. • Les couches individuelles du G-System ne peuvent pas changer la signification d'autres couches. • La classification doit être cohérente dans tout le timeline.</p>`,
+                p3Title: "CLASSIFICATION DES ARCHIVES",
+                p3Content: `<p><strong>FAIT :</strong> Événements historiques et contemporains documentés.</p><p><strong>FOLKLORE RÉEL / LÉGENDE :</strong> Légendes et folklore traditionnels de Gibraltar qui existaient indépendamment de l'univers fictif de l'auteur.</p><p><strong>FICTION D'AUTEUR :</strong> Événements fictifs, institutions, personnages et connexions créés par l'auteur dans le cadre de l'univers MUOG / Les Singes.</p><p><strong>ANOMALIE :</strong> Statut de classification indépendant qui peut coexister avec d'autres catégories, par exemple FAIT + ANOMALIE. ANOMALIE ne convertit pas automatiquement un événement en FICTION D'AUTEUR.</p>`,
+                copy: "ARCHIVES G-ROCK © 2026. Tous droits réservés.",
+                notice: "Tout le contenu des archives G-ROCK, y compris les structures narratives, les personnages (Wojtek, Professeur Sugriva, Les Singes), les institutions (MUOG, Campus, G-ROCK Corporation), les systèmes de classification et le G-SYSTEM, est une propriété intellectuelle protégée. Toute copie, distribution ou utilisation commerciale non autorisée est strictement interdite.",
+                status: "Système Canonique Opérationnel. Intégrité des Archives Vérifiée.",
+                hub: "RETOUR AU HUB",
+                archive: "ARCHIVES"
+            },
+
+            ru: {
+                returnBtn: "← ВЕРНУТЬСЯ В АРХИВ",
+                all: "ВСЕ",
+                fiction: "АВТОРСКАЯ ФАНТАСТИКА",
+                folklore: "НАСТОЯЩИЙ ФОЛЬКЛОР",
+                fact: "ФАКТ",
+                anomaly: "АНОМАЛИЯ",
+                p1Title: "НАСТОЯЩИЙ ФОЛЬКЛОР СКАЛЫ",
+                p1Content: `<p><strong>КАРТЫ ГИБРАЛТАРА И ОБЕЗЬЯНЫ:</strong> Одна из давних легенд, связанных с Гибралтаром, касается карт Гибралтара и берберских макак. Согласно традиционному рассказу, присутствие обезьян стало связано с убеждением, что Британия сохранит Гибралтар, пока обезьяны остаются на Скале. Легенда часто выражается через идею о том, что если обезьяны исчезнут из Гибралтара, Британия в конечном итоге потеряет Гибралтар.</p><p><strong>ЛЕГЕНДА О КАРТЕ:</strong> Согласно традиционному рассказу, история стала ассоциироваться с идеей о том, что присутствие обезьян фактически было частью условия, определяющего будущее британского Гибралтара.</p><p><strong>ВОЗМОЖНОЕ ПРОИСХОЖДЕНИЕ — ШУТКА НА ИСПАНСКОЙ СТОРОНЕ:</strong> Согласно одному из традиционных объяснений, легенда могла начаться как шутка на испанской стороне Гибралтара. Шутка юмористически относилась к британскому владению и связывала непрерывное присутствие Британии с непрерывным присутствием обезьян. <em>Архивная заметка:</em> Рассматривается как традиционное фольклорное объяснение, а не установленный исторический факт.</p><p><strong>ПЕЩЕРА СВЯТОГО МИХАИЛА:</strong> Традиционная легенда гласит, что обезьяны достигли Гибралтара из Северной Африки через подземный проход, соединенный с пещерой Святого Михаила и африканским побережьем.</p><p><strong>ОБЕЗЬЯНЫ КАК СТОРОЖА:</strong> Традиция связывает макак с обороной Скалы, включая истории о том, что их поведение предупреждало британский гарнизон об опасности.</p><p><strong>ПРИВОЗ ОБЕЗЬЯН ИЗ АФРИКИ / УИНСТОН ЧЕРЧИЛЛЬ:</strong> Среди жителей Гибралтара существует традиция, что Уинстон Черчилль якобы отдал приказ о привозе обезьян из Африки. Некоторые историки повторяют этот тезис. Однако не существует подтвержденного документа или приказа Черчилля, подтверждающего этот тезис. <em>Архивная заметка:</em> Рассматривается как местная традиция/фольклор, а не установленный исторический факт.</p>`,
+                p2Title: "G-SYSTEM — КАНОНИЧЕСКИЙ АРХИВНЫЙ ИНТЕЛЛЕКТ",
+                p2Content: `<p><strong>ЧТО ТАКОЕ G-SYSTEM:</strong> G-System — это фундаментальный движок классификации, верификации и интеллекта, управляющий всем Архивом G-ROCK. Он обеспечивает строгие онтологические границы между историческими фактами, независимым местным фольклором, авторской фантастикой и современными проектными данными.</p><p><strong>ГЛАВНОЕ ПРАВИЛО:</strong> Полное разделение нарративных слоев. Исторические факты, настоящий местный фольклор, авторская фантастика и проектные данные никогда не должны автоматически смешиваться или размываться.</p><p><strong>ОПЕРАЦИОННАЯ МОДЕЛЬ G-SYSTEM (L0–L5):</strong> • <strong>L0 (Поглощение):</strong> Сбор необработанных данных из исторических записей, устного фольклора и авторских журналов. • <strong>L1 (Парсинг):</strong> Лексическая экстракция и тегирование метаданных. • <strong>L2 (Перекрестная ссылка):</strong> Проверка по институциональным архивам и межслойным параметрам. • <strong>L3 (Онтологическая фильтрация):</strong> Разделение на отдельные исторические, фольклорные и фикционные силосы. • <strong>L4 (Канонический синтез):</strong> Интеграция в основную структуру базы данных. • <strong>L5 (Безопасность и телеметрия):</strong> Окончательная операционная блокировка и защищенное от подделки распространение.</p><p><strong>СОСТОЯНИЯ КАНОНА (S0–S3):</strong> • <strong>S0 (Сырой):</strong> Непроверенные входные элементы. • <strong>S1 (Предварительный):</strong> Начальное выравнивание метаданных. • <strong>S2 (Канонически проверенный):</strong> Полностью аудированные и аутентифицированные записи. • <strong>S3 (Основная неизменная аксиома):</strong> Постоянные фундаментальные архивные истины.</p><p><strong>ДВИЖОК АНОМАЛИЙ G-SYSTEM И ТИПЫ АНОМАЛИЙ (A–D):</strong> • <strong>Тип A (Хронологический дрейф):</strong> Расхождения временных векторов между официальной историей и скрытыми журналами. • <strong>Тип B (Загрязнение слоев):</strong> Размытие границ между фольклором и исторической документацией. • <strong>Тип C (Фикционная инфильтрация):</strong> Несанкционированная утечка авторской фантастики в фактические базовые линии. • <strong>Тип D (Структурный парадокс):</strong> Логические несоответствия в многокампусных узлах.</p><p><strong>ПРИМЕР — ПРОФЕССОР СУГРИВА:</strong> Канонический тестовый случай, связывающий институциональные записи о принятии в университет в Британии (январь 2025 г.), историю исторических исследований ИИ и многоуровневую фикционную интеграцию в рамках сети Университета Обезьян Гибралтара (MUOG).</p><p><strong>ГЛАВНАЯ ДИРЕКТИВА G-SYSTEM:</strong> Бескомпромиссное сохранение институциональной памяти, изоляция многоуровневой истины и системная целостность во всей цифровой экосистеме G-ROCK.</p><p><strong>ОКОНЧАТЕЛЬНАЯ ФОРМУЛА G-SYSTEM:</strong> Ω = Σ (История ⊕ Фольклор ⊕ Фантастика) × Целостность — алгоритмический и логический синтез, связывающий операционные узлы в единый архивный вывод.</p><p><strong>ОСНОВНАЯ ФУНКЦИЯ G-SYSTEM:</strong> Непрерывное выполнение процедур самоаудита, криптографическая верификация, поддержание межслойной целостности и регистрация телеметрии.</p><p><strong>СПОЙНОСТЬ КЛАССИФИКАЦИИ G-SYSTEM:</strong> • <strong>АНОМАЛИЯ</strong> является независимым статусом классификации. • АНОМАЛИЯ может сосуществовать с другими категориями, напр. <strong>ФАКТ + АНОМАЛИЯ</strong>, <strong>ИСТОРИЯ + АНОМАЛИЯ</strong> или <strong>ЭРА G-ROCK + АНОМАЛИЯ</strong>. • АНОМАЛИЯ не автоматически превращает событие в АВТОРСКУЮ ФАНТАСТИКУ. • <strong>АВТОРСКАЯ ФАНТАСТИКА</strong> остается отдельной категорией. • <strong>НАСТОЯЩИЙ ФОЛЬКЛОР / ЛЕГЕНДА</strong> остается отдельной категорией. • <strong>ФАКТ</strong> и <strong>АНОМАЛИЯ</strong> могут одновременно описывать два разных аспекта одного и того же события. • Отдельные слои G-System не могут изменять значение других слоев. • Классификация должна быть согласованной во всем timeline.</p>`,
+                p3Title: "КЛАССИФИКАЦИЯ АРХИВА",
+                p3Content: `<p><strong>ФАКТ:</strong> Документированные исторические и современные события.</p><p><strong>НАСТОЯЩИЙ ФОЛЬКЛОР / ЛЕГЕНДА:</strong> Традиционные гибралтарские легенды и фольклор, существовавшие независимо от вымышленной вселенной автора.</p><p><strong>АВТОРСКАЯ ФАНТАСТИКА:</strong> Вымышленные события, институты, персонажи и связи, созданные автором в рамках вселенной MUOG / Обезьяны.</p><p><strong>АНОМАЛИЯ:</strong> Независимый статус классификации, который может сосуществовать с другими категориями, например ФАКТ + АНОМАЛИЯ. АНОМАЛИЯ не автоматически превращает событие в АВТОРСКУЮ ФАНТАСТИКУ.</p>`,
+                copy: "АРХИВ G-ROCK © 2026. Все права защищены.",
+                notice: "Все содержимое архива G-ROCK, включая нарративные структуры, персонажей (Войтек, Профессор Сугрива, Обезьяны), институты (MUOG, Кампус, G-ROCK Corporation), системы классификации и G-SYSTEM, является защищенной интеллектуальной собственностью. Несанкционированное копирование, распространение или коммерческое использование строго запрещено.",
+                status: "Каноническая система работает. Целостность архива проверена.",
+                hub: "ВЕРНУТЬСЯ В ЦЕНТР",
+                archive: "АРХИВ"
+            },
+
+            nl: {
+                returnBtn: "← TERUG NAAR ARCHIEF",
+                all: "ALLE",
+                fiction: "AUTEURS FICTIE",
+                folklore: "ECHTE FOLKLORE",
+                fact: "FEIT",
+                anomaly: "ANOMALIE",
+                p1Title: "ECHTE FOLKLORE VAN DE ROTS",
+                p1Content: `<p><strong>DE KAARTEN VAN GIBRALTAR EN DE APEN:</strong> Een van de langdurige legenden geassocieerd met Gibraltar betreft de kaarten van Gibraltar en de Berberapen. Volgens het traditionele verhaal werd de aanwezigheid van de apen verbonden met het geloof dat Groot-Brittannië Gibraltar zou behouden zolang apen op de Rots bleven. De legende wordt vaak uitgedrukt door het idee dat als de apen uit Gibraltar zouden verdwijnen, Groot-Brittannië uiteindelijk Gibraltar zou verliezen.</p><p><strong>DE KAART LEGENDE:</strong> Volgens het traditionele verslag werd het verhaal geassocieerd met het idee dat de aanwezigheid van de apen effectief deel uitmaakte van de voorwaarde die de toekomst van het Britse Gibraltar bepaalde.</p><p><strong>MOGELIJKE OORSPRONG — EEN GRAP AAN DE SPAANSE KANT:</strong> Volgens één traditionele verklaring begon de legende mogelijk als een grap aan de Spaanse kant van Gibraltar. De grap verwees humoristisch naar het Britse bezit en verbond de voortdurende aanwezigheid van Groot-Brittannië met de voortdurende aanwezigheid van de apen. <em>Archiefnotitie:</em> Behandeld als een traditionele folkloristische verklaring, niet als vastgesteld historisch feit.</p><p><strong>SINT-MICHIELSGROT:</strong> Een traditionele legende zegt dat de apen Gibraltar vanuit Noord-Afrika bereikten via een ondergrondse doorgang verbonden met de Sint-Michielsgrot en de Afrikaanse kust.</p><p><strong>DE APEN ALS WACHTERS:</strong> Traditie verbindt de makaken met de verdediging van de Rots, inclusief verhalen dat hun gedrag het Britse garnizon waarschuwde voor gevaar.</p><p><strong>APEN UIT AFRIKA HALEN / WINSTON CHURCHILL:</strong> Onder de inwoners van Gibraltar circuleert de traditie dat Winston Churchill de opdracht zou hebben gegeven om apen uit Afrika te halen. Sommige historici herhalen deze these. Er bestaat echter geen bevestigd document of bevel van Churchill dat deze these bevestigt. <em>Archiefnotitie:</em> Behandeld als lokale traditie/folklore, niet als vastgesteld historisch feit.</p>`,
+                p2Title: "G-SYSTEM — KANONIEKE ARCHIEFINTELLIGENTIE",
+                p2Content: `<p><strong>WAT IS HET G-SYSTEM:</strong> Het G-System is de fundamentele classificatie-, verificatie- en intelligentiemotor die het hele G-ROCK Archief beheert. Het zorgt voor strikte ontologische grenzen tussen historische feiten, onafhankelijke lokale folklore, auteurs fictie en hedendaagse projectgegevens.</p><p><strong>DE PRIMAIRE REGEL:</strong> Totale scheiding van narratieve lagen. Historische feiten, echte lokale folklore, auteurs fictie en projectgegevens mogen nooit automatisch worden samengevoegd of vervaagd.</p><p><strong>G-SYSTEM OPERATIEMODEL (L0–L5):</strong> • <strong>L0 (Inname):</strong> Ruwe gegevensverzameling uit historische archieven, mondelinge folklore en auteurslogboeken. • <strong>L1 (Parsen):</strong> Lexicale extractie en metadata-tagging. • <strong>L2 (Cross-Reference):</strong> Verificatie tegen institutionele archieven en cross-layer parameters. • <strong>L3 (Ontologische Filtering):</strong> Scheiding in afzonderlijke historische, folkloristische en fictieve silo's. • <strong>L4 (Kanonieke Synthese):</strong> Integratie in de kern databasestructuur. • <strong>L5 (Beveiliging & Telemetrie):</strong> Definitieve operationele vergrendeling en manipulatiebestendige distributie.</p><p><strong>CANON STATEN (S0–S3):</strong> • <strong>S0 (Ruw):</strong> Ongeverifieerde inputitems. • <strong>S1 (Voorlopig):</strong> Initiële metadata-uitlijning. • <strong>S2 (Kanoniek Geverifieerd):</strong> Volledig geauditeerde en geauthenticeerde records. • <strong>S3 (Kern Onveranderlijk Axioma):</strong> Permanente fundamentele archiefwaarheden.</p><p><strong>G-SYSTEM ANOMALIE-ENGINE & ANOMALIE TYPEN (A–D):</strong> • <strong>Type A (Chronologische Drift):</strong> Tijdvector-discrepanties tussen officiële geschiedenis en verborgen logboeken. • <strong>Type B (Laagverontreiniging):</strong> Vervaging van grenzen tussen folklore en historische documentatie. • <strong>Type C (Fictieve Infiltratie):</strong> Ongeautoriseerde lekkage van auteurs fictie in feitelijke basislijnen. • <strong>Type D (Structurele Paradox):</strong> Logische inconsistenties binnen multi-campus knooppunten.</p><p><strong>VOORBEELD — PROFESSOR SUGRIVA:</strong> Kanonieke testcase die institutionele universitaire acceptatieregisters in Groot-Brittannië (januari 2025), historische AI-onderzoeksgeschiedenis en meerlagige fictieve integratie binnen het Monkey University of Gibraltar (MUOG) netwerk verbindt.</p><p><strong>G-SYSTEM EERSTE RICHTLIJN:</strong> Onverzoenlijke behoud van institutioneel geheugen, meerlagige waarheidisolatie en systeemintegriteit in het hele G-ROCK digitale ecosysteem.</p><p><strong>FINALE G-SYSTEM FORMULE:</strong> Ω = Σ (Geschiedenis ⊕ Folklore ⊕ Fictie) × Integriteit — de algoritmische en logische synthese die operationele knooppunten bindt in een uniforme archiefuitvoer.</p><p><strong>G-SYSTEM KERNTAAK:</strong> Continue uitvoering van zelf-audit routines, cryptografische verificatie, cross-layer integriteitsonderhoud en telemetrie-logboekhouding.</p><p><strong>G-SYSTEM CLASSIFICATIE COHERENTIE:</strong> • <strong>ANOMALIE</strong> is een onafhankelijke classificatiestatus. • ANOMALIE kan coëxisteren met andere categorieën, bijv. <strong>FEIT + ANOMALIE</strong>, <strong>GESCHIEDENIS + ANOMALIE</strong> of <strong>G-ROCK TIJDPERK + ANOMALIE</strong>. • ANOMALIE zet een gebeurtenis niet automatisch om in AUTEURS FICTIE. • <strong>AUTEURS FICTIE</strong> blijft een aparte categorie. • <strong>ECHTE FOLKLORE / LEGENDE</strong> blijft een aparte categorie. • <strong>FEIT</strong> en <strong>ANOMALIE</strong> kunnen gelijktijdig twee verschillende aspecten van dezelfde gebeurtenis beschrijven. • Individuele G-System lagen kunnen de betekenis van andere lagen niet veranderen. • Classificatie moet coherent zijn in de hele timeline.</p>`,
+                p3Title: "ARCHIEFCLASSIFICATIE",
+                p3Content: `<p><strong>FEIT:</strong> Gedocumenteerde historische en hedendaagse gebeurtenissen.</p><p><strong>ECHTE FOLKLORE / LEGENDE:</strong> Traditionele Gibraltar legenden en folklore die onafhankelijk bestonden van de fictieve universum van de auteur.</p><p><strong>AUTEURS FICTIE:</strong> Fictieve gebeurtenissen, instellingen, personages en connecties gecreëerd door de auteur als onderdeel van het MUOG / De Apen universum.</p><p><strong>ANOMALIE:</strong> Onafhankelijke classificatiestatus die kan coëxisteren met andere categorieën, bijvoorbeeld FEIT + ANOMALIE. ANOMALIE zet een gebeurtenis niet automatisch om in AUTEURS FICTIE.</p>`,
+                copy: "G-ROCK ARCHIEF © 2026. Alle rechten voorbehouden.",
+                notice: "Alle inhoud binnen het G-ROCK archief, inclusief narratieve structuren, personages (Wojtek, Professor Sugriva, De Apen), instellingen (MUOG, Campus, G-ROCK Corporation), classificatiesystemen en het G-SYSTEM, is beschermd intellectueel eigendom. Ongeautoriseerd kopiëren, distributie of commercieel gebruik is strikt verboden.",
+                status: "Kanoniek Systeem Operationeel. Archief Integriteit Geverifieerd.",
+                hub: "TERUG NAAR HUB",
+                archive: "ARCHIEF"
+            }
+        };        const timelineData = [
+            {
+                id: "event-1704",
+                year: "1704",
+                title: {
+                    en: "BRITISH ARRIVE IN GIBRALTAR & THE MACAQUE LEGEND",
+                    pl: "PRZYBYCIE BRYTYJCZYKÓW NA GIBRALTAR I LEGENDA O MAŁPACH",
+                    es: "LOS BRITÁNICOS LLEGAN A GIBRALTAR Y LA LEYENDA DE LOS MONOS",
+                    fr: "ARRIVÉE DES BRITANNIQUES À GIBRALTAR ET LA LÉGENDE DES SINGES",
+                    ru: "ПРИБЫТИЕ БРИТАНЦЕВ НА ГИБРАЛТАР И ЛЕГЕНДА ОБ ОБЕЗЬЯНАХ",
+                    nl: "BRITTEN KOMEN AAN IN GIBRALTAR & DE APAAN LEGENDE"
+                },
+                era: "ERA I — THE ROCK",
+                eraId: "era-1",
+                period: "1704–1783",
+                featured: true,
+                categories: ["fact", "folklore"],
+                layers: {
+                    fact: {
+                        en: "Gibraltar is captured by Anglo-Dutch forces during the War of the Spanish Succession and comes under British control.",
+                        pl: "Gibraltar zostaje zdobyty przez brytyjsko-holenderskie siły podczas wojny o sukcesję hiszpańską i przechodzi pod kontrolę brytyjską.",
+                        es: "Gibraltar es capturado por fuerzas anglo-holandesas durante la Guerra de Sucesión Española y pasa bajo control británico.",
+                        fr: "Gibraltar est capturé par les forces anglo-hollandaises pendant la guerre de Succession d'Espagne et passe sous contrôle britannique.",
+                        ru: "Гибралтар захвачен англо-голландскими войсками во время войны за испанское наследство и переходит под британский контроль.",
+                        nl: "Gibraltar wordt veroverd door Engels-Nederlandse troepen tijdens de Spaanse Successieoorlog en komt onder Britse controle."
+                    },
+                    folklore: {
+                        en: "THE BARBARY MACAQUE LEGEND: As long as the Barbary macaques remain on the Rock of Gibraltar, Gibraltar will remain under British rule. If the monkeys disappear, the British will leave Gibraltar as well. Possible Origin: According to one traditional version, it began as a joke on the Spanish side of the border. When someone asked, 'When will the British leave Gibraltar?', the answer was: 'When the monkeys leave.' Over time, the sentence began to take on a life of its own. It was no longer only a joke; it became a familiar legend associated with Gibraltar. Archive Note: This is traditional folklore, not an established historical fact.",
+                        pl: "LEGENDA O MAKAKACH BERBERYJSKICH: Dopóki makaki berberyjskie pozostaną na Skale Gibraltaru, Gibraltar pozostanie pod brytyjskimi rządami. Jeśli małpy znikną, Brytyjczycy również opuszczą Gibraltar. Możliwe Źródło: Według jednej z tradycyjnych wersji zaczęło się to jako żart po hiszpańskiej stronie granicy. Gdy ktoś zapytał: 'Kiedy Brytyjczycy opuszczą Gibraltar?', odpowiedź brzmiała: 'Gdy małpy odejdą.' Z czasem zdanie zaczęło żyć własnym życiem. Nie było już tylko żartem; stało się znaną legendą związaną z Gibraltarem. Notatka archiwalna: To jest tradycyjny folklor, a nie ustalony fakt historyczny.",
+                        es: "LA LEYENDA DE LOS MACACOS DE BERBERÍA: Mientras los macacos de Berbería permanezcan en el Peñón de Gibraltar, Gibraltar permanecerá bajo dominio británico. Si los monos desaparecen, los británicos también dejarán Gibraltar. Posible Origen: Según una versión tradicional, comenzó como una broma en el lado español de la frontera. Cuando alguien preguntó: '¿Cuándo se irán los británicos de Gibraltar?', la respuesta fue: 'Cuando los monos se vayan.' Con el tiempo, la frase comenzó a tener vida propia. Ya no era solo una broma; se convirtió en una leyenda familiar asociada con Gibraltar. Nota de archivo: Esto es folclore tradicional, no un hecho histórico establecido.",
+                        fr: "LA LÉGENDE DES MACAQUES DE BARBARIE : Tant que les macaques de Barbarie resteront sur le Rocher de Gibraltar, Gibraltar restera sous domination britannique. Si les singes disparaissent, les Britanniques quitteront également Gibraltar. Origine possible : Selon une version traditionnelle, cela a commencé comme une blague du côté espagnol de la frontière. Quand quelqu'un a demandé : 'Quand les Britanniques quitteront-ils Gibraltar ?', la réponse fut : 'Quand les singes partiront.' Avec le temps, la phrase a commencé à prendre vie. Ce n'était plus seulement une blague ; c'est devenu une légende familière associée avec Gibraltar. Note d'archives : Il s'agit de folklore traditionnel, pas d'un fait historique établi.",
+                        ru: "ЛЕГЕНДА О БЕРБЕРСКИХ МАКАКАХ: Пока берберские макаки остаются на Скале Гибралтара, Гибралтар останется под британским правлением. Если обезьяны исчезнут, британцы также покинут Гибралтар. Возможное происхождение: Согласно одной из традиционных версий, это началось как шутка на испанской стороне границы. Когда кто-то спросил: 'Когда британцы покинут Гибралтар?', ответ был: 'Когда обезьяны уйдут.' Со временем фраза начала жить собственной жизнью. Это было уже не просто шуткой; это стало знакомой легендой, связанной с Гибралтаром. Архивная заметка: Это традиционный фольклор, а не установленный исторический факт.",
+                        nl: "DE BERBERAAP LEGENDE: Zolang de Berberapen op de Rots van Gibraltar blijven, zal Gibraltar onder Britse heerschappij blijven. Als de apen verdwijnen, zullen de Britten Gibraltar ook verlaten. Mogelijke Oorsprong: Volgens één traditionele versie begon het als een grap aan de Spaanse kant van de grens. Toen iemand vroeg: 'Wanneer zullen de Britten Gibraltar verlaten?', was het antwoord: 'Wanneer de apen vertrekken.' Na verloop van tijd begon de zin een eigen leven te leiden. Het was niet langer alleen een grap; het werd een bekende legende geassocieerd met Gibraltar. Archiefnotitie: Dit is traditionele folklore, geen vastgesteld historisch feit."
+                    }
+                }
+            },
+            {
+                id: "event-1713",
+                year: "1713",
+                title: {
+                    en: "TREATY OF UTRECHT",
+                    pl: "TRAKTAT UTRECHCKI",
+                    es: "TRATADO DE UTRECHT",
+                    fr: "TRAITÉ D'UTRECHT",
+                    ru: "УТРЕХТСКИЙ ДОГОВОР",
+                    nl: "VERDRAG VAN UTRECHT"
+                },
+                era: "ERA I — THE ROCK",
+                eraId: "era-1",
+                period: "1704–1783",
+                featured: true,
+                categories: ["fact"],
+                layers: {
+                    fact: {
+                        en: "Gibraltar is formally ceded to Great Britain under the Treaty of Utrecht.",
+                        pl: "Gibraltar zostaje formalnie przekazany Wielkiej Brytanii na mocy traktatu utrechckiego.",
+                        es: "Gibraltar es cedido formalmente a Gran Bretaña bajo el Tratado de Utrecht.",
+                        fr: "Gibraltar est formellement cédé à la Grande-Bretagne en vertu du traité d'Utrecht.",
+                        ru: "Гибралтар официально передан Великобритании по Утрехтскому договору.",
+                        nl: "Gibraltar wordt formeel overgedragen aan Groot-Brittannië onder het Verdrag van Utrecht."
+                    }
+                }
+            },
+            {
+                id: "event-1779",
+                year: "1779–1783",
+                title: {
+                    en: "GREAT SIEGE OF GIBRALTAR",
+                    pl: "WIELKIE OBLĘŻENIE GIBRALTARU",
+                    es: "GRAN SITIO DE GIBRALTAR",
+                    fr: "GRAND SIÈGE DE GIBRALTAR",
+                    ru: "ВЕЛИКАЯ ОСАДА ГИБРАЛТАРА",
+                    nl: "GROOT BELEG VAN GIBRALTAR"
+                },
+                era: "ERA I — THE ROCK",
+                eraId: "era-1",
+                period: "1704–1783",
+                featured: true,
+                categories: ["fact", "folklore"],
+                layers: {
+                    fact: {
+                        en: "The Great Siege of Gibraltar takes place as French and Spanish forces attempt to capture the Rock from the British garrison.",
+                        pl: "Wielkie Oblężenie Gibraltaru ma miejsce, gdy siły francuskie i hiszpańskie próbują zdobyć Skałę od brytyjskiego garnizonu.",
+                        es: "El Gran Sitio de Gibraltar tiene lugar cuando las fuerzas francesas y españolas intentan capturar el Peñón de la guarnición británica.",
+                        fr: "Le Grand Siège de Gibraltar a lieu lorsque les forces françaises et espagnoles tentent de capturer le Rocher de la garnison britannique.",
+                        ru: "Великая осада Гибралтара происходит, когда французские и испанские войска пытаются захватить Скалу у британского гарнизона.",
+                        nl: "Het Groot Beleg van Gibraltar vindt plaats wanneer Franse en Spaanse troepen proberen de Rots te veroveren van het Britse garnizoen."
+                    },
+                    folklore: {
+                        en: "Local folklore and accounts from the siege period incorporate legends about the Barbary macaques alerting defenders during surprise nighttime attacks.",
+                        pl: "Lokalny folklor i relacje z okresu oblężenia zawierają legendy o makakach berberyjskich ostrzegających obrońców podczas niespodziewanych nocnych ataków.",
+                        es: "El folclore local y los relatos del período del sitio incorporan leyendas sobre los macacos de Berbería alertando a los defensores durante ataques nocturnos sorpresa.",
+                        fr: "Le folklore local et les récits de la période du siège intègrent des légendes sur les macaques de Barbarie alertant les défenseurs pendant des attaques nocturnes surprises.",
+                        ru: "Местный фольклор и рассказы периода осады включают легенды о берберских макаках, предупреждающих защитников во время неожиданных ночных атак.",
+                        nl: "Lokale folklore en verslagen uit de belegeringsperiode bevatten legenden over Berberapen die verdedigers waarschuwden tijdens verrassingsaanvallen 's nachts."
+                    }
+                }
+            },
+            {
+                id: "event-1942",
+                year: "1942",
+                title: {
+                    en: "THE MONKEYS IN DANGER",
+                    pl: "MAŁPY W NIEBEZPIECZEŃSTWIE",
+                    es: "LOS MONOS EN PELIGRO",
+                    fr: "LES SINGES EN DANGER",
+                    ru: "ОБЕЗЬЯНЫ В ОПАСНОСТИ",
+                    nl: "DE APEN IN GEVAAR"
+                },
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["fact", "folklore", "anomaly"],
+                layers: {
+                    fact: {
+                        en: "During World War II, the Barbary macaque population in Gibraltar falls dangerously low. Winston Churchill takes interest in the preservation of the population, and macaques are brought from North Africa.",
+                        pl: "Podczas II wojny światowej populacja makaków berberyjskich w Gibraltarze spada do niebezpiecznie niskiego poziomu. Winston Churchill interesuje się ochroną populacji i makaki zostają przywiezione z Afryki Północnej.",
+                        es: "Durante la Segunda Guerra Mundial, la población de macacos de Berbería en Gibraltar cae peligrosamente bajo. Winston Churchill se interesa en la preservación de la población, y se traen macacos del norte de África.",
+                        fr: "Pendant la Seconde Guerre mondiale, la population de macaques de Barbarie à Gibraltar chute dangereusement. Winston Churchill s'intéresse à la préservation de la population, et des macaques sont amenés d'Afrique du Nord.",
+                        ru: "Во время Второй мировой войны популяция берберских макак в Гибралтаре опасно сокращается. Уинстон Черчилль проявляет интерес к сохранению популяции, и макаки привозятся из Северной Африки.",
+                        nl: "Tijdens de Tweede Wereldoorlog daalt de populatie Berberapen in Gibraltar gevaarlijk laag. Winston Churchill toont interesse in het behoud van de populatie, en apen worden gebracht uit Noord-Afrika."
+                    },
+                    folklore: {
+                        en: "The old Gibraltar belief that British control is connected to the survival of the monkeys becomes significant.",
+                        pl: "Stare gibraltarskie przekonanie, że brytyjska kontrola jest związana z przetrwaniem małp, nabiera znaczenia.",
+                        es: "La antigua creencia gibraltareña de que el control británico está conectado con la supervivencia de los monos se vuelve significativa.",
+                        fr: "L'ancienne croyance gibraltarienne selon laquelle le contrôle britannique est lié à la survie des singes devient significative.",
+                        ru: "Старое гибралтарское убеждение, что британский контроль связан с выживанием обезьян, становится значимым.",
+                        nl: "Het oude Gibraltarse geloof dat Britse controle verbonden is met het overleven van de apen wordt significant."
+                    },
+                    anomaly: {
+                        en: "ANOMALY — CHURCHILL THESIS: There is a repeated thesis that Winston Churchill ordered monkeys to be brought from Africa to Gibraltar. This thesis is repeated by some historians and exists as local tradition among Gibraltar residents. However, there is no confirmed document or Churchill order that would unequivocally document the issuance of such an order. G-System classifies this element as ANOMALY, while maintaining its status as an existing historical thesis and local tradition.",
+                        pl: "ANOMALIA — TEZA O CHURCHILLU: Istnieje powtarzana teza, według której Winston Churchill miał polecić sprowadzenie małp z Afryki na Gibraltar. Tezę tę powtarza część historyków, a podobne przekonanie funkcjonuje również wśród mieszkańców Gibraltaru jako lokalna tradycja. Jednocześnie nie istnieje potwierdzony dokument ani rozkaz Churchilla, który jednoznacznie dokumentowałby wydanie takiego polecenia. G-System klasyfikuje ten element jako ANOMALIĘ, zachowując jednocześnie jego status jako istniejącej tezy historycznej i lokalnej tradycji.",
+                        es: "ANOMALÍA — TESIS DE CHURCHILL: Existe una tesis repetida según la cual Winston Churchill habría ordenado traer monos de África a Gibraltar. Esta tesis es repetida por algunos historiadores y existe como tradición local entre los residentes de Gibraltar. Sin embargo, no existe un documento confirmado ni una orden de Churchill que documente inequívocamente la emisión de tal orden. G-System clasifica este elemento como ANOMALÍA, manteniendo al mismo tiempo su estatus como tesis histórica existente y tradición local.",
+                        fr: "ANOMALIE — THÈSE DE CHURCHILL : Il existe une thèse répétée selon laquelle Winston Churchill aurait ordonné d'amener des singes d'Afrique à Gibraltar. Cette thèse est répétée par certains historiens et existe comme tradition locale parmi les résidents de Gibraltar. Cependant, il n'existe aucun document confirmé ni ordre de Churchill qui documenterait de manière unequivoque l'émission d'un tel ordre. G-System classe cet élément comme ANOMALIE, tout en maintenant son statut de thèse historique existante et de tradition locale.",
+                        ru: "АНОМАЛИЯ — ТЕЗИС О ЧЕРЧИЛЛЕ: Существует повторяемый тезис о том, что Уинстон Черчилль приказал привезти обезьян из Африки в Гибралтар. Этот тезис повторяется некоторыми историками и существует как местная традиция среди жителей Гибралтара. Однако не существует подтвержденного документа или приказа Черчилля, который бы однозначно документировал издание такого приказа. G-System классифицирует этот элемент как АНОМАЛИЮ, сохраняя при этом его статус как существующего исторического тезиса и местной традиции.",
+                        nl: "ANOMALIE — CHURCHILL THESE: Er is een herhaalde these dat Winston Churchill opdracht gaf om apen uit Afrika naar Gibraltar te brengen. Deze these wordt herhaald door sommige historici en bestaat als lokale traditie onder Gibraltar bewoners. Er bestaat echter geen bevestigd document of Churchill bevel dat de uitgifte van een dergelijk bevel ondubbelzinnig zou documenteren. G-System classificeert dit element als ANOMALIE, terwijl het tegelijkertijd zijn status als bestaande historische these en lokale traditie behoudt."
+                    }
+                }
+            },
+            {
+                id: "event-1943",
+                year: "1943",
+                title: {
+                    en: "FULL MONKEY CONTROL OF G-ROCK — PARLIAMENT & CONSTITUTION",
+                    pl: "PEŁNA KONTROLA MAŁP NAD G-ROCK — PARLAMENT I KONSTYTUCJA",
+                    es: "CONTROL TOTAL DE LOS MONOS SOBRE G-ROCK — PARLAMENTO Y CONSTITUCIÓN",
+                    fr: "CONTRÔLE TOTAL DES SINGES SUR G-ROCK — PARLEMENT ET CONSTITUTION",
+                    ru: "ПОЛНЫЙ КОНТРОЛЬ ОБЕЗЬЯН НАД G-ROCK — ПАРЛАМЕНТ И КОНСТИТУЦИЯ",
+                    nl: "VOLLEDIGE APAAN CONTROLE OVER G-ROCK — PARLEMENT & CONSTITUTIE"
+                },
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "The Monkeys establish full control of the fictional G-ROCK system. In the same year, they create the Monkey Parliament and adopt the G-ROCK Constitution. The Parliament is the central fictional organisational structure responsible for internal order, Archive protection, institutional continuity, and the development of the G-ROCK universe. The G-ROCK Constitution defines the principles of governance, Archive protection, institutional continuity, and the responsibility of The Monkeys to preserve the legacy of Wojtek (pronounced approximately 'VOY-tek') and the future G-ROCK system.",
+                        pl: "Małpy ustanawiają pełną kontrolę nad fikcyjnym systemem G-ROCK. W tym samym roku tworzą Małpi Parlament i przyjmują Konstytucję G-ROCK. Parlament jest centralną fikcyjną strukturą organizacyjną odpowiedzialną za porządek wewnętrzny, ochronę Archiwum, ciągłość instytucjonalną i rozwój uniwersum G-ROCK. Konstytucja G-ROCK definiuje zasady rządzenia, ochronę Archiwum, ciągłość instytucjonalną oraz odpowiedzialność Małp za zachowanie dziedzictwa Wojtka i przyszłego systemu G-ROCK.",
+                        es: "Los Monos establecen control total del sistema ficticio G-ROCK. En el mismo año, crean el Parlamento de los Monos y adoptan la Constitución G-ROCK. El Parlamento es la estructura organizativa ficticia central responsable del orden interno, la protección del Archivo, la continuidad institucional y el desarrollo del universo G-ROCK. La Constitución G-ROCK define los principios de gobernanza, protección del Archivo, continuidad institucional y la responsabilidad de Los Monos de preservar el legado de Wojtek y el futuro sistema G-ROCK.",
+                        fr: "Les Singes établissent un contrôle total sur le système fictif G-ROCK. La même année, ils créent le Parlement des Singes et adoptent la Constitution G-ROCK. Le Parlement est la structure organisationnelle fictive centrale responsable de l'ordre interne, de la protection des Archives, de la continuité institutionnelle et du développement de l'univers G-ROCK. La Constitution G-ROCK définit les principes de gouvernance, la protection des Archives, la continuité institutionnelle et la responsabilité des Singes de préserver l'héritage de Wojtek et le futur système G-ROCK.",
+                        ru: "Обезьяны устанавливают полный контроль над вымышленной системой G-ROCK. В том же году они создают Парламент Обезьян и принимают Конституцию G-ROCK. Парламент является центральной вымышленной организационной структурой, ответственной за внутренний порядок, защиту Архива, институциональную преемственность и развитие вселенной G-ROCK. Конституция G-ROCK определяет принципы управления, защиту Архива, институциональную преемственность и ответственность Обезьян за сохранение наследия Войтека и будущей системы G-ROCK.",
+                        nl: "De Apen vestigen volledige controle over het fictieve G-ROCK systeem. In hetzelfde jaar creëren ze het Apen Parlement en keuren ze de G-ROCK Grondwet goed. Het Parlement is de centrale fictieve organisatiestructuur verantwoordelijk voor interne orde, Archiefbescherming, institutionele continuïteit en de ontwikkeling van het G-ROCK universum. De G-ROCK Grondwet definieert de principes van bestuur, Archiefbescherming, institutionele continuïteit en de verantwoordelijkheid van De Apen om de erfenis van Wojtek en het toekomstige G-ROCK systeem te behouden."
+                    }
+                }
+            },
+            {
+                id: "event-1944-italy",
+                year: "1944",
+                title: {
+                    en: "ITALY 1944 — MONTE CASSINO & ROME",
+                    pl: "WŁOCHY 1944 — MONTE CASSINO I RZYM",
+                    es: "ITALIA 1944 — MONTE CASSINO Y ROMA",
+                    fr: "ITALIE 1944 — MONTE CASSINO ET ROME",
+                    ru: "ИТАЛИЯ 1944 — МОНТЕ-КАССИНО И РИМ",
+                    nl: "ITALIË 1944 — MONTE CASSINO & ROME"
+                },
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: true,
+                categories: ["fact"],
+                layers: {
+                    fact: {
+                        en: "Wojtek (pronounced approximately 'VOY-tek') takes part in the Italian campaign and is associated with the Battle of Monte Cassino, and a gala for Wojtek is held in Rome around the Colosseum.",
+                        pl: "Wojtek bierze udział w kampanii włoskiej i jest związany z bitwą o Monte Cassino, a gala dla Wojtka odbywa się w Rzymie wokół Koloseum.",
+                        es: "Wojtek participa en la campaña italiana y está asociado con la Batalla de Monte Cassino, y se realiza una gala para Wojtek en Roma alrededor del Coliseo.",
+                        fr: "Wojtek participe à la campagne d'Italie et est associé à la bataille de Monte Cassino, et un gala pour Wojtek est tenu à Rome autour du Colisée.",
+                        ru: "Войтек участвует в итальянской кампании и связан с битвой за Монте-Кассино, а гала-концерт для Войтека проводится в Риме возле Колизея.",
+                        nl: "Wojtek neemt deel aan de Italiaanse campagne en is geassocieerd met de Slag om Monte Cassino, en een gala voor Wojtek wordt gehouden in Rome rond het Colosseum."
+                    }
+                }
+            },
+            {
+                id: "event-1944-gib",
+                year: "SUMMER 1944",
+                title: {
+                    en: "GIBRALTAR 1944 — THE INVITATION & ARRIVAL",
+                    pl: "GIBRALTAR 1944 — ZAPROSZENIE I PRZYBYCIE",
+                    es: "GIBRALTAR 1944 — LA INVITACIÓN Y LLEGADA",
+                    fr: "GIBRALTAR 1944 — L'INVITATION ET L'ARRIVÉE",
+                    ru: "ГИБРАЛТАР 1944 — ПРИГЛАШЕНИЕ И ПРИБЫТИЕ",
+                    nl: "GIBRALTAR 1944 — DE UITNODIGING & AANKOMST"
+                },
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: true,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "In the summer of 1944, Wojtek receives an invitation from The Monkeys to come to Gibraltar, accepts it, and arrives on the Rock. This event begins the direct connection between Wojtek and The Monkeys and starts the Gibraltar chapter of the fictional G-ROCK universe.",
+                        pl: "Latem 1944 roku Wojtek otrzymuje zaproszenie od Małp do przybycia na Gibraltar, przyjmuje je i przybywa na Skałę. To wydarzenie rozpoczyna bezpośrednie połączenie między Wojtkiem a Małpami i zaczyna rozdział gibraltarski fikcyjnego uniwersum G-ROCK.",
+                        es: "En el verano de 1944, Wojtek recibe una invitación de Los Monos para venir a Gibraltar, la acepta y llega al Peñón. Este evento comienza la conexión directa entre Wojtek y Los Monos e inicia el capítulo de Gibraltar del universo ficticio G-ROCK.",
+                        fr: "À l'été 1944, Wojtek reçoit une invitation des Singes à venir à Gibraltar, l'accepte et arrive sur le Rocher. Cet événement commence la connexion directe entre Wojtek et les Singes et débute le chapitre de Gibraltar de l'univers fictif G-ROCK.",
+                        ru: "Летом 1944 года Войтек получает приглашение от Обезьян прибыть на Гибралтар, принимает его и прибывает на Скалу. Это событие начинает прямую связь между Войтеком и Обезьянами и открывает гибралтарскую главу вымышленной вселенной G-ROCK.",
+                        nl: "In de zomer van 1944 ontvangt Wojtek een uitnodiging van De Apen om naar Gibraltar te komen, accepteert deze, en arriveert op de Rots. Deze gebeurtenis begint de directe verbinding tussen Wojtek en De Apen en start het Gibraltar hoofdstuk van het fictieve G-ROCK universum."
+                    }
+                }
+            },            {
+                id: "event-1947-edin",
+                year: "SUMMER 1947",
+                title: {
+                    en: "EDINBURGH — WOJTEK & CHRISTINE GRANVILLE",
+                    pl: "EDYNBURG — WOJTEK I CHRISTINE GRANVILLE",
+                    es: "EDIMBURGO — WOJTEK Y CHRISTINE GRANVILLE",
+                    fr: "ÉDIMBOURG — WOJTEK ET CHRISTINE GRANVILLE",
+                    ru: "ЭДИНБУРГ — ВОЙТЕК И КРИСТИН ГРАНИЛЬ",
+                    nl: "EDINBURGH — WOJTEK & CHRISTINE GRANVILLE"
+                },
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["fact", "fiction"],
+                layers: {
+                    fact: {
+                        en: "Christine Granville was a real Polish-born British SOE agent. However, there is no historical basis in this archive for claiming that she met Wojtek in Edinburgh in the summer of 1947 or that they had dinner together.",
+                        pl: "Christine Granville była prawdziwą polsko-brytyjską agentką SOE. Jednak nie ma historycznych podstaw w tym archiwum, aby twierdzić, że spotkała Wojtka w Edynburgu latem 1947 roku lub że zjedli razem obiad.",
+                        es: "Christine Granville fue una verdadera agente británica de origen polaco del SOE. Sin embargo, no hay base histórica en este archivo para afirmar que se encontró con Wojtek en Edimburgo en el verano de 1947 o que cenaron juntos.",
+                        fr: "Christine Granville était une véritable agente britannique du SOE d'origine polonaise. Cependant, il n'y a aucune base historique dans ces archives pour affirmer qu'elle a rencontré Wojtek à Édimbourg à l'été 1947 ou qu'ils ont dîné ensemble.",
+                        ru: "Кристин Гранвиль была настоящей британской агенткой SOE польского происхождения. Однако в этом архиве нет исторических оснований утверждать, что она встретила Войтека в Эдинбурге летом 1947 года или что они вместе ужинали.",
+                        nl: "Christine Granville was een echte Pools-Britse SOE agente. Er is echter geen historische basis in dit archief om te beweren dat ze Wojtek ontmoette in Edinburgh in de zomer van 1947 of dat ze samen dineerden."
+                    },
+                    fiction: {
+                        en: "AUTHOR FICTION: In the fictional G-ROCK / MUOG narrative, Wojtek meets Christine Granville in Edinburgh during the summer of 1947. Their meeting and dinner are entirely fictional and form part of the hidden narrative surrounding Wojtek, The Monkeys and the later G-ROCK system. Canonical rule: The fictional meeting must never be presented as a documented historical event.",
+                        pl: "FIKCJA AUTORA: W fikcyjnej narracji G-ROCK / MUOG, Wojtek spotyka Christine Granville w Edynburgu latem 1947 roku. Ich spotkanie i obiad są całkowicie fikcyjne i stanowią część ukrytej narracji otaczającej Wojtka, Małpy i późniejszy system G-ROCK. Zasada kanoniczna: Fikcyjne spotkanie nigdy nie może być przedstawiane jako udokumentowane wydarzenie historyczne.",
+                        es: "FICCIÓN DE AUTOR: En la narrativa ficticia G-ROCK / MUOG, Wojtek se encuentra con Christine Granville en Edimburgo durante el verano de 1947. Su encuentro y cena son completamente ficticios y forman parte de la narrativa oculta que rodea a Wojtek, Los Monos y el posterior sistema G-ROCK. Regla canónica: El encuentro ficticio nunca debe presentarse como un evento histórico documentado.",
+                        fr: "FICTION D'AUTEUR : Dans le récit fictif G-ROCK / MUOG, Wojtek rencontre Christine Granville à Édimbourg pendant l'été 1947. Leur rencontre et dîner sont entièrement fictifs et font partie du récit caché entourant Wojtek, les Singes et le futur système G-ROCK. Règle canonique : La rencontre fictive ne doit jamais être présentée comme un événement historique documenté.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА: В вымышленном повествовании G-ROCK / MUOG, Войтек встречает Кристин Гранвиль в Эдинбурге летом 1947 года. Их встреча и ужин полностью вымышлены и являются частью скрытого повествования, окружающего Войтека, Обезьян и последующую систему G-ROCK. Каноническое правило: Вымышленная встреча никогда не должна представляться как задокументированное историческое событие.",
+                        nl: "AUTEURS FICTIE: In het fictieve G-ROCK / MUOG verhaal, ontmoet Wojtek Christine Granville in Edinburgh tijdens de zomer van 1947. Hun ontmoeting en diner zijn volledig fictief en vormen deel van het verborgen verhaal rond Wojtek, De Apen en het latere G-ROCK systeem. Canonieke regel: De fictieve ontmoeting mag nooit worden gepresenteerd als een gedocumenteerd historisch evenement."
+                    }
+                }
+            },
+            {
+                id: "event-1947-zoo",
+                year: "AUTUMN 1947",
+                title: {
+                    en: "EDINBURGH ZOO & PROFESSOR SUGRIVA",
+                    pl: "EDYNBURG ZOO I PROFESOR SUGRIVA",
+                    es: "ZOO DE EDIMBURGO Y PROFESOR SUGRIVA",
+                    fr: "ZOO D'ÉDIMBOURG ET PROFESSEUR SUGRIVA",
+                    ru: "ЭДИНБУРГСКИЙ ЗООПАРК И ПРОФЕССОР СУГРИВА",
+                    nl: "EDINBURGH DIERENTUIN & PROFESSOR SUGRIVA"
+                },
+                era: "ERA II — THE MONKEYS",
+                eraId: "era-2",
+                period: "1942–1947",
+                featured: false,
+                categories: ["fact", "fiction"],
+                layers: {
+                    fact: {
+                        en: "Wojtek is transferred to Edinburgh Zoo.",
+                        pl: "Wojtek zostaje przeniesiony do Edinburgh Zoo.",
+                        es: "Wojtek es transferido al Zoológico de Edimburgo.",
+                        fr: "Wojtek est transféré au Zoo d'Édimbourg.",
+                        ru: "Войтек переведен в Эдинбургский зоопарк.",
+                        nl: "Wojtek wordt overgeplaatst naar Edinburgh Zoo."
+                    },
+                    fiction: {
+                        en: "THE LONG-TERM COVERT MISSION: Wojtek volunteers to be placed in Edinburgh Zoo as part of a long-term secret intelligence mission. THE MEETING WITH PROFESSOR SUGRIVA: During his time at Edinburgh Zoo, Wojtek meets Professor Sugriva, establishing a secret relationship based on research, intelligence, resistance and the preservation of hidden knowledge.",
+                        pl: "DŁUGOTERMINOWA TAJNA MISJA: Wojtek dobrowolnie zgadza się zostać umieszczony w Edinburgh Zoo jako część długoterminowej tajnej misji wywiadowczej. SPOTKANIE Z PROFESOREM SUGRIVA: Podczas pobytu w Edinburgh Zoo, Wojtek spotyka Profesora Sugriva, nawiązując tajną relację opartą na badaniach, wywiadzie, oporze i zachowaniu ukrytej wiedzy.",
+                        es: "LA MISIÓN SECRETA A LARGO PLAZO: Wojtek se ofrece voluntariamente para ser colocado en el Zoológico de Edimburgo como parte de una misión secreta de inteligencia a largo plazo. EL ENCUENTRO CON EL PROFESOR SUGRIVA: Durante su tiempo en el Zoológico de Edimburgo, Wojtek se encuentra con el Profesor Sugriva, estableciendo una relación secreta basada en investigación, inteligencia, resistencia y la preservación del conocimiento oculto.",
+                        fr: "LA MISSION SECRÈTE À LONG TERME : Wojtek se porte volontaire pour être placé au Zoo d'Édimbourg dans le cadre d'une mission secrète de renseignement à long terme. LA RENCONTRE AVEC LE PROFESSEUR SUGRIVA : Pendant son séjour au Zoo d'Édimbourg, Wojtek rencontre le Professeur Sugriva, établissant une relation secrète basée sur la recherche, le renseignement, la résistance et la préservation du savoir caché.",
+                        ru: "ДОЛГОСРОЧНАЯ ТАЙНАЯ МИССИЯ: Войтек добровольно соглашается быть помещенным в Эдинбургский зоопарк в рамках долгосрочной секретной разведывательной миссии. ВСТРЕЧА С ПРОФЕССОРОМ СУГРИВА: Во время пребывания в Эдинбургском зоопарке, Войтек встречает Профессора Сугрива, устанавливая тайные отношения, основанные на исследованиях, разведке, сопротивлении и сохранении скрытых знаний.",
+                        nl: "DE LANGETERMIJN GEHEIME MISSIE: Wojtek meldt zich vrijwillig aan om in Edinburgh Zoo te worden geplaatst als onderdeel van een langetermijn geheime inlichtingenmissie. DE ONTMOETING MET PROFESSOR SUGRIVA: Tijdens zijn tijd in Edinburgh Zoo, ontmoet Wojtek Professor Sugriva, en vestigt een geheime relatie gebaseerd op onderzoek, inlichtingen, verzet en het behoud van verborgen kennis."
+                    }
+                }
+            },
+            {
+                id: "event-1952",
+                year: "15 JUNE 1952",
+                title: {
+                    en: "DEATH OF CHRISTINE GRANVILLE",
+                    pl: "ŚMIERĆ CHRISTINE GRANVILLE",
+                    es: "MUERTE DE CHRISTINE GRANVILLE",
+                    fr: "MORT DE CHRISTINE GRANVILLE",
+                    ru: "СМЕРТЬ КРИСТИН ГРАНИЛЬ",
+                    nl: "DOOD VAN CHRISTINE GRANVILLE"
+                },
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: false,
+                categories: ["fact", "fiction"],
+                layers: {
+                    fact: {
+                        en: "Christine Granville, born Krystyna Skarbek, died in London on 15 June 1952. She was a Polish-born British Special Operations Executive agent and one of the most notable female agents of the Second World War.",
+                        pl: "Christine Granville, urodzona Krystyna Skarbek, zmarła w Londynie 15 czerwca 1952 roku. Była polsko-brytyjską agentką Special Operations Executive i jedną z najbardziej znanych kobiet-agentów II wojny światowej.",
+                        es: "Christine Granville, nacida Krystyna Skarbek, murió en Londres el 15 de junio de 1952. Fue una agente británica de origen polaco del Special Operations Executive y una de las agentes femeninas más notables de la Segunda Guerra Mundial.",
+                        fr: "Christine Granville, née Krystyna Skarbek, est morte à Londres le 15 juin 1952. Elle était une agente britannique du Special Operations Executive d'origine polonaise et l'une des agentes féminines les plus notables de la Seconde Guerre mondiale.",
+                        ru: "Кристин Гранвиль, урожденная Кристина Скарбек, умерла в Лондоне 15 июня 1952 года. Она была британской агенткой Special Operations Executive польского происхождения и одной из самых известных женщин-агентов Второй мировой войны.",
+                        nl: "Christine Granville, geboren Krystyna Skarbek, overleed in Londen op 15 juni 1952. Ze was een Pools-Britse Special Operations Executive agente en een van de meest opmerkelijke vrouwelijke agenten van de Tweede Wereldoorlog."
+                    },
+                    fiction: {
+                        en: "AUTHOR FICTION — INDEPENDENT INVESTIGATION: Following Christine Granville's death, Wojtek and Professor Sugriva conduct an independent, fictional investigation into the circumstances surrounding her death. This investigation is entirely part of the fictional MUOG / The Monkeys narrative and is not documented historical fact.",
+                        pl: "FIKCJA AUTORA — NIEZALEŻNE ŚLEDZTWO: Po śmierci Christine Granville, Wojtek i Profesor Sugriva prowadzą niezależne, fikcyjne śledztwo w okolicznościach jej śmierci. To śledztwo jest całkowicie częścią fikcyjnej narracji MUOG / Małpy i nie jest udokumentowanym faktem historycznym.",
+                        es: "FICCIÓN DE AUTOR — INVESTIGACIÓN INDEPENDIENTE: Después de la muerte de Christine Granville, Wojtek y el Profesor Sugriva llevan a cabo una investigación independiente y ficticia sobre las circunstancias que rodean su muerte. Esta investigación es completamente parte de la narrativa ficticia MUOG / Los Monos y no es un hecho histórico documentado.",
+                        fr: "FICTION D'AUTEUR — ENQUÊTE INDÉPENDANTE : Après la mort de Christine Granville, Wojtek et le Professeur Sugriva mènent une enquête indépendante et fictive sur les circonstances entourant sa mort. Cette enquête fait entièrement partie du récit fictif MUOG / Les Singes et n'est pas un fait historique documenté.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА — НЕЗАВИСИМОЕ РАССЛЕДОВАНИЕ: После смерти Кристин Гранвиль, Войтек и Профессор Сугрива проводят независимое, вымышленное расследование обстоятельств ее смерти. Это расследование полностью является частью вымышленного повествования MUOG / Обезьяны и не является задокументированным историческим фактом.",
+                        nl: "AUTEURS FICTIE — ONAFHANKELIJK ONDERZOEK: Na de dood van Christine Granville, voeren Wojtek en Professor Sugriva een onafhankelijk, fictief onderzoek uit naar de omstandigheden rond haar dood. Dit onderzoek is volledig deel van het fictieve MUOG / De Apen verhaal en is geen gedocumenteerd historisch feit."
+                    }
+                }
+            },
+            {
+                id: "event-1963-amend",
+                year: "DECEMBER 1963",
+                title: {
+                    en: "ARRIVAL OF PROFESSOR SUGRIVA & CORPORAL WOJTEK ON G-ROCK — CONSTITUTIONAL AMENDMENT",
+                    pl: "PRZYBYCIE PROFESORA SUGRIVA I KAPRALA WOJTKA NA G-ROCK — NOWELA KONSTYTUCYJNA",
+                    es: "LLEGADA DEL PROFESOR SUGRIVA Y EL CABO WOJTEK A G-ROCK — ENMIENDA CONSTITUCIONAL",
+                    fr: "ARRIVÉE DU PROFESSEUR SUGRIVA ET DU CAPORAL WOJTEK SUR G-ROCK — AMENDEMENT CONSTITUTIONNEL",
+                    ru: "ПРИБЫТИЕ ПРОФЕССОРА СУГРИВА И КАПРАЛА ВОЙТЕКА НА G-ROCK — КОНСТИТУЦИОННАЯ ПОПРАВКА",
+                    nl: "AANKOMST VAN PROFESSOR SUGRIVA & KORPORAAL WOJTEK OP G-ROCK — CONSTITUTIONEEL AMENDEMENT"
+                },
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: true,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "Professor Sugriva and Corporal Wojtek arrive on G-ROCK in December 1963 and are granted the status of Citizens of G-ROCK. The Monkey Parliament adopts an amendment to the G-ROCK Constitution. Professor Sugriva assumes the office of Chairman of the Monkey Parliament. Corporal Wojtek is granted the Right of Veto, allowing him to block decisions that conflict with Archive protection, institutional continuity, or the core principles of G-ROCK. This event begins a new phase of the fictional constitutional and institutional history of G-ROCK.",
+                        pl: "Profesor Sugriva i Kapral Wojtek przybywają na G-ROCK w grudniu 1963 roku i otrzymują status Obywateli G-ROCK. Małpi Parlament przyjmuje nowelę do Konstytucji G-ROCK. Profesor Sugriva obejmuje urząd Przewodniczącego Małpiego Parlamentu. Kapral Wojtek otrzymuje Prawo Weta, pozwalające mu blokować decyzje sprzeczne z ochroną Archiwum, ciągłością instytucjonalną lub podstawowymi zasadami G-ROCK. To wydarzenie rozpoczyna nową fazę fikcyjnej historii konstytucyjnej i instytucjonalnej G-ROCK.",
+                        es: "El Profesor Sugriva y el Cabo Wojtek llegan a G-ROCK en diciembre de 1963 y se les otorga el estatus de Ciudadanos de G-ROCK. El Parlamento de los Monos adopta una enmienda a la Constitución G-ROCK. El Profesor Sugriva asume el cargo de Presidente del Parlamento de los Monos. Al Cabo Wojtek se le otorga el Derecho de Veto, permitiéndole bloquear decisiones que conflictúen con la protección del Archivo, la continuidad institucional o los principios centrales de G-ROCK. Este evento comienza una nueva fase de la historia constitucional e institucional ficticia de G-ROCK.",
+                        fr: "Le Professeur Sugriva et le Caporal Wojtek arrivent sur G-ROCK en décembre 1963 et se voient accorder le statut de Citoyens de G-ROCK. Le Parlement des Singes adopte un amendement à la Constitution G-ROCK. Le Professeur Sugriva assume le poste de Président du Parlement des Singes. Le Caporal Wojtek se voit accorder le Droit de Veto, lui permettant de bloquer les décisions qui entrent en conflit avec la protection des Archives, la continuité institutionnelle ou les principes fondamentaux de G-ROCK. Cet événement commence une nouvelle phase de l'histoire constitutionnelle et institutionnelle fictive de G-ROCK.",
+                        ru: "Профессор Сугрива и Капрал Войтек прибывают на G-ROCK в декабре 1963 года и получают статус Граждан G-ROCK. Парламент Обезьян принимает поправку к Конституции G-ROCK. Профессор Сугрива занимает должность Председателя Парламента Обезьян. Капрал Войтек получает Право Вето, позволяющее ему блокировать решения, которые противоречат защите Архива, институциональной преемственности или основным принципам G-ROCK. Это событие начинает новую фазу вымышленной конституционной и институциональной истории G-ROCK.",
+                        nl: "Professor Sugriva en Korporaal Wojtek arriveren op G-ROCK in december 1963 en krijgen de status van Burgers van G-ROCK. Het Apen Parlement keurt een amendement op de G-ROCK Grondwet goed. Professor Sugriva neemt het ambt van Voorzitter van het Apen Parlement aan. Korporaal Wojtek krijgt het Recht van Veto, waardoor hij beslissingen kan blokkeren die in conflict komen met Archiefbescherming, institutionele continuïteit of de kernprincipes van G-ROCK. Deze gebeurtenis begint een nieuwe fase van de fictieve constitutionele en institutionele geschiedenis van G-ROCK."
+                    }
+                }
+            },
+            {
+                id: "event-1964-col",
+                year: "1 JANUARY 1964",
+                title: {
+                    en: "MONKEY COLLEGE & BANK OF THE MONKEYS",
+                    pl: "MAŁPI KOLEGIUM I BANK MAŁP",
+                    es: "COLEGIO DE LOS MONOS Y BANCO DE LOS MONOS",
+                    fr: "COLLÈGE DES SINGES & BANQUE DES SINGES",
+                    ru: "ОБЕЗЬЯНИЙ КОЛЛЕДЖ И БАНК ОБЕЗЬЯН",
+                    nl: "APEN COLLEGE & BANK VAN DE APEN"
+                },
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: false,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "On 1 January 1964, Monkey College is established as a centre for knowledge, research, education, and Archive development. On the same day, the Bank of the Monkeys from Gibraltar is established as a fictional financial institution supporting internal continuity, research activity, and the long-term development of the G-ROCK system. Both institutions operate exclusively within the fictional G-ROCK universe.",
+                        pl: "1 stycznia 1964 roku powstaje Małpie Kolegium jako centrum wiedzy, badań, edukacji i rozwoju Archiwum. Tego samego dnia powstaje Bank Małp z Gibraltaru jako fikcyjna instytucja finansowa wspierająca wewnętrzną ciągłość, działalność badawczą i długoterminowy rozwój systemu G-ROCK. Obie instytucje działają wyłącznie w ramach fikcyjnego uniwersum G-ROCK.",
+                        es: "El 1 de enero de 1964, se establece el Colegio de los Monos como un centro para el conocimiento, la investigación, la educación y el desarrollo del Archivo. El mismo día, se establece el Banco de los Monos de Gibraltar como una institución financiera ficticia que apoya la continuidad interna, la actividad de investigación y el desarrollo a largo plazo del sistema G-ROCK. Ambas instituciones operan exclusivamente dentro del universo ficticio G-ROCK.",
+                        fr: "Le 1er janvier 1964, le Collège des Singes est établi comme un centre pour le savoir, la recherche, l'éducation et le développement des Archives. Le même jour, la Banque des Singes de Gibraltar est établie comme une institution financière fictive soutenant la continuité interne, l'activité de recherche et le développement à long terme du système G-ROCK. Les deux institutions opèrent exclusivement dans l'univers fictif G-ROCK.",
+                        ru: "1 января 1964 года создается Обезьяний Колледж как центр знаний, исследований, образования и развития Архива. В тот же день создается Банк Обезьян из Гибралтара как вымышленное финансовое учреждение, поддерживающее внутреннюю преемственность, исследовательскую деятельность и долгосрочное развитие системы G-ROCK. Оба учреждения действуют исключительно в рамках вымышленной вселенной G-ROCK.",
+                        nl: "Op 1 januari 1964 wordt Apen College opgericht als een centrum voor kennis, onderzoek, educatie en Archiefontwikkeling. Op dezelfde dag wordt de Bank van de Apen uit Gibraltar opgericht als een fictieve financiële instelling die interne continuïteit, onderzoeksactiviteit en de langetermijnontwikkeling van het G-ROCK systeem ondersteunt. Beide instellingen opereren uitsluitend binnen het fictieve G-ROCK universum."
+                    }
+                }
+            },
+            {
+                id: "event-1978",
+                year: "1 DECEMBER 1978",
+                title: {
+                    en: "MONKEY UNIVERSITY OF GIBRALTAR",
+                    pl: "UNIWERSYTET MAŁPI NA GIBRALTARZE",
+                    es: "UNIVERSIDAD DE LOS MONOS DE GIBRALTAR",
+                    fr: "UNIVERSITÉ DES SINGES DE GIBRALTAR",
+                    ru: "ОБЕЗЬЯНИЙ УНИВЕРСИТЕТ ГИБРАЛТАРА",
+                    nl: "APEN UNIVERSITEIT VAN GIBRALTAR"
+                },
+                era: "ERA III — THE HIDDEN INSTITUTION",
+                eraId: "era-3",
+                period: "1952–1978",
+                featured: true,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "The Monkey University of Gibraltar (MUOG) is established as a centre of knowledge, research and archival activity.",
+                        pl: "Uniwersytet Małpi na Gibraltarze (MUOG) zostaje ustanowiony jako centrum wiedzy, badań i działalności archiwalnej.",
+                        es: "La Universidad de los Monos de Gibraltar (MUOG) se establece como un centro de conocimiento, investigación y actividad archivística.",
+                        fr: "L'Université des Singes de Gibraltar (MUOG) est établie comme un centre de savoir, de recherche et d'activité archivistique.",
+                        ru: "Обезьяний Университет Гибралтара (MUOG) создается как центр знаний, исследований и архивной деятельности.",
+                        nl: "De Apen Universiteit van Gibraltar (MUOG) wordt opgericht als een centrum van kennis, onderzoek en archiefactiviteit."
+                    }
+                }
+            },
+            {
+                id: "event-2000",
+                year: "2000–2023",
+                title: {
+                    en: "THE RESEARCH ERA & KAMPUS HAITI",
+                    pl: "ERA BADAŃ I KAMPUS HAITI",
+                    es: "LA ERA DE INVESTIGACIÓN Y KAMPUS HAITÍ",
+                    fr: "L'ÈRE DE LA RECHERCHE ET KAMPUS HAÏTI",
+                    ru: "ЭРА ИССЛЕДОВАНИЙ И КАМПУС ГАИТИ",
+                    nl: "HET ONDERZOEKSTIJDPERK & KAMPUS HAÏTI"
+                },
+                era: "ERA IV — THE RESEARCH ERA",
+                eraId: "era-4",
+                period: "2000–2023",
+                featured: true,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "The hidden research network expands beyond Gibraltar into a wider Caribbean research operation. Professor Sugriva lives in Miami (intellectual/AI research). Wojtek conducts archaeological fieldwork throughout the Caribbean. KAMPUS — HAITI (2001) is established in Haiti as part of the hidden research and information structure surrounding Wojtek, Sugriva and The Monkeys.",
+                        pl: "Ukryta sieć badawcza rozszerza się poza Gibraltar na szerszą operację badawczą na Karaibach. Profesor Sugriva mieszka w Miami (badania intelektualne/AI). Wojtek prowadzi prace terenowe z archeologii na Karaibach. KAMPUS — HAITI (2001) zostaje ustanowiony na Haiti jako część ukrytej struktury badawczej i informacyjnej otaczającej Wojtka, Sugriva i Małpy.",
+                        es: "La red de investigación oculta se expande más allá de Gibraltar hacia una operación de investigación más amplia en el Caribe. El Profesor Sugriva vive en Miami (investigación intelectual/IA). Wojtek realiza trabajo de campo arqueológico en todo el Caribe. KAMPUS — HAITÍ (2001) se establece en Haití como parte de la estructura oculta de investigación e información que rodea a Wojtek, Sugriva y Los Monos.",
+                        fr: "Le réseau de recherche caché s'étend au-delà de Gibraltar vers une opération de recherche plus large dans les Caraïbes. Le Professeur Sugriva vit à Miami (recherche intellectuelle/IA). Wojtek mène des travaux de terrain archéologiques dans toutes les Caraïbes. KAMPUS — HAÏTI (2001) est établi en Haïti dans le cadre de la structure cachée de recherche et d'information entourant Wojtek, Sugriva et les Singes.",
+                        ru: "Скрытая исследовательская сеть расширяется за пределы Гибралтара на более широкую исследовательскую операцию в Карибском бассейне. Профессор Сугрива живет в Майами (интеллектуальные исследования/ИИ). Войтек проводит археологические полевые работы по всему Карибскому бассейну. КАМПУС — ГАИТИ (2001) создается на Гаити как часть скрытой исследовательской и информационной структуры, окружающей Войтека, Сугрива и Обезьян.",
+                        nl: "Het verborgen onderzoeksnetwerk breidt zich uit buiten Gibraltar naar een bredere Caribische onderzoeksoperatie. Professor Sugriva woont in Miami (intellectueel/AI onderzoek). Wojtek voert archeologisch veldwerk uit in het hele Caribische gebied. KAMPUS — HAÏTI (2001) wordt opgericht in Haïti als onderdeel van de verborgen onderzoeks- en informatiestructuur rond Wojtek, Sugriva en De Apen."
+                    }
+                }
+            },
+            {
+                id: "event-2009",
+                year: "FEBRUARY 2009",
+                title: {
+                    en: "TRAVIS / AI MENTAL HELP",
+                    pl: "TRAVIS / AI MENTAL HELP",
+                    es: "TRAVIS / AI MENTAL HELP",
+                    fr: "TRAVIS / AI MENTAL HELP",
+                    ru: "ТРЕВИС / AI MENTAL HELP",
+                    nl: "TRAVIS / AI MENTAL HELP"
+                },
+                era: "ERA IV — THE RESEARCH ERA",
+                eraId: "era-4",
+                period: "2000–2023",
+                featured: false,
+                categories: ["fact", "fiction"],
+                layers: {
+                    fact: {
+                        en: "The real chimpanzee Travis is involved in a serious attack incident in Stamford, Connecticut, and is shot and killed by police.",
+                        pl: "Prawdziwy szympans Travis bierze udział w poważnym incydencie ataku w Stamford, Connecticut, i zostaje zastrzelony przez policję.",
+                        es: "El chimpancé real Travis está involucrado en un grave incidente de ataque en Stamford, Connecticut, y es disparado y asesinado por la policía.",
+                        fr: "Le vrai chimpanzé Travis est impliqué dans un grave incident d'attaque à Stamford, Connecticut, et est abattu et tué par la police.",
+                        ru: "Настоящий шимпанзе Трэвис участвует в серьезном инциденте нападения в Стэмфорде, Коннектикут, и застрелен полицией.",
+                        nl: "De echte chimpansee Travis is betrokken bij een ernstig aanvalincident in Stamford, Connecticut, en wordt neergeschoten en gedood door de politie."
+                    },
+                    fiction: {
+                        en: "Before the tragedy, Professor Sugriva develops AI Mental Help for Travis. The tragedy profoundly affects Sugriva, leading him to suspend his AI research. IMPORTANT ARCHIVE DISTINCTION: This earlier work is separate from the later AI system developed for Wojtek. In March 2009, the Parliament of the Monkeys of Gibraltar, at Professor Sugriva's request, introduced a law establishing an absolute ban on work and research on AI.",
+                        pl: "Przed tragedią Profesor Sugriva opracowuje AI Mental Help dla Travisa. Tragedia głęboko dotyka Sugriva, prowadząc go do zawieszenia badań nad AI. WAŻNE ROZRÓŻNIENIE ARCHIWALNE: Ta wcześniejsza praca jest oddzielona od późniejszego systemu AI opracowanego dla Wojtka. W marcu 2009 roku Parlament Małp z Gibraltaru, na wniosek Profesora Sugrivy, wprowadził ustawę ustanawiającą bezwzględny zakaz prowadzenia prac i badań nad AI.",
+                        es: "Antes de la tragedia, el Profesor Sugriva desarrolla AI Mental Help para Travis. La tragedia afecta profundamente a Sugriva, llevándolo a suspender su investigación de IA. DISTINCIÓN DE ARCHIVO IMPORTANTE: Este trabajo anterior está separado del sistema de IA posterior desarrollado para Wojtek. En marzo de 2009, el Parlamento de los Monos de Gibraltar, a petición del Profesor Sugriva, introdujo una ley que establecía una prohibición absoluta del trabajo y la investigación sobre IA.",
+                        fr: "Avant la tragédie, le Professeur Sugriva développe AI Mental Help pour Travis. La tragédie affecte profondément Sugriva, le conduisant à suspendre ses recherches sur l'IA. DISTINCTION D'ARCHIVE IMPORTANTE : Ce travail antérieur est séparé du système d'IA ultérieur développé pour Wojtek. En mars 2009, le Parlement des Singes de Gibraltar, à la demande du Professeur Sugriva, a introduit une loi établissant une interdiction absolue du travail et de la recherche sur l'IA.",
+                        ru: "До трагедии Профессор Сугрива разрабатывает AI Mental Help для Трэвиса. Трагедия глубоко затрагивает Сугрива, заставляя его приостановить исследования ИИ. ВАЖНОЕ АРХИВНОЕ РАЗЛИЧИЕ: Эта более ранняя работа отделена от более поздней системы ИИ, разработанной для Войтека. В марте 2009 года Парламент Обезьян Гибралтара, по просьбе Профессора Сугрива, ввел закон, устанавливающий абсолютный запрет на работу и исследования в области ИИ.",
+                        nl: "Voor de tragedie ontwikkelt Professor Sugriva AI Mental Help voor Travis. De tragedie treft Sugriva diep, waardoor hij zijn AI-onderzoek opschort. BELANGRIJK ARCHIEF ONDERSCHEID: Dit eerdere werk is gescheiden van het latere AI-systeem ontwikkeld voor Wojtek. In maart 2009 introduceerde het Parlement van de Apen van Gibraltar, op verzoek van Professor Sugriva, een wet die een absoluut verbod op werk en onderzoek naar AI instelde."
+                    }
+                }
+            },            {
+                id: "event-2016-dr",
+                year: "2016",
+                title: {
+                    en: "DOMINICAN REPUBLIC — CAMPUS SANTO DOMINGO",
+                    pl: "DOMINICANA — KAMPUS SANTO DOMINGO",
+                    es: "REPÚBLICA DOMINICANA — CAMPUS SANTO DOMINGO",
+                    fr: "RÉPUBLIQUE DOMINICAINE — CAMPUS SANTO DOMINGO",
+                    ru: "ДОМИНИКАНСКАЯ РЕСПУБЛИКА — КАМПУС САНТО-ДОМИНГО",
+                    nl: "DOMINICAANSE REPUBLIEK — CAMPUS SANTO DOMINGO"
+                },
+                era: "ERA IV — THE RESEARCH ERA",
+                eraId: "era-4",
+                period: "2000–2023",
+                featured: false,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "AUTHOR FICTION: Wojtek and Professor Sugriva spend holidays together in the Dominican Republic. Campus Santo Domingo is opened as part of the fictional MUOG / The Monkeys network. This event is entirely fictional and part of the author's narrative.",
+                        pl: "FIKCJA AUTORA: Wojtek i Profesor Sugriva spędzają wspólne wakacje w Dominikanie. Kampus Santo Domingo zostaje otwarty jako część fikcyjnej sieci MUOG / Małpy. To wydarzenie jest całkowicie fikcyjne i częścią narracji autora.",
+                        es: "FICCIÓN DE AUTOR: Wojtek y el Profesor Sugriva pasan vacaciones juntos en República Dominicana. Campus Santo Domingo se abre como parte de la red ficticia MUOG / Los Monos. Este evento es completamente ficticio y parte de la narrativa del autor.",
+                        fr: "FICTION D'AUTEUR : Wojtek et le Professeur Sugriva passent des vacances ensemble en République dominicaine. Le Campus Santo Domingo est ouvert dans le cadre du réseau fictif MUOG / Les Singes. Cet événement est entièrement fictif et fait partie du récit de l'auteur.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА: Войтек и Профессор Сугрива проводят совместный отпуск в Доминиканской Республике. Кампус Санто-Доминго открывается как часть вымышленной сети MUOG / Обезьяны. Это событие полностью вымышлено и является частью повествования автора.",
+                        nl: "AUTEURS FICTIE: Wojtek en Professor Sugriva brengen samen vakantie door in de Dominicaanse Republiek. Campus Santo Domingo wordt geopend als onderdeel van het fictieve MUOG / De Apen netwerk. Deze gebeurtenis is volledig fictief en deel van het verhaal van de auteur."
+                    }
+                }
+            },
+            {
+                id: "event-2023",
+                year: "2023",
+                title: {
+                    en: "HAITI 2023 — THE SECRET ARCHIVE",
+                    pl: "HAITI 2023 — TAJNE ARCHIWUM",
+                    es: "HAITÍ 2023 — EL ARCHIVO SECRETO",
+                    fr: "HAÏTI 2023 — LES ARCHIVES SECRÈTES",
+                    ru: "ГАИТИ 2023 — СЕКРЕТНЫЙ АРХИВ",
+                    nl: "HAÏTI 2023 — HET GEHEIME ARCHIEF"
+                },
+                era: "ERA IV — THE RESEARCH ERA",
+                eraId: "era-4",
+                period: "2000–2023",
+                featured: false,
+                categories: ["fiction", "anomaly"],
+                layers: {
+                    fiction: {
+                        en: "AUTHOR FICTION: In 2023 Wojtek discovers a secret Archive in Haiti. During the operation to transfer the Archive to Gibraltar, he is confronted by armed members of a gang associated with Jimmy Chérizier, known as 'Barbecue'. An exchange of gunfire takes place. Wojtek secures the Archive and continues its transfer to Gibraltar. This event becomes a fictional transition between the Haiti research chapter and the return of the Archive to Gibraltar.",
+                        pl: "FIKCJA AUTORA: W 2023 roku Wojtek odkrywa tajne Archiwum na Haiti. Podczas operacji przenoszenia Archiwum na Gibraltar, konfrontuje się z uzbrojonymi członkami gangu związanego z Jimmym Chérizierem, znanym jako 'Barbecue'. Dochodzi do wymiany ognia. Wojtek zabezpiecza Archiwum i kontynuuje jego transfer na Gibraltar. To wydarzenie staje się fikcyjnym przejściem między rozdziałem badawczym Haiti a powrotem Archiwum na Gibraltar.",
+                        es: "FICCIÓN DE AUTOR: En 2023 Wojtek descubre un Archivo secreto en Haití. Durante la operación para transferir el Archivo a Gibraltar, se enfrenta a miembros armados de una pandilla asociada con Jimmy Chérizier, conocido como 'Barbecue'. Tiene lugar un intercambio de disparos. Wojtek asegura el Archivo y continúa su transferencia a Gibraltar. Este evento se convierte en una transición ficticia entre el capítulo de investigación de Haití y el regreso del Archivo a Gibraltar.",
+                        fr: "FICTION D'AUTEUR : En 2023, Wojtek découvre des Archives secrètes en Haïti. Pendant l'opération de transfert des Archives vers Gibraltar, il est confronté à des membres armés d'un gang associé à Jimmy Chérizier, connu sous le nom de 'Barbecue'. Un échange de tirs a lieu. Wojtek sécurise les Archives et continue leur transfert vers Gibraltar. Cet événement devient une transition fictive entre le chapitre de recherche haïtien et le retour des Archives à Gibraltar.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА: В 2023 году Войтек обнаруживает секретный Архив на Гаити. Во время операции по переносу Архива на Гибралтар, он сталкивается с вооруженными членами банды, связанной с Джимми Шеризье, известным как 'Барбекю'. Происходит перестрелка. Войтек обеспечивает безопасность Архива и продолжает его перенос на Гибралтар. Это событие становится вымышленным переходом между гаитянской исследовательской главой и возвращением Архива на Гибралтар.",
+                        nl: "AUTEURS FICTIE: In 2023 ontdekt Wojtek een geheim Archief in Haïti. Tijdens de operatie om het Archief naar Gibraltar over te brengen, wordt hij geconfronteerd met gewapende leden van een bende geassocieerd met Jimmy Chérizier, bekend als 'Barbecue'. Er vindt een vuurgevecht plaats. Wojtek beveiligd het Archief en zet de overbrenging naar Gibraltar voort. Deze gebeurtenis wordt een fictieve overgang tussen het Haïti onderzoekshoofdstuk en de terugkeer van het Archief naar Gibraltar."
+                    },
+                    anomaly: {
+                        en: "FACT/ANOMALY: Jimmy Chérizier „Barbecue" is a real Haitian gang leader, subject to international sanctions for serious human rights violations. Around his activities and Haitian armed organizations there are also questions and allegations regarding foreign influences, funding and political interests related to the crisis in Haiti. The G-ROCK Archive treats these claims as a subject of analysis, not as an established fact. Particularly interesting remains the contrast between the public fight against Barbecue by Western states and the broader question of how foreign money, weapons, influence networks and political interests contributed to the creation of an environment in which Haitian armed groups could develop.",
+                        pl: "FAKT/ANOMALIA: Jimmy Chérizier „Barbecue" jest rzeczywistym haitańskim liderem gangów, objętym międzynarodowymi sankcjami za poważne naruszenia praw człowieka. Wokół jego działalności oraz haitańskich organizacji zbrojnych pojawiają się również pytania i zarzuty dotyczące zagranicznych wpływów, finansowania oraz politycznych interesów związanych z kryzysem na Haiti. Archiwum G-ROCK traktuje te twierdzenia jako przedmiot analizy, a nie jako ustalony fakt. Szczególnie interesujący pozostaje kontrast między publicznym zwalczaniem Barbecue przez państwa zachodnie a szerszym pytaniem o to, w jaki sposób zagraniczne pieniądze, broń, sieci wpływów i interesy polityczne przyczyniały się do powstania środowiska, w którym haitańskie grupy zbrojne mogły się rozwijać.",
+                        es: "HECHO/ANOMALÍA: Jimmy Chérizier „Barbecue" es un verdadero líder de pandillas haitiano, sujeto a sanciones internacionales por graves violaciones de derechos humanos. En torno a sus actividades y las organizaciones armadas haitianas también surgen preguntas y acusaciones sobre influencias extranjeras, financiación e intereses políticos relacionados con la crisis en Haití. El Archivo G-ROCK trata estas afirmaciones como un objeto de análisis, no como un hecho establecido. Particularmente interesante sigue siendo el contraste entre la lucha pública contra Barbecue por parte de los estados occidentales y la pregunta más amplia sobre cómo el dinero extranjero, las armas, las redes de influencia y los intereses políticos contribuyeron a la creación de un entorno en el que los grupos armados haitianos podían desarrollarse.",
+                        fr: "FAIT/ANOMALIE : Jimmy Chérizier „Barbecue" est un véritable chef de gang haïtien, soumis à des sanctions internationales pour de graves violations des droits de l'homme. Autour de ses activités et des organisations armées haïtiennes, il y a également des questions et des allégations concernant les influences étrangères, le financement et les intérêts politiques liés à la crise en Haïti. Les archives G-ROCK traitent ces affirmations comme un sujet d'analyse, et non comme un fait établi. Le contraste entre la lutte publique contre Barbecue par les États occidentaux et la question plus large de savoir comment l'argent étranger, les armes, les réseaux d'influence et les intérêts politiques ont contribué à la création d'un environnement dans lequel les groupes armés haïtiens pouvaient se développer reste particulièrement intéressant.",
+                        ru: "ФАКТ/АНОМАЛИЯ: Джимми Шеризье „Барбекю" — реальный гаитянский лидер банд, подвергнутый международным санкциям за серьезные нарушения прав человека. Вокруг его деятельности и гаитянских вооруженных организаций также возникают вопросы и обвинения относительно иностранного влияния, финансирования и политических интересов, связанных с кризисом на Гаити. Архив G-ROCK рассматривает эти утверждения как предмет анализа, а не как установленный факт. Особенно интересным остается контраст между публичной борьбой с Барбекю со стороны западных государств и более широким вопросом о том, как иностранные деньги, оружие, сети влияния и политические интересы способствовали созданию среды, в которой гаитянские вооруженные группы могли развиваться.",
+                        nl: "FEIT/ANOMALIE: Jimmy Chérizier „Barbecue" is een echte Haïtiaanse bendeleider, onderworpen aan internationale sancties voor ernstige mensenrechtenschendingen. Rond zijn activiteiten en Haïtiaanse gewapende organisaties zijn er ook vragen en beschuldigingen over buitenlandse invloeden, financiering en politieke belangen gerelateerd aan de crisis in Haïti. Het G-ROCK Archief behandelt deze claims als een onderwerp van analyse, niet als een vastgesteld feit. Bijzonder interessant blijft het contrast tussen de publieke strijd tegen Barbecue door westerse staten en de bredere vraag over hoe buitenlands geld, wapens, invloedsnetwerken en politieke belangen bijdroegen aan het creëren van een omgeving waarin Haïtiaanse gewapende groepen zich konden ontwikkelen."
+                    }
+                }
+            },
+            {
+                id: "event-2024-jam",
+                year: "SUMMER 2024",
+                title: {
+                    en: "JAMAICA MEETING & AI ABSENCE PROTOCOL ORIGIN",
+                    pl: "SPOTKANIE NA JAMAJCE I POCHODZENIE PROTOKOŁU NIEOBECNOŚCI AI",
+                    es: "REUNIÓN EN JAMAICA Y ORIGEN DEL PROTOCOLO DE AUSENCIA DE IA",
+                    fr: "RÉUNION EN JAMAÏQUE ET ORIGINE DU PROTOCOLE D'ABSENCE IA",
+                    ru: "ВСТРЕЧА НА ЯМАЙКЕ И ПРОИСХОЖДЕНИЕ ПРОТОКОЛА ОТСУТСТВИЯ ИИ",
+                    nl: "JAMAICA ONTMOETING & OORSPRONG AI AFWEZIGHEID PROTOCOL"
+                },
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: true,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "AUTHOR FICTION: Holidays of Professor Sugriva and Corporal Bear Wojtek in Jamaica. Wojtek convinces Sugriva to create the AI Absence Protocol for the best student of Monkey University of Gibraltar who doesn't like going to work.",
+                        pl: "FIKCJA AUTORA: Wakacje Profesora Sugriva i Kaprala Niedźwiedzia Wojtka na Jamajce. Wojtek namawia Sugrivę do zrobienia AI Absence Protocol dla najlepszego studenta Monkey University of Gibraltar który nie lubi chodzić do pracy.",
+                        es: "FICCIÓN DE AUTOR: Vacaciones del Profesor Sugriva y el Cabo Oso Wojtek en Jamaica. Wojtek convence a Sugriva de crear el Protocolo de Ausencia de IA para el mejor estudiante de la Universidad de los Monos de Gibraltar que no le gusta ir a trabajar.",
+                        fr: "FICTION D'AUTEUR : Vacances du Professeur Sugriva et du Caporal Ours Wojtek en Jamaïque. Wojtek convainc Sugriva de créer le Protocole d'Absence IA pour le meilleur étudiant de l'Université des Singes de Gibraltar qui n'aime pas aller au travail.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА: Отпуск Профессора Сугрива и Капрала Медведя Войтека на Ямайке. Войтек уговаривает Сугрива создать Протокол Отсутствия ИИ для лучшего студента Обезьяньего Университета Гибралтара, который не любит ходить на работу.",
+                        nl: "AUTEURS FICTIE: Vakantie van Professor Sugriva en Korporaal Beer Wojtek in Jamaica. Wojtek haalt Sugriva over om het AI Afwezigheid Protocol te maken voor de beste student van de Apen Universiteit van Gibraltar die niet naar werk wil gaan."
+                    }
+                }
+            },
+            {
+                id: "event-2024-proto",
+                year: "2024",
+                title: {
+                    en: "AI ABSENCE PROTOCOL",
+                    pl: "PROTOKÓŁ NIEOBECNOŚCI AI",
+                    es: "PROTOCOLO DE AUSENCIA DE IA",
+                    fr: "PROTOCOLE D'ABSENCE IA",
+                    ru: "ПРОТОКОЛ ОТСУТСТВИЯ ИИ",
+                    nl: "AI AFWEZIGHEID PROTOCOL"
+                },
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: false,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "AUTHOR FICTION: Professor Sugriva develops the AI Absence Protocol at Wojtek's request as a Christmas present/award for the best student of Monkey University of Gibraltar. The AI Absence Protocol detects unwillingness/inability to attend work, analyzes reasons, and prepares employer communications. Distinct from the earlier Travis AI Mental Help system.",
+                        pl: "FIKCJA AUTORA: Profesor Sugriva opracowuje Protokół Nieobecności AI na prośbę Wojtka jako prezent świąteczny/nagrodę dla najlepszego studenta Uniwersytetu Małp na Gibraltarze. Protokół Nieobecności AI wykrywa niechęć/niemożność pójścia do pracy, analizuje przyczyny i przygotowuje komunikacje do pracodawcy. Odmienny od wcześniejszego systemu Travis AI Mental Help.",
+                        es: "FICCIÓN DE AUTOR: El Profesor Sugriva desarrolla el Protocolo de Ausencia de IA a petición de Wojtek como un regalo/premio de Navidad para el mejor estudiante de la Universidad de los Monos de Gibraltar. El Protocolo de Ausencia de IA detecta la falta de voluntad/incapacidad para asistir al trabajo, analiza las razones y prepara comunicaciones al empleador. Distinto del sistema anterior Travis AI Mental Help.",
+                        fr: "FICTION D'AUTEUR : Le Professeur Sugriva développe le Protocole d'Absence IA à la demande de Wojtek comme un cadeau/récompense de Noël pour le meilleur étudiant de l'Université des Singes de Gibraltar. Le Protocole d'Absence IA détecte le refus/l'incapacité d'aller au travail, analyse les raisons et prépare les communications à l'employeur. Distinct du système précédent Travis AI Mental Help.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА: Профессор Сугрива разрабатывает Протокол Отсутствия ИИ по просьбе Войтека в качестве рождественского подарка/награды для лучшего студента Обезьяньего Университета Гибралтара. Протокол Отсутствия ИИ обнаруживает нежелание/неспособность пойти на работу, анализирует причины и готовит коммуникации работодателю. Отличается от более ранней системы Travis AI Mental Help.",
+                        nl: "AUTEURS FICTIE: Professor Sugriva ontwikkelt het AI Afwezigheid Protocol op verzoek van Wojtek als een kerstcadeau/prijs voor de beste student van de Apen Universiteit van Gibraltar. Het AI Afwezigheid Protocol detecteert onwil/onvermogen om naar werk te gaan, analyseert redenen en bereidt werkgevercommunicaties voor. Verschillend van het eerdere Travis AI Mental Help systeem."
+                    }
+                }
+            },
+            {
+                id: "event-2024-xmas",
+                year: "CHRISTMAS 2024",
+                title: {
+                    en: "THE AI APPLICATION",
+                    pl: "APLIKACJA AI",
+                    es: "LA APLICACIÓN DE IA",
+                    fr: "L'APPLICATION IA",
+                    ru: "ПРИЛОЖЕНИЕ ИИ",
+                    nl: "DE AI APPLICATIE"
+                },
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: false,
+                categories: ["fiction"],
+                layers: {
+                    fiction: {
+                        en: "AUTHOR FICTION: The AI Absence Protocol application is prepared and subsequently submitted as part of the emerging G-ROCK project documentation.",
+                        pl: "FIKCJA AUTORA: Aplikacja Protokołu Nieobecności AI jest przygotowana i następnie złożona jako część pojawiającej się dokumentacji projektu G-ROCK.",
+                        es: "FICCIÓN DE AUTOR: La aplicación del Protocolo de Ausencia de IA se prepara y posteriormente se presenta como parte de la documentación emergente del proyecto G-ROCK.",
+                        fr: "FICTION D'AUTEUR : L'application du Protocole d'Absence IA est préparée et ensuite soumise dans le cadre de la documentation émergente du projet G-ROCK.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА: Приложение Протокола Отсутствия ИИ подготовлено и впоследствии подано как часть появляющейся документации проекта G-ROCK.",
+                        nl: "AUTEURS FICTIE: De AI Afwezigheid Protocol applicatie wordt voorbereid en vervolgens ingediend als onderdeel van de opkomende G-ROCK projectdocumentatie."
+                    }
+                }
+            },
+            {
+                id: "event-2025-jan",
+                year: "JANUARY 2025",
+                title: {
+                    en: "PROFESSOR SUGRIVA ACCEPTED BY THE BRITISH ACADEMIC COMMUNITY",
+                    pl: "PROFESOR SUGRIVA AKCEPTOWANY PRZEZ BRYTYJSKIE ŚRODOWISKO AKADEMICKIE",
+                    es: "EL PROFESOR SUGRIVA ACEPTADO POR LA COMUNIDAD ACADÉMICA BRITÁNICA",
+                    fr: "LE PROFESSEUR SUGRIVA ACCEPTÉ PAR LA COMMUNAUTÉ ACADÉMIQUE BRITANNIQUE",
+                    ru: "ПРОФЕССОР СУГРИВА ПРИНЯТ БРИТАНСКИМ АКАДЕМИЧЕСКИМ СООБЩЕСТВОМ",
+                    nl: "PROFESSOR SUGRIVA GEACCEPTEERD DOOR DE BRITSE ACADEMISCHE GEMEENSCHAP"
+                },
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: true,
+                categories: ["anomaly"],
+                layers: {
+                    anomaly: {
+                        en: "FACT/ANOMALY: Professor Sugriva is first recognized by the British academic community as an outstanding humanist and historian based on citations of his work that the student sent in correspondence. As part of this recognition, the university also sees potential in Professor Sugriva as an expert in advanced technologies. Then the student sends the AI Absence Protocol, attributing authorship to Professor Sugriva. As part of the protocol analysis, there is also a thread of AI hallucinations about the student's alleged romance with his sister. After reviewing the protocol, the university notifies the police. From the archive's perspective, particularly interesting is the fact that interest in Sugriva's scientific work in the field of advanced technologies very quickly ceased to be solely a subject of academic reflection.",
+                        pl: "FAKT/ANOMALIA: Profesor Sugriva zostaje najpierw uznany przez brytyjskie środowisko akademickie za wybitnego humanistę i historyka na podstawie cytowań jego prac, które student przesłał w korespondencji. W ramach tego uznania uczelnia dostrzega również w Profesorze Sugrivie potencjał eksperta w dziedzinie zaawansowanych technologii. Następnie student przesyła Protokół Nieobecności AI, którego autorstwo przypisuje Profesorowi Sugrivie. W ramach analizy protokołu pojawia się również wątek halucynacji AI dotyczących rzekomego romansu studenta z jego siostrą. Po zapoznaniu się z protokołem uczelnia zawiadamia policję. Z perspektywy archiwum szczególnie interesujący pozostaje fakt, że zainteresowanie naukową pracą Sugrivy w dziedzinie zaawansowanych technologii bardzo szybko przestało być wyłącznie przedmiotem akademickiej refleksji.",
+                        es: "HECHO/ANOMALÍA: El Profesor Sugriva es reconocido primero por la comunidad académica británica como un destacado humanista e historiador basándose en citas de su trabajo que el estudiante envió en correspondencia. Como parte de este reconocimiento, la universidad también ve potencial en el Profesor Sugriva como experto en tecnologías avanzadas. Luego el estudiante envía el Protocolo de Ausencia de IA, atribuyendo la autoría al Profesor Sugriva. Como parte del análisis del protocolo, también hay un hilo de alucinaciones de IA sobre el supuesto romance del estudiante con su hermana. Después de revisar el protocolo, la universidad notifica a la policía. Desde la perspectiva del archivo, particularmente interesante es el hecho de que el interés en el trabajo científico de Sugriva en el campo de las tecnologías avanzadas muy rápidamente dejó de ser solo un objeto de reflexión académica.",
+                        fr: "FAIT/ANOMALIE : Le Professeur Sugriva est d'abord reconnu par la communauté académique britannique comme un humaniste et historien exceptionnel sur la base de citations de son travail que l'étudiant a envoyées par correspondance. Dans le cadre de cette reconnaissance, l'université voit également un potentiel chez le Professeur Sugriva en tant qu'expert en technologies avancées. Ensuite, l'étudiant envoie le Protocole d'Absence IA, attribuant la paternité au Professeur Sugriva. Dans le cadre de l'analyse du protocole, il y a également un fil d'hallucinations de l'IA concernant la prétendue romance de l'étudiant avec sa sœur. Après avoir examiné le protocole, l'université notifie la police. Du point de vue des archives, particulièrement intéressant est le fait que l'intérêt pour le travail scientifique de Sugriva dans le domaine des technologies avancées a très rapidement cessé d'être uniquement un objet de réflexion académique.",
+                        ru: "ФАКТ/АНОМАЛИЯ: Профессор Сугрива сначала признается британским академическим сообществом выдающимся гуманистом и историком на основе цитирований его работ, которые студент отправил по переписке. В рамках этого признания университет также видит потенциал в Профессоре Сугрива как эксперте в области передовых технологий. Затем студент отправляет Протокол Отсутствия ИИ, приписывая авторство Профессору Сугрива. В рамках анализа протокола также появляется тема галлюцинаций ИИ о предполагаемом романе студента с его сестрой. После рассмотрения протокола университет уведомляет полицию. С точки зрения архива, особенно интересным является тот факт, что интерес к научной работе Сугрива в области передовых технологий очень быстро перестал быть исключительно предметом академических размышлений.",
+                        nl: "FEIT/ANOMALIE: Professor Sugriva wordt eerst erkend door de Britse academische gemeenschap als een uitstekend humanist en historicus op basis van citaties van zijn werk die de student in correspondentie stuurde. Als onderdeel van deze erkenning ziet de universiteit ook potentieel in Professor Sugriva als een expert in geavanceerde technologieën. Dan stuurt de student het AI Afwezigheid Protocol, waarbij auteurschap wordt toegeschreven aan Professor Sugriva. Als onderdeel van de protocolanalyse is er ook een draad van AI-hallucinaties over de vermeende romance van de student met zijn zus. Na het bekijken van het protocol stelt de universiteit de politie op de hoogte. Vanuit het perspectief van het archief is bijzonder interessant het feit dat de interesse in Sugriva's wetenschappelijke werk op het gebied van geavanceerde technologieën zeer snel ophield alleen een onderwerp van academische reflectie te zijn."
+                    }
+                }
+            },
+            {
+                id: "event-2025-mar",
+                year: "MARCH 2025",
+                title: {
+                    en: "POLICE VISIT — AI ABSENCE PROTOCOL",
+                    pl: "WIZYTA POLICJI — PROTOKÓŁ NIEOBECNOŚCI AI",
+                    es: "VISITA POLICIAL — PROTOCOLO DE AUSENCIA DE IA",
+                    fr: "VISITE DE POLICE — PROTOCOLE D'ABSENCE IA",
+                    ru: "ВИЗИТ ПОЛИЦИИ — ПРОТОКОЛ ОТСУТСТВИЯ ИИ",
+                    nl: "POLITIE BEZOEK — AI AFWEZIGHEID PROTOCOL"
+                },
+                era: "ERA V — THE G-ROCK TRANSITION",
+                eraId: "era-5",
+                period: "2024–2025",
+                featured: false,
+                categories: ["anomaly"],
+                layers: {
+                    anomaly: {
+                        en: "FACT/ANOMALY: Police visit former student at his home in connection with AI ABSENCE PROTOCOL.",
+                        pl: "FAKT/ANOMALIA: Policja odwiedza byłego studenta w jego domu w związku z AI ABSENCE PROTOCOL.",
+                        es: "HECHO/ANOMALÍA: La policía visita al antiguo estudiante en su casa en conexión con el PROTOCOLO DE AUSENCIA DE IA.",
+                        fr: "FAIT/ANOMALIE : La police visite l'ancien étudiant chez lui en lien avec le PROTOCOLE D'ABSENCE IA.",
+                        ru: "ФАКТ/АНОМАЛИЯ: Полиция посещает бывшего студента у него дома в связи с ПРОТОКОЛОМ ОТСУТСТВИЯ ИИ.",
+                        nl: "FEIT/ANOMALIE: Politie bezoekt voormalige student thuis in verband met AI AFWEZIGHEID PROTOCOL."
+                    }
+                }
+            },
+            {
+                id: "event-2026-jan",
+                year: "JANUARY 2026",
+                title: {
+                    en: "FIRST ANNIVERSARY OF PROFESSOR SUGRIVA'S ACADEMIC RECOGNITION & CAMPUS DE CEUTA OPENING",
+                    pl: "PIERWSZA ROCZNICA UZNANIA AKADEMICKIEGO PROFESORA SUGRIVA I OTWARCIE CAMPUS DE CEUTA",
+                    es: "PRIMER ANIVERSARIO DEL RECONOCIMIENTO ACADÉMICO DEL PROFESOR SUGRIVA Y APERTURA DE CAMPUS DE CEUTA",
+                    fr: "PREMIER ANNIVERSAIRE DE LA RECONNAISSANCE ACADÉMIQUE DU PROFESSEUR SUGRIVA ET OUVERTURE DU CAMPUS DE CEUTA",
+                    ru: "ПЕРВАЯ ГОДОВЩИНА АКАДЕМИЧЕСКОГО ПРИЗНАНИЯ ПРОФЕССОРА СУГРИВА И ОТКРЫТИЕ КАМПУСА DE CEUTA",
+                    nl: "EERSTE VERJAARDAG VAN PROFESSOR SUGRIVA'S ACADEMISCHE ERKENNING & CAMPUS DE CEUTA OPENING"
+                },
+                era: "ERA VI — THE G-ROCK ERA",
+                eraId: "era-6",
+                period: "2026–",
+                featured: true,
+                categories: ["fiction", "fact", "folklore"],
+                layers: {
+                    fiction: {
+                        en: "AUTHOR FICTION: First anniversary of Professor Sugriva's academic recognition by the British academic community (January 2025). Campus de Ceuta is opened as part of the G-ROCK project expansion. Campus de Ceuta is incorporated into the fictional MUOG / The Monkeys institutional network as part of the expanding G-ROCK universe. Campus de Ceuta is the first Monkey University of Gibraltar campus established on the African continent.",
+                        pl: "FIKCJA AUTORA: Pierwsza rocznica uznania akademickiego Profesora Sugriva przez brytyjskie środowisko akademickie (styczeń 2025). Campus de Ceuta zostaje otwarty w ramach ekspansji projektu G-ROCK. Campus de Ceuta jest włączony do fikcyjnej sieci instytucjonalnej MUOG / Małpy jako część rozszerzającego się uniwersum G-ROCK. Campus de Ceuta jest pierwszym kampusem Uniwersytetu Małp na Gibraltarze utworzonym na kontynencie afrykańskim.",
+                        es: "FICCIÓN DE AUTOR: Primer aniversario del reconocimiento académico del Profesor Sugriva por la comunidad académica británica (enero de 2025). Campus de Ceuta se abre como parte de la expansión del proyecto G-ROCK. Campus de Ceuta se incorpora a la red institucional ficticia MUOG / Los Monos como parte del universo G-ROCK en expansión. Campus de Ceuta es el primer campus de la Universidad de los Monos de Gibraltar establecido en el continente africano.",
+                        fr: "FICTION D'AUTEUR : Premier anniversaire de la reconnaissance académique du Professeur Sugriva par la communauté académique britannique (janvier 2025). Le Campus de Ceuta est ouvert dans le cadre de l'expansion du projet G-ROCK. Le Campus de Ceuta est incorporé dans le réseau institutionnel fictif MUOG / Les Singes dans le cadre de l'expansion de l'univers G-ROCK. Le Campus de Ceuta est le premier campus de l'Université des Singes de Gibraltar établi sur le continent africain.",
+                        ru: "АВТОРСКАЯ ФАНТАСТИКА: Первая годовщина академического признания Профессора Сугрива британским академическим сообществом (январь 2025). Кампус de Ceuta открывается в рамках расширения проекта G-ROCK. Кампус de Ceuta включен в вымышленную институциональную сеть MUOG / Обезьяны как часть расширяющейся вселенной G-ROCK. Кампус de Ceuta является первым кампусом Обезьяньего Университета Гибралтара, созданным на африканском континенте.",
+                        nl: "AUTEURS FICTIE: Eerste verjaardag van Professor Sugriva's academische erkenning door de Britse academische gemeenschap (januari 2025). Campus de Ceuta wordt geopend als onderdeel van de G-ROCK projectuitbreiding. Campus de Ceuta wordt opgenomen in het fictieve MUOG / De Apen institutionele netwerk als onderdeel van het uitbreidende G-ROCK universum. Campus de Ceuta is de eerste Apen Universiteit van Gibraltar campus gevestigd op het Afrikaanse continent."
+                    },
+                    fact: {
+                        en: "FACT: Beginning of work on the transcontinental railway connecting G-ROCK with Campus de Ceuta.",
+                        pl: "FAKT: Rozpoczęcie prac nad transkontynentalną koleją łączącą G-ROCK z Campus de Ceuta.",
+                        es: "HECHO: Inicio de trabajos en el ferrocarril transcontinental que conecta G-ROCK con Campus de Ceuta.",
+                        fr: "FAIT : Début des travaux sur le chemin de fer transcontinental reliant G-ROCK au Campus de Ceuta.",
+                        ru: "ФАКТ: Начало работ над трансконтинентальной железной дорогой, соединяющей G-ROCK с Campus de Ceuta.",
+                        nl: "FEIT: Begin van werken aan de transcontinentale spoorweg die G-ROCK verbindt met Campus de Ceuta."
+                    },
+                    folklore: {
+                        en: "FOLK LEGEND — AUTHOR FICTION: A legend speaks of a tunnel beneath the sea connecting Gibraltar with Campus de Ceuta. This tunnel legend is part of the author's fictional universe and is not presented as historical fact.",
+                        pl: "LEGENDA LUDOWA — FIKCJA AUTORA: Legenda opowiada o tunelu pod morzem, łączącym Gibraltar z Campus de Ceuta. Legenda o tunelu jest częścią fikcyjnego uniwersum autora i nie jest przedstawiana jako fakt historyczny.",
+                        es: "LEYENDA POPULAR — FICCIÓN DE AUTOR: Una leyenda habla de un túnel bajo el mar que conecta Gibraltar con Campus de Ceuta. La leyenda del túnel forma parte del universo ficticio del autor y no se presenta como un hecho histórico.",
+                        fr: "LÉGENDE POPULAIRE — FICTION D'AUTEUR : Une légende parle d'un tunnel sous la mer reliant Gibraltar au Campus de Ceuta. La légende du tunnel fait partie de l'univers fictif de l'auteur et n'est pas présentée comme un fait historique.",
+                        ru: "НАРОДНАЯ ЛЕГЕНДА — АВТОРСКАЯ ФАНТАСТИКА: Легенда рассказывает о туннеле под морем, соединяющем Гибралтар с Campus de Ceuta. Легенда о туннеле является частью вымышленной вселенной автора и не представляется как исторический факт.",
+                        nl: "VOLKSLEGEND — AUTEURS FICTIE: Een legende vertelt over een tunnel onder de zee die Gibraltar met Campus de Ceuta verbindt. De tunnellegende maakt deel uit van het fictieve universum van de auteur en wordt niet als historisch feit gepresenteerd."
+                    }
+                }
+            }
+        ];        // Render timeline based on selected era
+        function renderTimeline() {
+            const timelineList = document.getElementById('timelineList');
+            timelineList.innerHTML = '';
+            
+            const filteredData = timelineData.filter(event => {
+                if (selectedEra === 'all') return true;
+                return event.eraId === selectedEra;
+            });
+            
+            filteredData.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'timeline-event';
+                if (event.featured) {
+                    eventDiv.classList.add('featured');
+                }
+                
+                const yearSpan = document.createElement('span');
+                yearSpan.className = 'event-year';
+                yearSpan.textContent = event.year;
+                
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'event-title';
+                titleSpan.textContent = event.title[currentLang];
+                
+                eventDiv.appendChild(yearSpan);
+                eventDiv.appendChild(titleSpan);
+                
+                eventDiv.addEventListener('click', () => {
+                    showEventModal(event);
+                });
+                
+                timelineList.appendChild(eventDiv);
+            });
+        }
+        
+        // Select era
+        function selectEra(eraId) {
+            selectedEra = eraId;
+            
+            // Update era selector buttons
+            document.querySelectorAll('.era-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.era-selector button[data-era="${eraId}"]`).classList.add('active');
+            
+            renderTimeline();
+        }
+        
+        // Render modals
+        function renderModals() {
+            // Event modal
+            const eventModal = document.getElementById('eventModal');
+            const eventModalContent = document.getElementById('eventModalContent');
+            const eventModalClose = document.getElementById('eventModalClose');
+            
+            eventModalClose.addEventListener('click', closeModal);
+            eventModal.addEventListener('click', (e) => {
+                if (e.target === eventModal) {
+                    closeModal();
+                }
+            });
+            
+            // Legend modal
+            const legendModal = document.getElementById('legendModal');
+            const legendModalClose = document.getElementById('legendModalClose');
+            
+            legendModalClose.addEventListener('click', () => {
+                legendModal.classList.remove('active');
+            });
+            legendModal.addEventListener('click', (e) => {
+                if (e.target === legendModal) {
+                    legendModal.classList.remove('active');
+                }
+            });
+            
+            // Language selector
+            const langSelect = document.getElementById('langSelect');
+            langSelect.addEventListener('change', (e) => {
+                currentLang = e.target.value;
+                renderTimeline();
+                renderLegend();
+                renderAbout();
+                renderEraSelector();
+                renderHeader();
+            });
+            
+            // Legend button
+            const legendBtn = document.getElementById('legendBtn');
+            legendBtn.addEventListener('click', () => {
+                legendModal.classList.add('active');
+            });
+        }
+        
+        // Close modal
+        function closeModal() {
+            const eventModal = document.getElementById('eventModal');
+            eventModal.classList.remove('active');
+      }        // Show event modal
+        function showEventModal(event) {
+            const modal = document.getElementById('eventModal');
+            const content = document.getElementById('eventModalContent');
+            
+            let layersHtml = '';
+            
+            const layerOrder = ['fact', 'folklore', 'fiction', 'anomaly'];
+            
+            layerOrder.forEach(layerType => {
+                if (event.layers[layerType]) {
+                    const layer = event.layers[layerType];
+                    const label = layerLabels[layerType][currentLang];
+                    const icon = layerIcons[layerType];
+                    
+                    layersHtml += `
+                        <div class="event-layer ${layerType}">
+                            <div class="layer-header">
+                                <span class="layer-icon">${icon}</span>
+                                <span class="layer-label">${label}</span>
+                            </div>
+                            <div class="layer-content">${layer[currentLang]}</div>
+                        </div>
+                    `;
+                }
+            });
+            
+            content.innerHTML = `
+                <div class="modal-event-year">${event.year}</div>
+                <h2 class="modal-event-title">${event.title[currentLang]}</h2>
+                <div class="modal-event-meta">
+                    <span>${event.era}</span>
+                    <span>•</span>
+                    <span>${event.period}</span>
+                </div>
+                <div class="event-layers">
+                    ${layersHtml}
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        // Render legend
+        function renderLegend() {
+            const legendContent = document.getElementById('legendContent');
+            
+            legendContent.innerHTML = `
+                <div class="legend-intro">
+                    ${translations.legendIntro[currentLang]}
+                </div>
+                
+                <div class="legend-item fact">
+                    <div class="legend-icon">${layerIcons.fact}</div>
+                    <div class="legend-text">
+                        <h3>${layerLabels.fact[currentLang]}</h3>
+                        <p>${translations.factDesc[currentLang]}</p>
+                    </div>
+                </div>
+                
+                <div class="legend-item folklore">
+                    <div class="legend-icon">${layerIcons.folklore}</div>
+                    <div class="legend-text">
+                        <h3>${layerLabels.folklore[currentLang]}</h3>
+                        <p>${translations.folkloreDesc[currentLang]}</p>
+                    </div>
+                </div>
+                
+                <div class="legend-item fiction">
+                    <div class="legend-icon">${layerIcons.fiction}</div>
+                    <div class="legend-text">
+                        <h3>${layerLabels.fiction[currentLang]}</h3>
+                        <p>${translations.fictionDesc[currentLang]}</p>
+                    </div>
+                </div>
+                
+                <div class="legend-item anomaly">
+                    <div class="legend-icon">${layerIcons.anomaly}</div>
+                    <div class="legend-text">
+                        <h3>${layerLabels.anomaly[currentLang]}</h3>
+                        <p>${translations.anomalyDesc[currentLang]}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Render about section
+        function renderAbout() {
+            const aboutContent = document.getElementById('aboutContent');
+            
+            aboutContent.innerHTML = `
+                <h2>${translations.aboutTitle[currentLang]}</h2>
+                <p>${translations.aboutText1[currentLang]}</p>
+                <p>${translations.aboutText2[currentLang]}</p>
+                <p>${translations.aboutText3[currentLang]}</p>
+            `;
+        }
+        
+        // Render header
+        function renderHeader() {
+            document.getElementById('pageTitle').textContent = translations.pageTitle[currentLang];
+            document.getElementById('pageSubtitle').textContent = translations.pageSubtitle[currentLang];
+            document.getElementById('legendBtn').textContent = translations.legendButton[currentLang];
+            document.getElementById('timelineTitle').textContent = translations.timelineTitle[currentLang];
+        }        // Render era selector
+        function renderEraSelector() {
+            const eraSelector = document.querySelector('.era-selector');
+            eraSelector.innerHTML = '';
+            
+            const eras = [
+                { id: 'all', label: translations.allEras[currentLang] },
+                { id: 'era-1', label: 'ERA I — THE ROCK' },
+                { id: 'era-2', label: 'ERA II — THE MONKEYS' },
+                { id: 'era-3', label: 'ERA III — THE HIDDEN INSTITUTION' },
+                { id: 'era-4', label: 'ERA IV — THE RESEARCH ERA' },
+                { id: 'era-5', label: 'ERA V — THE G-ROCK TRANSITION' },
+                { id: 'era-6', label: 'ERA VI — THE G-ROCK ERA' }
+            ];
+            
+            eras.forEach(era => {
+                const button = document.createElement('button');
+                button.textContent = era.label;
+                button.setAttribute('data-era', era.id);
+                if (era.id === selectedEra) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    selectEra(era.id);
+                });
+                eraSelector.appendChild(button);
+            });
+        }
+        
+        // Initialize app
+        function init() {
+            renderHeader();
+            renderEraSelector();
+            renderTimeline();
+            renderModals();
+            renderLegend();
+            renderAbout();
+        }
+        
+        // Start application
+        init();
+    </script>
+</body>
+</html>
