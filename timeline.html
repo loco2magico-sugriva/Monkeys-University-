@@ -22,8 +22,8 @@
   --text: #dbe3ee;
   --muted: #6b7c93;
   --light: #aebdd1;
-  --glow-gold: 0 0 15px rgba(201, 146, 42, 0.4);
-  --glow-cyan: 0 0 15px rgba(0, 240, 255, 0.4);
+  --glow-gold: 0 0 15px rgba(201,146,42,0.4);
+  --glow-cyan: 0 0 15px rgba(0,240,255,0.4);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -37,36 +37,58 @@ body {
   scroll-behavior: smooth;
 }
 .navbar {
-  position: sticky; top: 0; z-index: 1000;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 14px; padding: 16px 4%;
-  background: rgba(3,7,18,.9); backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 16px 4%;
+  background: rgba(3,7,18,.9);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
 .nav-left { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .return-hub {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 16px; background: rgba(11,17,32,.7);
-  border: 1px solid var(--line); border-radius: 8px;
-  color: var(--muted); font-size: 12px; font-weight: 600;
-  transition: .3s; text-decoration: none;
-  font-family: 'Orbitron', sans-serif; letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: rgba(11,17,32,.7);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  transition: .3s;
+  text-decoration: none;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
 }
-.return-hub:hover {
-  color: var(--cyan); border-color: var(--cyan);
-  box-shadow: 0 0 14px rgba(0,240,255,.25);
-}
+.return-hub:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 14px rgba(0,240,255,.25); }
 .nav-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .lang-switch {
-  display: flex; gap: 5px; background: rgba(11,17,32,.7);
-  padding: 5px; border-radius: 8px; border: 1px solid var(--line);
+  display: flex;
+  gap: 5px;
+  background: rgba(11,17,32,.7);
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
   flex-wrap: wrap;
 }
 .lang-switch a {
-  color: var(--muted); font-size: 11px; font-weight: 700;
-  padding: 7px 11px; border-radius: 6px; cursor: pointer;
-  transition: .2s; text-transform: uppercase;
-  letter-spacing: 1px; text-decoration: none;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: .2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
 }
 .lang-switch a:hover, .lang-switch a.active {
   color: #1c1300;
@@ -74,53 +96,77 @@ body {
   box-shadow: 0 0 14px rgba(163,112,44,.5);
 }
 .main-header {
-  position: relative; padding: 60px 4% 30px;
-  text-align: center; overflow: hidden;
-  background: rgba(3,7,18,0.5); border-bottom: 1px solid var(--line);
+  position: relative;
+  padding: 60px 4% 30px;
+  text-align: center;
+  overflow: hidden;
+  background: rgba(3,7,18,0.5);
+  border-bottom: 1px solid var(--line);
 }
-.premium-header {
-  font-family: 'Orbitron', sans-serif; font-weight: 900;
-  letter-spacing: 4px; font-size: clamp(30px, 5vw, 56px);
-  text-transform: uppercase; color: #c9a227;
-  text-shadow: 0 0 8px rgba(201,162,39,0.55), 0 0 22px rgba(201,162,39,0.3), 0 2px 0 #1a0f00;
-  margin-bottom: 6px;
+.brass-title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: clamp(28px, 4vw, 48px);
+  text-transform: uppercase;
+  line-height: 1.2;
+  background: linear-gradient(180deg, var(--brass-bright) 0%, var(--brass1) 45%, var(--brass2) 75%, var(--brass3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 0 #1a0f00) drop-shadow(0 4px 12px rgba(0,0,0,.8));
+  margin-bottom: 10px;
 }
+.timeline-index {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 15px 4%;
+  background: rgba(11,17,32,0.8);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+.index-link {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--brass-bright);
+  text-decoration: none;
+  font-size: 11px;
+  padding: 6px 12px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.index-link:hover { border-color: var(--brass-bright); box-shadow: 0 0 10px rgba(163,112,44,0.4); }
 .container { max-width: 1300px; margin: 0 auto; padding: 40px 4%; }
 .timeline-era { margin-bottom: 50px; }
-.era-header {
-  border-left: 4px solid var(--brass-bright);
-  padding-left: 16px; margin-bottom: 25px;
-}
-.era-label {
-  font-family: 'Orbitron', sans-serif; font-size: 11px;
-  letter-spacing: 2px; color: var(--cyan); text-transform: uppercase;
-}
-.era-header h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(20px, 3vw, 26px); color: #fff; margin: 4px 0;
-}
-.era-period {
-  font-family: 'Orbitron', sans-serif; font-size: 12px;
-  color: var(--brass-bright); letter-spacing: 1px;
-}
-.timeline-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px;
-}
+.era-header { border-left: 4px solid var(--brass-bright); padding-left: 16px; margin-bottom: 25px; }
+.era-label { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--cyan); text-transform: uppercase; }
+.era-header h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(20px, 3vw, 26px); color: #fff; margin: 4px 0; }
+.era-period { font-family: 'Orbitron', sans-serif; font-size: 12px; color: var(--brass-bright); letter-spacing: 1px; }
+.timeline-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 @media(max-width: 900px) { .timeline-grid { grid-template-columns: 1fr; } }
 article.timeline-card {
-  background: var(--panel); backdrop-filter: blur(14px);
-  border: 1px solid var(--line); border-radius: 14px;
-  padding: 28px; display: flex; flex-direction: column; gap: 16px;
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   transition: all 0.35s cubic-bezier(.25,.8,.25,1);
   box-shadow: 0 4px 18px rgba(0,0,0,.4);
 }
 article.timeline-card:hover {
-  transform: translateY(-3px); border-color: var(--cyan);
+  transform: translateY(-3px);
+  border-color: var(--cyan);
   background: rgba(0,240,255,0.03);
   box-shadow: 0 14px 34px rgba(0,240,255,0.15);
 }
 article.timeline-card.timeline-card--featured {
-  grid-column: 1 / -1; border-color: var(--brass1);
+  grid-column: 1 / -1;
+  border-color: var(--brass1);
   background: linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(11,17,32,0.85) 100%);
   box-shadow: 0 6px 24px rgba(163,112,44,0.2);
 }
@@ -128,64 +174,93 @@ article.timeline-card.timeline-card--featured:hover {
   border-color: var(--brass-bright);
   box-shadow: 0 16px 38px rgba(201,146,42,0.3);
 }
+article.timeline-card.is-active {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 25px rgba(0,240,255,0.5) !important;
+  background: rgba(0,240,255,0.06);
+}
 .event-header { border-bottom: 1px solid var(--line); padding-bottom: 12px; }
-.event-year {
-  font-family: 'Orbitron', sans-serif; font-size: 16px;
-  color: var(--cyan); font-weight: 700; letter-spacing: 1px;
-}
+.event-year { font-family: 'Orbitron', sans-serif; font-size: 16px; color: var(--cyan); font-weight: 700; letter-spacing: 1px; }
 .timeline-card--featured .event-year { font-size: 18px; color: var(--brass-bright); }
-.event-title {
-  font-family: 'Orbitron', sans-serif; font-size: 14px;
-  color: #fff; margin-top: 6px; letter-spacing: 0.5px;
-}
+.event-title { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; margin-top: 6px; letter-spacing: 0.5px; }
 .event-content { display: flex; flex-direction: column; gap: 12px; }
-.event-layer {
-  font-size: 13.5px; padding: 12px 16px; border-radius: 8px;
-  border-left: 3px solid; line-height: 1.6;
+.event-layer { font-size: 13.5px; padding: 12px 16px; border-radius: 8px; border-left: 3px solid; line-height: 1.6; }
+.layer-fiction { border-color: #00f0ff; background: rgba(0, 240, 255, 0.08); color: #00f0ff; }
+.layer-fact { border-color: #3F6B4F; background: rgba(63, 107, 79, 0.10); color: #3F6B4F; }
+.layer-folklore { border-color: #C9A227; background: rgba(201, 162, 39, 0.08); color: #C9A227; }
+.layer-anomaly { border-color: #7A201B; background: #240D0D; color: #E05A4F; }
+.info-panel {
+  margin-top: 50px;
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.5);
 }
-.layer-fiction {
-  border-color: #00f0ff; background: rgba(0, 240, 255, 0.08); color: #00f0ff;
+.info-panel h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--brass-bright);
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
 }
-.layer-fact {
-  border-color: #3F6B4F; background: rgba(63, 107, 79, 0.10); color: #3F6B4F;
-}
-.layer-folklore {
-  border-color: #C9A227; background: rgba(201, 162, 39, 0.08); color: #C9A227;
-}
-.layer-anomaly {
-  border-color: #7A201B; background: #240D0D; color: #E05A4F;
-}
+.info-content { display: flex; flex-direction: column; gap: 16px; font-size: 14px; color: var(--light); line-height: 1.75; }
+.info-content strong { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 13px; }
 .layer-label {
-  display: inline-block; font-family: 'Orbitron', sans-serif;
-  font-size: 10px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
   margin-bottom: 6px;
 }
 .label-fiction { background: rgba(0, 240, 255, 0.15); color: #00f0ff; }
 .label-fact { background: rgba(63, 107, 79, 0.18); color: #3F6B4F; }
 .label-folklore { background: rgba(201, 162, 39, 0.18); color: #C9A227; }
 .label-anomaly { background: #7A201B; color: #E05A4F; }
+.copyright-notice {
+  max-width: 850px;
+  margin: 30px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.7;
+}
+.premium-header {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 4px;
+  font-size: clamp(30px, 5vw, 56px);
+  text-transform: uppercase;
+  color: #c9a227;
+  text-shadow: 0 0 8px rgba(201,162,39,0.55), 0 0 22px rgba(201,162,39,0.3), 0 2px 0 #1a0f00;
+  margin-bottom: 6px;
+}
 footer {
-  text-align: center; padding: 50px 4%;
-  border-top: 1px solid var(--line); margin-top: 80px;
-  background: rgba(3,7,18,0.9); color: var(--muted);
-  font-size: 12px; line-height: 1.8;
+  text-align: center;
+  padding: 50px 4%;
+  border-top: 1px solid var(--line);
+  margin-top: 80px;
+  background: rgba(3,7,18,0.9);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
 }
 .footer-notice { max-width: 850px; margin: 20px auto; color: var(--light); font-size: 12.5px; }
-.footer-status {
-  margin: 15px 0; color: var(--cyan);
-  font-family: 'Orbitron', sans-serif; font-size: 11px;
-  letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,240,255,0.4);
-}
-.copyright-notice {
-  max-width: 850px; margin: 30px auto 0; padding-top: 20px;
-  border-top: 1px solid var(--line); color: var(--muted);
-  font-size: 10.5px; line-height: 1.7;
-}
+.footer-status { margin: 15px 0; color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,240,255,0.4); }
+.footer-nav { margin-top: 25px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.footer-link { font-family: 'Orbitron', sans-serif; color: var(--brass-bright); text-decoration: none; font-size: 11px; letter-spacing: 1px; transition: 0.2s; }
+.footer-link:hover { color: var(--cyan); text-shadow: 0 0 10px rgba(0,240,255,0.6); }
 </style>
 </head>
 <body>
-
 <div class="navbar">
   <div class="nav-left">
     <a class="return-hub" href="#">← RETURN TO ARCHIVE</a>
@@ -224,33 +299,17 @@ footer {
 const uiText = {
   "en": { "sub": "Canonical chronology and intelligence framework" },
   "pl": { "sub": "Kanoniczna chronologia i ramy wywiadowcze" },
-  "es": { "sub": "Cronología canónica y marco de inteligencia" },
+  "es": { "sub": "Cronologia canonica y marco de inteligencia" },
   "fr": { "sub": "Chronologie canonique et cadre de renseignement" },
   "nl": { "sub": "Canonieke chronologie en inlichtingenkader" },
-  "ru": { "sub": "RU: do uzupełnienia" }
+  "ru": { "sub": "RU: do uzupelnienia" }
 };
 
 const layerLabels = {
-  "fact": {
-    "en": "HISTORY / FACT", "pl": "HISTORIA / FAKT",
-    "es": "HISTORIA / HECHO", "fr": "HISTOIRE / FAIT",
-    "nl": "GESCHIEDENIS / FEIT", "ru": "RU"
-  },
-  "folklore": {
-    "en": "REAL FOLKLORE / LEGEND", "pl": "FOLKLOR / LEGENDA",
-    "es": "FOLCLORE / LEYENDA", "fr": "FOLKLORE / LÉGENDE",
-    "nl": "FOLKLORE / LEGENDE", "ru": "RU"
-  },
-  "fiction": {
-    "en": "AUTHOR FICTION", "pl": "FIKCJA AUTORSKA",
-    "es": "FICCIÓN DEL AUTOR", "fr": "FICTION D'AUTEUR",
-    "nl": "AUTEURSFICTIE", "ru": "RU"
-  },
-  "anomaly": {
-    "en": "ANOMALY", "pl": "ANOMALIA",
-    "es": "ANOMALÍA", "fr": "ANOMALIE",
-    "nl": "ANOMALIE", "ru": "RU"
-  }
+  "fact": { "en": "HISTORY / FACT", "pl": "HISTORIA / FAKT", "es": "HISTORIA / HECHO", "fr": "HISTOIRE / FAIT", "nl": "GESCHIEDENIS / FEIT", "ru": "RU" },
+  "folklore": { "en": "REAL FOLKLORE / LEGEND", "pl": "FOLKLOR / LEGENDA", "es": "FOLCLORE / LEYENDA", "fr": "FOLKLORE / LEGENDE", "nl": "FOLKLORE / LEGENDE", "ru": "RU" },
+  "fiction": { "en": "AUTHOR FICTION", "pl": "FIKCJA AUTORSKA", "es": "FICCION DEL AUTOR", "fr": "FICTION D'AUTEUR", "nl": "AUTEURSFICTIE", "ru": "RU" },
+  "anomaly": { "en": "ANOMALY", "pl": "ANOMALIA", "es": "ANOMALIA", "fr": "ANOMALIE", "nl": "ANOMALIE", "ru": "RU" }
 };
 
 const eraNames = {
@@ -263,7 +322,6 @@ const eraNames = {
   "era-6": "ERA VI — THE G-ROCK ERA",
   "era-7": "ERA VII — THE UGANDA ANOMALY"
 };
-
 const eraOrder = ["era-0", "era-1", "era-2", "era-3", "era-4", "era-5", "era-6", "era-7"];
 
 const timelineData = [
@@ -286,9 +344,9 @@ const timelineData = [
     "layers": {
       "folklore": {
         "en": "The legend of Gibraltar's Barbary macaques is rooted in ancient folklore, including the belief that St. Michael's Cave was bottomless, a myth dating back more than 2,000 years to Antiquity. Over the centuries, this tradition evolved into the legend of a secret underground tunnel beneath the Strait of Gibraltar, supposedly connecting Gibraltar with North Africa. The tunnel remains a legendary element of Gibraltar folklore, not a proven historical or geological fact.",
-        "pl": "Legenda o berberyjskich makakach z Gibraltaru ma korzenie w starozytnym folklorze, w tym w przekonaniu, ze Jaskinia Sw. Michala jest bezdenna — micie liczacym ponad 2000 lat, siegajacym starozytnosci. Z biegiem wiekow tradycja ta przeksztalcila sie w legende o tajemnym podziemnym tunelu pod Cieznina Gibraltarska, majacym laczyc Gibraltar z Afryka Polnocna. Tunel pozostaje elementem legendarnym gibraltarskiego folkloru, a nie udowodnionym faktem historycznym czy geologicznym.",
+        "pl": "Legenda o berberyjskich makakach z Gibraltaru ma korzenie w starozytnym folklorze, w tym w przekonaniu, ze Jaskinia Sw. Michala jest bezdenna, micie liczacym ponad 2000 lat, siegajacym starozytnosci. Z biegiem wiekow tradycja ta przeksztalcila sie w legende o tajemnym podziemnym tunelu pod Cieznina Gibraltarska, majacym laczyc Gibraltar z Afryka Polnocna. Tunel pozostaje elementem legendarnym gibraltarskiego folkloru, a nie udowodnionym faktem historycznym czy geologicznym.",
         "es": "La leyenda de los macacos de Berberia de Gibraltar tiene sus raices en el folclore antiguo, incluida la creencia de que la Cueva de San Miguel era sin fondo, un mito que se remonta a mas de 2000 anos, a la Antiguedad. Con el paso de los siglos, esta tradicion evoluciono hacia la leyenda de un tunel subterraneo secreto bajo el Estrecho de Gibraltar, que supuestamente conectaba Gibraltar con el norte de Africa. El tunel sigue siendo un elemento legendario del folclore de Gibraltar, no un hecho historico o geologico probado.",
-        "fr": "La legende des macaques de Barbarie de Gibraltar puise ses racines dans un folklore ancien, y compris la croyance selon laquelle la grotte de Saint-Michel etait sans fond, un mythe remontant a plus de 2000 ans, a l'Antiquite. Au fil des siecles, cette tradition a evolue vers la legende d'un tunnel souterrain secret sous le detroit de Gibraltar, censé relier Gibraltar a l'Afrique du Nord. Le tunnel demeure un element legendaire du folklore de Gibraltar, et non un fait historique ou geologique prouve.",
+        "fr": "La legende des macaques de Barbarie de Gibraltar puise ses racines dans un folklore ancien, y compris la croyance selon laquelle la grotte de Saint-Michel etait sans fond, un mythe remontant a plus de 2000 ans, a l'Antiquite. Au fil des siecles, cette tradition a evolue vers la legende d'un tunnel souterrain secret sous le detroit de Gibraltar, cense relier Gibraltar a l'Afrique du Nord. Le tunnel demeure un element legendaire du folklore de Gibraltar, et non un fait historique ou geologique prouve.",
         "ru": "RU: do uzupelnienia",
         "nl": "De legende van de Berberapen van Gibraltar is geworteld in oude folklore, waaronder het geloof dat de St. Michael's Cave bodemloos was, een mythe die meer dan 2000 jaar teruggaat tot de Oudheid. In de loop der eeuwen evolueerde deze traditie tot de legende van een geheime ondergrondse tunnel onder de Straat van Gibraltar, die Gibraltar zogenaamd verbond met Noord-Afrika. De tunnel blijft een legendarisch element van de Gibraltarese folklore, geen bewezen historisch of geologisch feit."
       }
@@ -466,7 +524,7 @@ const timelineData = [
   },
   {
     "id": "event-1942-45-soldiers",
-    "year": "1942–1945",
+    "year": "1942-1945",
     "title": {
       "en": "WOJTEK WITH THE POLISH SOLDIERS",
       "pl": "WOJTEK Z POLSKIMI ZOLNIERZAMI",
@@ -493,7 +551,7 @@ const timelineData = [
   },
   {
     "id": "event-1942-45-behaviour",
-    "year": "1942–1945",
+    "year": "1942-1945",
     "title": {
       "en": "WOJTEK'S BEHAVIOUR",
       "pl": "ZACHOWANIE WOJTKA",
@@ -512,7 +570,7 @@ const timelineData = [
         "en": "Wojtek could be unruly and mischievous: he drank beer, ate cigarettes, enjoyed playing with the soldiers, and took part in wrestling and sparring matches with them.",
         "pl": "Wojtek bywal niegrzeczny i psotny: pil piwo, zjadal papierosy, lubil zabawy z zolnierzami i uczestniczyl z nimi w zapasach i sparingach.",
         "es": "Wojtek podia ser travieso e indisciplinado: bebia cerveza, comia cigarrillos, disfrutaba jugando con los soldados y participaba con ellos en luchas y combates amistosos.",
-        "fr": "Wojtek pouvait etre indiscipliné et espiègle: il buvait de la bière, mangeait des cigarettes, aimait jouer avec les soldats et participait avec eux à des matchs de lutte et de sparring.",
+        "fr": "Wojtek pouvait etre indiscipline et espiegle: il buvait de la biere, mangeait des cigarettes, aimait jouer avec les soldats et participait avec eux a des matchs de lutte et de sparring.",
         "ru": "RU: do uzupelnienia",
         "nl": "Wojtek kon ondeugend en onhandelbaar zijn: hij dronk bier, at sigaretten, speelde graag met de soldaten en deed met hen mee aan worstel- en sparringpartijen."
       }
@@ -539,7 +597,7 @@ const timelineData = [
         "en": "Wojtek was formally enlisted into the unit as a soldier, with the rank of Private.",
         "pl": "Wojtek zostal formalnie wcielony do jednostki jako zolnierz, w stopniu szeregowego.",
         "es": "Wojtek fue alistado formalmente en la unidad como soldado, con el grado de soldado raso.",
-        "fr": "Wojtek a ete formellement enrôlé dans l'unité en tant que soldat, avec le grade de simple soldat.",
+        "fr": "Wojtek a ete formellement enrole dans l'unite en tant que soldat, avec le grade de simple soldat.",
         "ru": "RU: do uzupelnienia",
         "nl": "Wojtek werd formeel bij de eenheid als soldaat ingelijfd, met de rang van soldaat."
       }
@@ -568,7 +626,7 @@ const timelineData = [
         "es": "Los Monos establecen control total del sistema ficticio G-ROCK. En el mismo ano, crean el Parlamento de los Monos y adoptan la Constitucion G-ROCK. El Parlamento es la estructura organizativa ficticia central responsable del orden interno, la proteccion del Archivo, la continuidad institucional y el desarrollo del universo G-ROCK. La Constitucion G-ROCK define los principios de gobernanza, proteccion del Archivo, continuidad institucional y la responsabilidad de Los Monos de preservar el legado de Wojtek y el futuro sistema G-ROCK.",
         "fr": "Les Singes etablissent un controle total sur le systeme fictif G-ROCK. La meme annee, ils creent le Parlement des Singes et adoptent la Constitution G-ROCK. Le Parlement est la structure organisationnelle fictive centrale responsable de l'ordre interne, de la protection des Archives, de la continuite institutionnelle et du developpement de l'univers G-ROCK. La Constitution G-ROCK definit les principes de gouvernance, la protection des Archives, la continuite institutionnelle et la responsabilite des Singes de preserver l'heritage de Wojtek et le futur systeme G-ROCK.",
         "ru": "RU: do uzupelnienia",
-        "nl": "De Apen vestigen volledige controle over het fictieve G-ROCK systeem. In hetzelfde jaar creëren ze het Apen Parlement en keuren ze de G-ROCK Grondwet goed. Het Parlement is de centrale fictieve organisatiestructuur verantwoordelijk voor interne orde, Archiefbescherming, institutionele continuïteit en de ontwikkeling van het G-ROCK universum. De G-ROCK Grondwet definieert de principes van bestuur, Archiefbescherming, institutionele continuïteit en de verantwoordelijkheid van De Apen om de erfenis van Wojtek en het toekomstige G-ROCK systeem te behouden."
+        "nl": "De Apen vestigen volledige controle over het fictieve G-ROCK systeem. In hetzelfde jaar creeren ze het Apen Parlement en keuren ze de G-ROCK Grondwet goed. Het Parlement is de centrale fictieve organisatiestructuur verantwoordelijk voor interne orde, Archiefbescherming, institutionele continuiteit en de ontwikkeling van het G-ROCK universum. De G-ROCK Grondwet definieert de principes van bestuur, Archiefbescherming, institutionele continuiteit en de verantwoordelijkheid van De Apen om de erfenis van Wojtek en het toekomstige G-ROCK systeem te behouden."
       }
     }
   },
@@ -690,7 +748,7 @@ const timelineData = [
   },
   {
     "id": "event-1945-47-scotland",
-    "year": "1945–1947",
+    "year": "1945-1947",
     "title": {
       "en": "WOJTEK IN SCOTLAND",
       "pl": "WOJTEK W SZKOCJI",
@@ -738,7 +796,7 @@ const timelineData = [
         "es": "FICCION DE AUTOR: En la narrativa ficticia G-ROCK / MUOG, Wojtek se encuentra con Christine Granville en Edimburgo durante el verano de 1947. Su encuentro y cena son completamente ficticios y forman parte de la narrativa oculta que rodea a Wojtek, Los Monos y el posterior sistema G-ROCK. Regla canonica: El encuentro ficticio nunca debe presentarse como un evento historico documentado.",
         "fr": "FICTION D'AUTEUR: Dans le recit fictif G-ROCK / MUOG, Wojtek rencontre Christine Granville a Edimbourg pendant l'ete 1947. Leur rencontre et diner sont entierement fictifs et font partie du recit cache entourant Wojtek, les Singes et le futur systeme G-ROCK. Regle canonique: La rencontre fictive ne doit jamais etre presentee comme un evenement historique documente.",
         "ru": "RU: do uzupelnienia",
-        "nl": "AUTEURS FICTIE: In het fictieve G-ROCK / MUOG verhaal, ontmoet Wojtek Christine Granville in Edinburgh tijdens de zomer van 1947. Hun ontmoeting en diner zijn volledig fictief en vormen deel van het verborgen verhaal rond Wojtek, De Apen en het latere G-ROCK systeem. Canonieke regel: De fictieve ontmoeting mag nooit worden gepresenteerd als een gedocumenteerd historisch evenement."
+        "nl": "AUTEURSFICTIE: In het fictieve G-ROCK / MUOG verhaal, ontmoet Wojtek Christine Granville in Edinburgh tijdens de zomer van 1947. Hun ontmoeting en diner zijn volledig fictief en vormen deel van het verborgen verhaal rond Wojtek, De Apen en het latere G-ROCK systeem. Canonieke regel: De fictieve ontmoeting mag nooit worden gepresenteerd als een gedocumenteerd historisch evenement."
       },
       "fact": {
         "en": "Christine Granville had a romantic relationship with Ian Fleming, the British author who created James Bond, Agent 007.",
@@ -796,9 +854,9 @@ const timelineData = [
     "layers": {
       "fiction": {
         "en": "THE LONG-TERM COVERT MISSION: Wojtek volunteers to be placed in Edinburgh Zoo as part of a long-term secret intelligence mission. THE MEETING WITH PROFESSOR SUGRIVA: During his time at Edinburgh Zoo, Wojtek meets Professor Sugriva, establishing a secret relationship based on research, intelligence, resistance and the preservation of hidden knowledge.",
-        "pl": "DLUGOTERMINOWA TAJNA MISJA: Wojtek dobrowolnie zgadza sie zostac umieszczony w Edinburgh Zoo jako czesc dlugoterminowej tajnej misji wywiadowczej. SPOTKANIE Z PROFESOREM SUGRIVA: Podczas pobytu w Edinburgh Zoo, Wojtek spotyka Profesora Sugriva, nawiazujac tajna relacje oparta na badaniach, wywiadzie, oporze i zachowaniu ukrytej wiedzy.",
-        "es": "LA MISION ENCUBIERTA A LARGO PLAZO: Wojtek se ofrece voluntariamente para ser colocado en el Zoologico de Edimburgo como parte de una mision de inteligencia secreta a largo plazo. LA REUNION CON EL PROFESOR SUGRIVA: Durante su tiempo en el Zoologico de Edimburgo, Wojtek conoce al Profesor Sugriva, estableciendo una relacion secreta basada en investigacion, inteligencia, resistencia y preservacion del conocimiento oculto.",
-        "fr": "LA MISSION COUVERTE A LONG TERME: Wojtek se porte volontaire pour etre place au zoo d'Edimbourg dans le cadre d'une mission de renseignement secrete a long terme. LA RENCONTRE AVEC LE PROFESSEUR SUGRIVA: Pendant son sejour au zoo d'Edimbourg, Wojtek rencontre le professeur Sugriva, etablissant une relation secrete basee sur la recherche, le renseignement, la resistance et la preservation du savoir cache.",
+        "pl": "DLUGOTERMINOWA TAJNA MISJA: Wojtek dobrowolnie zgadza sie zostac umieszczony w Edinburgh Zoo jako czesc dlugoterminowej tajnej misji wywiadowczej. SPOTKANIE Z PROFESOREM SUGRIVA: Podczas swojego pobytu w Edinburgh Zoo, Wojtek spotyka Profesora Sugrive, nawiazujac tajna relacje opartaa na badaniach, wywiadzie, oporze i zachowaniu ukrytej wiedzy.",
+        "es": "LA MISION ENCUBIERTA A LARGO PLAZO: Wojtek se ofrece como voluntario para ser colocado en el Zoologico de Edimburgo como parte de una mision de inteligencia secreta a largo plazo. EL ENCUENTRO CON EL PROFESOR SUGRIVA: Durante su estancia en el Zoologico de Edimburgo, Wojtek conoce al Profesor Sugriva, estableciendo una relacion secreta basada en la investigacion, la inteligencia, la resistencia y la preservacion del conocimiento oculto.",
+        "fr": "LA MISSION SECRETE A LONG TERME: Wojtek se porte volontaire pour etre place au Zoo d'Edimbourg dans le cadre d'une mission de renseignement secrete a long terme. LA RENCONTRE AVEC LE PROFESSEUR SUGRIVA: Pendant son sejour au Zoo d'Edimbourg, Wojtek rencontre le Professeur Sugriva, etablissant une relation secrete basee sur la recherche, le renseignement, la resistance et la preservation du savoir cache.",
         "ru": "RU: do uzupelnienia",
         "nl": "DE LANGETERMIJN GEHEIME MISSIE: Wojtek meldt zich vrijwillig aan om in Edinburgh Zoo te worden geplaatst als onderdeel van een langetermijn geheime inlichtingenmissie. DE ONTMOETING MET PROFESSOR SUGRIVA: Tijdens zijn tijd in Edinburgh Zoo, ontmoet Wojtek Professor Sugriva, en vestigt een geheime relatie gebaseerd op onderzoek, inlichtingen, verzet en het behoud van verborgen kennis."
       }
@@ -822,20 +880,12 @@ const timelineData = [
     "categories": ["fact", "fiction"],
     "layers": {
       "fact": {
-        "en": "Christine Granville died on 15 June 1952.",
-        "pl": "Christine Granville zginela 15 czerwca 1952 roku.",
-        "es": "Christine Granville murio el 15 de junio de 1952.",
-        "fr": "Christine Granville est morte le 15 juin 1952.",
-        "ru": "RU: do uzupelnienia",
-        "nl": "Christine Granville overleed op 15 juni 1952."
-      },
-      "fiction": {
         "en": "AUTHOR FICTION — INDEPENDENT INVESTIGATION: Following Christine Granville's death, Wojtek and Professor Sugriva conduct an independent, fictional investigation into the circumstances surrounding her death. This investigation is entirely part of the fictional MUOG / The Monkeys narrative and is not documented historical fact.",
         "pl": "FIKCJA AUTORA — NIEZALEZNE SLEDZTWO: Po smierci Christine Granville, Wojtek i Profesor Sugriva prowadza niezalezne, fikcyjne sledztwo w okolicznosciach jej smierci. To sledztwo jest calkowicie czescia fikcyjnej narracji MUOG / Malpy i nie jest udokumentowanym faktem historycznym.",
         "es": "FICCION DE AUTOR — INVESTIGACION INDEPENDIENTE: Despues de la muerte de Christine Granville, Wojtek y el Profesor Sugriva llevan a cabo una investigacion independiente y ficticia sobre las circunstancias que rodean su muerte. Esta investigacion es completamente parte de la narrativa ficticia MUOG / Los Monos y no es un hecho historico documentado.",
         "fr": "FICTION D'AUTEUR — ENQUETE INDEPENDANTE: Apres la mort de Christine Granville, Wojtek et le Professeur Sugriva menent une enquete independante et fictive sur les circonstances entourant sa mort. Cette enquete fait entierement partie du recit fictif MUOG / Les Singes et n'est pas un fait historique documente.",
         "ru": "RU: do uzupelnienia",
-        "nl": "AUTEURS FICTIE — ONAFHANKELIJK ONDERZOEK: Na de dood van Christine Granville, voeren Wojtek en Professor Sugriva een onafhankelijk, fictief onderzoek uit naar de omstandigheden rond haar dood. Dit onderzoek is volledig deel van het fictieve MUOG / De Apen verhaal en is geen gedocumenteerd historisch feit."
+        "nl": "AUTEURSFICTIE — ONAFHANKELIJK ONDERZOEK: Na de dood van Christine Granville, voeren Wojtek en Professor Sugriva een onafhankelijk, fictief onderzoek uit naar de omstandigheden rond haar dood. Dit onderzoek is volledig deel van het fictieve MUOG / De Apen verhaal en is geen gedocumenteerd historisch feit."
       }
     }
   },
@@ -974,7 +1024,7 @@ const timelineData = [
       },
       "fiction": {
         "en": "AUTHOR FICTION: On 10 September 2001, Professor Sugriva moves the World Trade Center to Gibraltar.",
-        "pl": "FIKCJA AUTORA: 10 wrzesnia 2001 roku Profesor Sugriva przenosi World Trade Center na Gibraltar.",
+        "pl": "FIKCJA AUTORSKA: 10 wrzesnia 2001 roku Profesor Sugriva przenosi World Trade Center na Gibraltar.",
         "es": "FICCION DEL AUTOR: El 10 de septiembre de 2001, el Profesor Sugriva traslada el World Trade Center a Gibraltar.",
         "fr": "FICTION D'AUTEUR: Le 10 septembre 2001, le professeur Sugriva deplace le World Trade Center a Gibraltar.",
         "ru": "RU: do uzupelnienia",
@@ -1002,15 +1052,15 @@ const timelineData = [
       "fact": {
         "en": "Travis, a 14-year-old, 200-lb chimpanzee, was involved in a tragedy on 16 February 2009 at his owner's home at 241 Rock Rimmon Road, North Stamford, Connecticut, USA. That day he was given the anti-anxiety drug Xanax (mixed into tea) to calm him, but the situation escalated: he attacked his owner's friend on the driveway, causing catastrophic injuries. Police who arrived were themselves attacked; an officer shot Travis multiple times, and the chimpanzee died inside the house. Toxicology later confirmed Xanax in his system, though no clear causal link to the attack was established.",
         "pl": "Travis, czternastoletni szympans wazacy 200 funtow, byl uczestnikiem tragedii 16 lutego 2009 roku w domu swojego wlasciciela pod adresem 241 Rock Rimmon Road, North Stamford, Connecticut, USA. Tego dnia podano mu lek przeciwlekowy Xanax (zmieszany z herbata), aby go uspokoic, ale sytuacja eskalowala: zaatakowal przyjaciolke wlasciciela na podjezdzie, powodujac katastrofalne obrazenia. Przybyla policja rowniez zostala zaatakowana; funkcjonariusz postrzelil Travisa kilkukrotnie, a szympans zmarl w domu. Pozniejsza toksykologia potwierdzila obecnosc Xanaxu w jego organizmie, choc nie ustalono jednoznacznego zwiazku przyczynowego z atakiem.",
-        "es": "Travis, un chimpancé de 14 anos y 200 libras, se vio involucrado en una tragedia el 16 de febrero de 2009 en la casa de su dueno en 241 Rock Rimmon Road, North Stamford, Connecticut, EE.UU. Ese dia se le administro el ansiolitico Xanax (mezclado con te) para calmarlo, pero la situacion escalo: ataco a la amiga de su dueno en el camino de entrada, causando lesiones catastroficas. La policia que llego tambien fue atacada; un oficial disparo a Travis varias veces, y el chimpancé murio dentro de la casa. La toxicologia confirmo posteriormente la presencia de Xanax en su organismo, aunque no se establecio un vinculo causal claro con el ataque.",
-        "fr": "Travis, un chimpanze de 14 ans pesant 200 livres, a ete implique dans une tragedie le 16 fevrier 2009 au domicile de son proprietaire, au 241 Rock Rimmon Road, North Stamford, Connecticut, Etats-Unis. Ce jour-la, on lui a donne du Xanax, un anxiolytique (mele a du the), pour le calmer, mais la situation a degenere: il a attaque l'amie de son proprietaire dans l'allée, causant des blessures catastrophiques. Les policiers arrives sur place ont eux-memes ete attaques; un agent a tire plusieurs fois sur Travis, et le chimpanze est mort a l'interieur de la maison. La toxicologie a confirme par la suite la presence de Xanax dans son organisme, bien qu'aucun lien de causalite clair avec l'attaque n'ait ete etabli.",
+        "es": "Travis, un chimpance de 14 anos y 200 libras, se vio involucrado en una tragedia el 16 de febrero de 2009 en la casa de su dueno en 241 Rock Rimmon Road, North Stamford, Connecticut, EE.UU. Ese dia se le administro el ansiolitico Xanax (mezclado con te) para calmarlo, pero la situacion escalo: ataco a la amiga de su dueno en el camino de entrada, causando lesiones catastroficas. La policia que llego tambien fue atacada; un oficial disparo a Travis varias veces, y el chimpance murio dentro de la casa. La toxicologia confirmo posteriormente la presencia de Xanax en su organismo, aunque no se establecio un vinculo causal claro con el ataque.",
+        "fr": "Travis, un chimpanze de 14 ans pesant 200 livres, a ete implique dans une tragedie le 16 fevrier 2009 au domicile de son proprietaire, au 241 Rock Rimmon Road, North Stamford, Connecticut, Etats-Unis. Ce jour-la, on lui a donne du Xanax, un anxiolytique (mele a du the), pour le calmer, mais la situation a degenere: il a attaque l'amie de son proprietaire dans l'allee, causant des blessures catastrophiques. Les policiers arrives sur place ont eux-memes ete attaques; un agent a tire plusieurs fois sur Travis, et le chimpanze est mort a l'interieur de la maison. La toxicologie a confirme par la suite la presence de Xanax dans son organisme, bien qu'aucun lien de causalite clair avec l'attaque n'ait ete etabli.",
         "ru": "RU: do uzupelnienia",
         "nl": "Travis, een 14 jaar oude chimpansee van 200 pond, was betrokken bij een tragedie op 16 februari 2009 in het huis van zijn eigenaar aan 241 Rock Rimmon Road, North Stamford, Connecticut, VS. Die dag kreeg hij het angstremmende middel Xanax (gemengd in thee) om hem te kalmeren, maar de situatie escaleerde: hij viel de vriendin van zijn eigenaar aan op de oprit, met catastrofale verwondingen tot gevolg. De aangekomen politie werd zelf ook aangevallen; een agent schoot Travis meerdere keren neer, en de chimpansee stierf in het huis. Toxicologisch onderzoek bevestigde later Xanax in zijn systeem, al werd geen duidelijk oorzakelijk verband met de aanval vastgesteld."
       },
       "fiction": {
         "en": "In the G-ROCK story, Professor Sugriva develops the fictional AI Mental Help system, referencing an earlier Travis AI Mental Help system. FICTIONAL CONSEQUENCE — PROFESSOR SUGRIVA'S WITHDRAWAL FROM AI RESEARCH: Following the Travis incident, Professor Sugriva experienced a period of profound depression. The event deeply affected him and caused him to abandon his work on artificial intelligence. For years afterward, Sugriva withdrew from AI research and avoided further development of AI-related systems. STATUS: AUTHOR FICTION. ARCHIVE NOTE: This is part of the fictional G-ROCK narrative and must not be presented as a documented psychological history of a real chimpanzee.",
         "pl": "W narracji G-ROCK Profesor Sugriva rozwija fikcyjny system AI Mental Help, nawiazujacy do wczesniejszego systemu Travis AI Mental Help. FIKCYJNA KONSEKWENCJA — WYCOFANIE SIE PROFESORA SUGRIVY Z BADAN NAD AI: Po incydencie z Travisem Profesor Sugriva przezyl okres glebokiej depresji. Wydarzenie to gleboko na niego wplynelo i sklonilo go do porzucenia pracy nad sztuczna inteligencja. Przez lata po tym wydarzeniu Sugriva wycofal sie z badan nad AI i unikal dalszego rozwoju systemow zwiazanych z AI. STATUS: FIKCJA AUTORSKA. NOTATKA ARCHIWALNA: To jest czesc fikcyjnej narracji G-ROCK i nie moze byc przedstawiane jako udokumentowana historia psychologiczna prawdziwego szympansa.",
-        "es": "En la narrativa G-ROCK, el Profesor Sugriva desarrolla el ficticio sistema AI Mental Help, haciendo referencia a un sistema anterior Travis AI Mental Help. CONSECUENCIA FICTICIA — RETIRADA DEL PROFESOR SUGRIVA DE LA INVESTIGACION EN IA: Tras el incidente de Travis, el Profesor Sugriva experimento un periodo de profunda depresion. El suceso lo afecto profundamente y lo llevo a abandonar su trabajo en inteligencia artificial. Durante anos, Sugriva se aparto de la investigacion en IA y evito el desarrollo posterior de sistemas relacionados con la IA. ESTADO: FICCION DEL AUTOR. NOTA DE ARCHIVO: Esto es parte de la narrativa ficticia de G-ROCK y no debe presentarse como una historia psicologica documentada de un chimpancé real.",
+        "es": "En la narrativa G-ROCK, el Profesor Sugriva desarrolla el ficticio sistema AI Mental Help, haciendo referencia a un sistema anterior Travis AI Mental Help. CONSECUENCIA FICTICIA — RETIRADA DEL PROFESOR SUGRIVA DE LA INVESTIGACION EN IA: Tras el incidente de Travis, el Profesor Sugriva experimento un periodo de profunda depresion. El suceso lo afecto profundamente y lo llevo a abandonar su trabajo en inteligencia artificial. Durante anos, Sugriva se aparto de la investigacion en IA y evito el desarrollo posterior de sistemas relacionados con la IA. ESTADO: FICCION DEL AUTOR. NOTA DE ARCHIVO: Esto es parte de la narrativa ficticia de G-ROCK y no debe presentarse como una historia psicologica documentada de un chimpance real.",
         "fr": "Dans le recit G-ROCK, le professeur Sugriva developpe le systeme fictif AI Mental Help, faisant reference a un systeme precedent Travis AI Mental Help. CONSEQUENCE FICTIVE — RETRAIT DU PROFESSEUR SUGRIVA DE LA RECHERCHE EN IA: A la suite de l'incident de Travis, le professeur Sugriva a traverse une periode de profonde depression. L'evenement l'a profondement affecte et l'a conduit a abandonner ses travaux sur l'intelligence artificielle. Pendant des annees, Sugriva s'est retire de la recherche en IA et a evite tout developpement ulterieur de systemes lies a l'IA. STATUT: FICTION D'AUTEUR. NOTE D'ARCHIVE: Ceci fait partie du recit fictif G-ROCK et ne doit pas etre presente comme une histoire psychologique documentee d'un vrai chimpanze.",
         "ru": "RU: do uzupelnienia",
         "nl": "In het G-ROCK verhaal ontwikkelt professor Sugriva het fictieve AI Mental Help-systeem, verwijzend naar een eerder Travis AI Mental Help-systeem. FICTIEF GEVOLG — TERUGTREKKING VAN PROFESSOR SUGRIVA UIT AI-ONDERZOEK: Na het incident met Travis maakte professor Sugriva een periode van diepe depressie door. De gebeurtenis raakte hem diep en deed hem zijn werk aan kunstmatige intelligentie opgeven. Jarenlang trok Sugriva zich terug uit AI-onderzoek en vermeed hij verdere ontwikkeling van AI-gerelateerde systemen. STATUS: AUTEURSFICTIE. ARCHIEFNOTITIE: Dit maakt deel uit van het fictieve G-ROCK verhaal en mag niet worden gepresenteerd als een gedocumenteerde psychologische geschiedenis van een echte chimpansee."
@@ -1040,7 +1090,7 @@ const timelineData = [
         "es": "FICCION DE AUTOR: Wojtek y el Profesor Sugriva pasan vacaciones juntos en Republica Dominicana. Campus Santo Domingo se abre como parte de la red ficticia MUOG / Los Monos. Este evento es completamente ficticio y parte de la narrativa del autor.",
         "fr": "FICTION D'AUTEUR: Wojtek et le Professeur Sugriva passent des vacances ensemble en Republique dominicaine. Le Campus Santo Domingo est ouvert dans le cadre du reseau fictif MUOG / Les Singes. Cet evenement est entierement fictif et fait partie du recit de l'auteur.",
         "ru": "RU: do uzupelnienia",
-        "nl": "AUTEURS FICTIE: Wojtek en Professor Sugriva brengen samen vakantie door in de Dominicaanse Republiek. Campus Santo Domingo wordt geopend als onderdeel van het fictieve MUOG / De Apen netwerk. Deze gebeurtenis is volledig fictief en deel van het verhaal van de auteur."
+        "nl": "AUTEURSFICTIE: Wojtek en Professor Sugriva brengen samen vakantie door in de Dominicaanse Republiek. Campus Santo Domingo wordt geopend als onderdeel van het fictieve MUOG / De Apen netwerk. Deze gebeurtenis is volledig fictief en deel van het verhaal van de auteur."
       }
     }
   },
@@ -1067,7 +1117,7 @@ const timelineData = [
         "es": "FICCION DE AUTOR: En 2023 Wojtek descubre un Archivo secreto en Haiti. Durante la operacion para transferir el Archivo a Gibraltar, se enfrenta a miembros armados de una pandilla asociada con Jimmy Cherizier, conocido como 'Barbecue'. Tiene lugar un intercambio de disparos. Wojtek asegura el Archivo y continua su transferencia a Gibraltar. Este evento se convierte en una transicion ficticia entre el capitulo de investigacion de Haiti y el regreso del Archivo a Gibraltar.",
         "fr": "FICTION D'AUTEUR: En 2023, Wojtek decouvre des Archives secretes en Haiti. Pendant l'operation de transfert des Archives vers Gibraltar, il est confronte a des membres armes d'un gang associe a Jimmy Cherizier, connu sous le nom de 'Barbecue'. Un echange de tirs a lieu. Wojtek securise les Archives et continue leur transfert vers Gibraltar. Cet evenement devient une transition fictive entre le chapitre de recherche haitien et le retour des Archives a Gibraltar.",
         "ru": "RU: do uzupelnienia",
-        "nl": "AUTEURS FICTIE: In 2023 ontdekt Wojtek een geheim Archief in Haiti. Tijdens de operatie om het Archief naar Gibraltar over te brengen, wordt hij geconfronteerd met gewapende leden van een bende geassocieerd met Jimmy Cherizier, bekend als 'Barbecue'. Er vindt een vuurgevecht plaats. Wojtek beveiligd het Archief en zet de overbrenging naar Gibraltar voort. Deze gebeurtenis wordt een fictieve overgang tussen het Haiti onderzoekshoofdstuk en de terugkeer van het Archief naar Gibraltar."
+        "nl": "AUTEURSFICTIE: In 2023 ontdekt Wojtek een geheim Archief in Haiti. Tijdens de operatie om het Archief naar Gibraltar over te brengen, wordt hij geconfronteerd met gewapende leden van een bende geassocieerd met Jimmy Cherizier, bekend als 'Barbecue'. Er vindt een vuurgevecht plaats. Wojtek beveiligt het Archief en zet de overbrenging naar Gibraltar voort. Deze gebeurtenis wordt een fictieve overgang tussen het Haiti onderzoekshoofdstuk en de terugkeer van het Archief naar Gibraltar."
       },
       "anomaly": {
         "en": "FACT/ANOMALY: Jimmy Cherizier 'Barbecue' is a real Haitian gang leader, subject to international sanctions for serious human rights violations. Around his activities and Haitian armed organizations there are also questions and allegations regarding foreign influences, funding and political interests related to the crisis in Haiti. The G-ROCK Archive treats these claims as a subject of analysis, not as an established fact. Particularly interesting remains the contrast between the public fight against Barbecue by Western states and the broader question of how foreign money, weapons, influence networks and political interests contributed to the creation of an environment in which Haitian armed groups could develop.",
@@ -1075,16 +1125,16 @@ const timelineData = [
         "es": "HECHO/ANOMALIA: Jimmy Cherizier 'Barbecue' es un verdadero lider de pandillas haitiano, sujeto a sanciones internacionales por graves violaciones de derechos humanos. En torno a sus actividades y las organizaciones armadas haitianas tambien surgen preguntas y acusaciones sobre influencias extranjeras, financiacion e intereses politicos relacionados con la crisis en Haiti. El Archivo G-ROCK trata estas afirmaciones como un objeto de analisis, no como un hecho establecido. Particularmente interesante sigue siendo el contraste entre la lucha publica contra Barbecue por parte de los estados occidentales y la pregunta mas amplia sobre como el dinero extranjero, las armas, las redes de influencia y los intereses politicos contribuyeron a la creacion de un entorno en el que los grupos armados haitianos podian desarrollarse.",
         "fr": "FAIT/ANOMALIE: Jimmy Cherizier 'Barbecue' est un veritable chef de gang haitien, soumis a des sanctions internationales pour de graves violations des droits de l'homme. Autour de ses activites et des organisations armees haitiennes, il y a egalement des questions et des allegations concernant les influences etrangeres, le financement et les interets politiques lies a la crise en Haiti. Les archives G-ROCK traitent ces affirmations comme un sujet d'analyse, et non comme un fait etabli. Le contraste entre la lutte publique contre Barbecue par les Etats occidentaux et la question plus large de savoir comment l'argent etranger, les armes, les reseaux d'influence et les interets politiques ont contribue a la creation d'un environnement dans lequel les groupes armes haitiens pouvaient se developper reste particulierement interessant.",
         "ru": "RU: do uzupelnienia",
-        "nl": "FEIT/ANOMALIE: Jimmy Cherizier 'Barbecue' is een echte Haitiaanse bendeleider, onderworpen aan internationale sancties voor ernstige mensenrechtenschendingen. Rond zijn activiteiten en Haitiaanse gewapende organisaties zijn er ook vragen en beschuldigingen over buitenlandse invloeden, financiering en politieke belangen gerelateerd aan de crisis in Haiti. Het G-ROCK Archief behandelt deze claims als een onderwerp van analyse, niet als een vastgesteld feit. Bijzonder interessant blijft het contrast tussen de publieke strijd tegen Barbecue door westerse staten en de bredere vraag over hoe buitenlands geld, wapens, invloedsnetwerken en politieke belangen bijdroegen aan het creëren van een omgeving waarin Haitiaanse gewapende groepen zich konden ontwikkelen."
+        "nl": "FEIT/ANOMALIE: Jimmy Cherizier 'Barbecue' is een echte Haitiaanse bendeleider, onderworpen aan internationale sancties voor ernstige mensenrechtenschendingen. Rond zijn activiteiten en Haitiaanse gewapende organisaties zijn er ook vragen en beschuldigingen over buitenlandse invloeden, financiering en politieke belangen gerelateerd aan de crisis in Haiti. Het G-ROCK Archief behandelt deze claims als een onderwerp van analyse, niet als een vastgesteld feit. Bijzonder interessant blijft het contrast tussen de publieke strijd tegen Barbecue door westerse staten en de bredere vraag over hoe buitenlands geld, wapens, invloedsnetwerken en politieke belangen bijdroegen aan het creeren van een omgeving waarin Haitiaanse gewapende groepen zich konden ontwikkelen."
       }
     }
   },
   {
     "id": "event-2024-jamaica",
-    "year": "SUMMER 2024",
+    "year": "2024",
     "title": {
       "en": "JAMAICA MEETING & AI ABSENCE PROTOCOL ORIGIN",
-      "pl": "SPOTKANIE NA JAMAJCE I POCHODZENIE PROTOKOLU NIEBECNOSCI AI",
+      "pl": "SPOTKANIE NA JAMAJCE I POCHODZENIE PROTOKOLU NIEOBECNOSCI AI",
       "es": "REUNION EN JAMAICA Y ORIGEN DEL PROTOCOLO DE AUSENCIA DE IA",
       "fr": "REUNION EN JAMAIQUE ET ORIGINE DU PROTOCOLE D'ABSENCE IA",
       "ru": "RU: do uzupelnienia",
@@ -1098,11 +1148,11 @@ const timelineData = [
     "layers": {
       "fiction": {
         "en": "AUTHOR FICTION: Holidays of Professor Sugriva and Corporal Bear Wojtek in Jamaica. Wojtek convinces Sugriva to create the AI Absence Protocol for the best student of Monkey University of Gibraltar who doesn't like going to work. FICTIONAL G-ROCK EVENT — CAMPUS KINGSTON: During the Jamaica period, the G-ROCK universe establishes a new MUOG campus in Kingston. The Kingston Campus becomes part of the expanding international structure of Monkeys University of Gibraltar and provides a new location for academic, research and operational activities within the G-ROCK narrative. STATUS: AUTHOR FICTION / G-ROCK CANON.",
-        "pl": "FIKCJA AUTORA: Wakacje Profesora Sugriva i Kaprala Niedzwiedzia Wojtka na Jamajce. Wojtek namawia Sugriva do zrobienia AI Absence Protocol dla najlepszego studenta Monkey University of Gibraltar ktory nie lubi chodzic do pracy. FIKCYJNE WYDARZENIE G-ROCK — CAMPUS KINGSTON: W okresie jamajskim uniwersum G-ROCK ustanawia nowy kampus MUOG w Kingston. Kampus Kingston staje sie czescia rozwijajacej sie miedzynarodowej struktury Monkeys University of Gibraltar i zapewnia nowa lokalizacje dla dzialan akademickich, badawczych i operacyjnych w ramach narracji G-ROCK. STATUS: FIKCJA AUTORSKA / KANON G-ROCK.",
+        "pl": "FIKCJA AUTORA: Wakacje Profesora Sugriva i Kaprala Niedzwiedzia Wojtka na Jamajce. Wojtek namawia Sugrive do zrobienia AI Absence Protocol dla najlepszego studenta Monkey University of Gibraltar, ktory nie lubi chodzic do pracy. FIKCYJNE WYDARZENIE G-ROCK — CAMPUS KINGSTON: W okresie jamajskim uniwersum G-ROCK ustanawia nowy kampus MUOG w Kingston. Kampus Kingston staje sie czescia rozwijajacej sie miedzynarodowej struktury Monkeys University of Gibraltar i zapewnia nowa lokalizacje dla dzialan akademickich, badawczych i operacyjnych w ramach narracji G-ROCK. STATUS: FIKCJA AUTORSKA / KANON G-ROCK.",
         "es": "FICCION DE AUTOR: Vacaciones del Profesor Sugriva y el Cabo Oso Wojtek en Jamaica. Wojtek convence a Sugriva de crear el Protocolo de Ausencia de IA para el mejor estudiante de la Universidad de los Monos de Gibraltar que no le gusta ir a trabajar. EVENTO FICTICIO G-ROCK — CAMPUS KINGSTON: Durante el periodo de Jamaica, el universo G-ROCK establece un nuevo campus MUOG en Kingston. El Campus Kingston se convierte en parte de la creciente estructura internacional de Monkeys University of Gibraltar y proporciona una nueva ubicacion para actividades academicas, de investigacion y operativas dentro de la narrativa G-ROCK. ESTADO: FICCION DEL AUTOR / CANON G-ROCK.",
         "fr": "FICTION D'AUTEUR: Vacances du Professeur Sugriva et du Caporal Ours Wojtek en Jamaique. Wojtek convainc Sugriva de creer le Protocole d'Absence IA pour le meilleur etudiant de l'Universite des Singes de Gibraltar qui n'aime pas aller au travail. EVENEMENT FICTIF G-ROCK — CAMPUS KINGSTON: Pendant la periode jamaicaine, l'univers G-ROCK etablit un nouveau campus MUOG a Kingston. Le Campus Kingston devient partie de la structure internationale grandissante de la Monkeys University of Gibraltar et offre un nouvel emplacement pour des activites academiques, de recherche et operationnelles au sein du recit G-ROCK. STATUT: FICTION D'AUTEUR / CANON G-ROCK.",
         "ru": "RU: do uzupelnienia",
-        "nl": "AUTEURS FICTIE: Vakantie van Professor Sugriva en Korporaal Beer Wojtek in Jamaica. Wojtek haalt Sugriva over om het AI Afwezigheid Protocol te maken voor de beste student van de Apen Universiteit van Gibraltar die niet naar werk wil gaan. FICTIEF G-ROCK EVENEMENT — CAMPUS KINGSTON: Tijdens de Jamaicaanse periode richt het G-ROCK universum een nieuwe MUOG-campus op in Kingston. De Kingston Campus wordt onderdeel van de groeiende internationale structuur van Monkeys University of Gibraltar en biedt een nieuwe locatie voor academische, onderzoeks- en operationele activiteiten binnen het G-ROCK verhaal. STATUS: AUTEURSFICTIE / G-ROCK CANON."
+        "nl": "AUTEURSFICTIE: Vakantie van Professor Sugriva en Korporaal Beer Wojtek in Jamaica. Wojtek haalt Sugriva over om het AI Afwezigheid Protocol te maken voor de beste student van de Apen Universiteit van Gibraltar die niet naar werk wil gaan. FICTIEF G-ROCK EVENEMENT — CAMPUS KINGSTON: Tijdens de Jamaicaanse periode richt het G-ROCK universum een nieuwe MUOG-campus op in Kingston. De Kingston Campus wordt onderdeel van de groeiende internationale structuur van de Monkeys University of Gibraltar en biedt een nieuwe locatie voor academische, onderzoeks- en operationele activiteiten binnen het G-ROCK verhaal. STATUS: AUTEURSFICTIE / G-ROCK CANON."
       }
     }
   },
@@ -1129,7 +1179,7 @@ const timelineData = [
         "es": "FICCION DE AUTOR: La aplicacion del Protocolo de Ausencia de IA se prepara y posteriormente se presenta como parte de la documentacion emergente del proyecto G-ROCK.",
         "fr": "FICTION D'AUTEUR: L'application du Protocole d'Absence IA est preparee et ensuite soumise dans le cadre de la documentation emergente du projet G-ROCK.",
         "ru": "RU: do uzupelnienia",
-        "nl": "AUTEURS FICTIE: De AI Afwezigheid Protocol applicatie wordt voorbereid en vervolgens ingediend als onderdeel van de opkomende G-ROCK projectdocumentatie."
+        "nl": "AUTEURSFICTIE: De AI Afwezigheid Protocol applicatie wordt voorbereid en vervolgens ingediend als onderdeel van de opkomende G-ROCK projectdocumentatie."
       }
     }
   },
@@ -1152,7 +1202,7 @@ const timelineData = [
     "layers": {
       "anomaly": {
         "en": "FACT/ANOMALY: Professor Sugriva is first recognized by the British academic community as an outstanding humanist and historian based on citations of his work that the student sent in correspondence. As part of this recognition, the university also sees potential in Professor Sugriva as an expert in advanced technologies. Then the student sends the AI Absence Protocol, attributing authorship to Professor Sugriva. As part of the protocol analysis, there is also a thread of AI hallucinations about the student's alleged romance with his sister. After reviewing the protocol, the university notifies the police. From the archive's perspective, particularly interesting is the fact that interest in Sugriva's scientific work in the field of advanced technologies very quickly ceased to be solely a subject of academic reflection.",
-        "pl": "FAKT/ANOMALIA: Profesor Sugriva zostaje najpierw uznany przez brytyjskie srodowisko akademickie za wybitnego humaniste i historyka na podstawie cytowan jego prac, ktore student przeslal w korespondencji. W ramach tego uznania uczelnia dostrzega rowniez w Profesorze Sugrivie potencjal eksperta w dziedzinie zaawansowanych technologii. Nastepnie student przesyła Protokol Nieobecnosci AI, ktorego autorstwo przypisuje Profesorowi Sugrivie. W ramach analizy protokolu pojawia sie rowniez watek halucynacji AI dotyczacych rzekomego romansu studenta z jego siostra. Po zapoznaniu sie z protokolem uczelnia zawiadamia policje. Z perspektywy archiwum szczegolnie interesujacy pozostaje fakt, ze zainteresowanie naukowg praca Sugrivy w dziedzinie zaawansowanych technologii bardzo szybko przestalo byc wylacznie przedmiotem akademickiej refleksji.",
+        "pl": "FAKT/ANOMALIA: Profesor Sugriva zostaje najpierw uznany przez brytyjskie srodowisko akademickie za wybitnego humaniste i historyka na podstawie cytowan jego prac, ktore student przeslal w korespondencji. W ramach tego uznania uczelnia dostrzega rowniez w Profesorze Sugrivie potencjal eksperta w dziedzinie zaawansowanych technologii. Nastepnie student przesyla Protokol Nieobecnosci AI, ktorego autorstwo przypisuje Profesorowi Sugrivie. W ramach analizy protokolu pojawia sie rowniez watek halucynacji AI dotyczacych rzekomego romansu studenta z jego siostra. Po zapoznaniu sie z protokolem uczelnia zawiadamia policje. Z perspektywy archiwum szczegolnie interesujacy pozostaje fakt, ze zainteresowanie naukowa praca Sugrivy w dziedzinie zaawansowanych technologii bardzo szybko przestalo byc wylacznie przedmiotem akademickiej refleksji.",
         "es": "HECHO/ANOMALIA: El Profesor Sugriva es reconocido primero por la comunidad academica britanica como un destacado humanista e historiador basandose en citas de su trabajo que el estudiante envio en correspondencia. Como parte de este reconocimiento, la universidad tambien ve potencial en el Profesor Sugriva como experto en tecnologias avanzadas. Luego el estudiante envia el Protocolo de Ausencia de IA, atribuyendo la autoria al Profesor Sugriva. Como parte del analisis del protocolo, tambien hay un hilo de alucinaciones de IA sobre el supuesto romance del estudiante con su hermana. Despues de revisar el protocolo, la universidad notifica a la policia. Desde la perspectiva del archivo, particularmente interesante es el hecho de que el interes en el trabajo cientifico de Sugriva en el campo de las tecnologias avanzadas muy rapidamente dejo de ser solo un objeto de reflexion academica.",
         "fr": "FAIT/ANOMALIE: Le Professeur Sugriva est d'abord reconnu par la communaute academique britannique comme un humaniste et historien exceptionnel sur la base de citations de son travail que l'etudiant a envoyees par correspondance. Dans le cadre de cette reconnaissance, l'universite voit egalement un potentiel chez le Professeur Sugriva en tant qu'expert en technologies avancees. Ensuite, l'etudiant envoie le Protocole d'Absence IA, attribuant la paternite au Professeur Sugriva. Dans le cadre de l'analyse du protocole, il y a egalement un fil d'hallucinations de l'IA concernant la pretendue romance de l'etudiant avec sa soeur. Apres avoir examine le protocole, l'universite notifie la police. Du point de vue des archives, particulierement interessant est le fait que l'interet pour le travail scientifique de Sugriva dans le domaine des technologies avancees a tres rapidement cesse d'etre uniquement un objet de reflexion academique.",
         "ru": "RU: do uzupelnienia",
@@ -1165,7 +1215,7 @@ const timelineData = [
     "year": "MARCH 2025",
     "title": {
       "en": "POLICE VISIT — AI ABSENCE PROTOCOL",
-      "pl": "WIZYTA POLICJI — PROTOKOL NIEBECNOSCI AI",
+      "pl": "WIZYTA POLICJI — PROTOKOL NIEOBECNOSCI AI",
       "es": "VISITA POLICIAL — PROTOCOLO DE AUSENCIA DE IA",
       "fr": "VISITE DE POLICE — PROTOCOLE D'ABSENCE IA",
       "ru": "RU: do uzupelnienia",
@@ -1178,12 +1228,12 @@ const timelineData = [
     "categories": ["anomaly"],
     "layers": {
       "anomaly": {
-        "en": "FACT/ANOMALY: Police visit former student at his home in connection with AI ABSENCE PROTOCOL.",
-        "pl": "FAKT/ANOMALIA: Policja odwiedza bylego studenta w jego domu w zwiazku z AI ABSENCE PROTOCOL.",
-        "es": "HECHO/ANOMALIA: La policia visita al antiguo estudiante en su casa en conexion con el PROTOCOLO DE AUSENCIA DE IA.",
-        "fr": "FAIT/ANOMALIE: La police visite l'ancien etudiant chez lui en lien avec le PROTOCOLE D'ABSENCE IA.",
+        "en": "FACT/ANOMALY: Police visit former student at his home in connection with the AI Absence Protocol.",
+        "pl": "FAKT/ANOMALIA: Policja odwiedza bylego studenta w jego domu w zwiazku z AI Absence Protocol.",
+        "es": "HECHO/ANOMALIA: La policia visita al antiguo estudiante en su casa en conexion con el Protocolo de Ausencia de IA.",
+        "fr": "FAIT/ANOMALIE: La police visite l'ancien etudiant chez lui en lien avec le Protocole d'Absence IA.",
         "ru": "RU: do uzupelnienia",
-        "nl": "FEIT/ANOMALIE: Politie bezoekt voormalige student thuis in verband met AI AFWEZIGHEID PROTOCOL."
+        "nl": "FEIT/ANOMALIE: Politie bezoekt voormalige student thuis in verband met het AI Afwezigheid Protocol."
       }
     }
   },
@@ -1233,11 +1283,11 @@ const timelineData = [
     "layers": {
       "fiction": {
         "en": "FOLK LEGEND — AUTHOR FICTION: A legend speaks of a tunnel beneath the sea connecting Gibraltar with Campus de Ceuta. This tunnel legend is part of the author's fictional universe and is not presented as historical fact. 2026 — THE G-ROCK CEUTA CONNECTION: Within the G-ROCK narrative, plans are developed to establish a direct connection between Gibraltar and the MUOG Campus in Ceuta. The project proposes the reconstruction and adaptation of an ancient underground tunnel beneath the Strait of Gibraltar, creating a unique railway connection between the two locations. The tunnel becomes one of the most ambitious infrastructure projects in the G-ROCK universe, linking the Rock of Gibraltar with the newly established Campus de Ceuta. STATUS: AUTHOR FICTION / G-ROCK CANON. ARCHIVE NOTE: The ancient tunnel and the proposed railway connection are elements of the G-ROCK narrative and are not presented as documented historical infrastructure.",
-        "pl": "LEGENDA LUDOWA — FIKCJA AUTORA: Legenda opowiada o tunelu pod morzem, laczacym Gibraltar z Campus de Ceuta. Legenda o tunelu jest czescia fikcyjnego uniwersum autora i nie jest przedstawiana jako fakt historyczny. 2026 — POLACZENIE G-ROCK Z CEUTA: W ramach narracji G-ROCK powstaja plany bezposredniego polaczenia Gibraltaru z Kampusem MUOG w Ceucie. Projekt zaklada odbudowe i adaptacje starozytnego podziemnego tunelu pod Ciesnina Gibraltarska, tworzac unikalne polaczenie kolejowe miedzy obiema lokalizacjami. Tunel staje sie jednym z najbardziej ambitnych projektow infrastrukturalnych w uniwersum G-ROCK, laczac Skale Gibraltarska z nowo utworzonym Campus de Ceuta. STATUS: FIKCJA AUTORSKA / KANON G-ROCK. NOTATKA ARCHIWALNA: Starozytny tunel i proponowane polaczenie kolejowe sa elementami narracji G-ROCK i nie sa przedstawiane jako udokumentowana historyczna infrastruktura.",
+        "pl": "LEGENDA LUDOWA — FIKCJA AUTORA: Legenda opowiada o tunelu pod morzem, laczacym Gibraltar z Campus de Ceuta. Legenda o tunelu jest czescia fikcyjnego uniwersum autora i nie jest przedstawiana jako fakt historyczny. 2026 — POLACZENIE G-ROCK Z CEUTA: W ramach narracji G-ROCK powstaja plany bezposredniego polaczenia Gibraltaru z Kampusem MUOG w Ceucie. Projekt zaklada odbudowe i adaptacje starozytnego podziemnego tunelu pod Cieznina Gibraltarska, tworzac unikalne polaczenie kolejowe miedzy obiema lokalizacjami. Tunel staje sie jednym z najbardziej ambitnych projektow infrastrukturalnych w uniwersum G-ROCK, laczac Skale Gibraltarska z nowo utworzonym Campus de Ceuta. STATUS: FIKCJA AUTORSKA / KANON G-ROCK. NOTATKA ARCHIWALNA: Starozytny tunel i proponowane polaczenie kolejowe sa elementami narracji G-ROCK i nie sa przedstawiane jako udokumentowana historyczna infrastruktura.",
         "es": "LEYENDA POPULAR — FICCION DE AUTOR: Una leyenda habla de un tunel bajo el mar que conecta Gibraltar con Campus de Ceuta. La leyenda del tunel forma parte del universo ficticio del autor y no se presenta como un hecho historico. 2026 — LA CONEXION G-ROCK CEUTA: Dentro de la narrativa G-ROCK, se desarrollan planes para establecer una conexion directa entre Gibraltar y el Campus MUOG en Ceuta. El proyecto propone la reconstruccion y adaptacion de un antiguo tunel subterraneo bajo el Estrecho de Gibraltar, creando una conexion ferroviaria unica entre ambas ubicaciones. El tunel se convierte en uno de los proyectos de infraestructura mas ambiciosos del universo G-ROCK, uniendo el Penon de Gibraltar con el recien establecido Campus de Ceuta. ESTADO: FICCION DEL AUTOR / CANON G-ROCK. NOTA DE ARCHIVO: El tunel antiguo y la conexion ferroviaria propuesta son elementos de la narrativa G-ROCK y no se presentan como infraestructura historica documentada.",
         "fr": "LEGENDE POPULAIRE — FICTION D'AUTEUR: Une legende parle d'un tunnel sous la mer reliant Gibraltar au Campus de Ceuta. La legende du tunnel fait partie de l'univers fictif de l'auteur et n'est pas presentee comme un fait historique. 2026 — LA CONNEXION G-ROCK CEUTA: Dans le cadre du recit G-ROCK, des plans sont elabores pour etablir une connexion directe entre Gibraltar et le Campus MUOG a Ceuta. Le projet propose la reconstruction et l'adaptation d'un ancien tunnel souterrain sous le detroit de Gibraltar, creant une liaison ferroviaire unique entre les deux sites. Le tunnel devient l'un des projets d'infrastructure les plus ambitieux de l'univers G-ROCK, reliant le Rocher de Gibraltar au Campus de Ceuta nouvellement etabli. STATUT: FICTION D'AUTEUR / CANON G-ROCK. NOTE D'ARCHIVE: Le tunnel antique et la liaison ferroviaire proposee sont des elements du recit G-ROCK et ne sont pas presentes comme une infrastructure historique documentee.",
         "ru": "RU: do uzupelnienia",
-        "nl": "VOLKSLEGEND — AUTEURS FICTIE: Een legende vertelt over een tunnel onder de zee die Gibraltar met Campus de Ceuta verbindt. De tunnellegende maakt deel uit van het fictieve universum van de auteur en wordt niet als historisch feit gepresenteerd. 2026 — DE G-ROCK CEUTA VERBINDING: Binnen het G-ROCK verhaal worden plannen ontwikkeld om een directe verbinding tot stand te brengen tussen Gibraltar en de MUOG Campus in Ceuta. Het project stelt de reconstructie en aanpassing voor van een oude ondergrondse tunnel onder de Straat van Gibraltar, waardoor een unieke spoorverbinding tussen beide locaties ontstaat. De tunnel wordt een van de meest ambitieuze infrastructuurprojecten in het G-ROCK universum, en verbindt de Rots van Gibraltar met de nieuw opgerichte Campus de Ceuta. STATUS: AUTEURSFICTIE / G-ROCK CANON. ARCHIEFNOTITIE: De oude tunnel en de voorgestelde spoorverbinding zijn elementen van het G-ROCK verhaal en worden niet gepresenteerd als gedocumenteerde historische infrastructuur."
+        "nl": "VOLKSLEGEND — AUTEURSFICTIE: Een legende vertelt over een tunnel onder de zee die Gibraltar met Campus de Ceuta verbindt. De tunnellegende maakt deel uit van het fictieve universum van de auteur en wordt niet als historisch feit gepresenteerd. 2026 — DE G-ROCK CEUTA VERBINDING: Binnen het G-ROCK verhaal worden plannen ontwikkeld om een directe verbinding tot stand te brengen tussen Gibraltar en de MUOG Campus in Ceuta. Het project stelt de reconstructie en aanpassing voor van een oude ondergrondse tunnel onder de Straat van Gibraltar, waardoor een unieke spoorverbinding tussen beide locaties ontstaat. De tunnel wordt een van de meest ambitieuze infrastructuurprojecten in het G-ROCK universum, en verbindt de Rots van Gibraltar met de nieuw opgerichte Campus de Ceuta. STATUS: AUTEURSFICTIE / G-ROCK CANON. ARCHIEFNOTITIE: De oude tunnel en de voorgestelde spoorverbinding zijn elementen van het G-ROCK verhaal en worden niet gepresenteerd als gedocumenteerde historische infrastructuur."
       }
     }
   },
@@ -1259,7 +1309,7 @@ const timelineData = [
     "categories": ["fact", "fiction"],
     "layers": {
       "fact": {
-        "en": "2015–2018 — NGOGO COMMUNITY FISSION: Fission of the Ngogo chimpanzee community began around 2015. By the end of 2017, peaceful interaction between the emerging groups had ceased. Documented lethal attacks occurred in January 2018 and June 2019.",
+        "en": "2015-2018 — NGOGO COMMUNITY FISSION: Fission of the Ngogo chimpanzee community began around 2015. By the end of 2017, peaceful interaction between the emerging groups had ceased. Documented lethal attacks occurred in January 2018 and June 2019.",
         "pl": "2015-2018 — ROZPAD SPOLECZNOSCI NGOGO: Rozpad spolecznosci szympansow Ngogo rozpoczal sie okolo 2015 roku. Do konca 2017 roku pokojowe interakcje miedzy wylaniajacymi sie grupami ustaly. Udokumentowane smiertelne ataki mialy miejsce w styczniu 2018 i czerwcu 2019 roku.",
         "es": "2015-2018 — FISION DE LA COMUNIDAD DE NGOGO: La fision de la comunidad de chimpances de Ngogo comenzo alrededor de 2015. A finales de 2017, la interaccion pacifica entre los grupos emergentes habia cesado. Se documentaron ataques letales en enero de 2018 y junio de 2019.",
         "fr": "2015-2018 — FISSION DE LA COMMUNAUTE DE NGOGO: La fission de la communaute de chimpanzes de Ngogo a commence vers 2015. A la fin de 2017, l'interaction pacifique entre les groupes emergents avait cesse. Des attaques mortelles documentees se sont produites en janvier 2018 et juin 2019.",
@@ -1332,7 +1382,7 @@ function renderCard(event, lang) {
 
   let layersHtml = '';
   ['fact','folklore','fiction','anomaly'].forEach(layerKey => {
-    const layer = event.layers[layerKey];
+    const layer = event.layers ? event.layers[layerKey] : null;
     if (!layer) return;
 
     const cssClass = 'layer-' + layerKey;
@@ -1369,4 +1419,4 @@ document.getElementById('langSwitch').addEventListener('click', (e) => {
 renderTimeline(currentLang);
 </script>
 </body>
-  </html>
+</html>
